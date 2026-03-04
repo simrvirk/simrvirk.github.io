@@ -1,0 +1,5 @@
+title: Your Name
+logo: /assets/img/profile.png  # This points to your photo later
+description: Engineering Student at [Your University]
+show_downloads: false
+theme: jekyll-theme-minimal
