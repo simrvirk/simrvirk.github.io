@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name | Engineering Portfolio</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        body { font-family: 'Segoe UI', sans-serif; line-height: 1.6; margin: 0; color: var(--dark); background: var(--light); }
+        header { background: white; padding: 2rem; text-align: center; border-bottom: 3px solid var(--primary); }
+        nav { display: flex; justify-content: center; gap: 20px; padding: 1rem; background: #fff; position: sticky; top: 0; }
+        .container { max-width: 800px; margin: auto; padding: 2rem; }
+        section { margin-bottom: 3rem; }
+        h2 { color: var(--primary); border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; }
+        .project-card { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 1rem; }
+        .skills { display: flex; flex-wrap: wrap; gap: 10px; }
+        .skill-badge { background: var(--primary); color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.9rem; }
+        footer { text-align: center; padding: 2rem; color: #64748b; font-size: 0.8rem; }
+        a { color: var(--primary); text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Your Name</h1>
+    <p>Mechanical/Civil/Software Engineer | Problem Solver | Innovator</p>
+</header>
+
+<nav>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+</nav>
+
+<div class="container">
+    <section id="about">
+        <h2>About Me</h2>
+        <p>Write a brief summary of who you are. Mention your degree, your passion for engineering, and what kind of problems you love to solve.</p>
+    </section>
+
+    <section id="projects">
+        <h2>Key Projects</h2>
+        <div class="project-card">
+            <h3>Project Title 1</h3>
+            <p>Describe what you built, the tools you used (SolidWorks, Python, MATLAB), and the end result.</p>
+        </div>
+        <div class="project-card">
+            <h3>Project Title 2</h3>
+            <p>Describe another significant project from school or internships.</p>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2>Technical Skills</h2>
+        <div class="skills">
+            <span class="skill-badge">AutoCAD</span>
+            <span class="skill-badge">Python</span>
+            <span class="skill-badge">Project Management</span>
+            <span class="skill-badge">MATLAB</span>
+            <span class="skill-badge">Circuit Design</span>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Me</h2>
+        <p>Email: <a href="mailto:youremail@example.com">youremail@example.com</a></p>
+        <p>LinkedIn: <a href="#">linkedin.com/in/yourprofile</a></p>
+    </section>
+</div>
+
+<footer>
+    &copy; 2023 Your Name. Built with Gemini & GitHub Pages.
+</footer>
+
+</body>
+</html>
