@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="About Simr Virk — Mechatronic Systems Engineering Student at SFU.">
+  <title>About | Simr Virk</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+  <nav id="navbar">
+    <a href="index.html" class="nav-brand">SV</a>
+    <ul class="nav-links">
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <a href="resume.pdf" target="_blank" class="nav-resume">
+      <i class="fas fa-file-alt"></i> Resume
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <section id="hero">
+    <canvas id="grid-canvas"></canvas>
+
+    <div class="hero-content">
+      <div class="hero-tag">
+        <span class="tag-dot"></span>
+        <span>SFU Mechatronic Systems Engineering · Class of 2027</span>
+      </div>
+
+      <h1 class="hero-name">SIMR<br>VIRK</h1>
+
+      <div class="hero-tagline">
+        <span class="static-text">I build&nbsp;</span>
+        <span class="dynamic-text" id="typewriter"></span><span class="cursor">_</span>
+      </div>
+
+      <p class="hero-description">
+        4th year engineering student bridging precision mechanical design, software intelligence and embedded electronics.
+      </p>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number">6+</span>
+          <span class="stat-label">Projects</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number">2</span>
+          <span class="stat-label">Internships</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number">4th</span>
+          <span class="stat-label">Year</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-photo-wrapper">
+      <div class="photo-frame">
+        <img src="headshot.jpg" alt="Simr Virk" class="hero-photo"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="photo-placeholder">
+          <span class="placeholder-initials">SV</span>
+        </div>
+        <div class="photo-corner photo-corner--tl"></div>
+        <div class="photo-corner photo-corner--br"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" style="padding-top: 2rem;">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text fade-up">
+          <h2 class="section-title">Connecting mechanics,<br><span class="accent">electronics, and code.</span></h2>
+
+          <p>I'm Simr Virk, a Mechatronic Systems Engineering student at Simon Fraser University.
+             My work spans mechanical design, embedded electronics, and software development —
+             building complete systems where all three disciplines converge.</p>
+          <p>From designing vision-guided robotic arms to developing firmware solutions at
+             Motorola Solutions, I thrive where precision engineering meets creative problem-solving.
+             I believe the best engineers speak the languages of both physics and code.</p>
+
+          <div class="about-links">
+            <a href="https://www.linkedin.com/in/simr-virk" target="_blank" class="about-link">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+            <a href="mailto:ssv10@sfu.ca" class="about-link">
+              <i class="fas fa-envelope"></i> Email Me
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-left">
+          <div class="footer-brand">SIMR VIRK</div>
+          <p class="footer-tagline">Mechatronic Systems Engineering<br>Simon Fraser University · Burnaby, BC</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Simr Virk — Built with purpose.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
