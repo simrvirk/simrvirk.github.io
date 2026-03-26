@@ -9,12 +9,12 @@
    Edit the phrases array to change what cycles in the hero.
    ────────────────────────────────────────────────────── */
 const TYPEWRITER_PHRASES = [
-  'robotic systems.',
-  'embedded firmware.',
-  'mechatronic designs.',
-  'computer vision.',
-  'precision mechanisms.',
-  'engineering solutions.',
+  ' robotic systems.',
+  ' embedded firmware.',
+  ' mechatronic designs.',
+  ' computer vision.',
+  ' precision mechanisms.',
+  ' engineering solutions.',
 ];
 
 let tw_phraseIdx  = 0;
