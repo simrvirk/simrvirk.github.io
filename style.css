@@ -13,8 +13,8 @@
   --bg-card-hover:    #16162a;
 
   /* Accent Colors */
-  --accent:           #ff6b35;          /* motorola blue — main accent */
-  --accent-warm:      #2181db;          /* orange — secondary accent */
+  --accent:           ##3694ed;          /* motorola blue — main accent */
+  --accent-warm:      #ff6b35;          /* orange — secondary accent */
   --accent-dim:       rgba(0,229,255, 0.10);
   --accent-border:    rgba(0,229,255, 0.28);
   --accent-glow:      rgba(0,229,255, 0.18);
