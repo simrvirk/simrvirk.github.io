@@ -14,10 +14,10 @@
 
   /* Accent Colors */
   --accent:           #3694ed;          /* motorola blue — main accent */
-  --accent-warm:      #ff6b35;          /* orange — secondary accent */
-  --accent-dim:       rgba(0,229,255, 0.10);
-  --accent-border:    rgba(0,229,255, 0.28);
-  --accent-glow:      rgba(0,229,255, 0.18);
+  --accent-warm:      #2181db;          /* orange — secondary accent */
+  --accent-dim:       rgba(33,129,219, 1);
+  --accent-border:    rgba(33,129,219, 0.71);
+  --accent-glow:      rgba(33,129,219, 0.53);
 
   /* Text */
   --text-primary:     #eaeaf4;
