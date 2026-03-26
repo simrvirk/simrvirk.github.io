@@ -13,13 +13,12 @@
 </head>
 <body>
 
-  <!-- ===================== NAVIGATION ===================== -->
   <nav id="navbar">
     <a href="#hero" class="nav-brand">SV</a>
     <ul class="nav-links">
-      <li><a href="#about">About</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#skills">Skills</a></li>
+      <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
     <a href="resume.pdf" target="_blank" class="nav-resume">
@@ -30,7 +29,6 @@
     </button>
   </nav>
 
-  <!-- ===================== HERO ===================== -->
   <section id="hero">
     <canvas id="grid-canvas"></canvas>
 
@@ -43,12 +41,12 @@
       <h1 class="hero-name">SIMR<br>VIRK</h1>
 
       <div class="hero-tagline">
-        <span class="static-text">I build</span>
+        <span class="static-text">I build&nbsp;</span>
         <span class="dynamic-text" id="typewriter"></span><span class="cursor">_</span>
       </div>
 
       <p class="hero-description">
-        4th year engineering student bridging precision mechanical design, software intelligence and embedded electronics..
+        4th year engineering student bridging precision mechanical design, software intelligence and embedded electronics.
       </p>
 
       <div class="hero-cta">
@@ -80,15 +78,6 @@
 
     <div class="hero-photo-wrapper">
       <div class="photo-frame">
-        <!--
-          ============================================================
-          PHOTO INSTRUCTIONS:
-          1. Rename your headshot photo to: headshot.jpg
-          2. Upload it to your GitHub repo (same folder as index.html)
-          3. The photo will appear here automatically.
-          Recommended: square or portrait crop, professional background.
-          ============================================================
-        -->
         <img src="headshot.jpg" alt="Simr Virk" class="hero-photo"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
         <div class="photo-placeholder">
@@ -106,84 +95,11 @@
     </div>
   </section>
 
-  <!-- ===================== ABOUT ===================== -->
-  <section id="about">
-    <div class="container">
-      <div class="section-label">
-        <span class="label-line"></span>
-        <span class="label-text">01 / About</span>
-      </div>
-      <div class="about-grid">
-        <div class="about-text fade-up">
-          <h2 class="section-title">Engineering at the<br><span class="accent">intersection of worlds.</span></h2>
-
-          <!-- ============================================================
-               ABOUT TEXT — Edit the paragraphs below to describe yourself.
-               ============================================================ -->
-          <p>I'm Simr Virk, a Mechatronic Systems Engineering student at Simon Fraser University.
-             My work spans mechanical design, embedded electronics, and software development —
-             building complete systems where all three disciplines converge.</p>
-          <p>From designing vision-guided robotic arms to developing firmware solutions at
-             Motorola Solutions, I thrive where precision engineering meets creative problem-solving.
-             I believe the best engineers speak the languages of both physics and code.</p>
-
-          <div class="about-links">
-            <a href="https://www.linkedin.com/in/simr-virk" target="_blank" class="about-link">
-              <i class="fab fa-linkedin"></i> LinkedIn
-            </a>
-            <a href="mailto:ssv10@sfu.ca" class="about-link">
-              <i class="fas fa-envelope"></i> Email Me
-            </a>
-            <a href="tel:7785755444" class="about-link">
-              <i class="fas fa-phone"></i> 778-575-5444
-            </a>
-          </div>
-        </div>
-
-        <div class="about-highlights">
-          <!-- ============================================================
-               HIGHLIGHT CARDS — Edit icon, title, and subtitle below.
-               Icons: visit fontawesome.com/icons to find icon names.
-               ============================================================ -->
-          <div class="highlight-card fade-up">
-            <div class="highlight-icon"><i class="fas fa-robot"></i></div>
-            <div>
-              <h4>Robotics &amp; Automation</h4>
-              <p>Computer vision, motion planning, servo control</p>
-            </div>
-          </div>
-          <div class="highlight-card fade-up">
-            <div class="highlight-icon"><i class="fas fa-microchip"></i></div>
-            <div>
-              <h4>Embedded Systems</h4>
-              <p>Firmware development, sensor integration, RTOS</p>
-            </div>
-          </div>
-          <div class="highlight-card fade-up">
-            <div class="highlight-icon"><i class="fas fa-drafting-compass"></i></div>
-            <div>
-              <h4>Mechanical Design</h4>
-              <p>SolidWorks, FEA analysis, manufacturing-ready CAD</p>
-            </div>
-          </div>
-          <div class="highlight-card fade-up">
-            <div class="highlight-icon"><i class="fas fa-code"></i></div>
-            <div>
-              <h4>Software Engineering</h4>
-              <p>Python, C/C++, MATLAB, ROS</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== PROJECTS ===================== -->
   <section id="projects">
     <div class="container">
       <div class="section-label">
         <span class="label-line"></span>
-        <span class="label-text">02 / Projects</span>
+        <span class="label-text">01 / Projects</span>
       </div>
       <h2 class="section-title fade-up">Selected Work</h2>
 
@@ -195,24 +111,8 @@
       </div>
 
       <div class="projects-grid">
-
-        <!-- ================================================================
-             PROJECT CARD TEMPLATE
-             To add a new project:
-               1. Copy one full <div class="project-card"> block below.
-               2. Paste it at the end of this list (before </div>).
-               3. Change: data-category, image src, year, title, description, tags, href.
-             For the featured (wide) card, use class="project-card featured".
-             data-category options: "industry" | "robotics" | "mechanical" | "software"
-             ================================================================ -->
-
-        <!-- CARD 1: FEATURED — Industry -->
         <div class="project-card featured fade-up" data-category="industry" onclick="location.href='internship.html'">
           <div class="card-image">
-            <!--
-              IMAGE: Save your image as "motorola-logo.png" and upload to your repo.
-              Recommended size: at least 800x500px.
-            -->
             <img src="motorola-logo.png" alt="Motorola Solutions Internship"
                  onerror="this.style.opacity='0'">
             <div class="card-image-overlay"></div>
@@ -238,7 +138,6 @@
           </div>
         </div>
 
-        <!-- CARD 2: Chess Robot -->
         <div class="project-card fade-up" data-category="robotics" onclick="location.href='project1.html'">
           <div class="card-image">
             <img src="classifier.jpg" alt="Vision-Guided Chess Robot Arm"
@@ -266,7 +165,6 @@
           </div>
         </div>
 
-        <!-- CARD 3: Dog Feeder -->
         <div class="project-card fade-up" data-category="mechanical" onclick="location.href='gearbox.html'">
           <div class="card-image">
             <img src="gearbox1.jpg" alt="Automatic Dog Feeder"
@@ -293,7 +191,6 @@
           </div>
         </div>
 
-        <!-- CARD 4: Pendulum Clock -->
         <div class="project-card fade-up" data-category="mechanical" onclick="location.href='robotic-prototype.html'">
           <div class="card-image">
             <img src="robot2.jpg" alt="Pendulum Clock CAD"
@@ -320,7 +217,6 @@
           </div>
         </div>
 
-        <!-- CARD 5: V12 Engine -->
         <div class="project-card fade-up" data-category="mechanical" onclick="location.href='hv-junction.html'">
           <div class="card-image">
             <img src="fixtures 4.jpg" alt="V12 Combustion Engine CAD"
@@ -347,7 +243,6 @@
           </div>
         </div>
 
-        <!-- CARD 6: About Me -->
         <div class="project-card card-about-me fade-up" data-category="about" onclick="location.href='about.html'">
           <div class="card-image card-image--about">
             <div class="about-card-bg">
@@ -379,30 +274,18 @@
           </div>
         </div>
 
-        <!-- ================================================================
-             ADD NEW PROJECT HERE — copy the block above and paste it here.
-             Change: data-category, onclick href, img src, year, title,
-                     description, tags, and card-number.
-             ================================================================ -->
-
       </div>
     </div>
   </section>
 
-  <!-- ===================== SKILLS ===================== -->
   <section id="skills">
     <div class="container">
       <div class="section-label">
         <span class="label-line"></span>
-        <span class="label-text">03 / Skills</span>
+        <span class="label-text">02 / Skills</span>
       </div>
       <h2 class="section-title fade-up">Tools &amp; Technologies</h2>
 
-      <!-- ============================================================
-           SKILLS — Edit the names and percentages (--fill: XX%) below.
-           The bar fills to the percentage you set when the user scrolls
-           to this section.
-           ============================================================ -->
       <div class="skills-grid">
         <div class="skill-group fade-up">
           <h4 class="skill-group-title"><i class="fas fa-code"></i> Programming</h4>
@@ -467,7 +350,70 @@
     </div>
   </section>
 
-  <!-- ===================== CONTACT / FOOTER ===================== -->
+  <section id="about">
+    <div class="container">
+      <div class="section-label">
+        <span class="label-line"></span>
+        <span class="label-text">03 / About</span>
+      </div>
+      <div class="about-grid">
+        <div class="about-text fade-up">
+          <h2 class="section-title">Connecting mechanics,<br><span class="accent">electronics, and code.</span></h2>
+
+          <p>I'm Simr Virk, a Mechatronic Systems Engineering student at Simon Fraser University.
+             My work spans mechanical design, embedded electronics, and software development —
+             building complete systems where all three disciplines converge.</p>
+          <p>From designing vision-guided robotic arms to developing firmware solutions at
+             Motorola Solutions, I thrive where precision engineering meets creative problem-solving.
+             I believe the best engineers speak the languages of both physics and code.</p>
+
+          <div class="about-links">
+            <a href="https://www.linkedin.com/in/simr-virk" target="_blank" class="about-link">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+            <a href="mailto:ssv10@sfu.ca" class="about-link">
+              <i class="fas fa-envelope"></i> Email Me
+            </a>
+            <a href="tel:7785755444" class="about-link">
+              <i class="fas fa-phone"></i> 778-575-5444
+            </a>
+          </div>
+        </div>
+
+        <div class="about-highlights">
+          <div class="highlight-card fade-up">
+            <div class="highlight-icon"><i class="fas fa-robot"></i></div>
+            <div>
+              <h4>Robotics &amp; Automation</h4>
+              <p>Computer vision, motion planning, servo control</p>
+            </div>
+          </div>
+          <div class="highlight-card fade-up">
+            <div class="highlight-icon"><i class="fas fa-microchip"></i></div>
+            <div>
+              <h4>Embedded Systems</h4>
+              <p>Firmware development, sensor integration, RTOS</p>
+            </div>
+          </div>
+          <div class="highlight-card fade-up">
+            <div class="highlight-icon"><i class="fas fa-drafting-compass"></i></div>
+            <div>
+              <h4>Mechanical Design</h4>
+              <p>SolidWorks, FEA analysis, manufacturing-ready CAD</p>
+            </div>
+          </div>
+          <div class="highlight-card fade-up">
+            <div class="highlight-icon"><i class="fas fa-code"></i></div>
+            <div>
+              <h4>Software Engineering</h4>
+              <p>Python, C/C++, MATLAB, ROS</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <footer id="contact">
     <div class="container">
       <div class="footer-cta fade-up">
@@ -482,7 +428,6 @@
       <div class="footer-content">
         <div class="footer-left">
           <div class="footer-brand">SIMR VIRK</div>
-          <!-- Edit the text below to describe your program/school -->
           <p class="footer-tagline">Mechatronic Systems Engineering<br>Simon Fraser University · Burnaby, BC</p>
         </div>
         <div class="footer-links-grid">
