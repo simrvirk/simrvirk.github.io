@@ -1,56 +1,520 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simr Virk</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Simr Virk — Mechatronic Systems Engineering Student at SFU. Robotics, embedded systems, and mechanical design.">
+  <title>Simr Virk — Mechatronic Systems Engineer</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-    <header>
-        <div class="header-text">
-            <h1>SIMR VIRK</h1>
-            <p>Senior Mechatronic Systems Engineering Student</p>
-            <div class="contact-links">
-                <a href="resume.pdf" target="_blank"><i class="fas fa-file-alt"></i> Resume</a>
-                <a href="https://www.linkedin.com/in/simr-virk" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
-                <a href="mailto:ssv10@sfu.ca"><i class="fas fa-envelope"></i> Email</a>
-                <a href="tel:7785755444" style="cursor: default;"><i class="fas fa-phone"></i> 778-575-5444</a>
+
+  <!-- ===================== NAVIGATION ===================== -->
+  <nav id="navbar">
+    <a href="#hero" class="nav-brand">SV</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="resume.pdf" target="_blank" class="nav-resume">
+      <i class="fas fa-file-alt"></i> Resume
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ===================== HERO ===================== -->
+  <section id="hero">
+    <canvas id="grid-canvas"></canvas>
+
+    <div class="hero-content">
+      <div class="hero-tag">
+        <span class="tag-dot"></span>
+        <span>SFU Mechatronic Systems Engineering · Class of 2025</span>
+      </div>
+
+      <h1 class="hero-name">SIMR<br>VIRK</h1>
+
+      <div class="hero-tagline">
+        <span class="static-text">I build </span>
+        <span class="dynamic-text" id="typewriter"></span><span class="cursor">_</span>
+      </div>
+
+      <p class="hero-description">
+        4th year engineering student bridging software intelligence, embedded electronics,
+        and precision mechanical design — from robotic arms to automotive CAD.
+      </p>
+
+      <div class="hero-cta">
+        <a href="#projects" class="btn-primary">
+          View Projects <i class="fas fa-arrow-down"></i>
+        </a>
+        <a href="resume.pdf" target="_blank" class="btn-secondary">
+          Download Resume <i class="fas fa-external-link-alt"></i>
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number">6+</span>
+          <span class="stat-label">Projects</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number">1</span>
+          <span class="stat-label">Internship</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number">4th</span>
+          <span class="stat-label">Year</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-photo-wrapper">
+      <div class="photo-frame">
+        <!--
+          ============================================================
+          PHOTO INSTRUCTIONS:
+          1. Rename your headshot photo to: headshot.jpg
+          2. Upload it to your GitHub repo (same folder as index.html)
+          3. The photo will appear here automatically.
+          Recommended: square or portrait crop, professional background.
+          ============================================================
+        -->
+        <img src="headshot.jpg" alt="Simr Virk" class="hero-photo"
+             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="photo-placeholder">
+          <span class="placeholder-initials">SV</span>
+          <span class="placeholder-hint">Add headshot.jpg to your repo</span>
+        </div>
+        <div class="photo-corner photo-corner--tl"></div>
+        <div class="photo-corner photo-corner--br"></div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section id="about">
+    <div class="container">
+      <div class="section-label">
+        <span class="label-line"></span>
+        <span class="label-text">01 / About</span>
+      </div>
+      <div class="about-grid">
+        <div class="about-text fade-up">
+          <h2 class="section-title">Engineering at the<br><span class="accent">intersection of worlds.</span></h2>
+
+          <!-- ============================================================
+               ABOUT TEXT — Edit the paragraphs below to describe yourself.
+               ============================================================ -->
+          <p>I'm Simr Virk, a Mechatronic Systems Engineering student at Simon Fraser University.
+             My work spans mechanical design, embedded electronics, and software development —
+             building complete systems where all three disciplines converge.</p>
+          <p>From designing vision-guided robotic arms to developing firmware solutions at
+             Motorola Solutions, I thrive where precision engineering meets creative problem-solving.
+             I believe the best engineers speak the languages of both physics and code.</p>
+
+          <div class="about-links">
+            <a href="https://www.linkedin.com/in/simr-virk" target="_blank" class="about-link">
+              <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+            <a href="mailto:ssv10@sfu.ca" class="about-link">
+              <i class="fas fa-envelope"></i> Email Me
+            </a>
+            <a href="tel:7785755444" class="about-link">
+              <i class="fas fa-phone"></i> 778-575-5444
+            </a>
+          </div>
+        </div>
+
+        <div class="about-highlights">
+          <!-- ============================================================
+               HIGHLIGHT CARDS — Edit icon, title, and subtitle below.
+               Icons: visit fontawesome.com/icons to find icon names.
+               ============================================================ -->
+          <div class="highlight-card fade-up">
+            <div class="highlight-icon"><i class="fas fa-robot"></i></div>
+            <div>
+              <h4>Robotics &amp; Automation</h4>
+              <p>Computer vision, motion planning, servo control</p>
             </div>
+          </div>
+          <div class="highlight-card fade-up">
+            <div class="highlight-icon"><i class="fas fa-microchip"></i></div>
+            <div>
+              <h4>Embedded Systems</h4>
+              <p>Firmware development, sensor integration, RTOS</p>
+            </div>
+          </div>
+          <div class="highlight-card fade-up">
+            <div class="highlight-icon"><i class="fas fa-drafting-compass"></i></div>
+            <div>
+              <h4>Mechanical Design</h4>
+              <p>SolidWorks, FEA analysis, manufacturing-ready CAD</p>
+            </div>
+          </div>
+          <div class="highlight-card fade-up">
+            <div class="highlight-icon"><i class="fas fa-code"></i></div>
+            <div>
+              <h4>Software Engineering</h4>
+              <p>Python, C/C++, MATLAB, ROS</p>
+            </div>
+          </div>
         </div>
-        <div class="header-photo">
-            <img src="headshot.jpg" alt="Simr Virk">
-        </div>
-    </header>
+      </div>
+    </div>
+  </section>
 
-    <main class="grid-container">
-        <div class="card" onclick="location.href='internship.html';">
-            <img src="motorola-logo.jpg" alt="Motorola Solutions">
-            <div class="overlay">INTERNSHIP EXPERIENCE</div>
-        </div>
-        <div class="card" onclick="location.href='project1.html';">
-            <img src="classifier.jpg" alt="VISION GUIDED 5-DOF ROBOTIC CHESS MANIPULATOR">
-            <div class="overlay">Chess Playing Robot Arm</div>
-        </div>
-        <div class="card" onclick="location.href='gearbox.html';">
-            <img src="gearbox1.jpg" alt="Automatic Dog Feeder">
-            <div class="overlay">Dog Feeder</div>
-        </div>
-        <div class="card" onclick="location.href='robotic-prototype.html';">
-            <img src="robot2.jpg" alt="Weight Driven Pendulum Clock CAD">
-            <div class="overlay">Pendulum Clock CAD</div>
-        </div>
-        <div class="card" onclick="location.href='hv-junction.html';">
-            <img src="fixtures 4.jpg" alt="V12 Combustion Engine CAD">
-            <div class="overlay">V12 Engine CAD</div>
-        </div>
-        <div class="card" onclick="location.href='hv-junction.html';">
-            <img src="fixtures 4.jpg" alt="Background, Motivation, Extracurriculars">
-            <div class="overlay">About Me</div>
-        </div>
-    </main>
+  <!-- ===================== PROJECTS ===================== -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-label">
+        <span class="label-line"></span>
+        <span class="label-text">02 / Projects</span>
+      </div>
+      <h2 class="section-title fade-up">Selected Work</h2>
 
-    <script src="script.js"></script>
+      <div class="project-filters fade-up">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="industry">Industry</button>
+        <button class="filter-btn" data-filter="robotics">Robotics</button>
+        <button class="filter-btn" data-filter="mechanical">Mechanical</button>
+      </div>
+
+      <div class="projects-grid">
+
+        <!-- ================================================================
+             PROJECT CARD TEMPLATE
+             To add a new project:
+               1. Copy one full <div class="project-card"> block below.
+               2. Paste it at the end of this list (before </div>).
+               3. Change: data-category, image src, year, title, description, tags, href.
+             For the featured (wide) card, use class="project-card featured".
+             data-category options: "industry" | "robotics" | "mechanical" | "software"
+             ================================================================ -->
+
+        <!-- CARD 1: FEATURED — Industry -->
+        <div class="project-card featured fade-up" data-category="industry" onclick="location.href='internship.html'">
+          <div class="card-image">
+            <!--
+              IMAGE: Save your image as "motorola-logo.jpg" and upload to your repo.
+              Recommended size: at least 800x500px.
+            -->
+            <img src="motorola-logo.jpg" alt="Motorola Solutions Internship"
+                 onerror="this.style.opacity='0'">
+            <div class="card-image-overlay"></div>
+            <div class="card-category-badge">Industry</div>
+            <div class="card-number">01</div>
+          </div>
+          <div class="card-content">
+            <div class="card-meta">
+              <span class="card-year">2024</span>
+              <span class="card-status status-complete">✓ Completed</span>
+            </div>
+            <h3 class="card-title">Motorola Solutions Internship</h3>
+            <p class="card-description">Software &amp; firmware engineering internship developing embedded solutions for mission-critical communications hardware. Worked on real production systems serving public safety clients.</p>
+            <div class="card-tags">
+              <span class="tag">Firmware</span>
+              <span class="tag">C / C++</span>
+              <span class="tag">Embedded Linux</span>
+              <span class="tag">Agile</span>
+            </div>
+            <div class="card-footer">
+              <span class="card-link">View Project <i class="fas fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2: Chess Robot -->
+        <div class="project-card fade-up" data-category="robotics" onclick="location.href='project1.html'">
+          <div class="card-image">
+            <img src="classifier.jpg" alt="Vision-Guided Chess Robot Arm"
+                 onerror="this.style.opacity='0'">
+            <div class="card-image-overlay"></div>
+            <div class="card-category-badge">Robotics</div>
+            <div class="card-number">02</div>
+          </div>
+          <div class="card-content">
+            <div class="card-meta">
+              <span class="card-year">2024</span>
+              <span class="card-status status-complete">✓ Completed</span>
+            </div>
+            <h3 class="card-title">Vision-Guided 5-DOF Chess Robot</h3>
+            <p class="card-description">Autonomous robotic manipulator that plays chess using computer vision for board/piece recognition and inverse kinematics for precise movement.</p>
+            <div class="card-tags">
+              <span class="tag">ROS</span>
+              <span class="tag">OpenCV</span>
+              <span class="tag">Python</span>
+              <span class="tag">SolidWorks</span>
+            </div>
+            <div class="card-footer">
+              <span class="card-link">View Project <i class="fas fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3: Dog Feeder -->
+        <div class="project-card fade-up" data-category="mechanical" onclick="location.href='gearbox.html'">
+          <div class="card-image">
+            <img src="gearbox1.jpg" alt="Automatic Dog Feeder"
+                 onerror="this.style.opacity='0'">
+            <div class="card-image-overlay"></div>
+            <div class="card-category-badge">Mechanical</div>
+            <div class="card-number">03</div>
+          </div>
+          <div class="card-content">
+            <div class="card-meta">
+              <span class="card-year">2023</span>
+              <span class="card-status status-complete">✓ Completed</span>
+            </div>
+            <h3 class="card-title">Automatic Dog Feeder</h3>
+            <p class="card-description">Electromechanical pet feeder with custom gearbox design, 3D-printed housing, and microcontroller-based timed dispensing.</p>
+            <div class="card-tags">
+              <span class="tag">Gearbox Design</span>
+              <span class="tag">Arduino</span>
+              <span class="tag">3D Printing</span>
+            </div>
+            <div class="card-footer">
+              <span class="card-link">View Project <i class="fas fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 4: Pendulum Clock -->
+        <div class="project-card fade-up" data-category="mechanical" onclick="location.href='robotic-prototype.html'">
+          <div class="card-image">
+            <img src="robot2.jpg" alt="Pendulum Clock CAD"
+                 onerror="this.style.opacity='0'">
+            <div class="card-image-overlay"></div>
+            <div class="card-category-badge">Mechanical</div>
+            <div class="card-number">04</div>
+          </div>
+          <div class="card-content">
+            <div class="card-meta">
+              <span class="card-year">2023</span>
+              <span class="card-status status-complete">✓ Completed</span>
+            </div>
+            <h3 class="card-title">Weight-Driven Pendulum Clock</h3>
+            <p class="card-description">Full SolidWorks model of a weight-driven pendulum clock including escapement mechanism, gear train analysis, and GD&amp;T manufacturing drawings.</p>
+            <div class="card-tags">
+              <span class="tag">SolidWorks</span>
+              <span class="tag">GD&amp;T</span>
+              <span class="tag">Mechanism Design</span>
+            </div>
+            <div class="card-footer">
+              <span class="card-link">View Project <i class="fas fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 5: V12 Engine -->
+        <div class="project-card fade-up" data-category="mechanical" onclick="location.href='hv-junction.html'">
+          <div class="card-image">
+            <img src="fixtures 4.jpg" alt="V12 Combustion Engine CAD"
+                 onerror="this.style.opacity='0'">
+            <div class="card-image-overlay"></div>
+            <div class="card-category-badge">Mechanical</div>
+            <div class="card-number">05</div>
+          </div>
+          <div class="card-content">
+            <div class="card-meta">
+              <span class="card-year">2023</span>
+              <span class="card-status status-complete">✓ Completed</span>
+            </div>
+            <h3 class="card-title">V12 Combustion Engine CAD</h3>
+            <p class="card-description">Detailed SolidWorks assembly of a V12 engine with full component library, mating constraints, motion studies, and engineering drawings.</p>
+            <div class="card-tags">
+              <span class="tag">SolidWorks</span>
+              <span class="tag">Assembly Design</span>
+              <span class="tag">Motion Study</span>
+            </div>
+            <div class="card-footer">
+              <span class="card-link">View Project <i class="fas fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 6: About Me -->
+        <div class="project-card card-about-me fade-up" data-category="about" onclick="location.href='about.html'">
+          <div class="card-image card-image--about">
+            <div class="about-card-bg">
+              <div class="about-card-initials">SV</div>
+              <div class="about-card-rings">
+                <div class="ring ring-1"></div>
+                <div class="ring ring-2"></div>
+                <div class="ring ring-3"></div>
+              </div>
+            </div>
+            <div class="card-category-badge">Personal</div>
+            <div class="card-number">06</div>
+          </div>
+          <div class="card-content">
+            <div class="card-meta">
+              <span class="card-year">2025</span>
+              <span class="card-status status-ongoing">◉ Ongoing</span>
+            </div>
+            <h3 class="card-title">About Me</h3>
+            <p class="card-description">My background, motivations, extracurriculars, and what drives me as an engineer. The story behind the projects.</p>
+            <div class="card-tags">
+              <span class="tag">Background</span>
+              <span class="tag">Interests</span>
+              <span class="tag">Extracurriculars</span>
+            </div>
+            <div class="card-footer">
+              <span class="card-link">Learn More <i class="fas fa-arrow-right"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================================================================
+             ADD NEW PROJECT HERE — copy the block above and paste it here.
+             Change: data-category, onclick href, img src, year, title,
+                     description, tags, and card-number.
+             ================================================================ -->
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SKILLS ===================== -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-label">
+        <span class="label-line"></span>
+        <span class="label-text">03 / Skills</span>
+      </div>
+      <h2 class="section-title fade-up">Tools &amp; Technologies</h2>
+
+      <!-- ============================================================
+           SKILLS — Edit the names and percentages (--fill: XX%) below.
+           The bar fills to the percentage you set when the user scrolls
+           to this section.
+           ============================================================ -->
+      <div class="skills-grid">
+        <div class="skill-group fade-up">
+          <h4 class="skill-group-title"><i class="fas fa-code"></i> Programming</h4>
+          <div class="skill-item">
+            <div class="skill-header"><span>Python</span><span class="skill-pct">90%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="--fill: 90%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span>C / C++</span><span class="skill-pct">80%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="--fill: 80%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span>MATLAB</span><span class="skill-pct">75%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="--fill: 75%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span>JavaScript / HTML / CSS</span><span class="skill-pct">65%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="--fill: 65%"></div></div>
+          </div>
+        </div>
+
+        <div class="skill-group fade-up">
+          <h4 class="skill-group-title"><i class="fas fa-drafting-compass"></i> CAD / Design</h4>
+          <div class="skill-item">
+            <div class="skill-header"><span>SolidWorks</span><span class="skill-pct">92%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="--fill: 92%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span>AutoCAD</span><span class="skill-pct">78%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="--fill: 78%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span>Fusion 360</span><span class="skill-pct">68%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="--fill: 68%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span>KiCad (PCB Design)</span><span class="skill-pct">55%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="--fill: 55%"></div></div>
+          </div>
+        </div>
+
+        <div class="skill-group fade-up">
+          <h4 class="skill-group-title"><i class="fas fa-robot"></i> Robotics / Embedded</h4>
+          <div class="skill-item">
+            <div class="skill-header"><span>Arduino / STM32</span><span class="skill-pct">88%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="--fill: 88%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span>ROS / ROS2</span><span class="skill-pct">80%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="--fill: 80%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span>OpenCV</span><span class="skill-pct">78%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="--fill: 78%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span>Raspberry Pi / Linux</span><span class="skill-pct">82%</span></div>
+            <div class="skill-bar"><div class="skill-fill" style="--fill: 82%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACT / FOOTER ===================== -->
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-cta fade-up">
+        <div class="footer-cta-line"></div>
+        <h2 class="footer-heading">Let's build something<br><span class="accent">together.</span></h2>
+        <p class="footer-sub">Open to new opportunities, collaborations, and conversations.</p>
+        <a href="mailto:ssv10@sfu.ca" class="btn-primary footer-btn">
+          Get In Touch <i class="fas fa-paper-plane"></i>
+        </a>
+      </div>
+
+      <div class="footer-content">
+        <div class="footer-left">
+          <div class="footer-brand">SIMR VIRK</div>
+          <!-- Edit the text below to describe your program/school -->
+          <p class="footer-tagline">Mechatronic Systems Engineering<br>Simon Fraser University · Burnaby, BC</p>
+        </div>
+        <div class="footer-links-grid">
+          <a href="https://www.linkedin.com/in/simr-virk" target="_blank" class="footer-link">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a>
+          <a href="https://github.com/simrvirk" target="_blank" class="footer-link">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+          <a href="mailto:ssv10@sfu.ca" class="footer-link">
+            <i class="fas fa-envelope"></i> ssv10@sfu.ca
+          </a>
+          <a href="tel:7785755444" class="footer-link">
+            <i class="fas fa-phone"></i> 778-575-5444
+          </a>
+          <a href="resume.pdf" target="_blank" class="footer-link">
+            <i class="fas fa-file-alt"></i> Resume
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2025 Simr Virk — Built with purpose.</span>
+        <span class="footer-version">
+          <i class="fas fa-circle" style="color: #22c55e; font-size: 0.5rem;"></i>
+          Available for Summer 2025 Co-op
+        </span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
