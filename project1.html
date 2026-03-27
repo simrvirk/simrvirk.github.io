@@ -3,6 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--
+    ══════════════════════════════════════════════════════════════════
+    STEP 1 — Change the title to your project name.
+    Example: <title>Chess Robot Arm — Simr Virk</title>
+    ══════════════════════════════════════════════════════════════════
+  -->
   <title>Project Name — Simr Virk</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,7 +16,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    /* FORCES THE NAV LINKS TO BE PERFECTLY CENTERED HORIZONTALLY AND VERTICALLY */
+    /*
+     * ─── GAP FIX: top of project pages ────────────────────────────────────
+     *
+     * Root cause: style.css defines .project-page { padding-top: var(--nav-h) }
+     * (68 px) — this was written for a *fixed* nav so the content wouldn't
+     * hide under it.  But on these pages the nav is position:relative
+     * (sits in normal document flow), so the browser ALREADY reserves its
+     * height.  Adding 68 px on top of that produces the blank strip you
+     * circled at the very top of image 3.
+     *
+     * Fix: zero out that padding-top here.
+     * The nav itself will still show at the top and the content follows
+     * immediately after it — no gap.
+     */
+    .project-page {
+      padding-top: 0 !important;
+    }
+
+    /* ── NAV CENTERING (matches index.html) ───────────────────────────── */
     @media (min-width: 769px) {
       .nav-links {
         position: absolute;
@@ -22,10 +46,131 @@
         margin: 0;
       }
     }
+
+    /* ─── 3D VIEWER SECTION ──────────────────────────────────────────────
+     * Styles for the interactive CAD model embed.
+     * The viewer uses Sketchfab — an industry-standard platform used by
+     * Tesla, Boeing, NASA, and top engineering firms for sharing 3D models.
+     */
+    .viewer-section {
+      padding: 64px 0;
+      background: var(--bg-secondary);
+      border-top:    1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .viewer-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .viewer-hint {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .viewer-hint span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* The iframe wrapper creates the aspect-ratio box and the glowing border */
+    .viewer-frame-wrapper {
+      position: relative;
+      width: 100%;
+      padding-bottom: 52%;       /* 52% ≈ roughly 16:8.3 — a wide cinematic ratio */
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--accent-border);
+      box-shadow: 0 0 48px rgba(0, 229, 255, 0.08),
+                  0 8px 40px rgba(0, 0, 0, 0.55);
+      background: #05050d;       /* fallback while iframe loads */
+    }
+
+    .viewer-frame-wrapper iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Shown when no Sketchfab URL has been added yet */
+    .viewer-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      background: radial-gradient(ellipse at 50% 40%,
+                    rgba(0,229,255,0.05) 0%,
+                    #05050d 65%);
+      color: var(--text-muted);
+      text-align: center;
+      padding: 32px;
+    }
+
+    .viewer-placeholder-icon {
+      font-size: 3rem;
+      color: rgba(0,229,255,0.22);
+      line-height: 1;
+    }
+
+    .viewer-placeholder h4 {
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      letter-spacing: 0.5px;
+    }
+
+    .viewer-placeholder p {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.3px;
+      color: var(--text-muted);
+      max-width: 480px;
+      line-height: 1.75;
+    }
+
+    .viewer-placeholder code {
+      background: rgba(0,229,255,0.07);
+      border: 1px solid var(--accent-border);
+      color: var(--accent);
+      padding: 2px 8px;
+      border-radius: 3px;
+      font-size: 0.72rem;
+    }
+
+    .viewer-caption {
+      margin-top: 14px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+      text-align: center;
+    }
   </style>
 </head>
 <body class="project-page">
 
+  <!--
+    NOTE ON position:relative — The nav uses position:relative so it sits
+    at the top of the page in normal document flow.  The CSS fix above
+    (.project-page { padding-top: 0 }) removes the old 68 px blank strip.
+  -->
   <nav id="navbar" style="position: relative;">
     <a href="index.html" class="nav-brand">SV</a>
     <ul class="nav-links">
@@ -41,6 +186,7 @@
     </button>
   </nav>
 
+  <!-- ===================== PROJECT HERO ===================== -->
   <div class="project-hero">
     <div class="container">
 
@@ -51,26 +197,47 @@
       <div class="project-hero-grid">
 
         <div>
+          <!--
+            STEP 2 — Change the category.
+            Options: Robotics · Mechanical · Industry · Software · Embedded
+          -->
           <div class="project-category-label">Robotics / Mechatronics</div>
 
+          <!--
+            STEP 3 — Change the project title (large heading).
+            Keep it short — 2 to 4 words works best.
+          -->
           <h1 class="project-title">PROJECT<br>NAME HERE</h1>
 
+          <!--
+            STEP 4 — Write a 2–3 sentence summary.
+            What did you build? What problem did it solve?
+          -->
           <p class="project-summary">
             Write a concise 2–3 sentence summary of the project here.
             Explain what you built, what problem it solved, and the key
             technical achievement that makes this project noteworthy.
           </p>
 
+          <!--
+            STEP 5 — Add your tech stack tags.
+            Copy <span class="tag">...</span> to add more.
+          -->
           <div class="project-tech-list">
             <span class="tag">Python</span>
             <span class="tag">ROS</span>
             <span class="tag">SolidWorks</span>
             <span class="tag">OpenCV</span>
             <span class="tag">Arduino</span>
-            </div>
+          </div>
         </div>
 
+        <!-- Right column: project metadata -->
         <div class="project-meta-card">
+          <!--
+            STEP 6 — Fill in the metadata fields.
+            Delete any rows that don't apply.
+          -->
           <div class="project-meta-item">
             <div class="meta-label">Duration</div>
             <div class="meta-value">Month Year – Month Year</div>
@@ -93,18 +260,24 @@
               <span class="card-status status-complete">✓ Completed</span>
             </div>
           </div>
-          </div>
+        </div>
 
       </div>
     </div>
   </div>
 
+  <!-- ===================== PROJECT BODY ===================== -->
   <div class="project-body">
     <div class="container">
 
+      <!-- Problem + Approach -->
       <div class="project-body-grid">
         <div>
           <div class="project-section-title">The Problem</div>
+          <!--
+            STEP 7 — Describe the engineering problem you were solving.
+            Be specific: constraints, requirements, real-world context.
+          -->
           <p>
             Describe the problem or engineering challenge this project was
             designed to solve. Be specific — mention constraints, requirements,
@@ -117,6 +290,9 @@
         </div>
         <div>
           <div class="project-section-title">My Approach</div>
+          <!--
+            STEP 8 — Describe your approach and key design decisions.
+          -->
           <p>
             Explain the approach you took to solve the problem. What design
             decisions did you make and why? What alternatives did you consider?
@@ -128,32 +304,39 @@
         </div>
       </div>
 
+      <!-- Photo Gallery -->
       <div class="project-section-title" style="margin-bottom: 20px;">Gallery</div>
       <div class="project-gallery">
-
+        <!--
+          STEP 9 — Add your photos.
+          Upload image files to your GitHub repo, then set src="your-filename.jpg".
+          Copy this block to add more images.
+        -->
         <div class="gallery-item">
           <img src="YOUR-IMAGE-1.jpg" alt="Description of image 1"
                onerror="this.parentElement.style.display='none'">
           <div class="gallery-caption">Caption for image 1 — describe what's shown</div>
         </div>
-
         <div class="gallery-item">
           <img src="YOUR-IMAGE-2.jpg" alt="Description of image 2"
                onerror="this.parentElement.style.display='none'">
           <div class="gallery-caption">Caption for image 2</div>
         </div>
-
         <div class="gallery-item">
           <img src="YOUR-IMAGE-3.jpg" alt="Description of image 3"
                onerror="this.parentElement.style.display='none'">
           <div class="gallery-caption">Caption for image 3</div>
         </div>
+      </div>
 
-        </div>
-
+      <!-- Technical + Challenges -->
       <div class="project-body-grid">
         <div>
           <div class="project-section-title">Technical Details</div>
+          <!--
+            STEP 10 — Technical implementation details.
+            Hardware specs, software architecture, algorithms, tolerances, protocols.
+          -->
           <p>
             Describe the technical details of your implementation here.
             What hardware did you use? What software architecture did you design?
@@ -161,27 +344,136 @@
           </p>
           <p>
             Engineers and recruiters will read this section closely.
-            Use precise engineering language — component specs, tolerances,
+            Use precise language — component specs, tolerances,
             communication protocols, control loops, etc.
           </p>
         </div>
         <div>
           <div class="project-section-title">Challenges &amp; Learnings</div>
+          <!--
+            STEP 11 — Challenges and lessons learned.
+            This section shows maturity — top recruiters value self-awareness.
+          -->
           <p>
             Describe the most significant technical challenge you encountered
             and how you resolved it. Be honest — challenges show real
             engineering experience.
           </p>
           <p>
-            What would you do differently if you were to start over?
-            What skills or knowledge did you gain from this project?
+            What would you do differently if you started over?
+            What skills or knowledge did this project give you?
           </p>
         </div>
       </div>
 
+    </div><!-- /container -->
+  </div><!-- /project-body -->
+
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       INTERACTIVE 3D CAD VIEWER
+       ═══════════════════════════════════════════════════════════════════════
+
+       This section embeds a live, interactive 3D model of your project.
+       Visitors can rotate, zoom, and inspect the model directly in the browser —
+       no plugins required. Used by NASA, Tesla, Boeing, and leading engineering
+       portfolios worldwide.
+
+       PLATFORM: Sketchfab (sketchfab.com) — free for students.
+       Supports SolidWorks, Fusion 360, STEP, IGES, OBJ, STL files.
+
+       ───────────────────────────────────────────────────────────────────────
+       HOW TO EMBED YOUR OWN MODEL — 4 steps:
+
+       1. Go to  https://sketchfab.com  and create a free account.
+
+       2. Click "Upload" → select your file.
+          Accepted formats: .sldprt, .sldasm, .step, .iges, .stl, .obj, .f3d
+          (If uploading SolidWorks: export as STEP or STL first via
+           File → Save As → *.step)
+
+       3. Once uploaded, open your model page and click "Embed"
+          (the </> icon).  Copy the URL inside src="..." — it looks like:
+            https://sketchfab.com/models/abc123def456.../embed
+
+       4. In this file, find the line that reads:
+            data-sketchfab-url="PASTE_YOUR_SKETCHFAB_EMBED_URL_HERE"
+          Replace that placeholder with your copied URL.
+          The viewer will activate automatically.
+
+       ─────────────────────────────────────────────────────────────────────── -->
+
+  <div class="viewer-section">
+    <div class="container">
+
+      <div class="viewer-header">
+        <div class="section-label" style="margin-bottom:0;">
+          <span class="label-line"></span>
+          <span class="label-text">Interactive 3D Model</span>
+        </div>
+        <div class="viewer-hint">
+          <span><i class="fas fa-mouse"></i> Drag to rotate</span>
+          <span><i class="fas fa-search-plus"></i> Scroll to zoom</span>
+          <span><i class="fas fa-hand-paper"></i> Right-click to pan</span>
+        </div>
+      </div>
+
+      <!--
+        ════════════════════════════════════════════════════════
+        Set  data-sketchfab-url  to your Sketchfab embed URL.
+        Leave it as the placeholder text and a "how to" panel
+        is shown instead — safe to deploy while you get the URL.
+        ════════════════════════════════════════════════════════
+      -->
+      <div class="viewer-frame-wrapper"
+           id="cadViewer"
+           data-sketchfab-url="PASTE_YOUR_SKETCHFAB_EMBED_URL_HERE">
+
+        <!-- Placeholder panel (hidden once a real URL is set) -->
+        <div class="viewer-placeholder" id="viewerPlaceholder">
+          <div class="viewer-placeholder-icon">
+            <i class="fas fa-cube"></i>
+          </div>
+          <h4>Interactive 3D Model</h4>
+          <p>
+            Upload your SolidWorks / Fusion 360 / STL file to
+            <strong style="color:var(--text-secondary);">sketchfab.com</strong>
+            (free), copy the embed URL, then paste it into<br>
+            <code>data-sketchfab-url="..."</code> in this HTML file.
+            <br><br>
+            The model will load here and visitors can rotate,
+            zoom, and inspect it in full 3D — no plugins required.
+          </p>
+        </div>
+
+        <!-- The iframe is injected here by the script below once a real URL is set -->
+
+      </div>
+
+      <!--
+        STEP 12 — Edit the caption below to describe your model.
+        Example: "Full SolidWorks assembly — 47 components, 6 DOF"
+      -->
+      <div class="viewer-caption">
+        <i class="fas fa-drafting-compass" style="color:var(--accent); margin-right:6px;"></i>
+        SolidWorks Assembly — [describe your model here, e.g. "47 components · 6 DOF · exported as STEP"]
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ===================== OUTCOMES ===================== -->
+  <div class="project-body" style="padding-top: 64px; padding-bottom: 64px;">
+    <div class="container">
+
       <div class="project-section-title" style="margin-bottom: 20px;">Outcomes</div>
       <div class="outcomes-grid">
-
+        <!--
+          STEP 13 — Fill in measurable outcomes.
+          Numbers impress recruiters. Use real values — estimates are fine.
+          Examples: accuracy %, weight saved, time reduced, grade received.
+        -->
         <div class="outcome-card">
           <div class="outcome-number">XX%</div>
           <div class="outcome-label">Metric or Achievement #1</div>
@@ -194,12 +486,12 @@
           <div class="outcome-number">A+</div>
           <div class="outcome-label">Grade Received / Recognition</div>
         </div>
-
       </div>
 
     </div>
   </div>
 
+  <!-- ===================== FOOTER ===================== -->
   <footer id="contact">
     <div class="container">
       <div class="footer-content">
@@ -229,5 +521,57 @@
   </footer>
 
   <script src="script.js"></script>
+
+  <!--
+    ═══════════════════════════════════════════════════════════════════════
+    3D VIEWER ACTIVATION SCRIPT
+    Reads data-sketchfab-url from the viewer wrapper div.
+    If a real URL has been pasted in, it hides the placeholder and injects
+    a live Sketchfab iframe.  If the URL is still the placeholder text,
+    the instructions panel stays visible — nothing breaks.
+    ═══════════════════════════════════════════════════════════════════════
+  -->
+  <script>
+    (function () {
+      const wrapper     = document.getElementById('cadViewer');
+      const placeholder = document.getElementById('viewerPlaceholder');
+      if (!wrapper || !placeholder) return;
+
+      const url = wrapper.getAttribute('data-sketchfab-url') || '';
+
+      /* Only activate when a real Sketchfab URL has been set */
+      if (url && url.startsWith('https://sketchfab.com')) {
+
+        /* Build a Sketchfab embed URL with ideal settings for a dark portfolio */
+        const embedBase = url.replace('/models/', '/models/').split('?')[0];
+        const params = new URLSearchParams({
+          autostart:          1,   /* starts spinning immediately      */
+          autospin:           0,   /* no auto-spin (user controls it)  */
+          ui_theme:           'dark',
+          ui_infos:           0,   /* hide top model-info bar          */
+          ui_watermark:       0,   /* hide Sketchfab logo              */
+          ui_stop:            0,
+          camera:             0,
+          preload:            1,
+          transparent:        0,
+          dnt:                1,
+        });
+
+        const iframe = document.createElement('iframe');
+        iframe.title             = 'Interactive 3D CAD Model';
+        iframe.src               = embedBase + (embedBase.includes('/embed') ? '' : '/embed') + '?' + params.toString();
+        iframe.allow             = 'autoplay; fullscreen; xr-spatial-tracking';
+        iframe.allowFullscreen   = true;
+        iframe.setAttribute('mozallowfullscreen', 'true');
+        iframe.setAttribute('webkitallowfullscreen', 'true');
+
+        placeholder.style.display = 'none';   /* hide instructions panel */
+        wrapper.appendChild(iframe);
+
+      }
+      /* else: placeholder instructions remain visible — no errors */
+    })();
+  </script>
+
 </body>
 </html>
