@@ -12,11 +12,22 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     #projects { padding-top: 120px; } 
+
+    /* FORCES THE NAV LINKS TO BE PERFECTLY CENTERED */
+    @media (min-width: 769px) {
+      .nav-links {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 2rem; /* Adjusts the spacing between the 3 links if needed */
+      }
+    }
   </style>
 </head>
 <body>
 
-  <nav id="navbar">
+  <nav id="navbar" style="position: relative;">
     <a href="index.html" class="nav-brand">SV</a>
     <ul class="nav-links">
       <li><a href="index.html#projects">Projects</a></li>
