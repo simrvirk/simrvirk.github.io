@@ -3,108 +3,149 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--
+    ============================================================
+    STEP 1: Change the <title> to your project name.
+    Example: <title>Chess Robot Arm — Simr Virk</title>
+    ============================================================
+  -->
   <title>Project Name — Simr Virk</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    /* FORCES THE NAV LINKS TO BE PERFECTLY CENTERED HORIZONTALLY AND VERTICALLY */
-    @media (min-width: 769px) {
-      .nav-links {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        display: flex;
-        gap: 2rem;
-        margin: 0;
-      }
-    }
-  </style>
 </head>
 <body class="project-page">
 
-  <nav id="navbar" style="position: relative;">
+  <!-- ===================== NAV (same as main page) ===================== -->
+  <nav id="navbar">
     <a href="index.html" class="nav-brand">SV</a>
     <ul class="nav-links">
+      <li><a href="index.html#about">About</a></li>
       <li><a href="index.html#projects">Projects</a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="index.html#skills">Skills</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
     </ul>
     <a href="resume.pdf" target="_blank" class="nav-resume">
       <i class="fas fa-file-alt"></i> Resume
     </a>
-    <button class="nav-toggle" id="navToggle" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
   </nav>
 
+  <!-- ===================== PROJECT HERO ===================== -->
   <div class="project-hero">
     <div class="container">
 
+      <!-- Back button -->
       <a href="index.html#projects" class="project-back">
         <i class="fas fa-arrow-left"></i> Back to All Projects
       </a>
 
       <div class="project-hero-grid">
 
+        <!-- Left: title & summary -->
         <div>
+          <!--
+            STEP 2: Change the category label.
+            Options: Robotics · Mechanical · Industry · Software · Embedded
+          -->
           <div class="project-category-label">Robotics / Mechatronics</div>
 
+          <!--
+            STEP 3: Change the project title.
+            Keep it concise — 2–5 words works best.
+          -->
           <h1 class="project-title">PROJECT<br>NAME HERE</h1>
 
+          <!--
+            STEP 4: Write a 2–3 sentence summary of the project.
+            What did you build? What problem did it solve?
+          -->
           <p class="project-summary">
             Write a concise 2–3 sentence summary of the project here.
             Explain what you built, what problem it solved, and the key
             technical achievement that makes this project noteworthy.
           </p>
 
+          <!--
+            STEP 5: Add your tech stack tags here.
+            Copy/paste more <span class="tag"> items as needed.
+          -->
           <div class="project-tech-list">
             <span class="tag">Python</span>
             <span class="tag">ROS</span>
             <span class="tag">SolidWorks</span>
             <span class="tag">OpenCV</span>
             <span class="tag">Arduino</span>
-            </div>
+            <!-- Add more tags here -->
+          </div>
         </div>
 
+        <!-- Right: metadata sidebar -->
         <div class="project-meta-card">
+          <!--
+            STEP 6: Fill in the metadata fields below.
+            Delete any fields that don't apply to your project.
+          -->
           <div class="project-meta-item">
             <div class="meta-label">Duration</div>
+            <!--  e.g. "Sep 2023 – Dec 2023 (4 months)"  -->
             <div class="meta-value">Month Year – Month Year</div>
           </div>
           <div class="project-meta-item">
             <div class="meta-label">Team Size</div>
+            <!-- e.g. "Solo Project" or "Team of 4" -->
             <div class="meta-value">Solo Project</div>
           </div>
           <div class="project-meta-item">
             <div class="meta-label">My Role</div>
+            <!-- e.g. "Lead Mechanical Designer & Firmware Dev" -->
             <div class="meta-value">Lead Engineer</div>
           </div>
           <div class="project-meta-item">
             <div class="meta-label">Course / Context</div>
+            <!-- e.g. "ENSC 461 — Mechatronic Systems Design" or "Personal Project" -->
             <div class="meta-value">ENSC 4XX · Project Name</div>
           </div>
           <div class="project-meta-item">
             <div class="meta-label">Status</div>
+            <!-- Change color class: status-complete or status-ongoing -->
             <div class="meta-value">
               <span class="card-status status-complete">✓ Completed</span>
             </div>
           </div>
+          <!--
+            OPTIONAL: Link to GitHub repo or demo video
+          <div class="project-meta-item">
+            <div class="meta-label">Links</div>
+            <div class="meta-value">
+              <a href="https://github.com/simrvirk/YOUR-REPO" target="_blank"
+                 style="color: var(--accent); text-decoration: underline;">GitHub Repo</a>
+            </div>
+          </div>
+          -->
         </div>
 
       </div>
     </div>
   </div>
 
+  <!-- ===================== PROJECT BODY ===================== -->
   <div class="project-body">
     <div class="container">
 
+      <!--
+        ================================================================
+        SECTION A: Overview & Problem Statement
+        ================================================================
+      -->
       <div class="project-body-grid">
         <div>
           <div class="project-section-title">The Problem</div>
+          <!--
+            STEP 7: Describe the problem or motivation for this project.
+            What need did it address? What were the constraints?
+          -->
           <p>
             Describe the problem or engineering challenge this project was
             designed to solve. Be specific — mention constraints, requirements,
@@ -117,6 +158,9 @@
         </div>
         <div>
           <div class="project-section-title">My Approach</div>
+          <!--
+            STEP 8: Describe your approach and key design decisions.
+          -->
           <p>
             Explain the approach you took to solve the problem. What design
             decisions did you make and why? What alternatives did you consider?
@@ -128,9 +172,22 @@
         </div>
       </div>
 
+      <!--
+        ================================================================
+        SECTION B: Photo Gallery
+        Add as many images as you like — just copy a .gallery-item block.
+        ================================================================
+      -->
       <div class="project-section-title" style="margin-bottom: 20px;">Gallery</div>
       <div class="project-gallery">
 
+        <!--
+          STEP 9: Add your images.
+          - Upload image files to your GitHub repo (same folder as this HTML file).
+          - Change src="your-image.jpg" to match your filename.
+          - Change the caption text to describe what's shown.
+          - Copy this block to add more images.
+        -->
         <div class="gallery-item">
           <img src="YOUR-IMAGE-1.jpg" alt="Description of image 1"
                onerror="this.parentElement.style.display='none'">
@@ -149,11 +206,22 @@
           <div class="gallery-caption">Caption for image 3</div>
         </div>
 
+        <!-- Add more gallery items here by copying the block above -->
+
       </div>
 
+      <!--
+        ================================================================
+        SECTION C: Technical Deep Dive
+        ================================================================
+      -->
       <div class="project-body-grid">
         <div>
           <div class="project-section-title">Technical Details</div>
+          <!--
+            STEP 10: Write about the technical implementation.
+            Describe hardware, software architecture, algorithms, etc.
+          -->
           <p>
             Describe the technical details of your implementation here.
             What hardware did you use? What software architecture did you design?
@@ -167,6 +235,11 @@
         </div>
         <div>
           <div class="project-section-title">Challenges &amp; Learnings</div>
+          <!--
+            STEP 11: What went wrong? What did you learn?
+            This section shows maturity and self-awareness — very valuable
+            to top recruiters.
+          -->
           <p>
             Describe the most significant technical challenge you encountered
             and how you resolved it. Be honest — challenges show real
@@ -179,9 +252,21 @@
         </div>
       </div>
 
+      <!--
+        ================================================================
+        SECTION D: Results / Outcomes
+        Use numbers wherever possible — they stand out to recruiters.
+        Delete this section if it doesn't apply to your project.
+        ================================================================
+      -->
       <div class="project-section-title" style="margin-bottom: 20px;">Outcomes</div>
       <div class="outcomes-grid">
 
+        <!--
+          STEP 12: Fill in measurable outcomes.
+          Examples: accuracy %, weight saved, time reduced, cost saved, etc.
+          Use real numbers if you have them — estimates are fine too.
+        -->
         <div class="outcome-card">
           <div class="outcome-number">XX%</div>
           <div class="outcome-label">Metric or Achievement #1</div>
@@ -200,6 +285,7 @@
     </div>
   </div>
 
+  <!-- ===================== FOOTER ===================== -->
   <footer id="contact">
     <div class="container">
       <div class="footer-content">
