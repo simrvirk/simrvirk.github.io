@@ -11,16 +11,46 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    #projects { padding-top: 120px; } 
+    /*
+     * ─── GAP FIX 1: TOP of page ────────────────────────────────────────────
+     * The nav is position:relative, meaning it already occupies its height
+     * in the normal document flow.  The old padding-top:120px was designed
+     * for a *fixed* nav and caused the large blank strip at the top.
+     * 32px gives just enough breathing room below the nav bar.
+     */
+    #projects {
+      padding-top: 32px;
+    }
 
-    /* FORCES THE NAV LINKS TO BE PERFECTLY CENTERED */
+    /*
+     * ─── GAP FIX 2: BOTTOM gap (between last card and "Let's build...") ───
+     * style.css applies padding:104px 0 to every <section>, so #projects
+     * had 104px of blank space underneath.  Then #contact/footer starts
+     * with another 100px of top padding — combined ~204px of dead space.
+     * We halve both, and also suppress the tall decorative vertical line
+     * (.footer-cta-line) that added another 80px of height.
+     */
+    #projects {
+      padding-bottom: 56px;
+    }
+    #contact {
+      padding-top: 52px;
+    }
+    .footer-cta {
+      margin-bottom: 44px;
+    }
+    .footer-cta-line {
+      display: none;          /* 80px tall decorative line — hidden */
+    }
+
+    /* ── NAV CENTERING ─────────────────────────────────────────────────── */
     @media (min-width: 769px) {
       .nav-links {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
-        gap: 2rem; /* Adjusts the spacing between the 3 links if needed */
+        gap: 2rem;
       }
     }
   </style>
@@ -58,6 +88,7 @@
       </div>
 
       <div class="projects-grid">
+
         <div class="project-card featured fade-up" data-category="industry" onclick="location.href='internship.html'">
           <div class="card-image">
             <img src="motorola-logo.png" alt="Motorola Solutions Internship"
@@ -221,14 +252,14 @@
           </div>
         </div>
 
-      </div>
-    </div>
+      </div><!-- /projects-grid -->
+    </div><!-- /container -->
   </section>
 
   <footer id="contact">
     <div class="container">
       <div class="footer-cta fade-up">
-        <div class="footer-cta-line"></div>
+        <!-- .footer-cta-line is hidden via the inline style above -->
         <h2 class="footer-heading">Let's build something<br><span class="accent">together.</span></h2>
         <p class="footer-sub">Open to new opportunities, collaborations, and conversations.</p>
         <a href="mailto:ssv10@sfu.ca" class="btn-primary footer-btn">
