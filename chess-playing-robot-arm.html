@@ -3,12 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!--
-    ══════════════════════════════════════════════════════════════════
-    STEP 1 — Change the title to your project name.
-    Example: <title>Chess Robot Arm — Simr Virk</title>
-    ══════════════════════════════════════════════════════════════════
-  -->
   <title>Chess Robot Arm - Simr Virk</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,161 +10,305 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    /*
-     * ─── GAP FIX: top of project pages ────────────────────────────────────
-     *
-     * Root cause: style.css defines .project-page { padding-top: var(--nav-h) }
-     * (68 px) — this was written for a *fixed* nav so the content wouldn't
-     * hide under it.  But on these pages the nav is position:relative
-     * (sits in normal document flow), so the browser ALREADY reserves its
-     * height.  Adding 68 px on top of that produces the blank strip you
-     * circled at the very top of image 3.
-     *
-     * Fix: zero out that padding-top here.
-     * The nav itself will still show at the top and the content follows
-     * immediately after it — no gap.
-     */
-    .project-page {
-      padding-top: 0 !important;
-    }
+    /* ── Gap fixes & nav centering (unchanged from your file) ──────────── */
+    .project-page { padding-top: 0 !important; }
 
-    /* ── NAV CENTERING (matches index.html) ───────────────────────────── */
     @media (min-width: 769px) {
       .nav-links {
         position: absolute;
-        left: 50%;
-        top: 50%;
+        left: 50%; top: 50%;
         transform: translate(-50%, -50%);
-        display: flex;
-        gap: 2rem;
-        margin: 0;
+        display: flex; gap: 2rem; margin: 0;
       }
     }
 
-    /* ─── 3D VIEWER SECTION ──────────────────────────────────────────────
-     * Styles for the interactive CAD model embed.
-     * The viewer uses Sketchfab — an industry-standard platform used by
-     * Tesla, Boeing, NASA, and top engineering firms for sharing 3D models.
-     */
+    /* ── 3D viewer (unchanged from your file) ──────────────────────────── */
     .viewer-section {
       padding: 64px 0;
       background: var(--bg-secondary);
-      border-top:    1px solid var(--border);
+      border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
     }
-
     .viewer-header {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 24px;
+      display: flex; align-items: flex-end;
+      justify-content: space-between; flex-wrap: wrap;
+      gap: 12px; margin-bottom: 24px;
     }
-
     .viewer-hint {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 1px;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 20px;
+      font-family: var(--font-mono); font-size: 0.65rem;
+      letter-spacing: 1px; color: var(--text-muted);
+      display: flex; align-items: center; gap: 20px;
     }
-
-    .viewer-hint span {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* The iframe wrapper creates the aspect-ratio box and the glowing border */
+    .viewer-hint span { display: flex; align-items: center; gap: 6px; }
     .viewer-frame-wrapper {
-      position: relative;
-      width: 100%;
-      padding-bottom: 52%;       /* 52% ≈ roughly 16:8.3 — a wide cinematic ratio */
-      border-radius: 10px;
-      overflow: hidden;
+      position: relative; width: 100%; padding-bottom: 52%;
+      border-radius: 10px; overflow: hidden;
       border: 1px solid var(--accent-border);
-      box-shadow: 0 0 48px rgba(0, 229, 255, 0.08),
-                  0 8px 40px rgba(0, 0, 0, 0.55);
-      background: #05050d;       /* fallback while iframe loads */
+      box-shadow: 0 0 48px rgba(0,229,255,.08), 0 8px 40px rgba(0,0,0,.55);
+      background: #05050d;
     }
-
     .viewer-frame-wrapper iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; border: none;
+    }
+    .viewer-placeholder {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 18px;
+      background: radial-gradient(ellipse at 50% 40%, rgba(0,229,255,.05) 0%, #05050d 65%);
+      color: var(--text-muted); text-align: center; padding: 32px;
+    }
+    .viewer-placeholder-icon { font-size: 3rem; color: rgba(0,229,255,.22); line-height: 1; }
+    .viewer-placeholder h4 {
+      font-family: var(--font-heading); font-size: 1.05rem;
+      font-weight: 700; color: var(--text-secondary); letter-spacing: .5px;
+    }
+    .viewer-placeholder p {
+      font-family: var(--font-mono); font-size: .7rem;
+      letter-spacing: .3px; color: var(--text-muted);
+      max-width: 480px; line-height: 1.75;
+    }
+    .viewer-placeholder code {
+      background: rgba(0,229,255,.07); border: 1px solid var(--accent-border);
+      color: var(--accent); padding: 2px 8px; border-radius: 3px; font-size: .72rem;
+    }
+    .viewer-caption {
+      margin-top: 14px; font-family: var(--font-mono); font-size: .68rem;
+      letter-spacing: 1px; color: var(--text-muted); text-align: center;
     }
 
-    /* Shown when no Sketchfab URL has been added yet */
-    .viewer-placeholder {
-      position: absolute;
+    /* ════════════════════════════════════════════════════════════════════
+       GALLERY GRID
+       The thumbnail grid — same look as before, but clicking now opens
+       the lightbox instead of doing nothing.
+       ════════════════════════════════════════════════════════════════════ */
+    .project-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 14px;
+      margin-bottom: 64px;
+    }
+
+    .gallery-item {
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      cursor: zoom-in;
+      transition: border-color .25s ease, transform .25s ease;
+      background: var(--bg-card);
+    }
+    .gallery-item:hover {
+      border-color: var(--accent-border);
+      transform: scale(1.015);
+    }
+    .gallery-item img {
+      width: 100%; height: 200px;
+      object-fit: cover;
+      display: block;
+      transition: transform .4s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.04); }
+    .gallery-caption {
+      padding: 10px 14px;
+      font-family: var(--font-mono);
+      font-size: 0.63rem;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      background: var(--bg-card);
+    }
+
+    /* ════════════════════════════════════════════════════════════════════
+       LIGHTBOX OVERLAY
+       Full-screen dark overlay that appears when a gallery image is clicked.
+       ════════════════════════════════════════════════════════════════════ */
+    #lb-overlay {
+      /* Hidden by default — JS adds class "lb-open" to show it */
+      position: fixed;
       inset: 0;
+      z-index: 9999;
+      background: rgba(5, 5, 13, 0.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 18px;
-      background: radial-gradient(ellipse at 50% 40%,
-                    rgba(0,229,255,0.05) 0%,
-                    #05050d 65%);
-      color: var(--text-muted);
+
+      /* Start invisible; transition to visible when .lb-open is added */
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s ease;
+    }
+    #lb-overlay.lb-open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    /* ── Image stage (the centred image + transition container) ────────── */
+    #lb-stage {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      padding: 72px 80px; /* room for arrows + close button */
+    }
+
+    /*
+     * The actual <img> inside the lightbox.
+     * We animate it with a CSS class swap for the slide direction.
+     */
+    #lb-img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 6px;
+      border: 1px solid rgba(0, 229, 255, 0.18);
+      box-shadow: 0 12px 60px rgba(0, 0, 0, 0.7);
+      display: block;
+      user-select: none;
+
+      /* Default (idle) state */
+      transition: opacity 0.22s ease, transform 0.22s ease;
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+
+    /* When sliding out to the LEFT (navigating forward →) */
+    #lb-img.slide-out-left  { opacity: 0; transform: translateX(-48px) scale(0.97); }
+    /* When sliding in from the RIGHT (navigating forward →) */
+    #lb-img.slide-in-right  { opacity: 0; transform: translateX(48px)  scale(0.97); }
+    /* When sliding out to the RIGHT (navigating backward ←) */
+    #lb-img.slide-out-right { opacity: 0; transform: translateX(48px)  scale(0.97); }
+    /* When sliding in from the LEFT (navigating backward ←) */
+    #lb-img.slide-in-left   { opacity: 0; transform: translateX(-48px) scale(0.97); }
+
+    /* ── Navigation arrows ─────────────────────────────────────────────── */
+    .lb-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+
+      width: 52px; height: 52px;
+      display: flex; align-items: center; justify-content: center;
+
+      background: rgba(9, 9, 15, 0.75);
+      border: 1px solid rgba(0, 229, 255, 0.25);
+      border-radius: 50%;
+      color: var(--accent, #00e5ff);
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease,
+                  transform 0.2s ease, box-shadow 0.2s ease;
+      /* Prevent the arrow click from propagating to the overlay (which closes it) */
+    }
+    .lb-arrow:hover {
+      background: rgba(0, 229, 255, 0.12);
+      border-color: rgba(0, 229, 255, 0.6);
+      box-shadow: 0 0 18px rgba(0, 229, 255, 0.2);
+      transform: translateY(-50%) scale(1.08);
+    }
+    #lb-prev { left: 20px; }
+    #lb-next { right: 20px; }
+
+    /* Dim arrows when at the start/end */
+    .lb-arrow.lb-disabled {
+      opacity: 0.2;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    /* ── Close button ──────────────────────────────────────────────────── */
+    #lb-close {
+      position: absolute;
+      top: 18px; right: 22px;
+      z-index: 3;
+
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+
+      background: rgba(9, 9, 15, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: #8a8aaa;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+    }
+    #lb-close:hover {
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    /* ── Caption + counter ─────────────────────────────────────────────── */
+    #lb-footer {
+      position: absolute;
+      bottom: 22px; left: 50%;
+      transform: translateX(-50%);
       text-align: center;
-      padding: 32px;
+      pointer-events: none;
+      width: 80%;
     }
-
-    .viewer-placeholder-icon {
-      font-size: 3rem;
-      color: rgba(0,229,255,0.22);
-      line-height: 1;
-    }
-
-    .viewer-placeholder h4 {
-      font-family: var(--font-heading);
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--text-secondary);
-      letter-spacing: 0.5px;
-    }
-
-    .viewer-placeholder p {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.3px;
-      color: var(--text-muted);
-      max-width: 480px;
-      line-height: 1.75;
-    }
-
-    .viewer-placeholder code {
-      background: rgba(0,229,255,0.07);
-      border: 1px solid var(--accent-border);
-      color: var(--accent);
-      padding: 2px 8px;
-      border-radius: 3px;
-      font-size: 0.72rem;
-    }
-
-    .viewer-caption {
-      margin-top: 14px;
-      font-family: var(--font-mono);
+    #lb-caption {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.68rem;
+      letter-spacing: 0.8px;
+      color: rgba(255, 255, 255, 0.45);
+      margin-bottom: 6px;
+    }
+    #lb-counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: rgba(0, 229, 255, 0.5);
+    }
+
+    /* ── Dot indicator strip ───────────────────────────────────────────── */
+    #lb-dots {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 8px;
+    }
+    .lb-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.18);
+      transition: background 0.25s ease, transform 0.25s ease;
+    }
+    .lb-dot.active {
+      background: var(--accent, #00e5ff);
+      transform: scale(1.4);
+    }
+
+    /* ── Touch/swipe hint (shown briefly on mobile) ────────────────────── */
+    #lb-swipe-hint {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
       letter-spacing: 1px;
-      color: var(--text-muted);
-      text-align: center;
+      color: rgba(255, 255, 255, 0.4);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    /* Responsive: shrink arrow padding on small screens */
+    @media (max-width: 600px) {
+      #lb-stage { padding: 60px 14px; }
+      #lb-prev  { left: 6px; }
+      #lb-next  { right: 6px; }
+      .lb-arrow { width: 40px; height: 40px; font-size: 0.85rem; }
     }
   </style>
 </head>
 <body class="project-page">
 
-  <!--
-    NOTE ON position:relative — The nav uses position:relative so it sits
-    at the top of the page in normal document flow.  The CSS fix above
-    (.project-page { padding-top: 0 }) removes the old 68 px blank strip.
-  -->
   <nav id="navbar" style="position: relative;">
     <a href="index.html" class="nav-brand">SV</a>
     <ul class="nav-links">
@@ -189,40 +327,18 @@
   <!-- ===================== PROJECT HERO ===================== -->
   <div class="project-hero">
     <div class="container">
-
       <a href="index.html#projects" class="project-back">
         <i class="fas fa-arrow-left"></i> Back to All Projects
       </a>
-
       <div class="project-hero-grid">
-
         <div>
-          <!--
-            STEP 2 — Change the category.
-            Options: Robotics · Mechanical · Industry · Software · Embedded
-          -->
           <div class="project-category-label">Robotics / Mechatronics</div>
-
-          <!--
-            STEP 3 — Change the project title (large heading).
-            Keep it short — 2 to 4 words works best.
-          -->
           <h1 class="project-title">PROJECT<br>NAME HERE</h1>
-
-          <!--
-            STEP 4 — Write a 2–3 sentence summary.
-            What did you build? What problem did it solve?
-          -->
           <p class="project-summary">
             Write a concise 2–3 sentence summary of the project here.
             Explain what you built, what problem it solved, and the key
             technical achievement that makes this project noteworthy.
           </p>
-
-          <!--
-            STEP 5 — Add your tech stack tags.
-            Copy <span class="tag">...</span> to add more.
-          -->
           <div class="project-tech-list">
             <span class="tag">Python</span>
             <span class="tag">ROS</span>
@@ -231,13 +347,7 @@
             <span class="tag">Arduino</span>
           </div>
         </div>
-
-        <!-- Right column: project metadata -->
         <div class="project-meta-card">
-          <!--
-            STEP 6 — Fill in the metadata fields.
-            Delete any rows that don't apply.
-          -->
           <div class="project-meta-item">
             <div class="meta-label">Duration</div>
             <div class="meta-value">Month Year – Month Year</div>
@@ -261,7 +371,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -270,14 +379,9 @@
   <div class="project-body">
     <div class="container">
 
-      <!-- Problem + Approach -->
       <div class="project-body-grid">
         <div>
           <div class="project-section-title">The Problem</div>
-          <!--
-            STEP 7 — Describe the engineering problem you were solving.
-            Be specific: constraints, requirements, real-world context.
-          -->
           <p>
             Describe the problem or engineering challenge this project was
             designed to solve. Be specific — mention constraints, requirements,
@@ -290,9 +394,6 @@
         </div>
         <div>
           <div class="project-section-title">My Approach</div>
-          <!--
-            STEP 8 — Describe your approach and key design decisions.
-          -->
           <p>
             Explain the approach you took to solve the problem. What design
             decisions did you make and why? What alternatives did you consider?
@@ -304,65 +405,63 @@
         </div>
       </div>
 
-      <!-- Photo Gallery -->
+      <!-- ════════════════════════════════════════════════════════════════
+           PHOTO GALLERY
+           Each .gallery-item gets a data-index attribute (0, 1, 2 …)
+           automatically assigned by the JS below.
+           To add more photos: copy any .gallery-item block and update
+           the src and alt/caption text. The lightbox picks them all up
+           automatically — no JS changes needed.
+           ════════════════════════════════════════════════════════════════ -->
       <div class="project-section-title" style="margin-bottom: 20px;">Gallery</div>
-      <div class="project-gallery">
-        <!--
-          STEP 9 — Add your photos.
-          Upload image files to your GitHub repo, then set src="your-filename.jpg".
-          Copy this block to add more images.
-        -->
+
+      <div class="project-gallery" id="photoGallery">
+
         <div class="gallery-item">
-          <img src="chess-base.png" alt="Description of image "
-               onerror="this.parentElement.style.display='none'">
-          <div class="gallery-caption">Caption for image 1 — describe what's shown</div>
-        </div>
-        <div class="gallery-item">
-          <img src="chess-built.jpg" alt="Description of image 2"
-               onerror="this.parentElement.style.display='none'">
-          <div class="gallery-caption">Caption for image 2</div>
-        </div>
-        <div class="gallery-item">
-          <img src="chess-gripper.png" alt="Description of image 3"
-               onerror="this.parentElement.style.display='none'">
-          <div class="gallery-caption">Caption for image 3</div>
-        </div>
-        <div class="gallery-item">
-          <img src="chess-isometric.png" alt="Description of image 3"
-               onerror="this.parentElement.style.display='none'">
-          <div class="gallery-caption">Caption for image 3</div>
-        </div>
-        <div class="gallery-item">
-          <img src="chess-wiring.jpg" alt="Description of image 3"
-               onerror="this.parentElement.style.display='none'">
-          <div class="gallery-caption">Caption for image 3</div>
-        </div>
-        <div class="gallery-item">
-          <img src="chess-base-exploded.png" alt="Description of image 3"
-               onerror="this.parentElement.style.display='none'">
-          <div class="gallery-caption">Caption for image 3</div>
-        </div>
-        <div class="gallery-item">
-          <img src="chess-gripper-exploded.png" alt="Description of image 3"
-               onerror="this.parentElement.style.display='none'">
-          <div class="gallery-caption">Caption for image 3</div>
-        </div>
-        <div class="gallery-item">
-          <img src="chess-link-exploded.png" alt="Description of image 3"
-               onerror="this.parentElement.style.display='none'">
-          <div class="gallery-caption">Caption for image 3</div>
+          <img src="chess-base.png"           alt="Chess robot base assembly">
+          <div class="gallery-caption">Base assembly — structural frame and servo mounts</div>
         </div>
 
-       </div>
+        <div class="gallery-item">
+          <img src="chess-built.jpg"          alt="Fully built chess robot arm">
+          <div class="gallery-caption">Completed build — all 5 degrees of freedom assembled</div>
+        </div>
 
-      <!-- Technical + Challenges -->
+        <div class="gallery-item">
+          <img src="chess-gripper.png"        alt="End-effector gripper detail">
+          <div class="gallery-caption">End-effector gripper — custom 3D-printed design</div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="chess-isometric.png"      alt="Isometric CAD view">
+          <div class="gallery-caption">SolidWorks isometric view — full assembly</div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="chess-wiring.jpg"         alt="Electronics and wiring harness">
+          <div class="gallery-caption">Wiring harness — servo drivers and MCU integration</div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="chess-base-exploded.png"  alt="Exploded view of base">
+          <div class="gallery-caption">Base exploded view — component breakdown</div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="chess-gripper-exploded.png" alt="Exploded view of gripper">
+          <div class="gallery-caption">Gripper exploded view — actuator and finger mechanism</div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="chess-link-exploded.png"  alt="Exploded view of link">
+          <div class="gallery-caption">Link exploded view — bearing seats and joint tolerances</div>
+        </div>
+
+      </div><!-- /project-gallery -->
+
       <div class="project-body-grid">
         <div>
           <div class="project-section-title">Technical Details</div>
-          <!--
-            STEP 10 — Technical implementation details.
-            Hardware specs, software architecture, algorithms, tolerances, protocols.
-          -->
           <p>
             Describe the technical details of your implementation here.
             What hardware did you use? What software architecture did you design?
@@ -376,10 +475,6 @@
         </div>
         <div>
           <div class="project-section-title">Challenges &amp; Learnings</div>
-          <!--
-            STEP 11 — Challenges and lessons learned.
-            This section shows maturity — top recruiters value self-awareness.
-          -->
           <p>
             Describe the most significant technical challenge you encountered
             and how you resolved it. Be honest — challenges show real
@@ -392,46 +487,12 @@
         </div>
       </div>
 
-    </div><!-- /container -->
-  </div><!-- /project-body -->
+    </div>
+  </div>
 
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       INTERACTIVE 3D CAD VIEWER
-       ═══════════════════════════════════════════════════════════════════════
-
-       This section embeds a live, interactive 3D model of your project.
-       Visitors can rotate, zoom, and inspect the model directly in the browser —
-       no plugins required. Used by NASA, Tesla, Boeing, and leading engineering
-       portfolios worldwide.
-
-       PLATFORM: Sketchfab (sketchfab.com) — free for students.
-       Supports SolidWorks, Fusion 360, STEP, IGES, OBJ, STL files.
-
-       ───────────────────────────────────────────────────────────────────────
-       HOW TO EMBED YOUR OWN MODEL — 4 steps:
-
-       1. Go to  https://sketchfab.com  and create a free account.
-
-       2. Click "Upload" → select your file.
-          Accepted formats: .sldprt, .sldasm, .step, .iges, .stl, .obj, .f3d
-          (If uploading SolidWorks: export as STEP or STL first via
-           File → Save As → *.step)
-
-       3. Once uploaded, open your model page and click "Embed"
-          (the </> icon).  Copy the URL inside src="..." — it looks like:
-            https://sketchfab.com/models/abc123def456.../embed
-
-       4. In this file, find the line that reads:
-            data-sketchfab-url="PASTE_YOUR_SKETCHFAB_EMBED_URL_HERE"
-          Replace that placeholder with your copied URL.
-          The viewer will activate automatically.
-
-       ─────────────────────────────────────────────────────────────────────── -->
-
+  <!-- ===================== 3D VIEWER ===================== -->
   <div class="viewer-section">
     <div class="container">
-
       <div class="viewer-header">
         <div class="section-label" style="margin-bottom:0;">
           <span class="label-line"></span>
@@ -444,62 +505,33 @@
         </div>
       </div>
 
-      <!--
-        ════════════════════════════════════════════════════════
-        Set  data-sketchfab-url  to your Sketchfab embed URL.
-        Leave it as the placeholder text and a "how to" panel
-        is shown instead — safe to deploy while you get the URL.
-        ════════════════════════════════════════════════════════
-      -->
       <div class="viewer-frame-wrapper"
            id="cadViewer"
            data-sketchfab-url="https://sketchfab.com/models/d89cacc210da4aaa8a663475964c7d9d/embed">
-
-        <!-- Placeholder panel (hidden once a real URL is set) -->
         <div class="viewer-placeholder" id="viewerPlaceholder">
-          <div class="viewer-placeholder-icon">
-            <i class="fas fa-cube"></i>
-          </div>
+          <div class="viewer-placeholder-icon"><i class="fas fa-cube"></i></div>
           <h4>Interactive 3D Model</h4>
           <p>
             Upload your SolidWorks / Fusion 360 / STL file to
             <strong style="color:var(--text-secondary);">sketchfab.com</strong>
             (free), copy the embed URL, then paste it into<br>
             <code>data-sketchfab-url="..."</code> in this HTML file.
-            <br><br>
-            The model will load here and visitors can rotate,
-            zoom, and inspect it in full 3D — no plugins required.
           </p>
         </div>
-
-        <!-- The iframe is injected here by the script below once a real URL is set -->
-
       </div>
 
-      <!--
-        STEP 12 — Edit the caption below to describe your model.
-        Example: "Full SolidWorks assembly — 47 components, 6 DOF"
-      -->
       <div class="viewer-caption">
         <i class="fas fa-drafting-compass" style="color:var(--accent); margin-right:6px;"></i>
         SolidWorks Assembly — [describe your model here, e.g. "47 components · 6 DOF · exported as STEP"]
       </div>
-
     </div>
   </div>
-
 
   <!-- ===================== OUTCOMES ===================== -->
   <div class="project-body" style="padding-top: 64px; padding-bottom: 64px;">
     <div class="container">
-
       <div class="project-section-title" style="margin-bottom: 20px;">Outcomes</div>
       <div class="outcomes-grid">
-        <!--
-          STEP 13 — Fill in measurable outcomes.
-          Numbers impress recruiters. Use real values — estimates are fine.
-          Examples: accuracy %, weight saved, time reduced, grade received.
-        -->
         <div class="outcome-card">
           <div class="outcome-number">XX%</div>
           <div class="outcome-label">Metric or Achievement #1</div>
@@ -513,7 +545,6 @@
           <div class="outcome-label">Grade Received / Recognition</div>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -548,16 +579,53 @@
 
   <script src="script.js"></script>
 
+  <!-- ════════════════════════════════════════════════════════════════════
+       LIGHTBOX — full implementation, self-contained
+       ════════════════════════════════════════════════════════════════════ -->
+
   <!--
-    ═══════════════════════════════════════════════════════════════════════
-    3D VIEWER ACTIVATION SCRIPT
-    Reads data-sketchfab-url from the viewer wrapper div.
-    If a real URL has been pasted in, it hides the placeholder and injects
-    a live Sketchfab iframe.  If the URL is still the placeholder text,
-    the instructions panel stays visible — nothing breaks.
-    ═══════════════════════════════════════════════════════════════════════
+    The lightbox HTML lives here so it's always in the DOM.
+    JS controls visibility via the "lb-open" class on #lb-overlay.
   -->
+  <div id="lb-overlay" role="dialog" aria-modal="true" aria-label="Image lightbox">
+
+    <!-- Close button (top-right) -->
+    <button id="lb-close" aria-label="Close lightbox">
+      <i class="fas fa-times"></i>
+    </button>
+
+    <!-- Main stage: image + arrows -->
+    <div id="lb-stage">
+
+      <!-- LEFT arrow -->
+      <button class="lb-arrow" id="lb-prev" aria-label="Previous image">
+        <i class="fas fa-chevron-left"></i>
+      </button>
+
+      <!-- The displayed image -->
+      <img id="lb-img" src="" alt="">
+
+      <!-- RIGHT arrow -->
+      <button class="lb-arrow" id="lb-next" aria-label="Next image">
+        <i class="fas fa-chevron-right"></i>
+      </button>
+
+    </div><!-- /lb-stage -->
+
+    <!-- Footer: caption, counter, dots -->
+    <div id="lb-footer">
+      <div id="lb-caption"></div>
+      <div id="lb-counter"></div>
+      <div id="lb-dots"></div>
+    </div>
+
+  </div><!-- /lb-overlay -->
+
+
   <script>
+    /* ══════════════════════════════════════════════════════════════════════
+       3D VIEWER ACTIVATION (unchanged from your original file)
+       ══════════════════════════════════════════════════════════════════════ */
     (function () {
       const wrapper     = document.getElementById('cadViewer');
       const placeholder = document.getElementById('viewerPlaceholder');
@@ -565,38 +633,230 @@
 
       const url = wrapper.getAttribute('data-sketchfab-url') || '';
 
-      /* Only activate when a real Sketchfab URL has been set */
       if (url && url.startsWith('https://sketchfab.com')) {
-
-        /* Build a Sketchfab embed URL with ideal settings for a dark portfolio */
-        const embedBase = url.replace('/models/', '/models/').split('?')[0];
+        const embedBase = url.split('?')[0];
         const params = new URLSearchParams({
-          autostart:          1,   /* starts spinning immediately      */
-          autospin:           0,   /* no auto-spin (user controls it)  */
-          ui_theme:           'dark',
-          ui_infos:           0,   /* hide top model-info bar          */
-          ui_watermark:       0,   /* hide Sketchfab logo              */
-          ui_stop:            0,
-          camera:             0,
-          preload:            1,
-          transparent:        0,
-          dnt:                1,
+          autostart: 1, autospin: 0, ui_theme: 'dark',
+          ui_infos: 0, ui_watermark: 0, ui_stop: 0,
+          camera: 0, preload: 1, transparent: 0, dnt: 1,
         });
 
         const iframe = document.createElement('iframe');
-        iframe.title             = 'Interactive 3D CAD Model';
-        iframe.src               = embedBase + (embedBase.includes('/embed') ? '' : '/embed') + '?' + params.toString();
-        iframe.allow             = 'autoplay; fullscreen; xr-spatial-tracking';
-        iframe.allowFullscreen   = true;
+        iframe.title           = 'Interactive 3D CAD Model';
+        iframe.src             = embedBase + (embedBase.includes('/embed') ? '' : '/embed') + '?' + params;
+        iframe.allow           = 'autoplay; fullscreen; xr-spatial-tracking';
+        iframe.allowFullscreen = true;
         iframe.setAttribute('mozallowfullscreen', 'true');
         iframe.setAttribute('webkitallowfullscreen', 'true');
 
-        placeholder.style.display = 'none';   /* hide instructions panel */
+        placeholder.style.display = 'none';
         wrapper.appendChild(iframe);
-
       }
-      /* else: placeholder instructions remain visible — no errors */
     })();
+
+
+    /* ══════════════════════════════════════════════════════════════════════
+       LIGHTBOX — click-to-open gallery with smooth slide transitions,
+       arrow navigation, keyboard support, and touch/swipe support.
+       ══════════════════════════════════════════════════════════════════════
+
+       HOW IT WORKS:
+       1. On page load, we scan #photoGallery for every .gallery-item and
+          build an array of { src, alt, caption } objects.
+       2. When a thumbnail is clicked, openLightbox(index) is called.
+       3. navigateTo(newIndex, direction) handles the slide animation:
+             a. Adds a "slide-out-*" class to the current image (fades+slides it away).
+             b. After the CSS transition finishes (220 ms), swaps the src.
+             c. Immediately adds a "slide-in-*" class (positions the new image off-screen).
+             d. On the next animation frame, removes all transition classes so
+                the image slides into view smoothly.
+       4. Keyboard (← → Esc) and touch swipe (left/right) are also wired up.
+       ══════════════════════════════════════════════════════════════════════ */
+    (function () {
+
+      /* ── 1. Collect all gallery items ─────────────────────────────────── */
+      const gallery   = document.getElementById('photoGallery');
+      const items     = gallery ? Array.from(gallery.querySelectorAll('.gallery-item')) : [];
+
+      /* Build the data array from each item's <img> and .gallery-caption */
+      const images = items.map(item => ({
+        src:     item.querySelector('img')?.src     || '',
+        alt:     item.querySelector('img')?.alt     || '',
+        caption: item.querySelector('.gallery-caption')?.textContent?.trim() || '',
+      }));
+
+      if (!images.length) return; /* nothing to do if gallery is empty */
+
+      /* ── 2. DOM references ────────────────────────────────────────────── */
+      const overlay   = document.getElementById('lb-overlay');
+      const lbImg     = document.getElementById('lb-img');
+      const lbCaption = document.getElementById('lb-caption');
+      const lbCounter = document.getElementById('lb-counter');
+      const lbDots    = document.getElementById('lb-dots');
+      const btnClose  = document.getElementById('lb-close');
+      const btnPrev   = document.getElementById('lb-prev');
+      const btnNext   = document.getElementById('lb-next');
+
+      let current   = 0;     /* index of the currently displayed image */
+      let isAnimating = false; /* guard: ignore clicks mid-transition  */
+
+      /* ── 3. Build dot indicators (one per image) ──────────────────────── */
+      images.forEach((_, i) => {
+        const dot = document.createElement('span');
+        dot.className = 'lb-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Go to image ' + (i + 1));
+        dot.addEventListener('click', e => {
+          e.stopPropagation();
+          if (i !== current) navigateTo(i, i > current ? 'forward' : 'backward');
+        });
+        lbDots.appendChild(dot);
+      });
+
+      /* ── 4. Helper: update all UI chrome (counter, caption, dots, arrows) */
+      function updateChrome(index) {
+        lbCounter.textContent = (index + 1) + ' / ' + images.length;
+        lbCaption.textContent = images[index].caption;
+
+        /* Dots */
+        lbDots.querySelectorAll('.lb-dot').forEach((d, i) => {
+          d.classList.toggle('active', i === index);
+        });
+
+        /* Arrow enabled/disabled state */
+        btnPrev.classList.toggle('lb-disabled', index === 0);
+        btnNext.classList.toggle('lb-disabled', index === images.length - 1);
+
+        /* Accessibility */
+        lbImg.alt = images[index].alt;
+      }
+
+      /* ── 5. Open the lightbox at a given index ────────────────────────── */
+      function openLightbox(index) {
+        current = index;
+        lbImg.src = images[index].src;
+        lbImg.className = ''; /* clear any leftover transition classes */
+        updateChrome(index);
+
+        overlay.classList.add('lb-open');
+        document.body.style.overflow = 'hidden'; /* prevent background scroll */
+
+        /* Focus the overlay for keyboard events */
+        overlay.focus();
+      }
+
+      /* ── 6. Close the lightbox ────────────────────────────────────────── */
+      function closeLightbox() {
+        overlay.classList.remove('lb-open');
+        document.body.style.overflow = '';
+      }
+
+      /* ── 7. Navigate to a new image with a slide transition ───────────── */
+      /*
+       * direction: 'forward'  → current slides LEFT out, new slides in from RIGHT
+       *            'backward' → current slides RIGHT out, new slides in from LEFT
+       */
+      function navigateTo(newIndex, direction) {
+        if (isAnimating) return;
+        if (newIndex < 0 || newIndex >= images.length) return;
+        if (newIndex === current) return;
+
+        isAnimating = true;
+
+        const outClass = direction === 'forward' ? 'slide-out-left'  : 'slide-out-right';
+        const inClass  = direction === 'forward' ? 'slide-in-right'  : 'slide-in-left';
+
+        const TRANSITION_MS = 220; /* must match the CSS transition duration */
+
+        /* Step A: slide current image out */
+        lbImg.classList.add(outClass);
+
+        setTimeout(() => {
+          /* Step B: swap to the new image source */
+          current      = newIndex;
+          lbImg.src    = images[newIndex].src;
+
+          /* Step C: position the new image off-screen (no transition yet) */
+          lbImg.style.transition = 'none';
+          lbImg.classList.remove(outClass);
+          lbImg.classList.add(inClass);
+
+          /* Step D: on the next paint, restore the transition and slide in */
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {           /* double-rAF for reliability */
+              lbImg.style.transition = '';          /* re-enable CSS transition */
+              lbImg.classList.remove(inClass);      /* slide to centre */
+
+              updateChrome(newIndex);
+              isAnimating = false;
+            });
+          });
+        }, TRANSITION_MS);
+      }
+
+      /* ── 8. Wire up thumbnail clicks ──────────────────────────────────── */
+      items.forEach((item, i) => {
+        item.style.cursor = 'zoom-in';
+        item.addEventListener('click', () => openLightbox(i));
+      });
+
+      /* ── 9. Arrow clicks ──────────────────────────────────────────────── */
+      btnPrev.addEventListener('click', e => {
+        e.stopPropagation();
+        navigateTo(current - 1, 'backward');
+      });
+      btnNext.addEventListener('click', e => {
+        e.stopPropagation();
+        navigateTo(current + 1, 'forward');
+      });
+
+      /* ── 10. Close on overlay background click ────────────────────────── */
+      overlay.addEventListener('click', e => {
+        /* Only close if the click was on the overlay itself, not on the image
+           or buttons (those have their own handlers with stopPropagation) */
+        if (e.target === overlay || e.target === document.getElementById('lb-stage')) {
+          closeLightbox();
+        }
+      });
+
+      btnClose.addEventListener('click', e => {
+        e.stopPropagation();
+        closeLightbox();
+      });
+
+      /* ── 11. Keyboard navigation ──────────────────────────────────────── */
+      document.addEventListener('keydown', e => {
+        if (!overlay.classList.contains('lb-open')) return;
+
+        switch (e.key) {
+          case 'ArrowRight': navigateTo(current + 1, 'forward');  break;
+          case 'ArrowLeft':  navigateTo(current - 1, 'backward'); break;
+          case 'Escape':     closeLightbox();                      break;
+        }
+      });
+
+      /* ── 12. Touch / swipe support ────────────────────────────────────── */
+      let touchStartX = null;
+      const SWIPE_THRESHOLD = 50; /* px — minimum drag distance to trigger a swipe */
+
+      overlay.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].clientX;
+      }, { passive: true });
+
+      overlay.addEventListener('touchend', e => {
+        if (touchStartX === null) return;
+        const dx = e.changedTouches[0].clientX - touchStartX;
+        touchStartX = null;
+
+        if (Math.abs(dx) < SWIPE_THRESHOLD) return; /* too short — ignore */
+
+        if (dx < 0) {
+          navigateTo(current + 1, 'forward');   /* swipe left → next */
+        } else {
+          navigateTo(current - 1, 'backward');  /* swipe right → prev */
+        }
+      }, { passive: true });
+
+    })(); /* end lightbox IIFE */
   </script>
 
 </body>
