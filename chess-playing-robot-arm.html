@@ -9,8 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <style>
-    /* ── Gap fixes & nav centering (unchanged from your file) ──────────── */
+    /* ── Gap fix & nav centering (unchanged) ──────────────────────────── */
     .project-page { padding-top: 0 !important; }
 
     @media (min-width: 769px) {
@@ -22,7 +23,188 @@
       }
     }
 
-    /* ── 3D viewer (unchanged from your file) ──────────────────────────── */
+    /* ════════════════════════════════════════════════════════════════════
+       INLINE CAROUSEL
+       ─────────────────────────────────────────────────────────────────
+       The carousel is always visible on the page — no click required.
+       It sits directly in the document flow, between "My Approach" and
+       "Technical Details".
+
+       Visual layout (top → bottom):
+         1. Header row  ← "Photos" label  +  "2 / 8" counter
+         2. Stage       ← large image with left/right arrow buttons
+         3. Caption     ← always-visible text describing the current photo
+         4. Dot strip   ← one dot per image; active dot is highlighted
+         5. Thumb strip ← small clickable thumbnails for quick jumping
+       ════════════════════════════════════════════════════════════════════ */
+
+    .carousel-shell { margin-bottom: 64px; }
+
+    /* Row 1 — header */
+    .carousel-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .carousel-counter {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 2px;
+      color: var(--accent, #00e5ff);
+      opacity: 0.75;
+    }
+
+    /* Row 2 — stage */
+    .carousel-stage {
+      position: relative;
+      width: 100%;
+      height: 540px;           /* fixed height so layout never jumps */
+      background: #05050d;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--accent-border, rgba(0,229,255,.28));
+      box-shadow: 0 0 48px rgba(0,229,255,.07),
+                  0 8px 40px rgba(0,0,0,.55);
+    }
+
+    /*
+     * Two <img> elements, always in the DOM, stacked in the same cell.
+     * One is the "foreground" (fully opaque, on top).
+     * The other is the "background" (hidden, waiting to become the next image).
+     * JS swaps them on every navigation — no createElement needed mid-animation.
+     */
+    .carousel-img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: contain;   /* show whole image, no cropping */
+      padding: 16px;         /* small gap from stage edge */
+      user-select: none;
+      -webkit-user-drag: none;
+      pointer-events: none;
+      /* JS sets opacity, transform, z-index, and transition via inline style */
+    }
+
+    /* Arrows */
+    .c-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(9,9,15,.72);
+      border: 1px solid rgba(0,229,255,.28);
+      border-radius: 50%;
+      color: var(--accent, #00e5ff);
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background .22s ease, border-color .22s ease,
+                  box-shadow .22s ease, transform .22s ease;
+    }
+    .c-arrow:hover {
+      background: rgba(0,229,255,.14);
+      border-color: rgba(0,229,255,.7);
+      box-shadow: 0 0 20px rgba(0,229,255,.22);
+      transform: translateY(-50%) scale(1.1);
+    }
+    .c-arrow:active { transform: translateY(-50%) scale(0.96); }
+    #c-prev { left: 14px; }
+    #c-next { right: 14px; }
+
+    /* Row 3 — caption */
+    .carousel-caption-area {
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 56px;   /* side padding keeps text away from arrow zone */
+      text-align: center;
+    }
+    #c-caption {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.6px;
+      color: var(--text-muted, #50506a);
+      line-height: 1.6;
+      transition: opacity .22s ease;
+    }
+    #c-caption.fading { opacity: 0; }
+
+    /* Row 4 — dots */
+    .c-dots {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      margin-bottom: 16px;
+    }
+    .c-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.15);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: background .25s ease, transform .25s ease;
+      flex-shrink: 0;
+    }
+    .c-dot.active {
+      background: var(--accent, #00e5ff);
+      transform: scale(1.55);
+    }
+    .c-dot:hover:not(.active) { background: rgba(0,229,255,.45); }
+
+    /* Row 5 — thumbnail strip */
+    .c-thumbs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .c-thumbs::-webkit-scrollbar { display: none; }
+
+    .c-thumb {
+      flex-shrink: 0;
+      width: 72px; height: 52px;
+      border-radius: 5px;
+      overflow: hidden;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      opacity: 0.42;
+      transition: border-color .22s ease, opacity .22s ease, transform .22s ease;
+    }
+    .c-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+    .c-thumb.active {
+      border-color: var(--accent, #00e5ff);
+      opacity: 1;
+      transform: scale(1.07);
+    }
+    .c-thumb:hover:not(.active) {
+      opacity: 0.78;
+      border-color: rgba(0,229,255,.4);
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .carousel-stage { height: 300px; }
+      .c-arrow { width: 38px; height: 38px; font-size: 0.8rem; }
+      #c-prev  { left: 8px; }
+      #c-next  { right: 8px; }
+      .carousel-caption-area { padding: 12px 16px; }
+    }
+
+    /* ── 3D viewer (unchanged) ─────────────────────────────────────────── */
     .viewer-section {
       padding: 64px 0;
       background: var(--bg-secondary);
@@ -75,235 +257,6 @@
     .viewer-caption {
       margin-top: 14px; font-family: var(--font-mono); font-size: .68rem;
       letter-spacing: 1px; color: var(--text-muted); text-align: center;
-    }
-
-    /* ════════════════════════════════════════════════════════════════════
-       GALLERY GRID
-       The thumbnail grid — same look as before, but clicking now opens
-       the lightbox instead of doing nothing.
-       ════════════════════════════════════════════════════════════════════ */
-    .project-gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 14px;
-      margin-bottom: 64px;
-    }
-
-    .gallery-item {
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      cursor: zoom-in;
-      transition: border-color .25s ease, transform .25s ease;
-      background: var(--bg-card);
-    }
-    .gallery-item:hover {
-      border-color: var(--accent-border);
-      transform: scale(1.015);
-    }
-    .gallery-item img {
-      width: 100%; height: 200px;
-      object-fit: cover;
-      display: block;
-      transition: transform .4s ease;
-    }
-    .gallery-item:hover img { transform: scale(1.04); }
-    .gallery-caption {
-      padding: 10px 14px;
-      font-family: var(--font-mono);
-      font-size: 0.63rem;
-      letter-spacing: 0.5px;
-      color: var(--text-muted);
-      background: var(--bg-card);
-    }
-
-    /* ════════════════════════════════════════════════════════════════════
-       LIGHTBOX OVERLAY
-       Full-screen dark overlay that appears when a gallery image is clicked.
-       ════════════════════════════════════════════════════════════════════ */
-    #lb-overlay {
-      /* Hidden by default — JS adds class "lb-open" to show it */
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      background: rgba(5, 5, 13, 0.96);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      /* Start invisible; transition to visible when .lb-open is added */
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.28s ease;
-    }
-    #lb-overlay.lb-open {
-      opacity: 1;
-      pointer-events: all;
-    }
-
-    /* ── Image stage (the centred image + transition container) ────────── */
-    #lb-stage {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      padding: 72px 80px; /* room for arrows + close button */
-    }
-
-    /*
-     * The actual <img> inside the lightbox.
-     * We animate it with a CSS class swap for the slide direction.
-     */
-    #lb-img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      border-radius: 6px;
-      border: 1px solid rgba(0, 229, 255, 0.18);
-      box-shadow: 0 12px 60px rgba(0, 0, 0, 0.7);
-      display: block;
-      user-select: none;
-
-      /* Default (idle) state */
-      transition: opacity 0.22s ease, transform 0.22s ease;
-      opacity: 1;
-      transform: translateX(0) scale(1);
-    }
-
-    /* When sliding out to the LEFT (navigating forward →) */
-    #lb-img.slide-out-left  { opacity: 0; transform: translateX(-48px) scale(0.97); }
-    /* When sliding in from the RIGHT (navigating forward →) */
-    #lb-img.slide-in-right  { opacity: 0; transform: translateX(48px)  scale(0.97); }
-    /* When sliding out to the RIGHT (navigating backward ←) */
-    #lb-img.slide-out-right { opacity: 0; transform: translateX(48px)  scale(0.97); }
-    /* When sliding in from the LEFT (navigating backward ←) */
-    #lb-img.slide-in-left   { opacity: 0; transform: translateX(-48px) scale(0.97); }
-
-    /* ── Navigation arrows ─────────────────────────────────────────────── */
-    .lb-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 2;
-
-      width: 52px; height: 52px;
-      display: flex; align-items: center; justify-content: center;
-
-      background: rgba(9, 9, 15, 0.75);
-      border: 1px solid rgba(0, 229, 255, 0.25);
-      border-radius: 50%;
-      color: var(--accent, #00e5ff);
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.2s ease, border-color 0.2s ease,
-                  transform 0.2s ease, box-shadow 0.2s ease;
-      /* Prevent the arrow click from propagating to the overlay (which closes it) */
-    }
-    .lb-arrow:hover {
-      background: rgba(0, 229, 255, 0.12);
-      border-color: rgba(0, 229, 255, 0.6);
-      box-shadow: 0 0 18px rgba(0, 229, 255, 0.2);
-      transform: translateY(-50%) scale(1.08);
-    }
-    #lb-prev { left: 20px; }
-    #lb-next { right: 20px; }
-
-    /* Dim arrows when at the start/end */
-    .lb-arrow.lb-disabled {
-      opacity: 0.2;
-      cursor: default;
-      pointer-events: none;
-    }
-
-    /* ── Close button ──────────────────────────────────────────────────── */
-    #lb-close {
-      position: absolute;
-      top: 18px; right: 22px;
-      z-index: 3;
-
-      width: 40px; height: 40px;
-      display: flex; align-items: center; justify-content: center;
-
-      background: rgba(9, 9, 15, 0.75);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 50%;
-      color: #8a8aaa;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
-    }
-    #lb-close:hover {
-      color: #fff;
-      border-color: rgba(255, 255, 255, 0.3);
-      background: rgba(255, 255, 255, 0.06);
-    }
-
-    /* ── Caption + counter ─────────────────────────────────────────────── */
-    #lb-footer {
-      position: absolute;
-      bottom: 22px; left: 50%;
-      transform: translateX(-50%);
-      text-align: center;
-      pointer-events: none;
-      width: 80%;
-    }
-    #lb-caption {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.68rem;
-      letter-spacing: 0.8px;
-      color: rgba(255, 255, 255, 0.45);
-      margin-bottom: 6px;
-    }
-    #lb-counter {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.6rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: rgba(0, 229, 255, 0.5);
-    }
-
-    /* ── Dot indicator strip ───────────────────────────────────────────── */
-    #lb-dots {
-      display: flex;
-      gap: 6px;
-      justify-content: center;
-      margin-top: 8px;
-    }
-    .lb-dot {
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.18);
-      transition: background 0.25s ease, transform 0.25s ease;
-    }
-    .lb-dot.active {
-      background: var(--accent, #00e5ff);
-      transform: scale(1.4);
-    }
-
-    /* ── Touch/swipe hint (shown briefly on mobile) ────────────────────── */
-    #lb-swipe-hint {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.65rem;
-      letter-spacing: 1px;
-      color: rgba(255, 255, 255, 0.4);
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-    }
-
-    /* Responsive: shrink arrow padding on small screens */
-    @media (max-width: 600px) {
-      #lb-stage { padding: 60px 14px; }
-      #lb-prev  { left: 6px; }
-      #lb-next  { right: 6px; }
-      .lb-arrow { width: 40px; height: 40px; font-size: 0.85rem; }
     }
   </style>
 </head>
@@ -405,59 +358,57 @@
         </div>
       </div>
 
-      <!-- ════════════════════════════════════════════════════════════════
-           PHOTO GALLERY
-           Each .gallery-item gets a data-index attribute (0, 1, 2 …)
-           automatically assigned by the JS below.
-           To add more photos: copy any .gallery-item block and update
-           the src and alt/caption text. The lightbox picks them all up
-           automatically — no JS changes needed.
-           ════════════════════════════════════════════════════════════════ -->
-      <div class="project-section-title" style="margin-bottom: 20px;">Gallery</div>
+      <!-- ═══════════════════════════════════════════════════════════════════
+           GALLERY CAROUSEL
+           ─────────────────────────────────────────────────────────────────
+           Always visible — no clicking needed to access arrows or captions.
 
-      <div class="project-gallery" id="photoGallery">
+           TO ADD/EDIT PHOTOS: find the SLIDES array in the <script> at the
+           bottom of this file and edit the objects there.  This HTML block
+           never needs to change regardless of how many photos you have.
+      ════════════════════════════════════════════════════════════════════ -->
+      <div class="project-section-title" style="margin-bottom: 18px;">Gallery</div>
 
-        <div class="gallery-item">
-          <img src="chess-base.png"           alt="Chess robot base assembly">
-          <div class="gallery-caption">Base assembly — structural frame and servo mounts</div>
+      <div class="carousel-shell" id="carouselShell">
+
+        <!-- Header: "Photos" label on left, live counter on right -->
+        <div class="carousel-section-header">
+          <div class="section-label" style="margin-bottom: 0;">
+            <span class="label-line"></span>
+            <span class="label-text">Photos</span>
+          </div>
+          <span class="carousel-counter" id="c-counter"></span>
         </div>
 
-        <div class="gallery-item">
-          <img src="chess-built.jpg"          alt="Fully built chess robot arm">
-          <div class="gallery-caption">Completed build — all 5 degrees of freedom assembled</div>
+        <!-- Stage: fixed-height frame containing both image layers + arrows -->
+        <div class="carousel-stage" id="c-stage">
+          <button class="c-arrow" id="c-prev" aria-label="Previous image">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+
+          <!-- img-a: starts as the foreground (visible) layer -->
+          <img class="carousel-img" id="c-img-a" src="" alt="">
+          <!-- img-b: starts as the background (hidden) layer -->
+          <img class="carousel-img" id="c-img-b" src="" alt="">
+
+          <button class="c-arrow" id="c-next" aria-label="Next image">
+            <i class="fas fa-chevron-right"></i>
+          </button>
         </div>
 
-        <div class="gallery-item">
-          <img src="chess-gripper.png"        alt="End-effector gripper detail">
-          <div class="gallery-caption">End-effector gripper — custom 3D-printed design</div>
+        <!-- Caption: always visible, cross-fades on image change -->
+        <div class="carousel-caption-area">
+          <span id="c-caption"></span>
         </div>
 
-        <div class="gallery-item">
-          <img src="chess-isometric.png"      alt="Isometric CAD view">
-          <div class="gallery-caption">SolidWorks isometric view — full assembly</div>
+        <!-- Footer: dots + thumbnail strip -->
+        <div class="carousel-footer">
+          <div class="c-dots"   id="c-dots"></div>
+          <div class="c-thumbs" id="c-thumbs"></div>
         </div>
 
-        <div class="gallery-item">
-          <img src="chess-wiring.jpg"         alt="Electronics and wiring harness">
-          <div class="gallery-caption">Wiring harness — servo drivers and MCU integration</div>
-        </div>
+      </div><!-- /carousel-shell -->
 
-        <div class="gallery-item">
-          <img src="chess-base-exploded.png"  alt="Exploded view of base">
-          <div class="gallery-caption">Base exploded view — component breakdown</div>
-        </div>
-
-        <div class="gallery-item">
-          <img src="chess-gripper-exploded.png" alt="Exploded view of gripper">
-          <div class="gallery-caption">Gripper exploded view — actuator and finger mechanism</div>
-        </div>
-
-        <div class="gallery-item">
-          <img src="chess-link-exploded.png"  alt="Exploded view of link">
-          <div class="gallery-caption">Link exploded view — bearing seats and joint tolerances</div>
-        </div>
-
-      </div><!-- /project-gallery -->
 
       <div class="project-body-grid">
         <div>
@@ -504,7 +455,6 @@
           <span><i class="fas fa-hand-paper"></i> Right-click to pan</span>
         </div>
       </div>
-
       <div class="viewer-frame-wrapper"
            id="cadViewer"
            data-sketchfab-url="https://sketchfab.com/models/d89cacc210da4aaa8a663475964c7d9d/embed">
@@ -519,7 +469,6 @@
           </p>
         </div>
       </div>
-
       <div class="viewer-caption">
         <i class="fas fa-drafting-compass" style="color:var(--accent); margin-right:6px;"></i>
         SolidWorks Assembly — [describe your model here, e.g. "47 components · 6 DOF · exported as STEP"]
@@ -580,59 +529,319 @@
   <script src="script.js"></script>
 
   <!-- ════════════════════════════════════════════════════════════════════
-       LIGHTBOX — full implementation, self-contained
-       ════════════════════════════════════════════════════════════════════ -->
+       CAROUSEL — all logic self-contained in this block
+  ═════════════════════════════════════════════════════════════════════════
 
-  <!--
-    The lightbox HTML lives here so it's always in the DOM.
-    JS controls visibility via the "lb-open" class on #lb-overlay.
-  -->
-  <div id="lb-overlay" role="dialog" aria-modal="true" aria-label="Image lightbox">
-
-    <!-- Close button (top-right) -->
-    <button id="lb-close" aria-label="Close lightbox">
-      <i class="fas fa-times"></i>
-    </button>
-
-    <!-- Main stage: image + arrows -->
-    <div id="lb-stage">
-
-      <!-- LEFT arrow -->
-      <button class="lb-arrow" id="lb-prev" aria-label="Previous image">
-        <i class="fas fa-chevron-left"></i>
-      </button>
-
-      <!-- The displayed image -->
-      <img id="lb-img" src="" alt="">
-
-      <!-- RIGHT arrow -->
-      <button class="lb-arrow" id="lb-next" aria-label="Next image">
-        <i class="fas fa-chevron-right"></i>
-      </button>
-
-    </div><!-- /lb-stage -->
-
-    <!-- Footer: caption, counter, dots -->
-    <div id="lb-footer">
-      <div id="lb-caption"></div>
-      <div id="lb-counter"></div>
-      <div id="lb-dots"></div>
-    </div>
-
-  </div><!-- /lb-overlay -->
-
-
+  ┌─────────────────────────────────────────────────────────────────────┐
+  │  TO ADD OR EDIT PHOTOS — only touch the SLIDES array below.         │
+  │                                                                     │
+  │  Each object needs three fields:                                    │
+  │    src     — filename (must be uploaded to your GitHub repo)        │
+  │    alt     — short description for screen readers                   │
+  │    caption — the text shown below the image (always visible)        │
+  │                                                                     │
+  │  Add as many objects as you like; everything else auto-updates.     │
+  └─────────────────────────────────────────────────────────────────────┘ -->
   <script>
+    /* ══════════════════════════════════════════
+       YOUR PHOTOS — edit this array
+    ═══════════════════════════════════════════ */
+    const SLIDES = [
+      {
+        src:     'chess-base.png',
+        alt:     'Chess robot base assembly',
+        caption: 'Base assembly — structural frame and servo mounts',
+      },
+      {
+        src:     'chess-built.jpg',
+        alt:     'Fully built chess robot arm',
+        caption: 'Completed build — all 5 degrees of freedom assembled',
+      },
+      {
+        src:     'chess-gripper.png',
+        alt:     'End-effector gripper detail',
+        caption: 'End-effector gripper — custom 3D-printed design',
+      },
+      {
+        src:     'chess-isometric.png',
+        alt:     'Isometric CAD view',
+        caption: 'SolidWorks isometric view — full assembly',
+      },
+      {
+        src:     'chess-wiring.jpg',
+        alt:     'Electronics and wiring harness',
+        caption: 'Wiring harness — servo drivers and MCU integration',
+      },
+      {
+        src:     'chess-base-exploded.png',
+        alt:     'Exploded view of base',
+        caption: 'Base exploded view — component breakdown',
+      },
+      {
+        src:     'chess-gripper-exploded.png',
+        alt:     'Exploded view of gripper',
+        caption: 'Gripper exploded view — actuator and finger mechanism',
+      },
+      {
+        src:     'chess-link-exploded.png',
+        alt:     'Exploded view of link',
+        caption: 'Link exploded view — bearing seats and joint tolerances',
+      },
+    ];
+    /* ══════════════════════════════════════════
+       END OF PHOTO LIST
+    ═══════════════════════════════════════════ */
+
+
+    /* ────────────────────────────────────────────────────────────────────
+       CAROUSEL ENGINE
+       ────────────────────────────────────────────────────────────────────
+       How the two-layer cross-fade works
+       ────────────────────────────────────────────────────────────────────
+       There are two <img> elements in the DOM at all times: img-a and img-b.
+       One is the "foreground" (fully opaque, z-index 2 — the one you see).
+       The other is the "background" (transparent, z-index 1 — waiting).
+
+       On every navigation call:
+         1. We load the new photo into the BACKGROUND layer and pre-position
+            it offset (52 px left or right depending on direction), with no
+            CSS transition active so the reposition is instant and invisible.
+         2. On the next two animation frames (double-rAF — needed to flush
+            the GPU paint) we re-enable CSS transitions and then:
+              • Slide + fade the background INTO view  (opacity 0→1, offset→0)
+              • Slide + fade the foreground OUT of view (opacity 1→0, 0→-offset)
+         3. After DURATION ms the transition is done. We swap which layer
+            is called "foreground" and reset the old foreground for reuse.
+
+       Looping:
+         The index is always computed as  ((n % N) + N) % N  which wraps
+         correctly in both directions:
+           0 - 1 mod 8  →  (-1 + 8) % 8  →  7   (1/8 ← goes to 8/8)
+           7 + 1 mod 8  →  8 % 8         →  0   (8/8 → goes to 1/8)
+
+       Direction heuristic:
+         For dot/thumbnail jumps we compare indices to pick a direction.
+         For wrap-around jumps (0→N-1 or N-1→0) we force the logical
+         direction so the animation feels correct (not "backwards").
+    ──────────────────────────────────────────────────────────────────── */
+
+    (function () {
+      if (!SLIDES.length) return;
+
+      const N = SLIDES.length;
+
+      /* DOM refs */
+      const counter  = document.getElementById('c-counter');
+      const imgA     = document.getElementById('c-img-a');
+      const imgB     = document.getElementById('c-img-b');
+      const captionEl= document.getElementById('c-caption');
+      const dotsEl   = document.getElementById('c-dots');
+      const thumbsEl = document.getElementById('c-thumbs');
+      const btnPrev  = document.getElementById('c-prev');
+      const btnNext  = document.getElementById('c-next');
+      const stage    = document.getElementById('c-stage');
+
+      const DURATION = 320;   /* ms — must match transition in CSS */
+
+      let current     = 0;
+      let active      = 'a'; /* 'a' or 'b' — which img is foreground */
+      let isAnimating = false;
+
+      /* ── Helpers: get fg/bg img element from the active tracker ──────── */
+      const fg = () => active === 'a' ? imgA : imgB;
+      const bg = () => active === 'a' ? imgB : imgA;
+
+
+      /* ── Build dots and thumbnails from the SLIDES array ─────────────── */
+      SLIDES.forEach((slide, i) => {
+
+        /* Dot button */
+        const dot = document.createElement('button');
+        dot.className = 'c-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'View image ' + (i + 1) + ' of ' + N);
+        dot.addEventListener('click', () => goTo(i));
+        dotsEl.appendChild(dot);
+
+        /* Thumbnail */
+        const thumb = document.createElement('div');
+        thumb.className = 'c-thumb' + (i === 0 ? ' active' : '');
+        thumb.setAttribute('aria-label', 'View image ' + (i + 1) + ': ' + slide.alt);
+        const tImg = document.createElement('img');
+        tImg.src = slide.src;
+        tImg.alt = slide.alt;
+        tImg.addEventListener('dragstart', e => e.preventDefault());
+        thumb.appendChild(tImg);
+        thumb.addEventListener('click', () => goTo(i));
+        thumbsEl.appendChild(thumb);
+      });
+
+      const dots   = Array.from(dotsEl.querySelectorAll('.c-dot'));
+      const thumbs = Array.from(thumbsEl.querySelectorAll('.c-thumb'));
+
+
+      /* ── Initialise: load slide 0 into foreground, slide 1 into bg ───── */
+      function init() {
+        /* Foreground (img-a): visible, slide 0 */
+        imgA.src = SLIDES[0].src;
+        imgA.alt = SLIDES[0].alt;
+        imgA.style.cssText = 'opacity:1; transform:translateX(0); z-index:2; transition:none;';
+
+        /* Background (img-b): invisible, preloaded with slide 1 */
+        imgB.src = SLIDES[Math.min(1, N - 1)].src;
+        imgB.alt = SLIDES[Math.min(1, N - 1)].alt;
+        imgB.style.cssText = 'opacity:0; transform:translateX(0); z-index:1; transition:none;';
+
+        captionEl.textContent = SLIDES[0].caption;
+        counter.textContent   = '1 / ' + N;
+      }
+
+
+      /* ── Core: navigate to a given index with direction-aware animation ─ */
+      function goTo(newIndex) {
+        if (isAnimating) return;
+
+        /* Wrap the index with modular arithmetic — this is what enables looping */
+        newIndex = ((newIndex % N) + N) % N;
+        if (newIndex === current) return;
+
+        isAnimating = true;
+
+        /*
+         * Determine animation direction:
+         *   Wrap from last→first: treat as "forward" (→ slide in from right)
+         *   Wrap from first→last: treat as "backward" (← slide in from left)
+         *   All other cases: compare indices numerically
+         */
+        let forward;
+        if      (current === N - 1 && newIndex === 0)     forward = true;
+        else if (current === 0     && newIndex === N - 1)  forward = false;
+        else                                               forward = newIndex > current;
+
+        const enterFrom = forward ? '52px' : '-52px';  /* where incoming slides from */
+        const exitTo    = forward ? '-52px' : '52px';  /* where outgoing slides to   */
+
+        /* Step 1 — position incoming image off-screen with NO transition */
+        bg().src = SLIDES[newIndex].src;
+        bg().alt = SLIDES[newIndex].alt;
+        bg().style.cssText =
+          'opacity:0; transform:translateX(' + enterFrom + '); z-index:3; transition:none;';
+
+        /* Fade caption out */
+        captionEl.classList.add('fading');
+
+        /*
+         * Double requestAnimationFrame:
+         * The first rAF lets the browser flush the "transition:none" repaint.
+         * The second rAF starts the actual animated transition.
+         * Without both, some browsers skip the starting position and jump
+         * straight to the end state.
+         */
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+
+            const transitionCSS = 'opacity ' + DURATION + 'ms ease, transform ' + DURATION + 'ms ease';
+
+            /* Animate incoming image into view */
+            bg().style.transition = transitionCSS;
+            bg().style.opacity    = '1';
+            bg().style.transform  = 'translateX(0)';
+
+            /* Animate outgoing image out of view */
+            fg().style.transition = transitionCSS;
+            fg().style.opacity    = '0';
+            fg().style.transform  = 'translateX(' + exitTo + ')';
+            fg().style.zIndex     = '2';
+
+            /* After transition completes — clean up and update state */
+            setTimeout(() => {
+
+              /* Reset old foreground silently (no transition) for next reuse */
+              fg().style.cssText =
+                'opacity:0; transform:translateX(0); z-index:1; transition:none;';
+
+              /* Swap the active tracker so next call knows which layer is on top */
+              active  = active === 'a' ? 'b' : 'a';
+              current = newIndex;
+
+              /* Update caption */
+              captionEl.textContent = SLIDES[newIndex].caption;
+              captionEl.classList.remove('fading');
+
+              /* Update counter */
+              counter.textContent = (newIndex + 1) + ' / ' + N;
+
+              /* Update dots */
+              dots.forEach((d, i) => d.classList.toggle('active', i === newIndex));
+
+              /* Update thumbnails + scroll active one into view */
+              thumbs.forEach((t, i) => t.classList.toggle('active', i === newIndex));
+              thumbs[newIndex].scrollIntoView({
+                behavior: 'smooth', inline: 'center', block: 'nearest',
+              });
+
+              isAnimating = false;
+
+            }, DURATION);
+          });
+        });
+      }
+
+
+      /* ── Arrow buttons ───────────────────────────────────────────────── */
+      btnPrev.addEventListener('click', e => { e.stopPropagation(); goTo(current - 1); });
+      btnNext.addEventListener('click', e => { e.stopPropagation(); goTo(current + 1); });
+
+
+      /* ── Keyboard (← → keys) — only when carousel is in viewport ─────── */
+      document.addEventListener('keydown', e => {
+        const rect   = document.getElementById('carouselShell').getBoundingClientRect();
+        const inView = rect.top < window.innerHeight && rect.bottom > 0;
+        if (!inView) return;
+        if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(current - 1); }
+      });
+
+
+      /* ── Touch swipe on the stage ────────────────────────────────────── */
+      let txStart = null, tyStart = null;
+      const SWIPE = 48; /* px minimum horizontal drag */
+
+      stage.addEventListener('touchstart', e => {
+        txStart = e.changedTouches[0].clientX;
+        tyStart = e.changedTouches[0].clientY;
+      }, { passive: true });
+
+      stage.addEventListener('touchend', e => {
+        if (txStart === null) return;
+        const dx = e.changedTouches[0].clientX - txStart;
+        const dy = e.changedTouches[0].clientY - tyStart;
+        txStart = tyStart = null;
+        /* Only fire if horizontal drag is dominant and long enough */
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > SWIPE) {
+          goTo(dx < 0 ? current + 1 : current - 1);
+        }
+      }, { passive: true });
+
+
+      /* ── Preload all images silently in the background ─────────────────── */
+      SLIDES.forEach(s => { const img = new Image(); img.src = s.src; });
+
+
+      /* ── Start ─────────────────────────────────────────────────────────── */
+      init();
+
+    })(); /* end carousel IIFE */
+
+
     /* ══════════════════════════════════════════════════════════════════════
-       3D VIEWER ACTIVATION (unchanged from your original file)
-       ══════════════════════════════════════════════════════════════════════ */
+       3D VIEWER ACTIVATION (unchanged)
+    ═══════════════════════════════════════════════════════════════════════ */
     (function () {
       const wrapper     = document.getElementById('cadViewer');
       const placeholder = document.getElementById('viewerPlaceholder');
       if (!wrapper || !placeholder) return;
 
       const url = wrapper.getAttribute('data-sketchfab-url') || '';
-
       if (url && url.startsWith('https://sketchfab.com')) {
         const embedBase = url.split('?')[0];
         const params = new URLSearchParams({
@@ -640,7 +849,6 @@
           ui_infos: 0, ui_watermark: 0, ui_stop: 0,
           camera: 0, preload: 1, transparent: 0, dnt: 1,
         });
-
         const iframe = document.createElement('iframe');
         iframe.title           = 'Interactive 3D CAD Model';
         iframe.src             = embedBase + (embedBase.includes('/embed') ? '' : '/embed') + '?' + params;
@@ -648,216 +856,11 @@
         iframe.allowFullscreen = true;
         iframe.setAttribute('mozallowfullscreen', 'true');
         iframe.setAttribute('webkitallowfullscreen', 'true');
-
         placeholder.style.display = 'none';
         wrapper.appendChild(iframe);
       }
     })();
 
-
-    /* ══════════════════════════════════════════════════════════════════════
-       LIGHTBOX — click-to-open gallery with smooth slide transitions,
-       arrow navigation, keyboard support, and touch/swipe support.
-       ══════════════════════════════════════════════════════════════════════
-
-       HOW IT WORKS:
-       1. On page load, we scan #photoGallery for every .gallery-item and
-          build an array of { src, alt, caption } objects.
-       2. When a thumbnail is clicked, openLightbox(index) is called.
-       3. navigateTo(newIndex, direction) handles the slide animation:
-             a. Adds a "slide-out-*" class to the current image (fades+slides it away).
-             b. After the CSS transition finishes (220 ms), swaps the src.
-             c. Immediately adds a "slide-in-*" class (positions the new image off-screen).
-             d. On the next animation frame, removes all transition classes so
-                the image slides into view smoothly.
-       4. Keyboard (← → Esc) and touch swipe (left/right) are also wired up.
-       ══════════════════════════════════════════════════════════════════════ */
-    (function () {
-
-      /* ── 1. Collect all gallery items ─────────────────────────────────── */
-      const gallery   = document.getElementById('photoGallery');
-      const items     = gallery ? Array.from(gallery.querySelectorAll('.gallery-item')) : [];
-
-      /* Build the data array from each item's <img> and .gallery-caption */
-      const images = items.map(item => ({
-        src:     item.querySelector('img')?.src     || '',
-        alt:     item.querySelector('img')?.alt     || '',
-        caption: item.querySelector('.gallery-caption')?.textContent?.trim() || '',
-      }));
-
-      if (!images.length) return; /* nothing to do if gallery is empty */
-
-      /* ── 2. DOM references ────────────────────────────────────────────── */
-      const overlay   = document.getElementById('lb-overlay');
-      const lbImg     = document.getElementById('lb-img');
-      const lbCaption = document.getElementById('lb-caption');
-      const lbCounter = document.getElementById('lb-counter');
-      const lbDots    = document.getElementById('lb-dots');
-      const btnClose  = document.getElementById('lb-close');
-      const btnPrev   = document.getElementById('lb-prev');
-      const btnNext   = document.getElementById('lb-next');
-
-      let current   = 0;     /* index of the currently displayed image */
-      let isAnimating = false; /* guard: ignore clicks mid-transition  */
-
-      /* ── 3. Build dot indicators (one per image) ──────────────────────── */
-      images.forEach((_, i) => {
-        const dot = document.createElement('span');
-        dot.className = 'lb-dot' + (i === 0 ? ' active' : '');
-        dot.setAttribute('aria-label', 'Go to image ' + (i + 1));
-        dot.addEventListener('click', e => {
-          e.stopPropagation();
-          if (i !== current) navigateTo(i, i > current ? 'forward' : 'backward');
-        });
-        lbDots.appendChild(dot);
-      });
-
-      /* ── 4. Helper: update all UI chrome (counter, caption, dots, arrows) */
-      function updateChrome(index) {
-        lbCounter.textContent = (index + 1) + ' / ' + images.length;
-        lbCaption.textContent = images[index].caption;
-
-        /* Dots */
-        lbDots.querySelectorAll('.lb-dot').forEach((d, i) => {
-          d.classList.toggle('active', i === index);
-        });
-
-        /* Arrow enabled/disabled state */
-        btnPrev.classList.toggle('lb-disabled', index === 0);
-        btnNext.classList.toggle('lb-disabled', index === images.length - 1);
-
-        /* Accessibility */
-        lbImg.alt = images[index].alt;
-      }
-
-      /* ── 5. Open the lightbox at a given index ────────────────────────── */
-      function openLightbox(index) {
-        current = index;
-        lbImg.src = images[index].src;
-        lbImg.className = ''; /* clear any leftover transition classes */
-        updateChrome(index);
-
-        overlay.classList.add('lb-open');
-        document.body.style.overflow = 'hidden'; /* prevent background scroll */
-
-        /* Focus the overlay for keyboard events */
-        overlay.focus();
-      }
-
-      /* ── 6. Close the lightbox ────────────────────────────────────────── */
-      function closeLightbox() {
-        overlay.classList.remove('lb-open');
-        document.body.style.overflow = '';
-      }
-
-      /* ── 7. Navigate to a new image with a slide transition ───────────── */
-      /*
-       * direction: 'forward'  → current slides LEFT out, new slides in from RIGHT
-       *            'backward' → current slides RIGHT out, new slides in from LEFT
-       */
-      function navigateTo(newIndex, direction) {
-        if (isAnimating) return;
-        if (newIndex < 0 || newIndex >= images.length) return;
-        if (newIndex === current) return;
-
-        isAnimating = true;
-
-        const outClass = direction === 'forward' ? 'slide-out-left'  : 'slide-out-right';
-        const inClass  = direction === 'forward' ? 'slide-in-right'  : 'slide-in-left';
-
-        const TRANSITION_MS = 220; /* must match the CSS transition duration */
-
-        /* Step A: slide current image out */
-        lbImg.classList.add(outClass);
-
-        setTimeout(() => {
-          /* Step B: swap to the new image source */
-          current      = newIndex;
-          lbImg.src    = images[newIndex].src;
-
-          /* Step C: position the new image off-screen (no transition yet) */
-          lbImg.style.transition = 'none';
-          lbImg.classList.remove(outClass);
-          lbImg.classList.add(inClass);
-
-          /* Step D: on the next paint, restore the transition and slide in */
-          requestAnimationFrame(() => {
-            requestAnimationFrame(() => {           /* double-rAF for reliability */
-              lbImg.style.transition = '';          /* re-enable CSS transition */
-              lbImg.classList.remove(inClass);      /* slide to centre */
-
-              updateChrome(newIndex);
-              isAnimating = false;
-            });
-          });
-        }, TRANSITION_MS);
-      }
-
-      /* ── 8. Wire up thumbnail clicks ──────────────────────────────────── */
-      items.forEach((item, i) => {
-        item.style.cursor = 'zoom-in';
-        item.addEventListener('click', () => openLightbox(i));
-      });
-
-      /* ── 9. Arrow clicks ──────────────────────────────────────────────── */
-      btnPrev.addEventListener('click', e => {
-        e.stopPropagation();
-        navigateTo(current - 1, 'backward');
-      });
-      btnNext.addEventListener('click', e => {
-        e.stopPropagation();
-        navigateTo(current + 1, 'forward');
-      });
-
-      /* ── 10. Close on overlay background click ────────────────────────── */
-      overlay.addEventListener('click', e => {
-        /* Only close if the click was on the overlay itself, not on the image
-           or buttons (those have their own handlers with stopPropagation) */
-        if (e.target === overlay || e.target === document.getElementById('lb-stage')) {
-          closeLightbox();
-        }
-      });
-
-      btnClose.addEventListener('click', e => {
-        e.stopPropagation();
-        closeLightbox();
-      });
-
-      /* ── 11. Keyboard navigation ──────────────────────────────────────── */
-      document.addEventListener('keydown', e => {
-        if (!overlay.classList.contains('lb-open')) return;
-
-        switch (e.key) {
-          case 'ArrowRight': navigateTo(current + 1, 'forward');  break;
-          case 'ArrowLeft':  navigateTo(current - 1, 'backward'); break;
-          case 'Escape':     closeLightbox();                      break;
-        }
-      });
-
-      /* ── 12. Touch / swipe support ────────────────────────────────────── */
-      let touchStartX = null;
-      const SWIPE_THRESHOLD = 50; /* px — minimum drag distance to trigger a swipe */
-
-      overlay.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].clientX;
-      }, { passive: true });
-
-      overlay.addEventListener('touchend', e => {
-        if (touchStartX === null) return;
-        const dx = e.changedTouches[0].clientX - touchStartX;
-        touchStartX = null;
-
-        if (Math.abs(dx) < SWIPE_THRESHOLD) return; /* too short — ignore */
-
-        if (dx < 0) {
-          navigateTo(current + 1, 'forward');   /* swipe left → next */
-        } else {
-          navigateTo(current - 1, 'backward');  /* swipe right → prev */
-        }
-      }, { passive: true });
-
-    })(); /* end lightbox IIFE */
   </script>
-
 </body>
 </html>
