@@ -4,6 +4,48 @@
    animations, skill bars, project filters, mobile menu
    ============================================================ */
 
+/* ═══════════════════════════════════════════════════════════════════════
+   BADGE COLOUR INITIALIZER  —  ADD THIS BLOCK TO script.js
+   (paste anywhere near the top, before DOMContentLoaded fires)
+   ═══════════════════════════════════════════════════════════════════════
+
+   Reads every .tag[data-color] element, converts the hex value to its
+   R, G, B channels, and injects them as CSS custom properties so the
+   rules in style.css can build the tinted background and border.
+
+   This runs once on page load and handles every tag on the page,
+   including tags added by initGallery() or any future dynamic content.
+═══════════════════════════════════════════════════════════════════════ */
+
+(function initTagColors() {
+  /* Run after the DOM is ready */
+  function applyColors() {
+    document.querySelectorAll('.tag[data-color]').forEach(function(tag) {
+      var hex = tag.dataset.color.trim().replace(/^#/, '');
+
+      /* Expand shorthand hex (#abc → aabbcc) */
+      if (hex.length === 3) {
+        hex = hex[0]+hex[0] + hex[1]+hex[1] + hex[2]+hex[2];
+      }
+
+      var r = parseInt(hex.substring(0, 2), 16);
+      var g = parseInt(hex.substring(2, 4), 16);
+      var b = parseInt(hex.substring(4, 6), 16);
+
+      tag.style.setProperty('--tc-r',   r);
+      tag.style.setProperty('--tc-g',   g);
+      tag.style.setProperty('--tc-b',   b);
+      tag.style.setProperty('--tc-hex', '#' + hex);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyColors);
+  } else {
+    applyColors();
+  }
+})();
+
 /* ──────────────────────────────────────────────────────
    1. TYPEWRITER EFFECT
    Edit the phrases array to change what cycles in the hero.
@@ -388,7 +430,6 @@ function initLightbox() {
     }
   });
 }
-
 
 /* ──────────────────────────────────────────────────────
    INIT — Run everything after DOM is ready
