@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chess Robot Arm - Simr Virk</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    /* ── Gap fix & nav centering (unchanged) ──────────────────────────── */
+    .project-page { padding-top: 0 !important; }
+
+    @media (min-width: 769px) {
+      .nav-links {
+        position: absolute;
+        left: 50%; top: 50%;
+        transform: translate(-50%, -50%);
+        display: flex; gap: 2rem; margin: 0;
+      }
+    }
+
+    /* ════════════════════════════════════════════════════════════════════
+       INLINE CAROUSEL
+       ─────────────────────────────────────────────────────────────────
+       The carousel is always visible on the page — no click required.
+       It sits directly in the document flow, between "My Approach" and
+       "Technical Details".
+
+       Visual layout (top → bottom):
+         1. Header row  ← "Photos" label  +  "2 / 8" counter
+         2. Stage       ← large image with left/right arrow buttons
+         3. Caption     ← always-visible text describing the current photo
+         4. Dot strip   ← one dot per image; active dot is highlighted
+         5. Thumb strip ← small clickable thumbnails for quick jumping
+       ════════════════════════════════════════════════════════════════════ */
+
+    .carousel-shell { margin-bottom: 64px; }
+
+    /* Row 1 — header */
+    .carousel-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .carousel-counter {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 2px;
+      color: var(--accent, #00e5ff);
+      opacity: 0.75;
+    }
+
+    /* Row 2 — stage */
+    .carousel-stage {
+      position: relative;
+      width: 100%;
+      height: 540px;           /* fixed height so layout never jumps */
+      background: #05050d;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--accent-border, rgba(0,229,255,.28));
+      box-shadow: 0 0 48px rgba(0,229,255,.07),
+                  0 8px 40px rgba(0,0,0,.55);
+    }
+
+    /*
+     * Two <img> elements, always in the DOM, stacked in the same cell.
+     * One is the "foreground" (fully opaque, on top).
+     * The other is the "background" (hidden, waiting to become the next image).
+     * JS swaps them on every navigation — no createElement needed mid-animation.
+     */
+    .carousel-img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: contain;   /* show whole image, no cropping */
+      padding: 16px;         /* small gap from stage edge */
+      user-select: none;
+      -webkit-user-drag: none;
+      pointer-events: none;
+      /* JS sets opacity, transform, z-index, and transition via inline style */
+    }
+
+    /* Arrows */
+    .c-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(9,9,15,.72);
+      border: 1px solid rgba(0,229,255,.28);
+      border-radius: 50%;
+      color: var(--accent, #00e5ff);
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background .22s ease, border-color .22s ease,
+                  box-shadow .22s ease, transform .22s ease;
+    }
+    .c-arrow:hover {
+      background: rgba(0,229,255,.14);
+      border-color: rgba(0,229,255,.7);
+      box-shadow: 0 0 20px rgba(0,229,255,.22);
+      transform: translateY(-50%) scale(1.1);
+    }
+    .c-arrow:active { transform: translateY(-50%) scale(0.96); }
+    #c-prev { left: 14px; }
+    #c-next { right: 14px; }
+
+    /* Row 3 — caption */
+    .carousel-caption-area {
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 56px;   /* side padding keeps text away from arrow zone */
+      text-align: center;
+    }
+    #c-caption {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.6px;
+      color: var(--text-muted, #50506a);
+      line-height: 1.6;
+      transition: opacity .22s ease;
+    }
+    #c-caption.fading { opacity: 0; }
+
+    /* Row 4 — dots */
+    .c-dots {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      margin-bottom: 16px;
+    }
+    .c-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.15);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: background .25s ease, transform .25s ease;
+      flex-shrink: 0;
+    }
+    .c-dot.active {
+      background: var(--accent, #00e5ff);
+      transform: scale(1.55);
+    }
+    .c-dot:hover:not(.active) { background: rgba(0,229,255,.45); }
+
+    /* Row 5 — thumbnail strip */
+    .c-thumbs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .c-thumbs::-webkit-scrollbar { display: none; }
+
+    .c-thumb {
+      flex-shrink: 0;
+      width: 72px; height: 52px;
+      border-radius: 5px;
+      overflow: hidden;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      opacity: 0.42;
+      transition: border-color .22s ease, opacity .22s ease, transform .22s ease;
+    }
+    .c-thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+    .c-thumb.active {
+      border-color: var(--accent, #00e5ff);
+      opacity: 1;
+      transform: scale(1.07);
+    }
+    .c-thumb:hover:not(.active) {
+      opacity: 0.78;
+      border-color: rgba(0,229,255,.4);
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .carousel-stage { height: 300px; }
+      .c-arrow { width: 38px; height: 38px; font-size: 0.8rem; }
+      #c-prev  { left: 8px; }
+      #c-next  { right: 8px; }
+      .carousel-caption-area { padding: 12px 16px; }
+    }
+
+    /* ── 3D viewer (unchanged) ─────────────────────────────────────────── */
+    .viewer-section {
+      padding: 64px 0;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .viewer-header {
+      display: flex; align-items: flex-end;
+      justify-content: space-between; flex-wrap: wrap;
+      gap: 12px; margin-bottom: 24px;
+    }
+    .viewer-hint {
+      font-family: var(--font-mono); font-size: 0.65rem;
+      letter-spacing: 1px; color: var(--text-muted);
+      display: flex; align-items: center; gap: 20px;
+    }
+    .viewer-hint span { display: flex; align-items: center; gap: 6px; }
+    .viewer-frame-wrapper {
+      position: relative; width: 100%; padding-bottom: 52%;
+      border-radius: 10px; overflow: hidden;
+      border: 1px solid var(--accent-border);
+      box-shadow: 0 0 48px rgba(0,229,255,.08), 0 8px 40px rgba(0,0,0,.55);
+      background: #05050d;
+    }
+    .viewer-frame-wrapper iframe {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; border: none;
+    }
+    .viewer-placeholder {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 18px;
+      background: radial-gradient(ellipse at 50% 40%, rgba(0,229,255,.05) 0%, #05050d 65%);
+      color: var(--text-muted); text-align: center; padding: 32px;
+    }
+    .viewer-placeholder-icon { font-size: 3rem; color: rgba(0,229,255,.22); line-height: 1; }
+    .viewer-placeholder h4 {
+      font-family: var(--font-heading); font-size: 1.05rem;
+      font-weight: 700; color: var(--text-secondary); letter-spacing: .5px;
+    }
+    .viewer-placeholder p {
+      font-family: var(--font-mono); font-size: .7rem;
+      letter-spacing: .3px; color: var(--text-muted);
+      max-width: 480px; line-height: 1.75;
+    }
+    .viewer-placeholder code {
+      background: rgba(0,229,255,.07); border: 1px solid var(--accent-border);
+      color: var(--accent); padding: 2px 8px; border-radius: 3px; font-size: .72rem;
+    }
+    .viewer-caption {
+      margin-top: 14px; font-family: var(--font-mono); font-size: .68rem;
+      letter-spacing: 1px; color: var(--text-muted); text-align: center;
+    }
+  </style>
+</head>
+<body class="project-page">
+
+  <nav id="navbar" style="position: relative;">
+    <a href="index.html" class="nav-brand">SV</a>
+    <ul class="nav-links">
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="resume.pdf" target="_blank" class="nav-resume">
+      <i class="fas fa-file-alt"></i> Resume
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ===================== PROJECT HERO ===================== -->
+  <div class="project-hero">
+    <div class="container">
+      <a href="index.html#projects" class="project-back">
+        <i class="fas fa-arrow-left"></i> Back to All Projects
+      </a>
+      <div class="project-hero-grid">
+        <div>
+          <div class="project-category-label">Robotics / Mechatronics</div>
+          <h1 class="project-title">PROJECT<br>NAME HERE</h1>
+          <p class="project-summary">
+            Write a concise 2–3 sentence summary of the project here.
+            Explain what you built, what problem it solved, and the key
+            technical achievement that makes this project noteworthy.
+          </p>
+          <div class="project-tech-list">
+            <span class="tag">Python</span>
+            <span class="tag">ROS</span>
+            <span class="tag">SolidWorks</span>
+            <span class="tag">OpenCV</span>
+            <span class="tag">Arduino</span>
+          </div>
+        </div>
+        <div class="project-meta-card">
+          <div class="project-meta-item">
+            <div class="meta-label">Duration</div>
+            <div class="meta-value">Month Year – Month Year</div>
+          </div>
+          <div class="project-meta-item">
+            <div class="meta-label">Team Size</div>
+            <div class="meta-value">Solo Project</div>
+          </div>
+          <div class="project-meta-item">
+            <div class="meta-label">My Role</div>
+            <div class="meta-value">Lead Engineer</div>
+          </div>
+          <div class="project-meta-item">
+            <div class="meta-label">Course / Context</div>
+            <div class="meta-value">ENSC 4XX · Project Name</div>
+          </div>
+          <div class="project-meta-item">
+            <div class="meta-label">Status</div>
+            <div class="meta-value">
+              <span class="card-status status-complete">✓ Completed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== PROJECT BODY ===================== -->
+  <div class="project-body">
+    <div class="container">
+
+      <div class="project-body-grid">
+        <div>
+          <div class="project-section-title">The Problem</div>
+          <p>
+            Describe the problem or engineering challenge this project was
+            designed to solve. Be specific — mention constraints, requirements,
+            or real-world needs that drove the design decisions.
+          </p>
+          <p>
+            Add a second paragraph with more context if needed.
+            What made this problem particularly interesting or difficult?
+          </p>
+        </div>
+        <div>
+          <div class="project-section-title">My Approach</div>
+          <p>
+            Explain the approach you took to solve the problem. What design
+            decisions did you make and why? What alternatives did you consider?
+          </p>
+          <p>
+            Highlight your unique contribution — what was creative, novel, or
+            technically challenging about your solution?
+          </p>
+        </div>
+      </div>
+
+      <!-- ═══════════════════════════════════════════════════════════════════
+           GALLERY CAROUSEL
+           ─────────────────────────────────────────────────────────────────
+           Always visible — no clicking needed to access arrows or captions.
+
+           TO ADD/EDIT PHOTOS: find the SLIDES array in the <script> at the
+           bottom of this file and edit the objects there.  This HTML block
+           never needs to change regardless of how many photos you have.
+      ════════════════════════════════════════════════════════════════════ -->
+      <div class="project-section-title" style="margin-bottom: 18px;">Gallery</div>
+
+      <div class="carousel-shell" id="carouselShell">
+
+        <!-- Header: "Photos" label on left, live counter on right -->
+        <div class="carousel-section-header">
+          <div class="section-label" style="margin-bottom: 0;">
+            <span class="label-line"></span>
+            <span class="label-text">Photos</span>
+          </div>
+          <span class="carousel-counter" id="c-counter"></span>
+        </div>
+
+        <!-- Stage: fixed-height frame containing both image layers + arrows -->
+        <div class="carousel-stage" id="c-stage">
+          <button class="c-arrow" id="c-prev" aria-label="Previous image">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+
+          <!-- img-a: starts as the foreground (visible) layer -->
+          <img class="carousel-img" id="c-img-a" src="" alt="">
+          <!-- img-b: starts as the background (hidden) layer -->
+          <img class="carousel-img" id="c-img-b" src="" alt="">
+
+          <button class="c-arrow" id="c-next" aria-label="Next image">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+
+        <!-- Caption: always visible, cross-fades on image change -->
+        <div class="carousel-caption-area">
+          <span id="c-caption"></span>
+        </div>
+
+        <!-- Footer: dots + thumbnail strip -->
+        <div class="carousel-footer">
+          <div class="c-dots"   id="c-dots"></div>
+          <div class="c-thumbs" id="c-thumbs"></div>
+        </div>
+
+      </div><!-- /carousel-shell -->
+
+
+      <div class="project-body-grid">
+        <div>
+          <div class="project-section-title">Technical Details</div>
+          <p>
+            Describe the technical details of your implementation here.
+            What hardware did you use? What software architecture did you design?
+            What algorithms or calculations were central to the system?
+          </p>
+          <p>
+            Engineers and recruiters will read this section closely.
+            Use precise language — component specs, tolerances,
+            communication protocols, control loops, etc.
+          </p>
+        </div>
+        <div>
+          <div class="project-section-title">Challenges &amp; Learnings</div>
+          <p>
+            Describe the most significant technical challenge you encountered
+            and how you resolved it. Be honest — challenges show real
+            engineering experience.
+          </p>
+          <p>
+            What would you do differently if you started over?
+            What skills or knowledge did this project give you?
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================== 3D VIEWER ===================== -->
+  <div class="viewer-section">
+    <div class="container">
+      <div class="viewer-header">
+        <div class="section-label" style="margin-bottom:0;">
+          <span class="label-line"></span>
+          <span class="label-text">Interactive 3D Model</span>
+        </div>
+        <div class="viewer-hint">
+          <span><i class="fas fa-mouse"></i> Drag to rotate</span>
+          <span><i class="fas fa-search-plus"></i> Scroll to zoom</span>
+          <span><i class="fas fa-hand-paper"></i> Right-click to pan</span>
+        </div>
+      </div>
+      <div class="viewer-frame-wrapper"
+           id="cadViewer"
+           data-sketchfab-url="https://sketchfab.com/models/d89cacc210da4aaa8a663475964c7d9d/embed">
+        <div class="viewer-placeholder" id="viewerPlaceholder">
+          <div class="viewer-placeholder-icon"><i class="fas fa-cube"></i></div>
+          <h4>Interactive 3D Model</h4>
+          <p>
+            Upload your SolidWorks / Fusion 360 / STL file to
+            <strong style="color:var(--text-secondary);">sketchfab.com</strong>
+            (free), copy the embed URL, then paste it into<br>
+            <code>data-sketchfab-url="..."</code> in this HTML file.
+          </p>
+        </div>
+      </div>
+      <div class="viewer-caption">
+        <i class="fas fa-drafting-compass" style="color:var(--accent); margin-right:6px;"></i>
+        SolidWorks Assembly — [describe your model here, e.g. "47 components · 6 DOF · exported as STEP"]
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== OUTCOMES ===================== -->
+  <div class="project-body" style="padding-top: 64px; padding-bottom: 64px;">
+    <div class="container">
+      <div class="project-section-title" style="margin-bottom: 20px;">Outcomes</div>
+      <div class="outcomes-grid">
+        <div class="outcome-card">
+          <div class="outcome-number">XX%</div>
+          <div class="outcome-label">Metric or Achievement #1</div>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-number">XX</div>
+          <div class="outcome-label">Metric or Achievement #2</div>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-number">A+</div>
+          <div class="outcome-label">Grade Received / Recognition</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer id="contact">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-left">
+          <div class="footer-brand">SIMR VIRK</div>
+          <p class="footer-tagline">Mechatronic Systems Engineering<br>Simon Fraser University · Burnaby, BC</p>
+        </div>
+        <div class="footer-links-grid">
+          <a href="https://www.linkedin.com/in/simr-virk" target="_blank" class="footer-link">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a>
+          <a href="mailto:ssv10@sfu.ca" class="footer-link">
+            <i class="fas fa-envelope"></i> ssv10@sfu.ca
+          </a>
+          <a href="resume.pdf" target="_blank" class="footer-link">
+            <i class="fas fa-file-alt"></i> Resume
+          </a>
+          <a href="index.html#projects" class="footer-link">
+            <i class="fas fa-arrow-left"></i> All Projects
+          </a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2025 Simr Virk</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       CAROUSEL — all logic self-contained in this block
+  ═════════════════════════════════════════════════════════════════════════
+
+  ┌─────────────────────────────────────────────────────────────────────┐
+  │  TO ADD OR EDIT PHOTOS — only touch the SLIDES array below.         │
+  │                                                                     │
+  │  Each object needs three fields:                                    │
+  │    src     — filename (must be uploaded to your GitHub repo)        │
+  │    alt     — short description for screen readers                   │
+  │    caption — the text shown below the image (always visible)        │
+  │                                                                     │
+  │  Add as many objects as you like; everything else auto-updates.     │
+  └─────────────────────────────────────────────────────────────────────┘ -->
+  <script>
+    /* ══════════════════════════════════════════
+       YOUR PHOTOS — edit this array
+    ═══════════════════════════════════════════ */
+    const SLIDES = [
+      {
+        src:     'chess-base.png',
+        alt:     'Chess robot base assembly',
+        caption: 'Base assembly — structural frame and servo mounts',
+      },
+      {
+        src:     'chess-built.jpg',
+        alt:     'Fully built chess robot arm',
+        caption: 'Completed build — all 5 degrees of freedom assembled',
+      },
+      {
+        src:     'chess-gripper.png',
+        alt:     'End-effector gripper detail',
+        caption: 'End-effector gripper — custom 3D-printed design',
+      },
+      {
+        src:     'chess-isometric.png',
+        alt:     'Isometric CAD view',
+        caption: 'SolidWorks isometric view — full assembly',
+      },
+      {
+        src:     'chess-wiring.jpg',
+        alt:     'Electronics and wiring harness',
+        caption: 'Wiring harness — servo drivers and MCU integration',
+      },
+      {
+        src:     'chess-base-exploded.png',
+        alt:     'Exploded view of base',
+        caption: 'Base exploded view — component breakdown',
+      },
+      {
+        src:     'chess-gripper-exploded.png',
+        alt:     'Exploded view of gripper',
+        caption: 'Gripper exploded view — actuator and finger mechanism',
+      },
+      {
+        src:     'chess-link-exploded.png',
+        alt:     'Exploded view of link',
+        caption: 'Link exploded view — bearing seats and joint tolerances',
+      },
+    ];
+    /* ══════════════════════════════════════════
+       END OF PHOTO LIST
+    ═══════════════════════════════════════════ */
+
+
+    /* ────────────────────────────────────────────────────────────────────
+       CAROUSEL ENGINE
+       ────────────────────────────────────────────────────────────────────
+       How the two-layer cross-fade works
+       ────────────────────────────────────────────────────────────────────
+       There are two <img> elements in the DOM at all times: img-a and img-b.
+       One is the "foreground" (fully opaque, z-index 2 — the one you see).
+       The other is the "background" (transparent, z-index 1 — waiting).
+
+       On every navigation call:
+         1. We load the new photo into the BACKGROUND layer and pre-position
+            it offset (52 px left or right depending on direction), with no
+            CSS transition active so the reposition is instant and invisible.
+         2. On the next two animation frames (double-rAF — needed to flush
+            the GPU paint) we re-enable CSS transitions and then:
+              • Slide + fade the background INTO view  (opacity 0→1, offset→0)
+              • Slide + fade the foreground OUT of view (opacity 1→0, 0→-offset)
+         3. After DURATION ms the transition is done. We swap which layer
+            is called "foreground" and reset the old foreground for reuse.
+
+       Looping:
+         The index is always computed as  ((n % N) + N) % N  which wraps
+         correctly in both directions:
+           0 - 1 mod 8  →  (-1 + 8) % 8  →  7   (1/8 ← goes to 8/8)
+           7 + 1 mod 8  →  8 % 8         →  0   (8/8 → goes to 1/8)
+
+       Direction heuristic:
+         For dot/thumbnail jumps we compare indices to pick a direction.
+         For wrap-around jumps (0→N-1 or N-1→0) we force the logical
+         direction so the animation feels correct (not "backwards").
+    ──────────────────────────────────────────────────────────────────── */
+
+    (function () {
+      if (!SLIDES.length) return;
+
+      const N = SLIDES.length;
+
+      /* DOM refs */
+      const counter  = document.getElementById('c-counter');
+      const imgA     = document.getElementById('c-img-a');
+      const imgB     = document.getElementById('c-img-b');
+      const captionEl= document.getElementById('c-caption');
+      const dotsEl   = document.getElementById('c-dots');
+      const thumbsEl = document.getElementById('c-thumbs');
+      const btnPrev  = document.getElementById('c-prev');
+      const btnNext  = document.getElementById('c-next');
+      const stage    = document.getElementById('c-stage');
+
+      const DURATION = 320;   /* ms — must match transition in CSS */
+
+      let current     = 0;
+      let active      = 'a'; /* 'a' or 'b' — which img is foreground */
+      let isAnimating = false;
+
+      /* ── Helpers: get fg/bg img element from the active tracker ──────── */
+      const fg = () => active === 'a' ? imgA : imgB;
+      const bg = () => active === 'a' ? imgB : imgA;
+
+
+      /* ── Build dots and thumbnails from the SLIDES array ─────────────── */
+      SLIDES.forEach((slide, i) => {
+
+        /* Dot button */
+        const dot = document.createElement('button');
+        dot.className = 'c-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'View image ' + (i + 1) + ' of ' + N);
+        dot.addEventListener('click', () => goTo(i));
+        dotsEl.appendChild(dot);
+
+        /* Thumbnail */
+        const thumb = document.createElement('div');
+        thumb.className = 'c-thumb' + (i === 0 ? ' active' : '');
+        thumb.setAttribute('aria-label', 'View image ' + (i + 1) + ': ' + slide.alt);
+        const tImg = document.createElement('img');
+        tImg.src = slide.src;
+        tImg.alt = slide.alt;
+        tImg.addEventListener('dragstart', e => e.preventDefault());
+        thumb.appendChild(tImg);
+        thumb.addEventListener('click', () => goTo(i));
+        thumbsEl.appendChild(thumb);
+      });
+
+      const dots   = Array.from(dotsEl.querySelectorAll('.c-dot'));
+      const thumbs = Array.from(thumbsEl.querySelectorAll('.c-thumb'));
+
+
+      /* ── Initialise: load slide 0 into foreground, slide 1 into bg ───── */
+      function init() {
+        /* Foreground (img-a): visible, slide 0 */
+        imgA.src = SLIDES[0].src;
+        imgA.alt = SLIDES[0].alt;
+        imgA.style.cssText = 'opacity:1; transform:translateX(0); z-index:2; transition:none;';
+
+        /* Background (img-b): invisible, preloaded with slide 1 */
+        imgB.src = SLIDES[Math.min(1, N - 1)].src;
+        imgB.alt = SLIDES[Math.min(1, N - 1)].alt;
+        imgB.style.cssText = 'opacity:0; transform:translateX(0); z-index:1; transition:none;';
+
+        captionEl.textContent = SLIDES[0].caption;
+        counter.textContent   = '1 / ' + N;
+      }
+
+
+      /* ── Core: navigate to a given index with direction-aware animation ─ */
+      function goTo(newIndex) {
+        if (isAnimating) return;
+
+        /* Wrap the index with modular arithmetic — this is what enables looping */
+        newIndex = ((newIndex % N) + N) % N;
+        if (newIndex === current) return;
+
+        isAnimating = true;
+
+        /*
+         * Determine animation direction:
+         *   Wrap from last→first: treat as "forward" (→ slide in from right)
+         *   Wrap from first→last: treat as "backward" (← slide in from left)
+         *   All other cases: compare indices numerically
+         */
+        let forward;
+        if      (current === N - 1 && newIndex === 0)     forward = true;
+        else if (current === 0     && newIndex === N - 1)  forward = false;
+        else                                               forward = newIndex > current;
+
+        const enterFrom = forward ? '52px' : '-52px';  /* where incoming slides from */
+        const exitTo    = forward ? '-52px' : '52px';  /* where outgoing slides to   */
+
+        /* Step 1 — position incoming image off-screen with NO transition */
+        bg().src = SLIDES[newIndex].src;
+        bg().alt = SLIDES[newIndex].alt;
+        bg().style.cssText =
+          'opacity:0; transform:translateX(' + enterFrom + '); z-index:3; transition:none;';
+
+        /* Fade caption out */
+        captionEl.classList.add('fading');
+
+        /*
+         * Double requestAnimationFrame:
+         * The first rAF lets the browser flush the "transition:none" repaint.
+         * The second rAF starts the actual animated transition.
+         * Without both, some browsers skip the starting position and jump
+         * straight to the end state.
+         */
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+
+            const transitionCSS = 'opacity ' + DURATION + 'ms ease, transform ' + DURATION + 'ms ease';
+
+            /* Animate incoming image into view */
+            bg().style.transition = transitionCSS;
+            bg().style.opacity    = '1';
+            bg().style.transform  = 'translateX(0)';
+
+            /* Animate outgoing image out of view */
+            fg().style.transition = transitionCSS;
+            fg().style.opacity    = '0';
+            fg().style.transform  = 'translateX(' + exitTo + ')';
+            fg().style.zIndex     = '2';
+
+            /* After transition completes — clean up and update state */
+            setTimeout(() => {
+
+              /* Reset old foreground silently (no transition) for next reuse */
+              fg().style.cssText =
+                'opacity:0; transform:translateX(0); z-index:1; transition:none;';
+
+              /* Swap the active tracker so next call knows which layer is on top */
+              active  = active === 'a' ? 'b' : 'a';
+              current = newIndex;
+
+              /* Update caption */
+              captionEl.textContent = SLIDES[newIndex].caption;
+              captionEl.classList.remove('fading');
+
+              /* Update counter */
+              counter.textContent = (newIndex + 1) + ' / ' + N;
+
+              /* Update dots */
+              dots.forEach((d, i) => d.classList.toggle('active', i === newIndex));
+
+              /* Update thumbnails + scroll active one into view */
+              thumbs.forEach((t, i) => t.classList.toggle('active', i === newIndex));
+              thumbs[newIndex].scrollIntoView({
+                behavior: 'smooth', inline: 'center', block: 'nearest',
+              });
+
+              isAnimating = false;
+
+            }, DURATION);
+          });
+        });
+      }
+
+
+      /* ── Arrow buttons ───────────────────────────────────────────────── */
+      btnPrev.addEventListener('click', e => { e.stopPropagation(); goTo(current - 1); });
+      btnNext.addEventListener('click', e => { e.stopPropagation(); goTo(current + 1); });
+
+
+      /* ── Keyboard (← → keys) — only when carousel is in viewport ─────── */
+      document.addEventListener('keydown', e => {
+        const rect   = document.getElementById('carouselShell').getBoundingClientRect();
+        const inView = rect.top < window.innerHeight && rect.bottom > 0;
+        if (!inView) return;
+        if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(current - 1); }
+      });
+
+
+      /* ── Touch swipe on the stage ────────────────────────────────────── */
+      let txStart = null, tyStart = null;
+      const SWIPE = 48; /* px minimum horizontal drag */
+
+      stage.addEventListener('touchstart', e => {
+        txStart = e.changedTouches[0].clientX;
+        tyStart = e.changedTouches[0].clientY;
+      }, { passive: true });
+
+      stage.addEventListener('touchend', e => {
+        if (txStart === null) return;
+        const dx = e.changedTouches[0].clientX - txStart;
+        const dy = e.changedTouches[0].clientY - tyStart;
+        txStart = tyStart = null;
+        /* Only fire if horizontal drag is dominant and long enough */
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > SWIPE) {
+          goTo(dx < 0 ? current + 1 : current - 1);
+        }
+      }, { passive: true });
+
+
+      /* ── Preload all images silently in the background ─────────────────── */
+      SLIDES.forEach(s => { const img = new Image(); img.src = s.src; });
+
+
+      /* ── Start ─────────────────────────────────────────────────────────── */
+      init();
+
+    })(); /* end carousel IIFE */
+
+
+    /* ══════════════════════════════════════════════════════════════════════
+       3D VIEWER ACTIVATION (unchanged)
+    ═══════════════════════════════════════════════════════════════════════ */
+    (function () {
+      const wrapper     = document.getElementById('cadViewer');
+      const placeholder = document.getElementById('viewerPlaceholder');
+      if (!wrapper || !placeholder) return;
+
+      const url = wrapper.getAttribute('data-sketchfab-url') || '';
+      if (url && url.startsWith('https://sketchfab.com')) {
+        const embedBase = url.split('?')[0];
+        const params = new URLSearchParams({
+          autostart: 1, autospin: 0, ui_theme: 'dark',
+          ui_infos: 0, ui_watermark: 0, ui_stop: 0,
+          camera: 0, preload: 1, transparent: 0, dnt: 1,
+        });
+        const iframe = document.createElement('iframe');
+        iframe.title           = 'Interactive 3D CAD Model';
+        iframe.src             = embedBase + (embedBase.includes('/embed') ? '' : '/embed') + '?' + params;
+        iframe.allow           = 'autoplay; fullscreen; xr-spatial-tracking';
+        iframe.allowFullscreen = true;
+        iframe.setAttribute('mozallowfullscreen', 'true');
+        iframe.setAttribute('webkitallowfullscreen', 'true');
+        placeholder.style.display = 'none';
+        wrapper.appendChild(iframe);
+      }
+    })();
+
+  </script>
+</body>
+</html>
