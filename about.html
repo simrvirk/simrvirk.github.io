@@ -26,6 +26,126 @@
     }
 
     /* ─────────────────────────────────────────────────────────────────
+       ABOUT-PAGE HERO OVERRIDE
+       Collapses the full-viewport hero into a compact identity banner.
+       All overrides are scoped to .about-page-hero so style.css is
+       left untouched for every other page.
+    ───────────────────────────────────────────────────────────────── */
+
+    /* 1 ─ Strip the full-viewport lock */
+    #hero.about-page-hero {
+      min-height: unset !important;
+      height: auto !important;
+      padding: 32px 0 36px !important;
+      /* Keep the grid canvas — just dimmer */
+    }
+
+    /* 2 ─ Dim the grid canvas so it reads as texture, not feature */
+    #hero.about-page-hero #grid-canvas {
+      opacity: 0.18 !important;
+    }
+
+    /* 3 ─ Tighten the inner layout to a horizontal band */
+    #hero.about-page-hero .hero-content {
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      gap: 10px !important;
+      /* Remove any large top padding that style.css might add */
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    /* 4 ─ Scale the name way down — identity marker, not billboard */
+    #hero.about-page-hero .hero-name {
+      font-size: clamp(2.6rem, 5vw, 4rem) !important;
+      line-height: 0.92 !important;
+      margin-bottom: 4px !important;
+    }
+
+    /* 5 ─ Compact tagline */
+    #hero.about-page-hero .hero-tagline {
+      font-size: clamp(0.85rem, 1.4vw, 1rem) !important;
+      margin-bottom: 6px !important;
+    }
+
+    /* 6 ─ Compact description */
+    #hero.about-page-hero .hero-description {
+      font-size: 0.875rem !important;
+      line-height: 1.65 !important;
+      max-width: 380px !important;
+      margin-bottom: 0 !important;
+      color: var(--text-secondary);
+    }
+
+    /* 7 ─ Inline stats row, tighter */
+    #hero.about-page-hero .hero-stats {
+      display: flex !important;
+      align-items: center !important;
+      gap: 0 !important;
+      margin-top: 16px !important;
+      flex-wrap: nowrap !important;
+    }
+    #hero.about-page-hero .stat-number {
+      font-size: 1.4rem !important;
+    }
+    #hero.about-page-hero .stat-label {
+      font-size: 0.62rem !important;
+      letter-spacing: 1.2px !important;
+    }
+
+    /* 8 ─ Compact hero tag pill */
+    #hero.about-page-hero .hero-tag {
+      margin-bottom: 10px !important;
+      font-size: 0.7rem !important;
+    }
+
+    /* 9 ─ Shrink and tighten the photo frame */
+    #hero.about-page-hero .hero-photo-wrapper {
+      /* Let it sit comfortably beside the text — smaller frame */
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    #hero.about-page-hero .photo-frame {
+      width: clamp(140px, 16vw, 200px) !important;
+      height: clamp(170px, 19vw, 240px) !important;
+    }
+    #hero.about-page-hero .hero-photo,
+    #hero.about-page-hero .photo-placeholder {
+      border-radius: 6px !important;
+    }
+
+    /* 10 ─ Subtle bottom divider so the hero bleeds into #about */
+    #hero.about-page-hero::after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        var(--accent-border, rgba(0,229,255,.18)) 30%,
+        var(--accent-border, rgba(0,229,255,.18)) 70%,
+        transparent 100%
+      );
+    }
+
+    /* Mobile: stack vertically, photo above text */
+    @media (max-width: 768px) {
+      #hero.about-page-hero {
+        padding: 24px 0 28px !important;
+      }
+      #hero.about-page-hero .hero-name {
+        font-size: 2.4rem !important;
+      }
+      #hero.about-page-hero .photo-frame {
+        width: 100px !important;
+        height: 120px !important;
+      }
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
        ABOUT SECTION — reworked 2-column layout
        (style.css already sets .about-grid to 1fr 1fr / gap 88px)
     ───────────────────────────────────────────────────────────────── */
@@ -378,11 +498,15 @@
     </button>
   </nav>
 
-  <!-- ═══════════════════════════════════════ HERO ══════════════════════════════════════ -->
-  <section id="hero">
+  <!-- ═══════════════════════════════════════ HERO ══════════════════════════════════════
+       CLASS CHANGE: added "about-page-hero" alongside the existing "hero" id so all
+       compact overrides above apply only on this page — style.css stays untouched.
+  ══════════════════════════════════════════════════════════════════════════════════════ -->
+  <section id="hero" class="about-page-hero">
     <canvas id="grid-canvas"></canvas>
 
     <div class="hero-content">
+      <!-- ↓ EDIT: update year/program tag if needed ↓ -->
       <div class="hero-tag">
         <span class="tag-dot"></span>
         <span>SFU Mechatronic Systems Engineering · Class of 2027</span>
@@ -420,6 +544,7 @@
 
     <div class="hero-photo-wrapper">
       <div class="photo-frame">
+        <!-- ↓ EDIT: replace headshot.jpg with your actual headshot filename ↓ -->
         <img src="headshot.jpg" alt="Simr Virk" class="hero-photo"
              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
         <div class="photo-placeholder">
@@ -444,6 +569,7 @@
         <div class="about-text fade-up">
           <h2 class="section-title">Connecting mechanics,<br><span class="accent">electronics, and code.</span></h2>
 
+          <!-- ↓ EDIT: update the body paragraphs with your own voice ↓ -->
           <p>I'm Simr Virk, a Mechatronic Systems Engineering student at Simon Fraser University,
              graduating in 2027. My discipline lives at the intersection of mechanical design,
              embedded electronics, and software — and I believe engineers who are fluent in all
@@ -461,9 +587,11 @@
              build things that matter at scale.</p>
 
           <div class="about-links">
+            <!-- ↓ EDIT: update LinkedIn URL if needed ↓ -->
             <a href="https://www.linkedin.com/in/simr-virk" target="_blank" class="about-link">
               <i class="fab fa-linkedin"></i> LinkedIn
             </a>
+            <!-- ↓ EDIT: update email if needed ↓ -->
             <a href="mailto:ssv10@sfu.ca" class="about-link">
               <i class="fas fa-envelope"></i> Email Me
             </a>
@@ -486,6 +614,7 @@
           <div class="highlight-card">
             <div class="highlight-icon"><i class="fas fa-building"></i></div>
             <div>
+              <!-- ↓ EDIT: update internship title/dates as your role changes ↓ -->
               <h4>Motorola Solutions — Firmware Intern</h4>
               <p>Embedded Linux · C/C++ on mission-critical public safety radio hardware. Production code deployed to real infrastructure. 2025–2026.</p>
             </div>
@@ -494,6 +623,7 @@
           <div class="highlight-card">
             <div class="highlight-icon"><i class="fas fa-microchip"></i></div>
             <div>
+              <!-- ↓ EDIT: keep this skills list current ↓ -->
               <h4>Hardware ↔ Software Fluency</h4>
               <p>SolidWorks · ROS · OpenCV · Python · C/C++ · Arduino · Embedded Linux · GD&amp;T · PCB Design. I speak both languages.</p>
             </div>
@@ -502,6 +632,7 @@
           <div class="highlight-card">
             <div class="highlight-icon"><i class="fas fa-compass"></i></div>
             <div>
+              <!-- ↓ EDIT: update availability window each semester ↓ -->
               <h4>Open to New Opportunities</h4>
               <p>Seeking Fall 2027 co-op or new grad roles in robotics, autonomous systems, or firmware at forward-thinking companies.</p>
             </div>
@@ -675,14 +806,13 @@
             <h3 class="hobby-block-title">Student<br>Society</h3>
           </div>
           <div>
-            <!-- ↓ Replace [Your Society Name] with the actual name ↓ -->
+            <!-- ↓ EDIT: replace [Your Society Name] with MSESS ↓ -->
             <p class="hobby-block-desc">
               Technical ability gets you in the room. Communication and accountability keep
-              you relevant once you're there. Through [Your Society Name], I've organized
-              events, supported junior students, and helped build the kind of engineering
-              community I wished existed when I started. It's taught me that the same habits
-              that make a good engineer — follow-through, clarity, and ownership — make a
-              good team member too.
+              you relevant once you're there. Through MSESS, I've organized events, supported
+              junior students, and helped build the kind of engineering community I wished
+              existed when I started. It's taught me that the same habits that make a good
+              engineer — follow-through, clarity, and ownership — make a good team member too.
             </p>
             <div class="hobby-tags">
               <span class="tag">Event Organization</span>
@@ -709,7 +839,7 @@
             <h3 class="hobby-block-title">Building in<br>Virtual Worlds</h3>
           </div>
           <div>
-            <!-- ↓ Update the [X visits] with your actual Roblox stats if relevant ↓ -->
+            <!-- ↓ EDIT: update [X visits] with actual Roblox stats if relevant ↓ -->
             <p class="hobby-block-desc">
               Before I had a machine shop or an oscilloscope, I had Roblox Studio.
               Building in virtual environments — designing systems with scripted logic,
@@ -776,6 +906,7 @@
           <p class="footer-tagline">Mechatronic Systems Engineering<br>Simon Fraser University · Burnaby, BC</p>
         </div>
         <div class="footer-links-grid">
+          <!-- ↓ EDIT: update all contact links if any change ↓ -->
           <a href="https://www.linkedin.com/in/simr-virk" target="_blank" class="footer-link">
             <i class="fab fa-linkedin"></i> LinkedIn
           </a>
@@ -792,6 +923,7 @@
       </div>
       <div class="footer-bottom">
         <span>© 2026 Simr Virk — Built with purpose.</span>
+        <!-- ↓ EDIT: update availability status each semester ↓ -->
         <span class="footer-version">
           <i class="fas fa-circle" style="color: #22c55e; font-size: 0.5rem;"></i>
           Available for Fall 2027 Co-op
@@ -824,6 +956,7 @@
 
     /* ── 01 · BOOKS ──────────────────────────────────────────────────────── */
     const SLIDES_BOOKS = [
+      /* ↓ EDIT: add your book covers here ↓ */
       {
         src:     'about/books/atomic-habits.jpg',
         alt:     'Atomic Habits — James Clear',
@@ -855,6 +988,7 @@
 
     /* ── 02 · GOLF ───────────────────────────────────────────────────────── */
     const SLIDES_GOLF = [
+      /* ↓ EDIT: add your golf photos/videos here ↓ */
       {
         src:     'about/golf/golf-01.jpg',
         alt:     'On the course',
@@ -865,11 +999,11 @@
         alt:     'Swing video',
         caption: 'Working on the backswing. Iteration never stops.',
       },
-      /* ↓ Add more golf photos/videos below ↓ */
     ];
 
     /* ── 03 · TRAVEL ─────────────────────────────────────────────────────── */
     const SLIDES_TRAVEL = [
+      /* ↓ EDIT: add your travel photos here ↓ */
       {
         src:     'about/travel/travel-01.jpg',
         alt:     'Travel photo',
@@ -880,11 +1014,11 @@
         alt:     'Travel photo',
         caption: '[Location] — [Year]',
       },
-      /* ↓ Add more travel photos below ↓ */
     ];
 
     /* ── 04 · OUTDOORS ───────────────────────────────────────────────────── */
     const SLIDES_OUTDOOR = [
+      /* ↓ EDIT: add your outdoor photos here ↓ */
       {
         src:     'about/outdoor/outdoor-01.jpg',
         alt:     'Outdoor activity',
@@ -895,11 +1029,11 @@
         alt:     'Outdoor activity',
         caption: '[Description]',
       },
-      /* ↓ Add more outdoor photos below ↓ */
     ];
 
     /* ── 05 · STUDENT SOCIETY ────────────────────────────────────────────── */
     const SLIDES_SOCIETY = [
+      /* ↓ EDIT: add your MSESS event photos here ↓ */
       {
         src:     'about/society/society-01.jpg',
         alt:     'Student society event',
@@ -910,11 +1044,11 @@
         alt:     'Student society',
         caption: '[Description]',
       },
-      /* ↓ Add more society photos below ↓ */
     ];
 
     /* ── 06 · CREATIVE BUILDS ────────────────────────────────────────────── */
     const SLIDES_CREATIVE = [
+      /* ↓ EDIT: add your Roblox/creative build screenshots here ↓ */
       {
         src:     'about/creative/roblox-01.jpg',
         alt:     'Roblox build screenshot',
@@ -925,7 +1059,6 @@
         alt:     'Roblox build',
         caption: '[Description]',
       },
-      /* ↓ Add more creative screenshots / gameplay videos below ↓ */
     ];
 
 
