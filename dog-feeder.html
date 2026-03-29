@@ -24,7 +24,7 @@
     }
 
     /* ════════════════════════════════════════════════════════════════════
-       PHOTO GRID (Inline)
+       PHOTO & VIDEO GRID (Inline)
        ───────────────────────────────────────────────────────────────── */
     .photo-grid {
       display: grid;
@@ -33,6 +33,7 @@
       margin-bottom: 64px;
     }
     .photo-grid-item {
+      position: relative;
       cursor: pointer;
       border-radius: 8px;
       overflow: hidden;
@@ -46,14 +47,28 @@
       box-shadow: 0 8px 24px rgba(0,229,255,.15);
       border-color: rgba(0,229,255,.6);
     }
-    .photo-grid-item img {
+    .photo-grid-item img, .photo-grid-item video {
       width: 100%; height: 100%;
       object-fit: cover;
       display: block;
       transition: opacity 0.2s ease;
     }
-    .photo-grid-item:hover img {
+    .photo-grid-item:hover img, .photo-grid-item:hover video {
       opacity: 0.85;
+    }
+
+    /* Video Badges for UI clarity */
+    .video-badge {
+      position: absolute;
+      top: 8px; right: 8px;
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      font-size: 0.65rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+      pointer-events: none;
+      z-index: 5;
+      display: flex; align-items: center; gap: 4px;
     }
 
     /* ════════════════════════════════════════════════════════════════════
@@ -126,26 +141,37 @@
       opacity: 0.8;
     }
 
-    /* Row 2 — stage (expands to fill vertical space) */
+    /* Row 2 — stage */
     .carousel-stage {
       position: relative;
       flex: 1;
       width: 100%;
-      min-height: 0; /* allows flexbox to shrink it if needed */
+      min-height: 0;
       background: transparent;
       border-radius: 10px;
       overflow: hidden;
     }
 
-    .carousel-img {
+    /* Dynamic Media Layers instead of static images */
+    .carousel-layer {
       position: absolute;
       inset: 0;
       width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .carousel-layer img, .carousel-layer video {
+      max-width: 100%; max-height: 100%;
       object-fit: contain;
-      padding: 16px 64px; /* side padding to keep image away from arrows */
+      padding: 16px 64px;
       user-select: none;
       -webkit-user-drag: none;
+    }
+    .carousel-layer img {
       pointer-events: none;
+    }
+    .carousel-layer video {
+      pointer-events: auto; /* Required for video controls */
+      outline: none;
     }
 
     /* Arrows */
@@ -231,6 +257,7 @@
     .c-thumbs::-webkit-scrollbar { display: none; }
 
     .c-thumb {
+      position: relative;
       flex-shrink: 0;
       width: 80px; height: 56px;
       border-radius: 6px;
@@ -240,7 +267,7 @@
       opacity: 0.4;
       transition: all .22s ease;
     }
-    .c-thumb img {
+    .c-thumb img, .c-thumb video {
       width: 100%; height: 100%;
       object-fit: cover;
       display: block;
@@ -255,12 +282,18 @@
       opacity: 0.8;
       border-color: rgba(0,229,255,.4);
     }
+    /* Smaller video badge for thumbnail strip */
+    .c-thumb .video-badge {
+      top: 4px; right: 4px;
+      font-size: 0.5rem;
+      padding: 2px 4px;
+    }
 
     /* Mobile Adjustments */
     @media (max-width: 600px) {
       .photo-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
       .c-arrow { width: 40px; height: 40px; font-size: 0.9rem; }
-      .carousel-img { padding: 8px 48px; }
+      .carousel-layer img, .carousel-layer video { padding: 8px 48px; }
       .lightbox-content { padding: 12px 12px 0 12px; }
       .c-close { top: 12px; right: 12px; width: 36px; height: 36px; font-size: 1rem; }
       #c-caption { font-size: 0.75rem; }
@@ -435,8 +468,8 @@
               <i class="fas fa-chevron-left"></i>
             </button>
 
-            <img class="carousel-img" id="c-img-a" src="" alt="">
-            <img class="carousel-img" id="c-img-b" src="" alt="">
+            <div class="carousel-layer" id="c-layer-a"></div>
+            <div class="carousel-layer" id="c-layer-b"></div>
 
             <button class="c-arrow" id="c-next" aria-label="Next image">
               <i class="fas fa-chevron-right"></i>
@@ -572,7 +605,7 @@
 
   <script>
     /* ══════════════════════════════════════════
-       YOUR PHOTOS — edit this array
+       YOUR PHOTOS & VIDEOS — edit this array
     ═══════════════════════════════════════════ */
     const SLIDES = [
       {
@@ -615,10 +648,16 @@
         alt:     'Exploded view of link',
         caption: 'Link exploded view — bearing seats and joint tolerances',
       },
+      /* 👇 EXAMPLE VIDEO BLOCK 👇 */
+      {
+        src:     'example-video.mp4',
+        alt:     'Video demonstration of mechanism',
+        caption: 'Video Demonstration — mechanism in full operation',
+      }
     ];
 
     /* ────────────────────────────────────────────────────────────────────
-       GRID + LIGHTBOX CAROUSEL ENGINE
+       GRID + LIGHTBOX CAROUSEL ENGINE (With Video Support)
        ──────────────────────────────────────────────────────────────────── */
     (function () {
       if (!SLIDES.length) return;
@@ -630,8 +669,8 @@
       const overlay  = document.getElementById('lightboxOverlay');
       const btnClose = document.getElementById('c-close');
       const counter  = document.getElementById('c-counter');
-      const imgA     = document.getElementById('c-img-a');
-      const imgB     = document.getElementById('c-img-b');
+      const layerA   = document.getElementById('c-layer-a');
+      const layerB   = document.getElementById('c-layer-b');
       const captionEl= document.getElementById('c-caption');
       const dotsEl   = document.getElementById('c-dots');
       const thumbsEl = document.getElementById('c-thumbs');
@@ -646,33 +685,66 @@
       let isAnimating = false;
       let isOpen      = false;
 
-      const fg = () => active === 'a' ? imgA : imgB;
-      const bg = () => active === 'a' ? imgB : imgA;
+      const fg = () => active === 'a' ? layerA : layerB;
+      const bg = () => active === 'a' ? layerB : layerA;
+
+      /* Helper: Check if file is a video */
+      const isVideo = (src) => /\.(mp4|mov|webm)$/i.test(src);
+
+      /* Intersection Observer: Automatically play grid videos when scrolled into view */
+      const gridVideoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.play().catch(() => {}); // catch autoplay blocks
+          } else {
+            entry.target.pause();
+          }
+        });
+      }, { threshold: 0.2 });
+
+      /* Helper: Generate HTML node for Lightbox (with controls/autoplay for video) */
+      function createMediaNode(slide) {
+        if (isVideo(slide.src)) {
+          return `<video src="${slide.src}" controls autoplay playsinline></video>`;
+        }
+        return `<img src="${slide.src}" alt="${slide.alt}" draggable="false">`;
+      }
 
       /* ── Build Grid, Dots, and Thumbs ─────────────── */
       SLIDES.forEach((slide, i) => {
         /* Grid Item */
         const gridItem = document.createElement('div');
         gridItem.className = 'photo-grid-item';
-        gridItem.innerHTML = `<img src="${slide.src}" alt="${slide.alt}" loading="lazy">`;
+        
+        if (isVideo(slide.src)) {
+          const vid = document.createElement('video');
+          vid.src = slide.src;
+          vid.muted = true; vid.loop = true; vid.playsInline = true;
+          gridItem.appendChild(vid);
+          gridVideoObserver.observe(vid); // Trigger play/pause on scroll
+          gridItem.innerHTML += `<div class="video-badge"><i class="fas fa-video"></i> Video</div>`;
+        } else {
+          gridItem.innerHTML = `<img src="${slide.src}" alt="${slide.alt}" loading="lazy">`;
+        }
         gridItem.addEventListener('click', () => openLightbox(i));
         gridEl.appendChild(gridItem);
 
         /* Dot button */
         const dot = document.createElement('button');
         dot.className = 'c-dot';
-        dot.setAttribute('aria-label', 'View image ' + (i + 1));
+        dot.setAttribute('aria-label', 'View item ' + (i + 1));
         dot.addEventListener('click', () => goTo(i));
         dotsEl.appendChild(dot);
 
         /* Thumbnail */
         const thumb = document.createElement('div');
         thumb.className = 'c-thumb';
-        const tImg = document.createElement('img');
-        tImg.src = slide.src;
-        tImg.alt = slide.alt;
-        tImg.addEventListener('dragstart', e => e.preventDefault());
-        thumb.appendChild(tImg);
+        if (isVideo(slide.src)) {
+          // Render a frozen frame for the thumbnail strip to save memory
+          thumb.innerHTML = `<video src="${slide.src}" muted playsinline preload="metadata"></video><div class="video-badge"><i class="fas fa-play"></i></div>`;
+        } else {
+          thumb.innerHTML = `<img src="${slide.src}" alt="${slide.alt}" draggable="false">`;
+        }
         thumb.addEventListener('click', () => goTo(i));
         thumbsEl.appendChild(thumb);
       });
@@ -683,27 +755,31 @@
       /* ── Open / Close Lightbox ───────────────────────────────────────── */
       function openLightbox(index) {
         isOpen = true;
-        document.body.style.overflow = 'hidden'; // prevent background scrolling
+        document.body.style.overflow = 'hidden';
         overlay.classList.add('active');
-        jumpTo(index); // Jump instantly to the clicked photo without sliding animation
+        jumpTo(index); 
       }
 
       function closeLightbox() {
         isOpen = false;
         document.body.style.overflow = '';
         overlay.classList.remove('active');
+        
+        // Destroy media instantly when closing to kill video audio immediately
+        setTimeout(() => {
+          layerA.innerHTML = '';
+          layerB.innerHTML = '';
+        }, 300);
       }
 
       btnClose.addEventListener('click', closeLightbox);
       
-      // Close on clicking outside the image (on the overlay background)
       overlay.addEventListener('click', (e) => {
-        if (e.target === overlay || e.target.classList.contains('lightbox-content')) {
+        if (e.target === overlay || e.target.classList.contains('lightbox-content') || e.target === stage) {
           closeLightbox();
         }
       });
 
-      // Escape key to close
       document.addEventListener('keydown', e => {
         if (isOpen && e.key === 'Escape') closeLightbox();
       });
@@ -712,10 +788,10 @@
       function jumpTo(index) {
         current = index;
         
-        fg().src = SLIDES[current].src;
-        fg().alt = SLIDES[current].alt;
+        fg().innerHTML = createMediaNode(SLIDES[current]);
         fg().style.cssText = 'opacity:1; transform:translateX(0); z-index:2; transition:none;';
         
+        bg().innerHTML = '';
         bg().style.cssText = 'opacity:0; transform:translateX(0); z-index:1; transition:none;';
 
         updateUI();
@@ -737,8 +813,8 @@
         const enterFrom = forward ? '52px' : '-52px';  
         const exitTo    = forward ? '-52px' : '52px';  
 
-        bg().src = SLIDES[newIndex].src;
-        bg().alt = SLIDES[newIndex].alt;
+        // Inject new media into the background layer off-screen
+        bg().innerHTML = createMediaNode(SLIDES[newIndex]);
         bg().style.cssText = 'opacity:0; transform:translateX(' + enterFrom + '); z-index:3; transition:none;';
 
         captionEl.classList.add('fading');
@@ -757,6 +833,8 @@
             fg().style.zIndex     = '2';
 
             setTimeout(() => {
+              // Destroy old media from the DOM. This stops the video immediately!
+              fg().innerHTML = '';
               fg().style.cssText = 'opacity:0; transform:translateX(0); z-index:1; transition:none;';
               
               active  = active === 'a' ? 'b' : 'a';
@@ -813,9 +891,6 @@
           goTo(dx < 0 ? current + 1 : current - 1);
         }
       }, { passive: true });
-
-      /* Preload background images */
-      SLIDES.forEach(s => { const img = new Image(); img.src = s.src; });
 
     })();
 
