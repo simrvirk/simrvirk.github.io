@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
   <style>
-    /* ── Gap fix & nav centering (unchanged) ──────────────────────────── */
+    /* ── Gap fix & nav centering ──────────────────────────── */
     .project-page { padding-top: 0 !important; }
 
     @media (min-width: 769px) {
@@ -24,68 +24,128 @@
     }
 
     /* ════════════════════════════════════════════════════════════════════
-       INLINE CAROUSEL
-       ─────────────────────────────────────────────────────────────────
-       The carousel is always visible on the page — no click required.
-       It sits directly in the document flow, between "My Approach" and
-       "Technical Details".
+       PHOTO GRID (Inline)
+       ───────────────────────────────────────────────────────────────── */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 64px;
+    }
+    .photo-grid-item {
+      cursor: pointer;
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      border: 1px solid var(--accent-border, rgba(0,229,255,.28));
+      background: #05050d;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .photo-grid-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,229,255,.15);
+      border-color: rgba(0,229,255,.6);
+    }
+    .photo-grid-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.2s ease;
+    }
+    .photo-grid-item:hover img {
+      opacity: 0.85;
+    }
 
-       Visual layout (top → bottom):
-         1. Header row  ← "Photos" label  +  "2 / 8" counter
-         2. Stage       ← large image with left/right arrow buttons
-         3. Caption     ← always-visible text describing the current photo
-         4. Dot strip   ← one dot per image; active dot is highlighted
-         5. Thumb strip ← small clickable thumbnails for quick jumping
-       ════════════════════════════════════════════════════════════════════ */
+    /* ════════════════════════════════════════════════════════════════════
+       FULLSCREEN LIGHTBOX CAROUSEL
+       ───────────────────────────────────────────────────────────────── */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 3, 8, 0.96);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .lightbox-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
 
-    .carousel-shell { margin-bottom: 64px; }
+    /* Close Button */
+    .c-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      background: rgba(9,9,15,.72);
+      border: 1px solid rgba(0,229,255,.28);
+      border-radius: 50%;
+      width: 44px; height: 44px;
+      color: #fff;
+      font-size: 1.2rem;
+      cursor: pointer;
+      z-index: 10000;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .c-close:hover {
+      background: rgba(0,229,255,.14);
+      border-color: rgba(0,229,255,.7);
+      color: var(--accent, #00e5ff);
+      transform: scale(1.1);
+    }
+
+    .lightbox-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 24px 24px 0 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
 
     /* Row 1 — header */
     .carousel-section-header {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-      flex-wrap: wrap;
-      gap: 8px;
+      justify-content: center;
+      margin-bottom: 12px;
+      margin-top: 12px;
     }
     .carousel-counter {
       font-family: var(--font-mono);
-      font-size: 0.68rem;
+      font-size: 0.75rem;
       letter-spacing: 2px;
       color: var(--accent, #00e5ff);
-      opacity: 0.75;
+      opacity: 0.8;
     }
 
-    /* Row 2 — stage */
+    /* Row 2 — stage (expands to fill vertical space) */
     .carousel-stage {
       position: relative;
+      flex: 1;
       width: 100%;
-      height: 540px;           /* fixed height so layout never jumps */
-      background: #05050d;
+      min-height: 0; /* allows flexbox to shrink it if needed */
+      background: transparent;
       border-radius: 10px;
       overflow: hidden;
-      border: 1px solid var(--accent-border, rgba(0,229,255,.28));
-      box-shadow: 0 0 48px rgba(0,229,255,.07),
-                  0 8px 40px rgba(0,0,0,.55);
     }
 
-    /*
-     * Two <img> elements, always in the DOM, stacked in the same cell.
-     * One is the "foreground" (fully opaque, on top).
-     * The other is the "background" (hidden, waiting to become the next image).
-     * JS swaps them on every navigation — no createElement needed mid-animation.
-     */
     .carousel-img {
       position: absolute;
       inset: 0;
       width: 100%; height: 100%;
-      object-fit: contain;   /* show whole image, no cropping */
-      padding: 16px;         /* small gap from stage edge */
+      object-fit: contain;
+      padding: 16px 64px; /* side padding to keep image away from arrows */
       user-select: none;
       -webkit-user-drag: none;
       pointer-events: none;
-      /* JS sets opacity, transform, z-index, and transition via inline style */
     }
 
     /* Arrows */
@@ -94,16 +154,15 @@
       top: 50%;
       transform: translateY(-50%);
       z-index: 10;
-      width: 48px; height: 48px;
+      width: 52px; height: 52px;
       display: flex; align-items: center; justify-content: center;
       background: rgba(9,9,15,.72);
       border: 1px solid rgba(0,229,255,.28);
       border-radius: 50%;
       color: var(--accent, #00e5ff);
-      font-size: 0.95rem;
+      font-size: 1.1rem;
       cursor: pointer;
-      transition: background .22s ease, border-color .22s ease,
-                  box-shadow .22s ease, transform .22s ease;
+      transition: all .22s ease;
     }
     .c-arrow:hover {
       background: rgba(0,229,255,.14);
@@ -112,29 +171,32 @@
       transform: translateY(-50%) scale(1.1);
     }
     .c-arrow:active { transform: translateY(-50%) scale(0.96); }
-    #c-prev { left: 14px; }
-    #c-next { right: 14px; }
+    #c-prev { left: 0; }
+    #c-next { right: 0; }
 
     /* Row 3 — caption */
     .carousel-caption-area {
-      min-height: 52px;
+      min-height: 48px;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 14px 56px;   /* side padding keeps text away from arrow zone */
+      padding: 8px 16px;
       text-align: center;
     }
     #c-caption {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.85rem;
       letter-spacing: 0.6px;
-      color: var(--text-muted, #50506a);
+      color: #fff;
       line-height: 1.6;
       transition: opacity .22s ease;
     }
     #c-caption.fading { opacity: 0; }
 
-    /* Row 4 — dots */
+    /* Row 4 & 5 — Footer controls */
+    .carousel-footer {
+      padding-bottom: 24px;
+    }
     .c-dots {
       display: flex;
       justify-content: center;
@@ -142,27 +204,26 @@
       margin-bottom: 16px;
     }
     .c-dot {
-      width: 6px; height: 6px;
+      width: 8px; height: 8px;
       border-radius: 50%;
-      background: rgba(255,255,255,.15);
+      background: rgba(255,255,255,.2);
       border: none;
       padding: 0;
       cursor: pointer;
-      transition: background .25s ease, transform .25s ease;
-      flex-shrink: 0;
+      transition: all .25s ease;
     }
     .c-dot.active {
       background: var(--accent, #00e5ff);
-      transform: scale(1.55);
+      transform: scale(1.4);
     }
-    .c-dot:hover:not(.active) { background: rgba(0,229,255,.45); }
+    .c-dot:hover:not(.active) { background: rgba(0,229,255,.5); }
 
-    /* Row 5 — thumbnail strip */
     .c-thumbs {
       display: flex;
-      gap: 8px;
+      justify-content: center;
+      gap: 10px;
       overflow-x: auto;
-      padding-bottom: 4px;
+      padding-bottom: 8px;
       scroll-behavior: smooth;
       scrollbar-width: none;
       -ms-overflow-style: none;
@@ -171,13 +232,13 @@
 
     .c-thumb {
       flex-shrink: 0;
-      width: 72px; height: 52px;
-      border-radius: 5px;
+      width: 80px; height: 56px;
+      border-radius: 6px;
       overflow: hidden;
-      border: 1.5px solid transparent;
+      border: 2px solid transparent;
       cursor: pointer;
-      opacity: 0.42;
-      transition: border-color .22s ease, opacity .22s ease, transform .22s ease;
+      opacity: 0.4;
+      transition: all .22s ease;
     }
     .c-thumb img {
       width: 100%; height: 100%;
@@ -188,20 +249,21 @@
     .c-thumb.active {
       border-color: var(--accent, #00e5ff);
       opacity: 1;
-      transform: scale(1.07);
+      transform: scale(1.05);
     }
     .c-thumb:hover:not(.active) {
-      opacity: 0.78;
+      opacity: 0.8;
       border-color: rgba(0,229,255,.4);
     }
 
-    /* Mobile */
+    /* Mobile Adjustments */
     @media (max-width: 600px) {
-      .carousel-stage { height: 300px; }
-      .c-arrow { width: 38px; height: 38px; font-size: 0.8rem; }
-      #c-prev  { left: 8px; }
-      #c-next  { right: 8px; }
-      .carousel-caption-area { padding: 12px 16px; }
+      .photo-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+      .c-arrow { width: 40px; height: 40px; font-size: 0.9rem; }
+      .carousel-img { padding: 8px 48px; }
+      .lightbox-content { padding: 12px 12px 0 12px; }
+      .c-close { top: 12px; right: 12px; width: 36px; height: 36px; font-size: 1rem; }
+      #c-caption { font-size: 0.75rem; }
     }
 
     /* ── 3D viewer (unchanged) ─────────────────────────────────────────── */
@@ -277,7 +339,6 @@
     </button>
   </nav>
 
-  <!-- ===================== PROJECT HERO ===================== -->
   <div class="project-hero">
     <div class="container">
       <a href="index.html#projects" class="project-back">
@@ -328,7 +389,6 @@
     </div>
   </div>
 
-  <!-- ===================== PROJECT BODY ===================== -->
   <div class="project-body">
     <div class="container">
 
@@ -358,56 +418,41 @@
         </div>
       </div>
 
-      <!-- ═══════════════════════════════════════════════════════════════════
-           GALLERY CAROUSEL
-           ─────────────────────────────────────────────────────────────────
-           Always visible — no clicking needed to access arrows or captions.
-
-           TO ADD/EDIT PHOTOS: find the SLIDES array in the <script> at the
-           bottom of this file and edit the objects there.  This HTML block
-           never needs to change regardless of how many photos you have.
-      ════════════════════════════════════════════════════════════════════ -->
       <div class="project-section-title" style="margin-bottom: 18px;">Gallery</div>
+      
+      <div class="photo-grid" id="photoGrid"></div>
 
-      <div class="carousel-shell" id="carouselShell">
-
-        <!-- Header: "Photos" label on left, live counter on right -->
-        <div class="carousel-section-header">
-          <div class="section-label" style="margin-bottom: 0;">
-            <span class="label-line"></span>
-            <span class="label-text">Photos</span>
+      <div class="lightbox-overlay" id="lightboxOverlay">
+        <button class="c-close" id="c-close" aria-label="Close Gallery"><i class="fas fa-times"></i></button>
+        
+        <div class="lightbox-content">
+          <div class="carousel-section-header">
+            <span class="carousel-counter" id="c-counter"></span>
           </div>
-          <span class="carousel-counter" id="c-counter"></span>
+
+          <div class="carousel-stage" id="c-stage">
+            <button class="c-arrow" id="c-prev" aria-label="Previous image">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <img class="carousel-img" id="c-img-a" src="" alt="">
+            <img class="carousel-img" id="c-img-b" src="" alt="">
+
+            <button class="c-arrow" id="c-next" aria-label="Next image">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+
+          <div class="carousel-caption-area">
+            <span id="c-caption"></span>
+          </div>
+
+          <div class="carousel-footer">
+            <div class="c-dots" id="c-dots"></div>
+            <div class="c-thumbs" id="c-thumbs"></div>
+          </div>
         </div>
-
-        <!-- Stage: fixed-height frame containing both image layers + arrows -->
-        <div class="carousel-stage" id="c-stage">
-          <button class="c-arrow" id="c-prev" aria-label="Previous image">
-            <i class="fas fa-chevron-left"></i>
-          </button>
-
-          <!-- img-a: starts as the foreground (visible) layer -->
-          <img class="carousel-img" id="c-img-a" src="" alt="">
-          <!-- img-b: starts as the background (hidden) layer -->
-          <img class="carousel-img" id="c-img-b" src="" alt="">
-
-          <button class="c-arrow" id="c-next" aria-label="Next image">
-            <i class="fas fa-chevron-right"></i>
-          </button>
-        </div>
-
-        <!-- Caption: always visible, cross-fades on image change -->
-        <div class="carousel-caption-area">
-          <span id="c-caption"></span>
-        </div>
-
-        <!-- Footer: dots + thumbnail strip -->
-        <div class="carousel-footer">
-          <div class="c-dots"   id="c-dots"></div>
-          <div class="c-thumbs" id="c-thumbs"></div>
-        </div>
-
-      </div><!-- /carousel-shell -->
+      </div>
 
 
       <div class="project-body-grid">
@@ -441,7 +486,6 @@
     </div>
   </div>
 
-  <!-- ===================== 3D VIEWER ===================== -->
   <div class="viewer-section">
     <div class="container">
       <div class="viewer-header">
@@ -476,7 +520,6 @@
     </div>
   </div>
 
-  <!-- ===================== OUTCOMES ===================== -->
   <div class="project-body" style="padding-top: 64px; padding-bottom: 64px;">
     <div class="container">
       <div class="project-section-title" style="margin-bottom: 20px;">Outcomes</div>
@@ -497,7 +540,6 @@
     </div>
   </div>
 
-  <!-- ===================== FOOTER ===================== -->
   <footer id="contact">
     <div class="container">
       <div class="footer-content">
@@ -528,20 +570,6 @@
 
   <script src="script.js"></script>
 
-  <!-- ════════════════════════════════════════════════════════════════════
-       CAROUSEL — all logic self-contained in this block
-  ═════════════════════════════════════════════════════════════════════════
-
-  ┌─────────────────────────────────────────────────────────────────────┐
-  │  TO ADD OR EDIT PHOTOS — only touch the SLIDES array below.         │
-  │                                                                     │
-  │  Each object needs three fields:                                    │
-  │    src     — filename (must be uploaded to your GitHub repo)        │
-  │    alt     — short description for screen readers                   │
-  │    caption — the text shown below the image (always visible)        │
-  │                                                                     │
-  │  Add as many objects as you like; everything else auto-updates.     │
-  └─────────────────────────────────────────────────────────────────────┘ -->
   <script>
     /* ══════════════════════════════════════════
        YOUR PHOTOS — edit this array
@@ -588,49 +616,19 @@
         caption: 'Link exploded view — bearing seats and joint tolerances',
       },
     ];
-    /* ══════════════════════════════════════════
-       END OF PHOTO LIST
-    ═══════════════════════════════════════════ */
-
 
     /* ────────────────────────────────────────────────────────────────────
-       CAROUSEL ENGINE
-       ────────────────────────────────────────────────────────────────────
-       How the two-layer cross-fade works
-       ────────────────────────────────────────────────────────────────────
-       There are two <img> elements in the DOM at all times: img-a and img-b.
-       One is the "foreground" (fully opaque, z-index 2 — the one you see).
-       The other is the "background" (transparent, z-index 1 — waiting).
-
-       On every navigation call:
-         1. We load the new photo into the BACKGROUND layer and pre-position
-            it offset (52 px left or right depending on direction), with no
-            CSS transition active so the reposition is instant and invisible.
-         2. On the next two animation frames (double-rAF — needed to flush
-            the GPU paint) we re-enable CSS transitions and then:
-              • Slide + fade the background INTO view  (opacity 0→1, offset→0)
-              • Slide + fade the foreground OUT of view (opacity 1→0, 0→-offset)
-         3. After DURATION ms the transition is done. We swap which layer
-            is called "foreground" and reset the old foreground for reuse.
-
-       Looping:
-         The index is always computed as  ((n % N) + N) % N  which wraps
-         correctly in both directions:
-           0 - 1 mod 8  →  (-1 + 8) % 8  →  7   (1/8 ← goes to 8/8)
-           7 + 1 mod 8  →  8 % 8         →  0   (8/8 → goes to 1/8)
-
-       Direction heuristic:
-         For dot/thumbnail jumps we compare indices to pick a direction.
-         For wrap-around jumps (0→N-1 or N-1→0) we force the logical
-         direction so the animation feels correct (not "backwards").
-    ──────────────────────────────────────────────────────────────────── */
-
+       GRID + LIGHTBOX CAROUSEL ENGINE
+       ──────────────────────────────────────────────────────────────────── */
     (function () {
       if (!SLIDES.length) return;
 
       const N = SLIDES.length;
 
       /* DOM refs */
+      const gridEl   = document.getElementById('photoGrid');
+      const overlay  = document.getElementById('lightboxOverlay');
+      const btnClose = document.getElementById('c-close');
       const counter  = document.getElementById('c-counter');
       const imgA     = document.getElementById('c-img-a');
       const imgB     = document.getElementById('c-img-b');
@@ -641,31 +639,35 @@
       const btnNext  = document.getElementById('c-next');
       const stage    = document.getElementById('c-stage');
 
-      const DURATION = 320;   /* ms — must match transition in CSS */
+      const DURATION = 320; 
 
       let current     = 0;
-      let active      = 'a'; /* 'a' or 'b' — which img is foreground */
+      let active      = 'a'; 
       let isAnimating = false;
+      let isOpen      = false;
 
-      /* ── Helpers: get fg/bg img element from the active tracker ──────── */
       const fg = () => active === 'a' ? imgA : imgB;
       const bg = () => active === 'a' ? imgB : imgA;
 
-
-      /* ── Build dots and thumbnails from the SLIDES array ─────────────── */
+      /* ── Build Grid, Dots, and Thumbs ─────────────── */
       SLIDES.forEach((slide, i) => {
+        /* Grid Item */
+        const gridItem = document.createElement('div');
+        gridItem.className = 'photo-grid-item';
+        gridItem.innerHTML = `<img src="${slide.src}" alt="${slide.alt}" loading="lazy">`;
+        gridItem.addEventListener('click', () => openLightbox(i));
+        gridEl.appendChild(gridItem);
 
         /* Dot button */
         const dot = document.createElement('button');
-        dot.className = 'c-dot' + (i === 0 ? ' active' : '');
-        dot.setAttribute('aria-label', 'View image ' + (i + 1) + ' of ' + N);
+        dot.className = 'c-dot';
+        dot.setAttribute('aria-label', 'View image ' + (i + 1));
         dot.addEventListener('click', () => goTo(i));
         dotsEl.appendChild(dot);
 
         /* Thumbnail */
         const thumb = document.createElement('div');
-        thumb.className = 'c-thumb' + (i === 0 ? ' active' : '');
-        thumb.setAttribute('aria-label', 'View image ' + (i + 1) + ': ' + slide.alt);
+        thumb.className = 'c-thumb';
         const tImg = document.createElement('img');
         tImg.src = slide.src;
         tImg.alt = slide.alt;
@@ -678,133 +680,124 @@
       const dots   = Array.from(dotsEl.querySelectorAll('.c-dot'));
       const thumbs = Array.from(thumbsEl.querySelectorAll('.c-thumb'));
 
-
-      /* ── Initialise: load slide 0 into foreground, slide 1 into bg ───── */
-      function init() {
-        /* Foreground (img-a): visible, slide 0 */
-        imgA.src = SLIDES[0].src;
-        imgA.alt = SLIDES[0].alt;
-        imgA.style.cssText = 'opacity:1; transform:translateX(0); z-index:2; transition:none;';
-
-        /* Background (img-b): invisible, preloaded with slide 1 */
-        imgB.src = SLIDES[Math.min(1, N - 1)].src;
-        imgB.alt = SLIDES[Math.min(1, N - 1)].alt;
-        imgB.style.cssText = 'opacity:0; transform:translateX(0); z-index:1; transition:none;';
-
-        captionEl.textContent = SLIDES[0].caption;
-        counter.textContent   = '1 / ' + N;
+      /* ── Open / Close Lightbox ───────────────────────────────────────── */
+      function openLightbox(index) {
+        isOpen = true;
+        document.body.style.overflow = 'hidden'; // prevent background scrolling
+        overlay.classList.add('active');
+        jumpTo(index); // Jump instantly to the clicked photo without sliding animation
       }
 
+      function closeLightbox() {
+        isOpen = false;
+        document.body.style.overflow = '';
+        overlay.classList.remove('active');
+      }
 
-      /* ── Core: navigate to a given index with direction-aware animation ─ */
+      btnClose.addEventListener('click', closeLightbox);
+      
+      // Close on clicking outside the image (on the overlay background)
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay || e.target.classList.contains('lightbox-content')) {
+          closeLightbox();
+        }
+      });
+
+      // Escape key to close
+      document.addEventListener('keydown', e => {
+        if (isOpen && e.key === 'Escape') closeLightbox();
+      });
+
+      /* ── Instant Jump (Used when opening lightbox) ───────────────────── */
+      function jumpTo(index) {
+        current = index;
+        
+        fg().src = SLIDES[current].src;
+        fg().alt = SLIDES[current].alt;
+        fg().style.cssText = 'opacity:1; transform:translateX(0); z-index:2; transition:none;';
+        
+        bg().style.cssText = 'opacity:0; transform:translateX(0); z-index:1; transition:none;';
+
+        updateUI();
+      }
+
+      /* ── Animated Slide (Used when already inside lightbox) ──────────── */
       function goTo(newIndex) {
         if (isAnimating) return;
-
-        /* Wrap the index with modular arithmetic — this is what enables looping */
         newIndex = ((newIndex % N) + N) % N;
         if (newIndex === current) return;
 
         isAnimating = true;
 
-        /*
-         * Determine animation direction:
-         *   Wrap from last→first: treat as "forward" (→ slide in from right)
-         *   Wrap from first→last: treat as "backward" (← slide in from left)
-         *   All other cases: compare indices numerically
-         */
         let forward;
         if      (current === N - 1 && newIndex === 0)     forward = true;
-        else if (current === 0     && newIndex === N - 1)  forward = false;
-        else                                               forward = newIndex > current;
+        else if (current === 0     && newIndex === N - 1) forward = false;
+        else                                              forward = newIndex > current;
 
-        const enterFrom = forward ? '52px' : '-52px';  /* where incoming slides from */
-        const exitTo    = forward ? '-52px' : '52px';  /* where outgoing slides to   */
+        const enterFrom = forward ? '52px' : '-52px';  
+        const exitTo    = forward ? '-52px' : '52px';  
 
-        /* Step 1 — position incoming image off-screen with NO transition */
         bg().src = SLIDES[newIndex].src;
         bg().alt = SLIDES[newIndex].alt;
-        bg().style.cssText =
-          'opacity:0; transform:translateX(' + enterFrom + '); z-index:3; transition:none;';
+        bg().style.cssText = 'opacity:0; transform:translateX(' + enterFrom + '); z-index:3; transition:none;';
 
-        /* Fade caption out */
         captionEl.classList.add('fading');
 
-        /*
-         * Double requestAnimationFrame:
-         * The first rAF lets the browser flush the "transition:none" repaint.
-         * The second rAF starts the actual animated transition.
-         * Without both, some browsers skip the starting position and jump
-         * straight to the end state.
-         */
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-
             const transitionCSS = 'opacity ' + DURATION + 'ms ease, transform ' + DURATION + 'ms ease';
 
-            /* Animate incoming image into view */
             bg().style.transition = transitionCSS;
             bg().style.opacity    = '1';
             bg().style.transform  = 'translateX(0)';
 
-            /* Animate outgoing image out of view */
             fg().style.transition = transitionCSS;
             fg().style.opacity    = '0';
             fg().style.transform  = 'translateX(' + exitTo + ')';
             fg().style.zIndex     = '2';
 
-            /* After transition completes — clean up and update state */
             setTimeout(() => {
-
-              /* Reset old foreground silently (no transition) for next reuse */
-              fg().style.cssText =
-                'opacity:0; transform:translateX(0); z-index:1; transition:none;';
-
-              /* Swap the active tracker so next call knows which layer is on top */
+              fg().style.cssText = 'opacity:0; transform:translateX(0); z-index:1; transition:none;';
+              
               active  = active === 'a' ? 'b' : 'a';
               current = newIndex;
-
-              /* Update caption */
-              captionEl.textContent = SLIDES[newIndex].caption;
-              captionEl.classList.remove('fading');
-
-              /* Update counter */
-              counter.textContent = (newIndex + 1) + ' / ' + N;
-
-              /* Update dots */
-              dots.forEach((d, i) => d.classList.toggle('active', i === newIndex));
-
-              /* Update thumbnails + scroll active one into view */
-              thumbs.forEach((t, i) => t.classList.toggle('active', i === newIndex));
-              thumbs[newIndex].scrollIntoView({
-                behavior: 'smooth', inline: 'center', block: 'nearest',
-              });
-
+              
+              updateUI();
               isAnimating = false;
-
             }, DURATION);
           });
         });
       }
 
+      /* ── Update Dots, Thumbs, Text ───────────────────────────────────── */
+      function updateUI() {
+        captionEl.textContent = SLIDES[current].caption;
+        captionEl.classList.remove('fading');
+        counter.textContent = (current + 1) + ' / ' + N;
 
-      /* ── Arrow buttons ───────────────────────────────────────────────── */
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        thumbs.forEach((t, i) => t.classList.toggle('active', i === current));
+        
+        if(isOpen) {
+          thumbs[current].scrollIntoView({
+            behavior: 'smooth', inline: 'center', block: 'nearest',
+          });
+        }
+      }
+
+      /* ── Controls ────────────────────────────────────────────────────── */
       btnPrev.addEventListener('click', e => { e.stopPropagation(); goTo(current - 1); });
       btnNext.addEventListener('click', e => { e.stopPropagation(); goTo(current + 1); });
 
-
-      /* ── Keyboard (← → keys) — only when carousel is in viewport ─────── */
       document.addEventListener('keydown', e => {
-        const rect   = document.getElementById('carouselShell').getBoundingClientRect();
-        const inView = rect.top < window.innerHeight && rect.bottom > 0;
-        if (!inView) return;
+        if (!isOpen) return;
         if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
         if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(current - 1); }
       });
 
-
-      /* ── Touch swipe on the stage ────────────────────────────────────── */
+      /* Touch swipe */
       let txStart = null, tyStart = null;
-      const SWIPE = 48; /* px minimum horizontal drag */
+      const SWIPE = 48; 
 
       stage.addEventListener('touchstart', e => {
         txStart = e.changedTouches[0].clientX;
@@ -816,22 +809,15 @@
         const dx = e.changedTouches[0].clientX - txStart;
         const dy = e.changedTouches[0].clientY - tyStart;
         txStart = tyStart = null;
-        /* Only fire if horizontal drag is dominant and long enough */
         if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > SWIPE) {
           goTo(dx < 0 ? current + 1 : current - 1);
         }
       }, { passive: true });
 
-
-      /* ── Preload all images silently in the background ─────────────────── */
+      /* Preload background images */
       SLIDES.forEach(s => { const img = new Image(); img.src = s.src; });
 
-
-      /* ── Start ─────────────────────────────────────────────────────────── */
-      init();
-
-    })(); /* end carousel IIFE */
-
+    })();
 
     /* ══════════════════════════════════════════════════════════════════════
        3D VIEWER ACTIVATION (unchanged)
@@ -860,7 +846,6 @@
         wrapper.appendChild(iframe);
       }
     })();
-
   </script>
 </body>
 </html>
