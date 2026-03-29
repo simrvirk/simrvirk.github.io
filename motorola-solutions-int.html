@@ -929,6 +929,954 @@
     </div>
   </section>
 
+  <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ↓ EDIT: update description / title for each internship ↓ -->
+  <meta name="description" content="Motorola Solutions (Avigilon) — Design Validation Engineering Intern. Simr Virk's co-op case study: automated FOV goniometer, computer vision pipelines, and validation infrastructure.">
+  <title>Motorola Solutions — Simr Virk</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    /* ─────────────────────────────────────────────────────────────────
+       NAV
+    ───────────────────────────────────────────────────────────────── */
+    @media (min-width: 769px) {
+      .nav-links { position: absolute; left: 50%; transform: translateX(-50%); display: flex; gap: 2rem; }
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       PAGE HEADER — compact identity banner for the internship
+    ───────────────────────────────────────────────────────────────── */
+    .internship-header {
+      padding: 72px 0 56px;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    /* Subtle diagonal grid texture behind the header */
+    .internship-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0,229,255,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,255,.04) 1px, transparent 1px);
+      background-size: 44px 44px;
+      pointer-events: none;
+    }
+
+    .breadcrumb {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb-sep { opacity: 0.4; }
+
+    .internship-header-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+      align-items: start;
+      margin-bottom: 32px;
+    }
+
+    /* ↓ EDIT: main role title ↓ */
+    .internship-role {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      letter-spacing: 2px;
+      color: var(--text-primary);
+      line-height: 0.95;
+      margin-bottom: 12px;
+    }
+
+    /* ↓ EDIT: company name ↓ */
+    .internship-company {
+      font-family: var(--font-ui, var(--font-body));
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .internship-meta-group {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      align-items: flex-end;
+      text-align: right;
+      padding-top: 6px;
+    }
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 14px;
+      white-space: nowrap;
+    }
+    .meta-pill i { color: var(--accent); font-size: 0.65rem; }
+
+    .header-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       OVERVIEW — two-column narrative + quick facts
+    ───────────────────────────────────────────────────────────────── */
+    .internship-overview {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .overview-label { margin-bottom: 20px; }
+
+    .overview-body {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.95;
+    }
+    .overview-body p { margin-bottom: 1.2em; }
+    .overview-body p:last-child { margin-bottom: 0; }
+
+    /* Quick-facts sidebar card */
+    .overview-facts-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      position: sticky;
+      top: 88px;
+    }
+    .facts-card-title {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+    .fact-row {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .fact-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .fact-row:first-of-type { padding-top: 0; }
+    .fact-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    .fact-value {
+      font-family: var(--font-ui, var(--font-body));
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       KEY CONTRIBUTIONS — 2×2 card grid
+    ───────────────────────────────────────────────────────────────── */
+    .contributions-section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .contributions-section .section-title { margin-bottom: 48px; }
+
+    .contrib-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .contrib-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .contrib-card:hover {
+      border-color: rgba(0,229,255,.4);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(0,229,255,.08);
+    }
+    .contrib-icon {
+      width: 44px; height: 44px;
+      background: rgba(0,229,255,.08);
+      border: 1px solid var(--accent-border);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--accent);
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      transition: background 0.2s ease;
+    }
+    .contrib-card:hover .contrib-icon { background: rgba(0,229,255,.14); }
+    .contrib-number {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .contrib-title {
+      font-family: var(--font-ui, var(--font-body));
+      font-size: 1.05rem;
+      color: var(--text-primary);
+      font-weight: 600;
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+    .contrib-desc {
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       FEATURED PROJECT SPOTLIGHT — FOV Goniometer
+    ───────────────────────────────────────────────────────────────── */
+    .spotlight-section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .spotlight-label { margin-bottom: 12px; }
+
+    .spotlight-headline {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      letter-spacing: 2px;
+      color: var(--text-primary);
+      margin-bottom: 48px;
+      line-height: 1.05;
+    }
+    .spotlight-headline span { color: var(--accent); }
+
+    /* Two-column: narrative left, results right */
+    .spotlight-cols {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 56px;
+      align-items: start;
+      margin-bottom: 56px;
+    }
+    .spotlight-narrative p {
+      font-size: 0.97rem;
+      color: var(--text-secondary);
+      line-height: 1.9;
+      margin-bottom: 1.2em;
+    }
+    .spotlight-narrative p:last-child { margin-bottom: 0; }
+
+    /* Results/metrics card */
+    .results-card {
+      background: var(--bg-card);
+      border: 1px solid var(--accent-border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+    }
+    .results-card-title {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .result-stat {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .result-stat:last-child { border-bottom: none; padding-bottom: 0; }
+    .result-stat:first-of-type { padding-top: 0; }
+    .result-number {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      color: var(--accent);
+      letter-spacing: 1px;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .result-label {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* Technical architecture — pipeline steps */
+    .pipeline-section {
+      margin-top: 48px;
+    }
+    .pipeline-label {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 2px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .pipeline-steps {
+      display: flex;
+      gap: 0;
+      align-items: stretch;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+    .pipeline-step {
+      flex: 1;
+      min-width: 120px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 18px 16px;
+      position: relative;
+      transition: border-color 0.2s ease;
+    }
+    .pipeline-step:first-child { border-radius: var(--radius-lg) 0 0 var(--radius-lg); }
+    .pipeline-step:last-child  { border-radius: 0 var(--radius-lg) var(--radius-lg) 0; }
+    .pipeline-step + .pipeline-step { border-left: none; }
+    .pipeline-step:hover { border-color: rgba(0,229,255,.4); z-index: 1; }
+    .pipeline-step-num {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 1.5px;
+      color: var(--accent);
+      opacity: 0.7;
+      margin-bottom: 8px;
+    }
+    .pipeline-step-name {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+      line-height: 1.3;
+    }
+    .pipeline-step-detail {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    /* Arrow connector */
+    .pipeline-arrow {
+      display: flex;
+      align-items: center;
+      color: var(--accent);
+      opacity: 0.4;
+      font-size: 0.7rem;
+      flex-shrink: 0;
+      padding: 0 2px;
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       PHOTO GALLERY
+    ───────────────────────────────────────────────────────────────── */
+    .gallery-section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .gallery-section .section-title { margin-bottom: 12px; }
+    .gallery-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 36px;
+      font-family: var(--font-mono);
+      letter-spacing: 0.5px;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    /* Featured first item spans 2 columns if there are 3+ items */
+    .photo-grid-item.featured {
+      grid-column: span 2;
+      aspect-ratio: 16 / 7;
+    }
+    .photo-grid-item {
+      position: relative;
+      cursor: pointer;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      border: 1px solid var(--accent-border);
+      background: var(--bg-card);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .photo-grid-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(0,229,255,.14);
+      border-color: rgba(0,229,255,.6);
+    }
+    .photo-grid-item img, .photo-grid-item video {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: opacity 0.2s ease;
+    }
+    .photo-grid-item:hover img, .photo-grid-item:hover video { opacity: 0.85; }
+    .photo-caption-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(3,3,8,0.88));
+      padding: 28px 14px 12px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.75);
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+    .photo-grid-item:hover .photo-caption-overlay { opacity: 1; }
+    .video-badge { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.72); color: #fff; font-size: 0.63rem; padding: 4px 9px; border-radius: 4px; pointer-events: none; z-index: 5; display: flex; align-items: center; gap: 5px; font-family: var(--font-mono); letter-spacing: 0.5px; }
+    .gallery-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; padding: 64px 48px; border: 1px dashed var(--accent-border); border-radius: var(--radius-lg); color: var(--text-muted); text-align: center; }
+    .gallery-empty i { font-size: 2.5rem; color: rgba(0,229,255,0.15); }
+    .gallery-empty-label { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 1.5px; text-transform: uppercase; }
+    .gallery-empty-sub { font-size: 0.82rem; color: var(--text-muted); max-width: 340px; line-height: 1.6; }
+
+    /* ─────────────────────────────────────────────────────────────────
+       TOOLS & TECH
+    ───────────────────────────────────────────────────────────────── */
+    .tools-section {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .tools-section .section-title { margin-bottom: 48px; }
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .tool-group {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px 20px 18px;
+      transition: border-color 0.2s ease;
+    }
+    .tool-group:hover { border-color: rgba(0,229,255,.3); }
+    .tool-group-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      opacity: 0.75;
+    }
+    .tool-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .tool-item {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .tool-item::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.45;
+      flex-shrink: 0;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       LIGHTBOX CAROUSEL (identical engine to all other pages)
+    ───────────────────────────────────────────────────────────────── */
+    .lightbox-overlay { position: fixed; inset: 0; background: rgba(3,3,8,0.96); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); z-index: 9999; display: flex; flex-direction: column; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+    .lightbox-overlay.active { opacity: 1; pointer-events: auto; }
+    .c-close { position: absolute; top: 20px; right: 24px; background: rgba(9,9,15,.72); border: 1px solid rgba(0,229,255,.28); border-radius: 50%; width: 44px; height: 44px; color: #fff; font-size: 1.15rem; cursor: pointer; z-index: 10000; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease; }
+    .c-close:hover { background: rgba(0,229,255,.14); border-color: rgba(0,229,255,.7); color: var(--accent); transform: scale(1.1); }
+    .lightbox-content { flex: 1; display: flex; flex-direction: column; padding: 24px 24px 0 24px; max-width: 1400px; margin: 0 auto; width: 100%; }
+    .carousel-section-header { display: flex; align-items: center; justify-content: center; margin: 12px 0; }
+    .carousel-counter { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 2px; color: var(--accent); opacity: 0.8; }
+    .carousel-stage { position: relative; flex: 1; width: 100%; min-height: 0; border-radius: 10px; overflow: hidden; }
+    .carousel-layer { position: absolute; inset: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+    .carousel-layer img, .carousel-layer video { max-width: 100%; max-height: 100%; object-fit: contain; padding: 16px 64px; user-select: none; -webkit-user-drag: none; }
+    .carousel-layer img { pointer-events: none; }
+    .carousel-layer video { pointer-events: auto; outline: none; }
+    .c-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; background: rgba(9,9,15,.72); border: 1px solid rgba(0,229,255,.28); border-radius: 50%; color: var(--accent); font-size: 1.1rem; cursor: pointer; transition: all .22s ease; }
+    .c-arrow:hover { background: rgba(0,229,255,.14); border-color: rgba(0,229,255,.7); box-shadow: 0 0 20px rgba(0,229,255,.22); transform: translateY(-50%) scale(1.1); }
+    .c-arrow:active { transform: translateY(-50%) scale(0.96); }
+    #c-prev { left: 0; } #c-next { right: 0; }
+    .carousel-caption-area { min-height: 52px; display: flex; align-items: center; justify-content: center; padding: 8px 16px; text-align: center; }
+    #c-caption { font-family: var(--font-mono); font-size: 0.83rem; letter-spacing: 0.5px; color: #fff; line-height: 1.65; transition: opacity .22s ease; }
+    #c-caption.fading { opacity: 0; }
+    .carousel-footer { padding-bottom: 24px; }
+    .c-dots { display: flex; justify-content: center; gap: 7px; margin-bottom: 16px; }
+    .c-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.2); border: none; padding: 0; cursor: pointer; transition: all .25s ease; }
+    .c-dot.active { background: var(--accent); transform: scale(1.4); }
+    .c-dot:hover:not(.active) { background: rgba(0,229,255,.5); }
+    .c-thumbs { display: flex; justify-content: center; gap: 10px; overflow-x: auto; padding-bottom: 8px; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; }
+    .c-thumbs::-webkit-scrollbar { display: none; }
+    .c-thumb { position: relative; flex-shrink: 0; width: 80px; height: 56px; border-radius: 6px; overflow: hidden; border: 2px solid transparent; cursor: pointer; opacity: 0.4; transition: all .22s ease; }
+    .c-thumb img, .c-thumb video { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+    .c-thumb.active { border-color: var(--accent); opacity: 1; transform: scale(1.05); }
+    .c-thumb:hover:not(.active) { opacity: 0.8; border-color: rgba(0,229,255,.4); }
+
+    /* ─────────────────────────────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .overview-grid { grid-template-columns: 1fr; gap: 40px; }
+      .overview-facts-card { position: static; }
+      .spotlight-cols { grid-template-columns: 1fr; gap: 36px; }
+    }
+    @media (max-width: 768px) {
+      .internship-header-grid { grid-template-columns: 1fr; gap: 24px; }
+      .internship-meta-group { align-items: flex-start; text-align: left; }
+      .contrib-grid { grid-template-columns: 1fr; }
+      .photo-grid-item.featured { grid-column: span 1; aspect-ratio: 4/3; }
+      .pipeline-steps { gap: 2px; }
+      .pipeline-arrow { display: none; }
+      .pipeline-step { min-width: 100px; }
+      .pipeline-step:first-child, .pipeline-step:last-child { border-radius: 0; }
+      .pipeline-step + .pipeline-step { border-left: 1px solid var(--border); }
+      .c-arrow { width: 40px; height: 40px; font-size: 0.9rem; }
+      .carousel-layer img, .carousel-layer video { padding: 8px 48px; }
+      .lightbox-content { padding: 12px 12px 0; }
+      .c-close { top: 12px; right: 12px; width: 36px; height: 36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar" style="position: relative;">
+    <a href="index.html" class="nav-brand">SV</a>
+    <ul class="nav-links">
+      <li><a href="index.html#projects">Projects</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <a href="resume.pdf" target="_blank" class="nav-resume"><i class="fas fa-file-alt"></i> Resume</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- ══════════════════════════════ PAGE HEADER ══════════════════════════════ -->
+  <header class="internship-header">
+    <div class="container">
+
+      <!-- Breadcrumb trail -->
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb-sep">›</span>
+        <span>Experience</span>
+        <span class="breadcrumb-sep">›</span>
+        <!-- ↓ EDIT: company name in breadcrumb ↓ -->
+        <span>Motorola Solutions</span>
+      </div>
+
+      <div class="internship-header-grid">
+        <div>
+          <!-- ↓ EDIT: update role title ↓ -->
+          <h1 class="internship-role">Design Validation<br>Engineering Intern</h1>
+          <!-- ↓ EDIT: update company + division ↓ -->
+          <div class="internship-company">Motorola Solutions · Avigilon Division</div>
+        </div>
+
+        <!-- Meta pills (right-aligned) -->
+        <div class="internship-meta-group">
+          <!-- ↓ EDIT: update dates ↓ -->
+          <span class="meta-pill"><i class="fas fa-calendar-alt"></i> May 2025 – Apr 2026</span>
+          <!-- ↓ EDIT: update location ↓ -->
+          <span class="meta-pill"><i class="fas fa-map-marker-alt"></i> Vancouver, BC</span>
+          <span class="meta-pill"><i class="fas fa-briefcase"></i> Co-op · Full-time</span>
+        </div>
+      </div>
+
+      <!-- Skill tags — add data-color="#hex" to any tag to override the accent colour -->
+      <!-- ↓ EDIT: update tags to match actual skills used ↓ -->
+      <div class="header-tags">
+        <span class="tag">Python</span>
+        <span class="tag">OpenCV</span>
+        <span class="tag">C / C++</span>
+        <span class="tag">Computer Vision</span>
+        <span class="tag">Test Automation</span>
+        <span class="tag">Embedded Linux</span>
+        <span class="tag">GD&amp;T</span>
+        <span class="tag">SolidWorks</span>
+        <span class="tag">RTSP Pipelines</span>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════ OVERVIEW ══════════════════════════════ -->
+  <section class="internship-overview">
+    <div class="container">
+      <div class="overview-grid">
+
+        <!-- Left: narrative -->
+        <div>
+          <div class="section-label overview-label">
+            <span class="label-line"></span>
+            <span class="label-text">Overview</span>
+          </div>
+
+          <!-- ↓ EDIT: replace with your own narrative about the role ↓ -->
+          <div class="overview-body">
+            <p>At Motorola Solutions' Avigilon division in Vancouver, I worked as a Design Validation Engineering Intern within the hardware team, reporting to the Mechanical Engineering group. My mandate was to build and deploy automated validation infrastructure for camera hardware — reducing manual test burden, increasing measurement precision, and generating repeatable data that feeds directly into product certification decisions.</p>
+            <p>The role sat at the intersection of mechanical systems, software automation, and computer vision. I wasn't running tests — I was designing and building the systems that run the tests. That distinction shaped everything I produced during this term.</p>
+            <p>The flagship deliverable was a fully automated Field of View (FOV) goniometer system — a Python-based, camera-driven pipeline capable of measuring angular FOV with ±0.5° accuracy across full product sweep cycles with no human intervention. It cut cycle time by 85% versus the manual baseline and is now part of the lab's standard test infrastructure.</p>
+            <!-- ↓ EDIT: add more paragraphs if needed ↓ -->
+          </div>
+        </div>
+
+        <!-- Right: quick-facts card -->
+        <div class="overview-facts-card">
+          <div class="facts-card-title">At a Glance</div>
+
+          <!-- ↓ EDIT: update each fact row ↓ -->
+          <div class="fact-row">
+            <span class="fact-label">Company</span>
+            <span class="fact-value">Motorola Solutions</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-label">Division</span>
+            <span class="fact-value">Avigilon (Security Cameras)</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-label">Duration</span>
+            <span class="fact-value">12 months (Co-op)</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-label">Supervisor</span>
+            <!-- ↓ EDIT: update supervisor name ↓ -->
+            <span class="fact-value">Zoltan Feldman</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-label">Primary Focus</span>
+            <span class="fact-value">Automated Test Infrastructure</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-label">Core Stack</span>
+            <span class="fact-value">Python · OpenCV · C/C++ · Linux</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════ KEY CONTRIBUTIONS ══════════════════════ -->
+  <section class="contributions-section">
+    <div class="container">
+
+      <div class="section-label" style="margin-bottom: 12px;">
+        <span class="label-line"></span>
+        <span class="label-text">What I Built</span>
+      </div>
+      <h2 class="section-title">Key Contributions</h2>
+
+      <!-- ↓ EDIT: update each card's icon, number, title, and description ↓ -->
+      <div class="contrib-grid">
+
+        <div class="contrib-card fade-up">
+          <div class="contrib-icon"><i class="fas fa-crosshairs"></i></div>
+          <div class="contrib-number">01 — Flagship Project</div>
+          <div class="contrib-title">Automated FOV Goniometer System</div>
+          <div class="contrib-desc">Designed and built a fully automated test system for measuring camera field of view using a motorized Zaber rotary stage, RTSP video stream ingestion, and OpenCV-based image processing. Achieved ±0.5° angular accuracy and eliminated the need for manual jig alignment.</div>
+        </div>
+
+        <div class="contrib-card fade-up">
+          <div class="contrib-icon"><i class="fas fa-eye"></i></div>
+          <div class="contrib-number">02 — Computer Vision</div>
+          <div class="contrib-title">RTSP Pipeline & Green-Channel Detection</div>
+          <div class="contrib-desc">Built a Python/OpenCV real-time pipeline ingesting live RTSP streams from test cameras. Implemented green-channel thresholding and centroid tracking to detect laser target positions sub-pixel accurately, enabling precise FOV boundary identification across full goniometer sweeps.</div>
+        </div>
+
+        <div class="contrib-card fade-up">
+          <div class="contrib-icon"><i class="fas fa-ruler-combined"></i></div>
+          <div class="contrib-number">03 — Mechanical Correction</div>
+          <div class="contrib-title">Nodal Point Parallax Compensation</div>
+          <div class="contrib-desc">Developed and integrated a nodal point parallax correction algorithm to compensate for lens-to-rotation-axis offset inherent in the goniometer fixture geometry. This significantly improved accuracy at wide angles where parallax error dominates.</div>
+        </div>
+
+        <div class="contrib-card fade-up">
+          <div class="contrib-icon"><i class="fas fa-cogs"></i></div>
+          <div class="contrib-number">04 — Software Architecture</div>
+          <div class="contrib-title">Discrete Step Engine & Test Automation</div>
+          <div class="contrib-desc">Architected a modular Discrete Step Engine that sequences goniometer positioning, image capture, and data logging into a fully autonomous test cycle. Reduced full-suite cycle time by 85% versus the manual baseline and produced structured output reports consumed downstream by the validation team.</div>
+        </div>
+
+        <!-- ↓ EDIT: add a 5th card if needed, or remove one ↓
+        <div class="contrib-card fade-up">
+          <div class="contrib-icon"><i class="fas fa-file-alt"></i></div>
+          <div class="contrib-number">05 — Documentation</div>
+          <div class="contrib-title">Your 5th Contribution Title</div>
+          <div class="contrib-desc">Description of the contribution.</div>
+        </div>
+        -->
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════ SPOTLIGHT ══════════════════════════════ -->
+  <section class="spotlight-section">
+    <div class="container">
+
+      <div class="section-label spotlight-label">
+        <span class="label-line"></span>
+        <!-- ↓ EDIT: update spotlight label ↓ -->
+        <span class="label-text">Deep Dive</span>
+      </div>
+      <!-- ↓ EDIT: update spotlight headline ↓ -->
+      <h2 class="spotlight-headline">FOV Goniometer<br><span>Automation System</span></h2>
+
+      <div class="spotlight-cols">
+
+        <!-- Left: full narrative -->
+        <div class="spotlight-narrative">
+          <!-- ↓ EDIT: replace with detailed technical narrative of your featured project ↓ -->
+          <p><strong style="color: var(--text-primary);">The problem:</strong> Validating the field of view of camera products required a technician to manually position a jig, capture stills, and measure angular bounds by hand — a process that was slow, operator-dependent, and non-repeatable at the precision levels required for certification.</p>
+
+          <p><strong style="color: var(--text-primary);">The approach:</strong> I designed a fully software-driven test system around a Zaber motorized rotary stage, which sweeps the camera through a calibrated angular range while the system continuously captures and analyzes live RTSP video frames. The core image processing chain uses OpenCV's green-channel thresholding to isolate a laser reference target in the scene, then tracks its centroid pixel position through each angular increment.</p>
+
+          <p><strong style="color: var(--text-primary);">The architecture:</strong> The Discrete Step Engine (DSE) sequences stage movement, frame acquisition, and analysis into a closed-loop cycle. At each step, the engine: commands the Zaber stage to a target angle, waits for settle, grabs a frame from the RTSP buffer, thresholds and detects the target, logs the angle + pixel position, then advances. All timing, retry logic, and edge-case handling is encapsulated in the engine so test scripts remain clean and readable.</p>
+
+          <p><strong style="color: var(--text-primary);">The challenge:</strong> Real camera lenses introduce nodal point offset — the entrance pupil is not co-located with the rotation axis of the goniometer. At wide angles this creates measurable parallax error that corrupts the FOV reading. I modelled the geometry and implemented a correction factor derived from the measured nodal point position, applied automatically at each angular step. This was the difference between a plausible demo and a production-quality validation tool.</p>
+
+          <!-- ↓ EDIT: add additional paragraphs about approach, challenges, or lessons ↓ -->
+        </div>
+
+        <!-- Right: results card -->
+        <div class="results-card">
+          <div class="results-card-title">Results & Impact</div>
+          <!-- ↓ EDIT: update numbers and labels ↓ -->
+          <div class="result-stat">
+            <div class="result-number">±0.5°</div>
+            <div class="result-label">Angular accuracy achieved — meets full certification tolerance</div>
+          </div>
+          <div class="result-stat">
+            <div class="result-number">85%</div>
+            <div class="result-label">Reduction in test cycle time vs. manual baseline</div>
+          </div>
+          <div class="result-stat">
+            <div class="result-number">100%</div>
+            <div class="result-label">Automation — zero manual intervention required per cycle</div>
+          </div>
+          <div class="result-stat">
+            <div class="result-number">N+</div>
+            <!-- ↓ EDIT: update with actual number of products if known ↓ -->
+            <div class="result-label">Camera SKUs now validated through the automated pipeline</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Pipeline architecture diagram (text-based, no dependencies) -->
+      <div class="pipeline-section fade-up">
+        <div class="pipeline-label">System Pipeline</div>
+        <div class="pipeline-steps">
+
+          <!-- ↓ EDIT: update pipeline steps to match your architecture ↓ -->
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">01</div>
+            <div class="pipeline-step-name">Stage Command</div>
+            <div class="pipeline-step-detail">Zaber rotary<br>to target angle</div>
+          </div>
+          <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
+
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">02</div>
+            <div class="pipeline-step-name">Frame Capture</div>
+            <div class="pipeline-step-detail">RTSP stream<br>buffer read</div>
+          </div>
+          <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
+
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">03</div>
+            <div class="pipeline-step-name">Thresholding</div>
+            <div class="pipeline-step-detail">Green-channel<br>isolation (OpenCV)</div>
+          </div>
+          <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
+
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">04</div>
+            <div class="pipeline-step-name">Centroid Track</div>
+            <div class="pipeline-step-detail">Sub-pixel laser<br>position detection</div>
+          </div>
+          <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
+
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">05</div>
+            <div class="pipeline-step-name">Parallax Correct</div>
+            <div class="pipeline-step-detail">Nodal point offset<br>compensation</div>
+          </div>
+          <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
+
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">06</div>
+            <div class="pipeline-step-name">Log & Advance</div>
+            <div class="pipeline-step-detail">Angle + pixel data<br>→ report output</div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════ PHOTO GALLERY ══════════════════════════ -->
+  <section class="gallery-section">
+    <div class="container">
+
+      <div class="section-label" style="margin-bottom: 12px;">
+        <span class="label-line"></span>
+        <span class="label-text">Gallery</span>
+      </div>
+      <h2 class="section-title">Photos &amp; Documentation</h2>
+      <div class="gallery-subtitle">
+        <!-- ↓ EDIT: update gallery subtitle ↓ -->
+        Lab setup · test apparatus · system output · team moments
+      </div>
+
+      <!-- ↓↓ ADD YOUR PHOTOS/VIDEOS HERE ↓↓
+           Each slide: { src: 'path/to/file.jpg', alt: '...', caption: '...', featured: true/false }
+           Set featured: true on the FIRST image to make it span 2 columns.
+           Supported: .jpg .png .webp .gif  ·  .mp4 .mov .webm
+           Drop files in: experience/motorola/
+      ↓↓ ─────────────────────────────────────────────────────────── ↓↓ -->
+      <div class="photo-grid" id="photoGrid-internship"></div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════ TOOLS & TECH ══════════════════════════ -->
+  <section class="tools-section">
+    <div class="container">
+
+      <div class="section-label" style="margin-bottom: 12px;">
+        <span class="label-line"></span>
+        <span class="label-text">Stack</span>
+      </div>
+      <h2 class="section-title">Tools &amp; Technologies</h2>
+
+      <!-- ↓ EDIT: update each tool group and item list ↓ -->
+      <div class="tools-grid fade-up">
+
+        <div class="tool-group">
+          <div class="tool-group-label">Languages</div>
+          <div class="tool-list">
+            <span class="tool-item">Python 3</span>
+            <span class="tool-item">C / C++</span>
+            <span class="tool-item">Bash / Shell</span>
+          </div>
+        </div>
+
+        <div class="tool-group">
+          <div class="tool-group-label">Vision & Data</div>
+          <div class="tool-list">
+            <span class="tool-item">OpenCV</span>
+            <span class="tool-item">NumPy</span>
+            <span class="tool-item">RTSP Streams</span>
+          </div>
+        </div>
+
+        <div class="tool-group">
+          <div class="tool-group-label">Hardware Control</div>
+          <div class="tool-list">
+            <span class="tool-item">Zaber Motion API</span>
+            <span class="tool-item">Serial / USB Comms</span>
+            <span class="tool-item">Motorized Goniometer</span>
+          </div>
+        </div>
+
+        <div class="tool-group">
+          <div class="tool-group-label">Mechanical</div>
+          <div class="tool-list">
+            <span class="tool-item">SolidWorks</span>
+            <span class="tool-item">GD&amp;T</span>
+            <span class="tool-item">Fixture Design</span>
+          </div>
+        </div>
+
+        <div class="tool-group">
+          <div class="tool-group-label">Dev Environment</div>
+          <div class="tool-list">
+            <span class="tool-item">Embedded Linux</span>
+            <span class="tool-item">Git / Version Control</span>
+            <span class="tool-item">SSH / Remote Dev</span>
+          </div>
+        </div>
+
+        <div class="tool-group">
+          <div class="tool-group-label">Documentation</div>
+          <div class="tool-list">
+            <span class="tool-item">Technical Reports</span>
+            <span class="tool-item">Test Specifications</span>
+            <span class="tool-item">Internal Wiki</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox-overlay" id="lightboxOverlay">
+    <button class="c-close" id="c-close" aria-label="Close gallery"><i class="fas fa-times"></i></button>
+    <div class="lightbox-content">
+      <div class="carousel-section-header"><span class="carousel-counter" id="c-counter"></span></div>
+      <div class="carousel-stage" id="c-stage">
+        <button class="c-arrow" id="c-prev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+        <div class="carousel-layer" id="c-layer-a"></div>
+        <div class="carousel-layer" id="c-layer-b"></div>
+        <button class="c-arrow" id="c-next" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+      </div>
+      <div class="carousel-caption-area"><span id="c-caption"></span></div>
+      <div class="carousel-footer">
+        <div class="c-dots" id="c-dots"></div>
+        <div class="c-thumbs" id="c-thumbs"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- LIGHTBOX -->
   <div class="lightbox-overlay" id="lightboxOverlay">
     <button class="c-close" id="c-close" aria-label="Close gallery"><i class="fas fa-times"></i></button>
