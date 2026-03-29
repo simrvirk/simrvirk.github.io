@@ -1126,6 +1126,55 @@ section { padding: 104px 0; }
   color: var(--text-secondary);
 }
 
+/* ═══════════════════════════════════════════════════════════════════════
+   CUSTOM BADGE / TAG COLOURS  —  ADD THIS BLOCK TO style.css
+   ═══════════════════════════════════════════════════════════════════════
+
+   HOW IT WORKS:
+     Any .tag element with a data-color="#hex" attribute will automatically
+     receive a background, border, and text colour derived from that hex.
+     The JavaScript initializer at the bottom handles the conversion.
+     No additional libraries required.
+
+   HOW TO USE IN YOUR HTML:
+     Default (uses global accent cyan):
+       <span class="tag">Robotics</span>
+
+     Custom colour:
+       <span class="tag" data-color="#f97316">Mechanical</span>
+       <span class="tag" data-color="#a855f7">Industry</span>
+       <span class="tag" data-color="#22c55e">Software</span>
+       <span class="tag" data-color="#ef4444">Hardware</span>
+       <span class="tag" data-color="#00e5ff">Embedded</span>   ← accent blue (manual)
+
+   SUGGESTED PALETTE (matches dark industrial aesthetic):
+     #00e5ff  — Electric cyan      (default accent, firmware / embedded)
+     #f97316  — Amber orange       (mechanical / hardware)
+     #a855f7  — Circuit violet     (industry / internship)
+     #22c55e  — Signal green       (software / algorithms)
+     #ef4444  — Fault red          (robotics / actuation)
+     #eab308  — Sensor yellow      (vision / optics)
+     #06b6d4  — Sky cyan           (controls / systems)
+     #f43f5e  — Hot pink           (design / CAD)
+
+═══════════════════════════════════════════════════════════════════════ */
+
+/* Tags that carry a data-color attribute get their colours overridden.
+   The JS below converts the hex and injects three CSS custom properties:
+     --tc-r, --tc-g, --tc-b  (the RGB channels of the hex value)
+   These are then used here via rgb() to build tinted background + border. */
+.tag[data-color] {
+  background:   rgb(var(--tc-r), var(--tc-g), var(--tc-b), 0.10) !important;
+  border-color: rgb(var(--tc-r), var(--tc-g), var(--tc-b), 0.32) !important;
+  color:        var(--tc-hex)                                      !important;
+}
+
+.tag[data-color]:hover {
+  background:   rgb(var(--tc-r), var(--tc-g), var(--tc-b), 0.18) !important;
+  border-color: rgb(var(--tc-r), var(--tc-g), var(--tc-b), 0.55) !important;
+}
+
+
 /* ============================================================ RESPONSIVE */
 @media (max-width: 1024px) {
   #hero {
