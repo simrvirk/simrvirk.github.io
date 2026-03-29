@@ -3,174 +3,360 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!--
-    ══════════════════════════════════════════════════════════════════
-    STEP 1 — Change the title to your project name.
-    Example: <title>Chess Robot Arm — Simr Virk</title>
-    ══════════════════════════════════════════════════════════════════
-  -->
-  <title>Project Name — Simr Virk</title>
+  <title>Chess Robot Arm - Simr Virk</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    /*
-     * ─── GAP FIX: top of project pages ────────────────────────────────────
-     *
-     * Root cause: style.css defines .project-page { padding-top: var(--nav-h) }
-     * (68 px) — this was written for a *fixed* nav so the content wouldn't
-     * hide under it.  But on these pages the nav is position:relative
-     * (sits in normal document flow), so the browser ALREADY reserves its
-     * height.  Adding 68 px on top of that produces the blank strip you
-     * circled at the very top of image 3.
-     *
-     * Fix: zero out that padding-top here.
-     * The nav itself will still show at the top and the content follows
-     * immediately after it — no gap.
-     */
-    .project-page {
-      padding-top: 0 !important;
-    }
 
-    /* ── NAV CENTERING (matches index.html) ───────────────────────────── */
+  <style>
+    /* ── Gap fix & nav centering ──────────────────────────── */
+    .project-page { padding-top: 0 !important; }
+
     @media (min-width: 769px) {
       .nav-links {
         position: absolute;
-        left: 50%;
-        top: 50%;
+        left: 50%; top: 50%;
         transform: translate(-50%, -50%);
-        display: flex;
-        gap: 2rem;
-        margin: 0;
+        display: flex; gap: 2rem; margin: 0;
       }
     }
 
-    /* ─── 3D VIEWER SECTION ──────────────────────────────────────────────
-     * Styles for the interactive CAD model embed.
-     * The viewer uses Sketchfab — an industry-standard platform used by
-     * Tesla, Boeing, NASA, and top engineering firms for sharing 3D models.
-     */
+    /* ════════════════════════════════════════════════════════════════════
+       PHOTO & VIDEO GRID (Inline)
+       ───────────────────────────────────────────────────────────────── */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 64px;
+    }
+    .photo-grid-item {
+      position: relative;
+      cursor: pointer;
+      border-radius: 8px;
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      border: 1px solid var(--accent-border, rgba(0,229,255,.28));
+      background: #05050d;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .photo-grid-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,229,255,.15);
+      border-color: rgba(0,229,255,.6);
+    }
+    .photo-grid-item img, .photo-grid-item video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.2s ease;
+    }
+    .photo-grid-item:hover img, .photo-grid-item:hover video {
+      opacity: 0.85;
+    }
+
+    /* Video Badges for UI clarity */
+    .video-badge {
+      position: absolute;
+      top: 8px; right: 8px;
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      font-size: 0.65rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+      pointer-events: none;
+      z-index: 5;
+      display: flex; align-items: center; gap: 4px;
+    }
+
+    /* ════════════════════════════════════════════════════════════════════
+       FULLSCREEN LIGHTBOX CAROUSEL
+       ───────────────────────────────────────────────────────────────── */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 3, 8, 0.96);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .lightbox-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Close Button */
+    .c-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      background: rgba(9,9,15,.72);
+      border: 1px solid rgba(0,229,255,.28);
+      border-radius: 50%;
+      width: 44px; height: 44px;
+      color: #fff;
+      font-size: 1.2rem;
+      cursor: pointer;
+      z-index: 10000;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .c-close:hover {
+      background: rgba(0,229,255,.14);
+      border-color: rgba(0,229,255,.7);
+      color: var(--accent, #00e5ff);
+      transform: scale(1.1);
+    }
+
+    .lightbox-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 24px 24px 0 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Row 1 — header */
+    .carousel-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      margin-top: 12px;
+    }
+    .carousel-counter {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      color: var(--accent, #00e5ff);
+      opacity: 0.8;
+    }
+
+    /* Row 2 — stage */
+    .carousel-stage {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      min-height: 0;
+      background: transparent;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    /* Dynamic Media Layers instead of static images */
+    .carousel-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .carousel-layer img, .carousel-layer video {
+      max-width: 100%; max-height: 100%;
+      object-fit: contain;
+      padding: 16px 64px;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .carousel-layer img {
+      pointer-events: none;
+    }
+    .carousel-layer video {
+      pointer-events: auto; /* Required for video controls */
+      outline: none;
+    }
+
+    /* Arrows */
+    .c-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 52px; height: 52px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(9,9,15,.72);
+      border: 1px solid rgba(0,229,255,.28);
+      border-radius: 50%;
+      color: var(--accent, #00e5ff);
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all .22s ease;
+    }
+    .c-arrow:hover {
+      background: rgba(0,229,255,.14);
+      border-color: rgba(0,229,255,.7);
+      box-shadow: 0 0 20px rgba(0,229,255,.22);
+      transform: translateY(-50%) scale(1.1);
+    }
+    .c-arrow:active { transform: translateY(-50%) scale(0.96); }
+    #c-prev { left: 0; }
+    #c-next { right: 0; }
+
+    /* Row 3 — caption */
+    .carousel-caption-area {
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 16px;
+      text-align: center;
+    }
+    #c-caption {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      letter-spacing: 0.6px;
+      color: #fff;
+      line-height: 1.6;
+      transition: opacity .22s ease;
+    }
+    #c-caption.fading { opacity: 0; }
+
+    /* Row 4 & 5 — Footer controls */
+    .carousel-footer {
+      padding-bottom: 24px;
+    }
+    .c-dots {
+      display: flex;
+      justify-content: center;
+      gap: 7px;
+      margin-bottom: 16px;
+    }
+    .c-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.2);
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      transition: all .25s ease;
+    }
+    .c-dot.active {
+      background: var(--accent, #00e5ff);
+      transform: scale(1.4);
+    }
+    .c-dot:hover:not(.active) { background: rgba(0,229,255,.5); }
+
+    .c-thumbs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .c-thumbs::-webkit-scrollbar { display: none; }
+
+    .c-thumb {
+      position: relative;
+      flex-shrink: 0;
+      width: 80px; height: 56px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 2px solid transparent;
+      cursor: pointer;
+      opacity: 0.4;
+      transition: all .22s ease;
+    }
+    .c-thumb img, .c-thumb video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+    .c-thumb.active {
+      border-color: var(--accent, #00e5ff);
+      opacity: 1;
+      transform: scale(1.05);
+    }
+    .c-thumb:hover:not(.active) {
+      opacity: 0.8;
+      border-color: rgba(0,229,255,.4);
+    }
+    /* Smaller video badge for thumbnail strip */
+    .c-thumb .video-badge {
+      top: 4px; right: 4px;
+      font-size: 0.5rem;
+      padding: 2px 4px;
+    }
+
+    /* Mobile Adjustments */
+    @media (max-width: 600px) {
+      .photo-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+      .c-arrow { width: 40px; height: 40px; font-size: 0.9rem; }
+      .carousel-layer img, .carousel-layer video { padding: 8px 48px; }
+      .lightbox-content { padding: 12px 12px 0 12px; }
+      .c-close { top: 12px; right: 12px; width: 36px; height: 36px; font-size: 1rem; }
+      #c-caption { font-size: 0.75rem; }
+    }
+
+    /* ── 3D viewer (unchanged) ─────────────────────────────────────────── */
     .viewer-section {
       padding: 64px 0;
       background: var(--bg-secondary);
-      border-top:    1px solid var(--border);
+      border-top: 1px solid var(--border);
       border-bottom: 1px solid var(--border);
     }
-
     .viewer-header {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 24px;
+      display: flex; align-items: flex-end;
+      justify-content: space-between; flex-wrap: wrap;
+      gap: 12px; margin-bottom: 24px;
     }
-
     .viewer-hint {
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-      letter-spacing: 1px;
-      color: var(--text-muted);
-      display: flex;
-      align-items: center;
-      gap: 20px;
+      font-family: var(--font-mono); font-size: 0.65rem;
+      letter-spacing: 1px; color: var(--text-muted);
+      display: flex; align-items: center; gap: 20px;
     }
-
-    .viewer-hint span {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* The iframe wrapper creates the aspect-ratio box and the glowing border */
+    .viewer-hint span { display: flex; align-items: center; gap: 6px; }
     .viewer-frame-wrapper {
-      position: relative;
-      width: 100%;
-      padding-bottom: 52%;       /* 52% ≈ roughly 16:8.3 — a wide cinematic ratio */
-      border-radius: 10px;
-      overflow: hidden;
+      position: relative; width: 100%; padding-bottom: 52%;
+      border-radius: 10px; overflow: hidden;
       border: 1px solid var(--accent-border);
-      box-shadow: 0 0 48px rgba(0, 229, 255, 0.08),
-                  0 8px 40px rgba(0, 0, 0, 0.55);
-      background: #05050d;       /* fallback while iframe loads */
+      box-shadow: 0 0 48px rgba(0,229,255,.08), 0 8px 40px rgba(0,0,0,.55);
+      background: #05050d;
     }
-
     .viewer-frame-wrapper iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%; border: none;
     }
-
-    /* Shown when no Sketchfab URL has been added yet */
     .viewer-placeholder {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 18px;
-      background: radial-gradient(ellipse at 50% 40%,
-                    rgba(0,229,255,0.05) 0%,
-                    #05050d 65%);
-      color: var(--text-muted);
-      text-align: center;
-      padding: 32px;
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 18px;
+      background: radial-gradient(ellipse at 50% 40%, rgba(0,229,255,.05) 0%, #05050d 65%);
+      color: var(--text-muted); text-align: center; padding: 32px;
     }
-
-    .viewer-placeholder-icon {
-      font-size: 3rem;
-      color: rgba(0,229,255,0.22);
-      line-height: 1;
-    }
-
+    .viewer-placeholder-icon { font-size: 3rem; color: rgba(0,229,255,.22); line-height: 1; }
     .viewer-placeholder h4 {
-      font-family: var(--font-heading);
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--text-secondary);
-      letter-spacing: 0.5px;
+      font-family: var(--font-heading); font-size: 1.05rem;
+      font-weight: 700; color: var(--text-secondary); letter-spacing: .5px;
     }
-
     .viewer-placeholder p {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      letter-spacing: 0.3px;
-      color: var(--text-muted);
-      max-width: 480px;
-      line-height: 1.75;
+      font-family: var(--font-mono); font-size: .7rem;
+      letter-spacing: .3px; color: var(--text-muted);
+      max-width: 480px; line-height: 1.75;
     }
-
     .viewer-placeholder code {
-      background: rgba(0,229,255,0.07);
-      border: 1px solid var(--accent-border);
-      color: var(--accent);
-      padding: 2px 8px;
-      border-radius: 3px;
-      font-size: 0.72rem;
+      background: rgba(0,229,255,.07); border: 1px solid var(--accent-border);
+      color: var(--accent); padding: 2px 8px; border-radius: 3px; font-size: .72rem;
     }
-
     .viewer-caption {
-      margin-top: 14px;
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      letter-spacing: 1px;
-      color: var(--text-muted);
-      text-align: center;
+      margin-top: 14px; font-family: var(--font-mono); font-size: .68rem;
+      letter-spacing: 1px; color: var(--text-muted); text-align: center;
     }
   </style>
 </head>
 <body class="project-page">
 
-  <!--
-    NOTE ON position:relative — The nav uses position:relative so it sits
-    at the top of the page in normal document flow.  The CSS fix above
-    (.project-page { padding-top: 0 }) removes the old 68 px blank strip.
-  -->
   <nav id="navbar" style="position: relative;">
     <a href="index.html" class="nav-brand">SV</a>
     <ul class="nav-links">
@@ -186,43 +372,20 @@
     </button>
   </nav>
 
-  <!-- ===================== PROJECT HERO ===================== -->
   <div class="project-hero">
     <div class="container">
-
       <a href="index.html#projects" class="project-back">
         <i class="fas fa-arrow-left"></i> Back to All Projects
       </a>
-
       <div class="project-hero-grid">
-
         <div>
-          <!--
-            STEP 2 — Change the category.
-            Options: Robotics · Mechanical · Industry · Software · Embedded
-          -->
           <div class="project-category-label">Robotics / Mechatronics</div>
-
-          <!--
-            STEP 3 — Change the project title (large heading).
-            Keep it short — 2 to 4 words works best.
-          -->
           <h1 class="project-title">PROJECT<br>NAME HERE</h1>
-
-          <!--
-            STEP 4 — Write a 2–3 sentence summary.
-            What did you build? What problem did it solve?
-          -->
           <p class="project-summary">
             Write a concise 2–3 sentence summary of the project here.
             Explain what you built, what problem it solved, and the key
             technical achievement that makes this project noteworthy.
           </p>
-
-          <!--
-            STEP 5 — Add your tech stack tags.
-            Copy <span class="tag">...</span> to add more.
-          -->
           <div class="project-tech-list">
             <span class="tag">Python</span>
             <span class="tag">ROS</span>
@@ -231,13 +394,7 @@
             <span class="tag">Arduino</span>
           </div>
         </div>
-
-        <!-- Right column: project metadata -->
         <div class="project-meta-card">
-          <!--
-            STEP 6 — Fill in the metadata fields.
-            Delete any rows that don't apply.
-          -->
           <div class="project-meta-item">
             <div class="meta-label">Duration</div>
             <div class="meta-value">Month Year – Month Year</div>
@@ -261,23 +418,16 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 
-  <!-- ===================== PROJECT BODY ===================== -->
   <div class="project-body">
     <div class="container">
 
-      <!-- Problem + Approach -->
       <div class="project-body-grid">
         <div>
           <div class="project-section-title">The Problem</div>
-          <!--
-            STEP 7 — Describe the engineering problem you were solving.
-            Be specific: constraints, requirements, real-world context.
-          -->
           <p>
             Describe the problem or engineering challenge this project was
             designed to solve. Be specific — mention constraints, requirements,
@@ -290,9 +440,6 @@
         </div>
         <div>
           <div class="project-section-title">My Approach</div>
-          <!--
-            STEP 8 — Describe your approach and key design decisions.
-          -->
           <p>
             Explain the approach you took to solve the problem. What design
             decisions did you make and why? What alternatives did you consider?
@@ -304,39 +451,46 @@
         </div>
       </div>
 
-      <!-- Photo Gallery -->
-      <div class="project-section-title" style="margin-bottom: 20px;">Gallery</div>
-      <div class="project-gallery">
-        <!--
-          STEP 9 — Add your photos.
-          Upload image files to your GitHub repo, then set src="your-filename.jpg".
-          Copy this block to add more images.
-        -->
-        <div class="gallery-item">
-          <img src="YOUR-IMAGE-1.jpg" alt="Description of image 1"
-               onerror="this.parentElement.style.display='none'">
-          <div class="gallery-caption">Caption for image 1 — describe what's shown</div>
-        </div>
-        <div class="gallery-item">
-          <img src="YOUR-IMAGE-2.jpg" alt="Description of image 2"
-               onerror="this.parentElement.style.display='none'">
-          <div class="gallery-caption">Caption for image 2</div>
-        </div>
-        <div class="gallery-item">
-          <img src="YOUR-IMAGE-3.jpg" alt="Description of image 3"
-               onerror="this.parentElement.style.display='none'">
-          <div class="gallery-caption">Caption for image 3</div>
+      <div class="project-section-title" style="margin-bottom: 18px;">Gallery</div>
+      
+      <div class="photo-grid" id="photoGrid"></div>
+
+      <div class="lightbox-overlay" id="lightboxOverlay">
+        <button class="c-close" id="c-close" aria-label="Close Gallery"><i class="fas fa-times"></i></button>
+        
+        <div class="lightbox-content">
+          <div class="carousel-section-header">
+            <span class="carousel-counter" id="c-counter"></span>
+          </div>
+
+          <div class="carousel-stage" id="c-stage">
+            <button class="c-arrow" id="c-prev" aria-label="Previous image">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+
+            <div class="carousel-layer" id="c-layer-a"></div>
+            <div class="carousel-layer" id="c-layer-b"></div>
+
+            <button class="c-arrow" id="c-next" aria-label="Next image">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+
+          <div class="carousel-caption-area">
+            <span id="c-caption"></span>
+          </div>
+
+          <div class="carousel-footer">
+            <div class="c-dots" id="c-dots"></div>
+            <div class="c-thumbs" id="c-thumbs"></div>
+          </div>
         </div>
       </div>
 
-      <!-- Technical + Challenges -->
+
       <div class="project-body-grid">
         <div>
           <div class="project-section-title">Technical Details</div>
-          <!--
-            STEP 10 — Technical implementation details.
-            Hardware specs, software architecture, algorithms, tolerances, protocols.
-          -->
           <p>
             Describe the technical details of your implementation here.
             What hardware did you use? What software architecture did you design?
@@ -350,10 +504,6 @@
         </div>
         <div>
           <div class="project-section-title">Challenges &amp; Learnings</div>
-          <!--
-            STEP 11 — Challenges and lessons learned.
-            This section shows maturity — top recruiters value self-awareness.
-          -->
           <p>
             Describe the most significant technical challenge you encountered
             and how you resolved it. Be honest — challenges show real
@@ -366,46 +516,11 @@
         </div>
       </div>
 
-    </div><!-- /container -->
-  </div><!-- /project-body -->
-
-
-  <!-- ═══════════════════════════════════════════════════════════════════════
-       INTERACTIVE 3D CAD VIEWER
-       ═══════════════════════════════════════════════════════════════════════
-
-       This section embeds a live, interactive 3D model of your project.
-       Visitors can rotate, zoom, and inspect the model directly in the browser —
-       no plugins required. Used by NASA, Tesla, Boeing, and leading engineering
-       portfolios worldwide.
-
-       PLATFORM: Sketchfab (sketchfab.com) — free for students.
-       Supports SolidWorks, Fusion 360, STEP, IGES, OBJ, STL files.
-
-       ───────────────────────────────────────────────────────────────────────
-       HOW TO EMBED YOUR OWN MODEL — 4 steps:
-
-       1. Go to  https://sketchfab.com  and create a free account.
-
-       2. Click "Upload" → select your file.
-          Accepted formats: .sldprt, .sldasm, .step, .iges, .stl, .obj, .f3d
-          (If uploading SolidWorks: export as STEP or STL first via
-           File → Save As → *.step)
-
-       3. Once uploaded, open your model page and click "Embed"
-          (the </> icon).  Copy the URL inside src="..." — it looks like:
-            https://sketchfab.com/models/abc123def456.../embed
-
-       4. In this file, find the line that reads:
-            data-sketchfab-url="PASTE_YOUR_SKETCHFAB_EMBED_URL_HERE"
-          Replace that placeholder with your copied URL.
-          The viewer will activate automatically.
-
-       ─────────────────────────────────────────────────────────────────────── -->
+    </div>
+  </div>
 
   <div class="viewer-section">
     <div class="container">
-
       <div class="viewer-header">
         <div class="section-label" style="margin-bottom:0;">
           <span class="label-line"></span>
@@ -417,63 +532,31 @@
           <span><i class="fas fa-hand-paper"></i> Right-click to pan</span>
         </div>
       </div>
-
-      <!--
-        ════════════════════════════════════════════════════════
-        Set  data-sketchfab-url  to your Sketchfab embed URL.
-        Leave it as the placeholder text and a "how to" panel
-        is shown instead — safe to deploy while you get the URL.
-        ════════════════════════════════════════════════════════
-      -->
       <div class="viewer-frame-wrapper"
            id="cadViewer"
-           data-sketchfab-url="PASTE_YOUR_SKETCHFAB_EMBED_URL_HERE">
-
-        <!-- Placeholder panel (hidden once a real URL is set) -->
+           data-sketchfab-url="https://sketchfab.com/models/d89cacc210da4aaa8a663475964c7d9d/embed">
         <div class="viewer-placeholder" id="viewerPlaceholder">
-          <div class="viewer-placeholder-icon">
-            <i class="fas fa-cube"></i>
-          </div>
+          <div class="viewer-placeholder-icon"><i class="fas fa-cube"></i></div>
           <h4>Interactive 3D Model</h4>
           <p>
             Upload your SolidWorks / Fusion 360 / STL file to
             <strong style="color:var(--text-secondary);">sketchfab.com</strong>
             (free), copy the embed URL, then paste it into<br>
             <code>data-sketchfab-url="..."</code> in this HTML file.
-            <br><br>
-            The model will load here and visitors can rotate,
-            zoom, and inspect it in full 3D — no plugins required.
           </p>
         </div>
-
-        <!-- The iframe is injected here by the script below once a real URL is set -->
-
       </div>
-
-      <!--
-        STEP 12 — Edit the caption below to describe your model.
-        Example: "Full SolidWorks assembly — 47 components, 6 DOF"
-      -->
       <div class="viewer-caption">
         <i class="fas fa-drafting-compass" style="color:var(--accent); margin-right:6px;"></i>
         SolidWorks Assembly — [describe your model here, e.g. "47 components · 6 DOF · exported as STEP"]
       </div>
-
     </div>
   </div>
 
-
-  <!-- ===================== OUTCOMES ===================== -->
   <div class="project-body" style="padding-top: 64px; padding-bottom: 64px;">
     <div class="container">
-
       <div class="project-section-title" style="margin-bottom: 20px;">Outcomes</div>
       <div class="outcomes-grid">
-        <!--
-          STEP 13 — Fill in measurable outcomes.
-          Numbers impress recruiters. Use real values — estimates are fine.
-          Examples: accuracy %, weight saved, time reduced, grade received.
-        -->
         <div class="outcome-card">
           <div class="outcome-number">XX%</div>
           <div class="outcome-label">Metric or Achievement #1</div>
@@ -487,11 +570,9 @@
           <div class="outcome-label">Grade Received / Recognition</div>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- ===================== FOOTER ===================== -->
   <footer id="contact">
     <div class="container">
       <div class="footer-content">
@@ -522,56 +603,323 @@
 
   <script src="script.js"></script>
 
-  <!--
-    ═══════════════════════════════════════════════════════════════════════
-    3D VIEWER ACTIVATION SCRIPT
-    Reads data-sketchfab-url from the viewer wrapper div.
-    If a real URL has been pasted in, it hides the placeholder and injects
-    a live Sketchfab iframe.  If the URL is still the placeholder text,
-    the instructions panel stays visible — nothing breaks.
-    ═══════════════════════════════════════════════════════════════════════
-  -->
   <script>
+    /* ══════════════════════════════════════════
+       YOUR PHOTOS & VIDEOS — edit this array
+    ═══════════════════════════════════════════ */
+    const SLIDES = [
+      {
+        src:     'dog-feeder1.jpg',
+        alt:     'Chess robot base assembly',
+        caption: 'Base assembly — structural frame and servo mounts',
+      },
+      {
+        src:     'dog-feeder2.jpg',
+        alt:     'Fully built chess robot arm',
+        caption: 'Completed build — all 5 degrees of freedom assembled',
+      },
+      {
+        src:     'dog-feeder3.jpg',
+        alt:     'End-effector gripper detail',
+        caption: 'End-effector gripper — custom 3D-printed design',
+      },
+      {
+        src:     'dog-feeder4.jpg',
+        alt:     'Isometric CAD view',
+        caption: 'SolidWorks isometric view — full assembly',
+      },
+      {
+        src:     'dog-feeder5.jpg',
+        alt:     'Electronics and wiring harness',
+        caption: 'Wiring harness — servo drivers and MCU integration',
+      },
+      {
+        src:     'dog-feeder-isometric.png',
+        alt:     'Exploded view of base',
+        caption: 'Base exploded view — component breakdown',
+      },
+      {
+        src:     'dog-feeder-mounted1.jpg',
+        alt:     'Exploded view of gripper',
+        caption: 'Gripper exploded view — actuator and finger mechanism',
+      },
+      {
+        src:     'dog-feeder-mounted2.jpg',
+        alt:     'Exploded view of link',
+        caption: 'Link exploded view — bearing seats and joint tolerances',
+      },
+      {
+        src:     'dog-feeder-video1.mov',
+        alt:     'Video demonstration of mechanism',
+        caption: 'Video Demonstration — mechanism in full operation',
+      }
+    ];
+
+    /* ────────────────────────────────────────────────────────────────────
+       GRID + LIGHTBOX CAROUSEL ENGINE (With Video Support)
+       ──────────────────────────────────────────────────────────────────── */
+    (function () {
+      if (!SLIDES.length) return;
+
+      const N = SLIDES.length;
+
+      /* DOM refs */
+      const gridEl   = document.getElementById('photoGrid');
+      const overlay  = document.getElementById('lightboxOverlay');
+      const btnClose = document.getElementById('c-close');
+      const counter  = document.getElementById('c-counter');
+      const layerA   = document.getElementById('c-layer-a');
+      const layerB   = document.getElementById('c-layer-b');
+      const captionEl= document.getElementById('c-caption');
+      const dotsEl   = document.getElementById('c-dots');
+      const thumbsEl = document.getElementById('c-thumbs');
+      const btnPrev  = document.getElementById('c-prev');
+      const btnNext  = document.getElementById('c-next');
+      const stage    = document.getElementById('c-stage');
+
+      const DURATION = 320; 
+
+      let current     = 0;
+      let active      = 'a'; 
+      let isAnimating = false;
+      let isOpen      = false;
+
+      const fg = () => active === 'a' ? layerA : layerB;
+      const bg = () => active === 'a' ? layerB : layerA;
+
+      /* Helper: Check if file is a video */
+      const isVideo = (src) => /\.(mp4|mov|webm)$/i.test(src);
+
+      /* Intersection Observer: Automatically play grid videos when scrolled into view */
+      const gridVideoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.play().catch(() => {}); // catch autoplay blocks
+          } else {
+            entry.target.pause();
+          }
+        });
+      }, { threshold: 0.2 });
+
+      /* Helper: Generate HTML node for Lightbox (with controls/autoplay for video) */
+      function createMediaNode(slide) {
+        if (isVideo(slide.src)) {
+          return `<video src="${slide.src}" controls autoplay playsinline></video>`;
+        }
+        return `<img src="${slide.src}" alt="${slide.alt}" draggable="false">`;
+      }
+
+      /* ── Build Grid, Dots, and Thumbs ─────────────── */
+      SLIDES.forEach((slide, i) => {
+        /* Grid Item */
+        const gridItem = document.createElement('div');
+        gridItem.className = 'photo-grid-item';
+        
+        if (isVideo(slide.src)) {
+          const vid = document.createElement('video');
+          vid.src = slide.src;
+          vid.muted = true; vid.loop = true; vid.playsInline = true;
+          gridItem.appendChild(vid);
+          gridVideoObserver.observe(vid); // Trigger play/pause on scroll
+          gridItem.innerHTML += `<div class="video-badge"><i class="fas fa-video"></i> Video</div>`;
+        } else {
+          gridItem.innerHTML = `<img src="${slide.src}" alt="${slide.alt}" loading="lazy">`;
+        }
+        gridItem.addEventListener('click', () => openLightbox(i));
+        gridEl.appendChild(gridItem);
+
+        /* Dot button */
+        const dot = document.createElement('button');
+        dot.className = 'c-dot';
+        dot.setAttribute('aria-label', 'View item ' + (i + 1));
+        dot.addEventListener('click', () => goTo(i));
+        dotsEl.appendChild(dot);
+
+        /* Thumbnail */
+        const thumb = document.createElement('div');
+        thumb.className = 'c-thumb';
+        if (isVideo(slide.src)) {
+          // Render a frozen frame for the thumbnail strip to save memory
+          thumb.innerHTML = `<video src="${slide.src}" muted playsinline preload="metadata"></video><div class="video-badge"><i class="fas fa-play"></i></div>`;
+        } else {
+          thumb.innerHTML = `<img src="${slide.src}" alt="${slide.alt}" draggable="false">`;
+        }
+        thumb.addEventListener('click', () => goTo(i));
+        thumbsEl.appendChild(thumb);
+      });
+
+      const dots   = Array.from(dotsEl.querySelectorAll('.c-dot'));
+      const thumbs = Array.from(thumbsEl.querySelectorAll('.c-thumb'));
+
+      /* ── Open / Close Lightbox ───────────────────────────────────────── */
+      function openLightbox(index) {
+        isOpen = true;
+        document.body.style.overflow = 'hidden';
+        overlay.classList.add('active');
+        jumpTo(index); 
+      }
+
+      function closeLightbox() {
+        isOpen = false;
+        document.body.style.overflow = '';
+        overlay.classList.remove('active');
+        
+        // Destroy media instantly when closing to kill video audio immediately
+        setTimeout(() => {
+          layerA.innerHTML = '';
+          layerB.innerHTML = '';
+        }, 300);
+      }
+
+      btnClose.addEventListener('click', closeLightbox);
+      
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay || e.target.classList.contains('lightbox-content') || e.target === stage) {
+          closeLightbox();
+        }
+      });
+
+      document.addEventListener('keydown', e => {
+        if (isOpen && e.key === 'Escape') closeLightbox();
+      });
+
+      /* ── Instant Jump (Used when opening lightbox) ───────────────────── */
+      function jumpTo(index) {
+        current = index;
+        
+        fg().innerHTML = createMediaNode(SLIDES[current]);
+        fg().style.cssText = 'opacity:1; transform:translateX(0); z-index:2; transition:none;';
+        
+        bg().innerHTML = '';
+        bg().style.cssText = 'opacity:0; transform:translateX(0); z-index:1; transition:none;';
+
+        updateUI();
+      }
+
+      /* ── Animated Slide (Used when already inside lightbox) ──────────── */
+      function goTo(newIndex) {
+        if (isAnimating) return;
+        newIndex = ((newIndex % N) + N) % N;
+        if (newIndex === current) return;
+
+        isAnimating = true;
+
+        let forward;
+        if      (current === N - 1 && newIndex === 0)     forward = true;
+        else if (current === 0     && newIndex === N - 1) forward = false;
+        else                                              forward = newIndex > current;
+
+        const enterFrom = forward ? '52px' : '-52px';  
+        const exitTo    = forward ? '-52px' : '52px';  
+
+        // Inject new media into the background layer off-screen
+        bg().innerHTML = createMediaNode(SLIDES[newIndex]);
+        bg().style.cssText = 'opacity:0; transform:translateX(' + enterFrom + '); z-index:3; transition:none;';
+
+        captionEl.classList.add('fading');
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            const transitionCSS = 'opacity ' + DURATION + 'ms ease, transform ' + DURATION + 'ms ease';
+
+            bg().style.transition = transitionCSS;
+            bg().style.opacity    = '1';
+            bg().style.transform  = 'translateX(0)';
+
+            fg().style.transition = transitionCSS;
+            fg().style.opacity    = '0';
+            fg().style.transform  = 'translateX(' + exitTo + ')';
+            fg().style.zIndex     = '2';
+
+            setTimeout(() => {
+              // Destroy old media from the DOM. This stops the video immediately!
+              fg().innerHTML = '';
+              fg().style.cssText = 'opacity:0; transform:translateX(0); z-index:1; transition:none;';
+              
+              active  = active === 'a' ? 'b' : 'a';
+              current = newIndex;
+              
+              updateUI();
+              isAnimating = false;
+            }, DURATION);
+          });
+        });
+      }
+
+      /* ── Update Dots, Thumbs, Text ───────────────────────────────────── */
+      function updateUI() {
+        captionEl.textContent = SLIDES[current].caption;
+        captionEl.classList.remove('fading');
+        counter.textContent = (current + 1) + ' / ' + N;
+
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        thumbs.forEach((t, i) => t.classList.toggle('active', i === current));
+        
+        if(isOpen) {
+          thumbs[current].scrollIntoView({
+            behavior: 'smooth', inline: 'center', block: 'nearest',
+          });
+        }
+      }
+
+      /* ── Controls ────────────────────────────────────────────────────── */
+      btnPrev.addEventListener('click', e => { e.stopPropagation(); goTo(current - 1); });
+      btnNext.addEventListener('click', e => { e.stopPropagation(); goTo(current + 1); });
+
+      document.addEventListener('keydown', e => {
+        if (!isOpen) return;
+        if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(current - 1); }
+      });
+
+      /* Touch swipe */
+      let txStart = null, tyStart = null;
+      const SWIPE = 48; 
+
+      stage.addEventListener('touchstart', e => {
+        txStart = e.changedTouches[0].clientX;
+        tyStart = e.changedTouches[0].clientY;
+      }, { passive: true });
+
+      stage.addEventListener('touchend', e => {
+        if (txStart === null) return;
+        const dx = e.changedTouches[0].clientX - txStart;
+        const dy = e.changedTouches[0].clientY - tyStart;
+        txStart = tyStart = null;
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > SWIPE) {
+          goTo(dx < 0 ? current + 1 : current - 1);
+        }
+      }, { passive: true });
+
+    })();
+
+    /* ══════════════════════════════════════════════════════════════════════
+       3D VIEWER ACTIVATION (unchanged)
+    ═══════════════════════════════════════════════════════════════════════ */
     (function () {
       const wrapper     = document.getElementById('cadViewer');
       const placeholder = document.getElementById('viewerPlaceholder');
       if (!wrapper || !placeholder) return;
 
       const url = wrapper.getAttribute('data-sketchfab-url') || '';
-
-      /* Only activate when a real Sketchfab URL has been set */
       if (url && url.startsWith('https://sketchfab.com')) {
-
-        /* Build a Sketchfab embed URL with ideal settings for a dark portfolio */
-        const embedBase = url.replace('/models/', '/models/').split('?')[0];
+        const embedBase = url.split('?')[0];
         const params = new URLSearchParams({
-          autostart:          1,   /* starts spinning immediately      */
-          autospin:           0,   /* no auto-spin (user controls it)  */
-          ui_theme:           'dark',
-          ui_infos:           0,   /* hide top model-info bar          */
-          ui_watermark:       0,   /* hide Sketchfab logo              */
-          ui_stop:            0,
-          camera:             0,
-          preload:            1,
-          transparent:        0,
-          dnt:                1,
+          autostart: 1, autospin: 0, ui_theme: 'dark',
+          ui_infos: 0, ui_watermark: 0, ui_stop: 0,
+          camera: 0, preload: 1, transparent: 0, dnt: 1,
         });
-
         const iframe = document.createElement('iframe');
-        iframe.title             = 'Interactive 3D CAD Model';
-        iframe.src               = embedBase + (embedBase.includes('/embed') ? '' : '/embed') + '?' + params.toString();
-        iframe.allow             = 'autoplay; fullscreen; xr-spatial-tracking';
-        iframe.allowFullscreen   = true;
+        iframe.title           = 'Interactive 3D CAD Model';
+        iframe.src             = embedBase + (embedBase.includes('/embed') ? '' : '/embed') + '?' + params;
+        iframe.allow           = 'autoplay; fullscreen; xr-spatial-tracking';
+        iframe.allowFullscreen = true;
         iframe.setAttribute('mozallowfullscreen', 'true');
         iframe.setAttribute('webkitallowfullscreen', 'true');
-
-        placeholder.style.display = 'none';   /* hide instructions panel */
+        placeholder.style.display = 'none';
         wrapper.appendChild(iframe);
-
       }
-      /* else: placeholder instructions remain visible — no errors */
     })();
   </script>
-
 </body>
 </html>
