@@ -3,15 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="About Simr Virk — Mechatronic Systems Engineering Student at SFU.">
+  <meta name="description" content="About Simr Virk — Mechatronic Systems Engineering Student at SFU. Mechanical design, robotics, embedded systems, and life beyond the lab.">
   <title>About | Simr Virk</title>
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <style>
-    /* FORCES THE NAV LINKS TO BE PERFECTLY CENTERED */
+    /* ─────────────────────────────────────────────────────────────────
+       NAV — centered links on desktop (mirrors index / chess pages)
+    ───────────────────────────────────────────────────────────────── */
     @media (min-width: 769px) {
       .nav-links {
         position: absolute;
@@ -21,10 +24,345 @@
         gap: 2rem;
       }
     }
+
+    /* ─────────────────────────────────────────────────────────────────
+       ABOUT SECTION — reworked 2-column layout
+       (style.css already sets .about-grid to 1fr 1fr / gap 88px)
+    ───────────────────────────────────────────────────────────────── */
+    #about {
+      padding: 88px 0 80px;
+    }
+    #about .section-title {
+      margin-bottom: 28px;         /* override the 56px default */
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       LIFE BEYOND — intro banner
+    ───────────────────────────────────────────────────────────────── */
+    #life-beyond {
+      padding: 80px 0 48px;
+      background: var(--bg-primary);
+      border-top: 1px solid var(--border);
+    }
+    .life-beyond-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: end;
+    }
+    .life-beyond-inner .section-title {
+      margin-bottom: 0;
+    }
+    .life-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.9;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       HOBBY BLOCKS — stacked gallery sections
+    ───────────────────────────────────────────────────────────────── */
+    .hobby-blocks-wrapper {
+      background: var(--bg-primary);
+      padding-bottom: 80px;
+    }
+    .hobby-block {
+      padding: 64px 0;
+      border-top: 1px solid var(--border);
+    }
+    .hobby-block:last-child {
+      border-bottom: 1px solid var(--border);
+    }
+    .hobby-block-header {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 56px;
+      align-items: start;
+      margin-bottom: 36px;
+    }
+    .hobby-block-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.2vw, 2.8rem);
+      letter-spacing: 2px;
+      color: var(--text-primary);
+      line-height: 1.0;
+      margin-top: 10px;
+    }
+    .hobby-block-desc {
+      font-size: 0.97rem;
+      color: var(--text-secondary);
+      line-height: 1.9;
+    }
+    .hobby-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 18px;
+    }
+
+    /* Empty state — shown when no slides added yet */
+    .gallery-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 48px;
+      border: 1px dashed var(--accent-border);
+      border-radius: var(--radius-lg);
+      color: var(--text-muted);
+      text-align: center;
+    }
+    .gallery-empty i {
+      font-size: 2.2rem;
+      color: rgba(0,229,255,0.18);
+    }
+    .gallery-empty-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       PHOTO GRID — mirrors chess-playing-robot-arm.html inline styles
+    ───────────────────────────────────────────────────────────────── */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .photo-grid-item {
+      position: relative;
+      cursor: pointer;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4 / 3;
+      border: 1px solid var(--accent-border);
+      background: var(--bg-card);
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+    .photo-grid-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,229,255,.15);
+      border-color: rgba(0,229,255,.6);
+    }
+    .photo-grid-item img,
+    .photo-grid-item video {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.2s ease;
+    }
+    .photo-grid-item:hover img,
+    .photo-grid-item:hover video { opacity: 0.85; }
+
+    .video-badge {
+      position: absolute;
+      top: 8px; right: 8px;
+      background: rgba(0,0,0,0.72);
+      color: #fff;
+      font-size: 0.63rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+      pointer-events: none;
+      z-index: 5;
+      display: flex; align-items: center; gap: 5px;
+      font-family: var(--font-mono);
+      letter-spacing: 0.5px;
+    }
+
+    /* ─────────────────────────────────────────────────────────────────
+       SHARED LIGHTBOX CAROUSEL
+       (identical logic to chess page; lives once in the DOM)
+    ───────────────────────────────────────────────────────────────── */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(3,3,8,0.96);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+    .lightbox-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .c-close {
+      position: absolute;
+      top: 20px; right: 24px;
+      background: rgba(9,9,15,.72);
+      border: 1px solid rgba(0,229,255,.28);
+      border-radius: 50%;
+      width: 44px; height: 44px;
+      color: #fff;
+      font-size: 1.15rem;
+      cursor: pointer;
+      z-index: 10000;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s ease;
+    }
+    .c-close:hover {
+      background: rgba(0,229,255,.14);
+      border-color: rgba(0,229,255,.7);
+      color: var(--accent);
+      transform: scale(1.1);
+    }
+    .lightbox-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      padding: 24px 24px 0 24px;
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .carousel-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 12px 0;
+    }
+    .carousel-counter {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      color: var(--accent);
+      opacity: 0.8;
+    }
+    .carousel-stage {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      min-height: 0;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .carousel-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .carousel-layer img,
+    .carousel-layer video {
+      max-width: 100%; max-height: 100%;
+      object-fit: contain;
+      padding: 16px 64px;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .carousel-layer img { pointer-events: none; }
+    .carousel-layer video { pointer-events: auto; outline: none; }
+
+    .c-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 52px; height: 52px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(9,9,15,.72);
+      border: 1px solid rgba(0,229,255,.28);
+      border-radius: 50%;
+      color: var(--accent);
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all .22s ease;
+    }
+    .c-arrow:hover {
+      background: rgba(0,229,255,.14);
+      border-color: rgba(0,229,255,.7);
+      box-shadow: 0 0 20px rgba(0,229,255,.22);
+      transform: translateY(-50%) scale(1.1);
+    }
+    .c-arrow:active { transform: translateY(-50%) scale(0.96); }
+    #c-prev { left: 0; }
+    #c-next { right: 0; }
+
+    .carousel-caption-area {
+      min-height: 52px;
+      display: flex; align-items: center; justify-content: center;
+      padding: 8px 16px; text-align: center;
+    }
+    #c-caption {
+      font-family: var(--font-mono);
+      font-size: 0.83rem;
+      letter-spacing: 0.5px;
+      color: #fff;
+      line-height: 1.65;
+      transition: opacity .22s ease;
+    }
+    #c-caption.fading { opacity: 0; }
+
+    .carousel-footer { padding-bottom: 24px; }
+    .c-dots {
+      display: flex; justify-content: center;
+      gap: 7px; margin-bottom: 16px;
+    }
+    .c-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.2);
+      border: none; padding: 0;
+      cursor: pointer;
+      transition: all .25s ease;
+    }
+    .c-dot.active { background: var(--accent); transform: scale(1.4); }
+    .c-dot:hover:not(.active) { background: rgba(0,229,255,.5); }
+
+    .c-thumbs {
+      display: flex; justify-content: center;
+      gap: 10px; overflow-x: auto; padding-bottom: 8px;
+      scroll-behavior: smooth;
+      scrollbar-width: none; -ms-overflow-style: none;
+    }
+    .c-thumbs::-webkit-scrollbar { display: none; }
+
+    .c-thumb {
+      position: relative; flex-shrink: 0;
+      width: 80px; height: 56px;
+      border-radius: 6px; overflow: hidden;
+      border: 2px solid transparent;
+      cursor: pointer; opacity: 0.4;
+      transition: all .22s ease;
+    }
+    .c-thumb img, .c-thumb video {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      pointer-events: none;
+    }
+    .c-thumb.active { border-color: var(--accent); opacity: 1; transform: scale(1.05); }
+    .c-thumb:hover:not(.active) { opacity: 0.8; border-color: rgba(0,229,255,.4); }
+    .c-thumb .video-badge { top: 4px; right: 4px; font-size: 0.5rem; padding: 2px 4px; }
+
+    /* ─────────────────────────────────────────────────────────────────
+       RESPONSIVE
+    ───────────────────────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .life-beyond-inner { grid-template-columns: 1fr; gap: 24px; }
+      .hobby-block-header { grid-template-columns: 1fr; gap: 20px; }
+    }
+    @media (max-width: 768px) {
+      .photo-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+      .c-arrow { width: 40px; height: 40px; font-size: 0.9rem; }
+      .carousel-layer img, .carousel-layer video { padding: 8px 48px; }
+      .lightbox-content { padding: 12px 12px 0; }
+      .c-close { top: 12px; right: 12px; width: 36px; height: 36px; font-size: 1rem; }
+      #c-caption { font-size: 0.75rem; }
+      /* Force single-column about grid on mobile */
+      .about-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
+    }
   </style>
 </head>
 <body>
 
+  <!-- ═══════════════════════════════════════ NAV ═══════════════════════════════════════ -->
   <nav id="navbar" style="position: relative;">
     <a href="index.html" class="nav-brand">SV</a>
     <ul class="nav-links">
@@ -40,6 +378,7 @@
     </button>
   </nav>
 
+  <!-- ═══════════════════════════════════════ HERO ══════════════════════════════════════ -->
   <section id="hero">
     <canvas id="grid-canvas"></canvas>
 
@@ -57,7 +396,8 @@
       </div>
 
       <p class="hero-description">
-        4th year engineering student bridging precision mechanical design, software intelligence and embedded electronics.
+        4th year engineering student bridging precision mechanical design,
+        software intelligence, and embedded electronics.
       </p>
 
       <div class="hero-stats">
@@ -91,18 +431,34 @@
     </div>
   </section>
 
-  <section id="about" style="padding-top: 2rem;">
+  <!-- ════════════════════════════════════ ABOUT ════════════════════════════════════ -->
+  <section id="about">
     <div class="container">
+      <div class="section-label">
+        <span class="label-line"></span>
+        <span class="label-text">Who I Am</span>
+      </div>
       <div class="about-grid">
+
+        <!-- LEFT — Personal narrative -->
         <div class="about-text fade-up">
           <h2 class="section-title">Connecting mechanics,<br><span class="accent">electronics, and code.</span></h2>
 
-          <p>I'm Simr Virk, a Mechatronic Systems Engineering student at Simon Fraser University.
-             My work spans mechanical design, embedded electronics, and software development —
-             building complete systems where all three disciplines converge.</p>
-          <p>From designing vision-guided robotic arms to developing firmware solutions at
-             Motorola Solutions, I thrive where precision engineering meets creative problem-solving.
-             I believe the best engineers speak the languages of both physics and code.</p>
+          <p>I'm Simr Virk, a Mechatronic Systems Engineering student at Simon Fraser University,
+             graduating in 2027. My discipline lives at the intersection of mechanical design,
+             embedded electronics, and software — and I believe engineers who are fluent in all
+             three build things that engineers who aren't, simply can't.</p>
+
+          <p>From writing firmware at Motorola Solutions for mission-critical public safety
+             hardware, to designing a 5-DOF vision-guided robot arm from scratch, I gravitate
+             toward problems where precision is non-negotiable and the margin for error is tight.
+             That's where I do my best work.</p>
+
+          <p>Outside the technical work, I'm driven by a broader question: what makes a system
+             elegant? Whether it's a gear train, a control loop, or a team — I'm always thinking
+             about how the parts fit together. I'm actively seeking co-op and full-time roles in
+             robotics, autonomous systems, or embedded hardware-software integration where I can
+             build things that matter at scale.</p>
 
           <div class="about-links">
             <a href="https://www.linkedin.com/in/simr-virk" target="_blank" class="about-link">
@@ -111,12 +467,307 @@
             <a href="mailto:ssv10@sfu.ca" class="about-link">
               <i class="fas fa-envelope"></i> Email Me
             </a>
+            <a href="resume.pdf" target="_blank" class="about-link">
+              <i class="fas fa-file-alt"></i> Resume
+            </a>
           </div>
         </div>
+
+        <!-- RIGHT — Highlight cards -->
+        <div class="about-highlights fade-up">
+          <div class="highlight-card">
+            <div class="highlight-icon"><i class="fas fa-graduation-cap"></i></div>
+            <div>
+              <h4>SFU Mechatronic Systems Engineering</h4>
+              <p>Class of 2027 · Burnaby, BC. Coursework in machine design, embedded systems, control theory, dynamics, and signal processing.</p>
+            </div>
+          </div>
+
+          <div class="highlight-card">
+            <div class="highlight-icon"><i class="fas fa-building"></i></div>
+            <div>
+              <h4>Motorola Solutions — Firmware Intern</h4>
+              <p>Embedded Linux · C/C++ on mission-critical public safety radio hardware. Production code deployed to real infrastructure. 2025–2026.</p>
+            </div>
+          </div>
+
+          <div class="highlight-card">
+            <div class="highlight-icon"><i class="fas fa-microchip"></i></div>
+            <div>
+              <h4>Hardware ↔ Software Fluency</h4>
+              <p>SolidWorks · ROS · OpenCV · Python · C/C++ · Arduino · Embedded Linux · GD&amp;T · PCB Design. I speak both languages.</p>
+            </div>
+          </div>
+
+          <div class="highlight-card">
+            <div class="highlight-icon"><i class="fas fa-compass"></i></div>
+            <div>
+              <h4>Open to New Opportunities</h4>
+              <p>Seeking Fall 2027 co-op or new grad roles in robotics, autonomous systems, or firmware at forward-thinking companies.</p>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /about-grid -->
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════ LIFE BEYOND — INTRO ════════════════════════════ -->
+  <section id="life-beyond">
+    <div class="container">
+      <div class="life-beyond-inner fade-up">
+        <div>
+          <div class="section-label" style="margin-bottom: 18px;">
+            <span class="label-line"></span>
+            <span class="label-text">Beyond the Lab</span>
+          </div>
+          <h2 class="section-title">Life outside<br><span class="accent">the work.</span></h2>
+        </div>
+        <p class="life-desc">
+          The engineers I admire most aren't one-dimensional. Curiosity doesn't
+          clock out — it follows you to the bookshelf, the golf course, the trail,
+          and across time zones. The best ideas I've brought into my engineering work
+          didn't come from textbooks. They came from everywhere else. Here's what
+          keeps me sharp, grounded, and thinking differently.
+        </p>
       </div>
     </div>
   </section>
 
+  <!-- ════════════════════════════════════ HOBBY BLOCKS ════════════════════════════════ -->
+  <div class="hobby-blocks-wrapper">
+
+    <!-- ── 01 · BOOKS & READING ─────────────────────────────────────────── -->
+    <div class="hobby-block fade-up">
+      <div class="container">
+        <div class="hobby-block-header">
+          <div>
+            <div class="section-label">
+              <span class="label-line"></span>
+              <span class="label-text">01 — Reading</span>
+            </div>
+            <h3 class="hobby-block-title">What I'm<br>Reading</h3>
+          </div>
+          <div>
+            <p class="hobby-block-desc">
+              Engineering sharpened my ability to solve problems. Books sharpened my ability
+              to think about them. I read across biography, systems thinking, business history,
+              and the philosophy of technology — because the best engineers borrow ideas from
+              everywhere. If I can't explain a concept in plain language, I don't fully
+              understand it yet.
+            </p>
+            <div class="hobby-tags">
+              <span class="tag">Biography</span>
+              <span class="tag">Systems Thinking</span>
+              <span class="tag">Business History</span>
+              <span class="tag">Philosophy of Technology</span>
+            </div>
+          </div>
+        </div>
+        <!-- ↓↓ ADD YOUR BOOK COVER IMAGES TO: about/books/ ↓↓ -->
+        <div class="photo-grid" id="photoGrid-books"></div>
+      </div>
+    </div>
+
+    <!-- ── 02 · GOLF ────────────────────────────────────────────────────── -->
+    <div class="hobby-block fade-up">
+      <div class="container">
+        <div class="hobby-block-header">
+          <div>
+            <div class="section-label">
+              <span class="label-line"></span>
+              <span class="label-text">02 — Golf</span>
+            </div>
+            <h3 class="hobby-block-title">On the<br>Course</h3>
+          </div>
+          <div>
+            <p class="hobby-block-desc">
+              Golf is 10% swing and 90% systems thinking. Every shot is a feedback loop:
+              you set a target, execute, measure the deviation, and adjust. That cycle —
+              precision, patience, and iteration — is identical to engineering a control
+              system. I've been chasing a clean round since high school, and I still haven't
+              found it. That's exactly why I keep going back.
+            </p>
+            <div class="hobby-tags">
+              <span class="tag">Precision</span>
+              <span class="tag">Mental Discipline</span>
+              <span class="tag">Feedback Loops</span>
+              <span class="tag">Iteration</span>
+            </div>
+          </div>
+        </div>
+        <!-- ↓↓ ADD YOUR GOLF PHOTOS/VIDEOS TO: about/golf/ ↓↓ -->
+        <div class="photo-grid" id="photoGrid-golf"></div>
+      </div>
+    </div>
+
+    <!-- ── 03 · TRAVEL ──────────────────────────────────────────────────── -->
+    <div class="hobby-block fade-up">
+      <div class="container">
+        <div class="hobby-block-header">
+          <div>
+            <div class="section-label">
+              <span class="label-line"></span>
+              <span class="label-text">03 — Travel</span>
+            </div>
+            <h3 class="hobby-block-title">Exploring<br>the World</h3>
+          </div>
+          <div>
+            <p class="hobby-block-desc">
+              Perspective is one of the most underrated engineering tools. Stepping into a
+              new city — navigating a different transit system, reading a different culture,
+              solving a different set of daily frictions — rewires how you think about design.
+              Every place I've visited has quietly changed how I approach problems back home.
+              The world is the widest requirements document ever written.
+            </p>
+            <div class="hobby-tags">
+              <span class="tag">Cultural Curiosity</span>
+              <span class="tag">Adaptability</span>
+              <span class="tag">Perspective</span>
+            </div>
+          </div>
+        </div>
+        <!-- ↓↓ ADD YOUR TRAVEL PHOTOS TO: about/travel/ ↓↓ -->
+        <div class="photo-grid" id="photoGrid-travel"></div>
+      </div>
+    </div>
+
+    <!-- ── 04 · OUTDOORS ────────────────────────────────────────────────── -->
+    <div class="hobby-block fade-up">
+      <div class="container">
+        <div class="hobby-block-header">
+          <div>
+            <div class="section-label">
+              <span class="label-line"></span>
+              <span class="label-text">04 — Outdoors</span>
+            </div>
+            <h3 class="hobby-block-title">Getting<br>Outside</h3>
+          </div>
+          <div>
+            <p class="hobby-block-desc">
+              Living in British Columbia means the outdoors is never more than 30 minutes away.
+              Hiking, skiing, and exploring BC's trails are how I decompress and reset. Time
+              outside makes the time inside the lab more focused — you can't debug at full
+              capacity if you never step away from the bench. Some of the best engineering
+              in the world has no power button, and I never get tired of reminding myself of that.
+            </p>
+            <div class="hobby-tags">
+              <span class="tag">Hiking</span>
+              <span class="tag">Skiing</span>
+              <span class="tag">BC Wilderness</span>
+            </div>
+          </div>
+        </div>
+        <!-- ↓↓ ADD YOUR OUTDOOR PHOTOS TO: about/outdoor/ ↓↓ -->
+        <div class="photo-grid" id="photoGrid-outdoor"></div>
+      </div>
+    </div>
+
+    <!-- ── 05 · STUDENT SOCIETY ─────────────────────────────────────────── -->
+    <div class="hobby-block fade-up">
+      <div class="container">
+        <div class="hobby-block-header">
+          <div>
+            <div class="section-label">
+              <span class="label-line"></span>
+              <span class="label-text">05 — Leadership</span>
+            </div>
+            <h3 class="hobby-block-title">Student<br>Society</h3>
+          </div>
+          <div>
+            <!-- ↓ Replace [Your Society Name] with the actual name ↓ -->
+            <p class="hobby-block-desc">
+              Technical ability gets you in the room. Communication and accountability keep
+              you relevant once you're there. Through [Your Society Name], I've organized
+              events, supported junior students, and helped build the kind of engineering
+              community I wished existed when I started. It's taught me that the same habits
+              that make a good engineer — follow-through, clarity, and ownership — make a
+              good team member too.
+            </p>
+            <div class="hobby-tags">
+              <span class="tag">Event Organization</span>
+              <span class="tag">Mentorship</span>
+              <span class="tag">Community Building</span>
+              <span class="tag">Leadership</span>
+            </div>
+          </div>
+        </div>
+        <!-- ↓↓ ADD YOUR SOCIETY PHOTOS TO: about/society/ ↓↓ -->
+        <div class="photo-grid" id="photoGrid-society"></div>
+      </div>
+    </div>
+
+    <!-- ── 06 · CREATIVE BUILDS ─────────────────────────────────────────── -->
+    <div class="hobby-block fade-up">
+      <div class="container">
+        <div class="hobby-block-header">
+          <div>
+            <div class="section-label">
+              <span class="label-line"></span>
+              <span class="label-text">06 — Creative Builds</span>
+            </div>
+            <h3 class="hobby-block-title">Building in<br>Virtual Worlds</h3>
+          </div>
+          <div>
+            <!-- ↓ Update the [X visits] with your actual Roblox stats if relevant ↓ -->
+            <p class="hobby-block-desc">
+              Before I had a machine shop or an oscilloscope, I had Roblox Studio.
+              Building in virtual environments — designing systems with scripted logic,
+              spatial constraints, and real user interaction — was my earliest exposure
+              to iterative design and systems thinking. Having to make something people
+              actually want to use, without being able to blame the physics, teaches
+              you to think from the user's perspective first. It's a habit I carry into
+              every project I touch.
+            </p>
+            <div class="hobby-tags">
+              <span class="tag">Roblox Studio</span>
+              <span class="tag">Lua Scripting</span>
+              <span class="tag">Systems Design</span>
+              <span class="tag">Iterative Prototyping</span>
+            </div>
+          </div>
+        </div>
+        <!-- ↓↓ ADD YOUR ROBLOX/GAMING SCREENSHOTS TO: about/creative/ ↓↓ -->
+        <div class="photo-grid" id="photoGrid-creative"></div>
+      </div>
+    </div>
+
+  </div><!-- /hobby-blocks-wrapper -->
+
+  <!-- ═══════════════════════════ SHARED LIGHTBOX (one instance) ═══════════════════════ -->
+  <div class="lightbox-overlay" id="lightboxOverlay">
+    <button class="c-close" id="c-close" aria-label="Close gallery">
+      <i class="fas fa-times"></i>
+    </button>
+
+    <div class="lightbox-content">
+      <div class="carousel-section-header">
+        <span class="carousel-counter" id="c-counter"></span>
+      </div>
+
+      <div class="carousel-stage" id="c-stage">
+        <button class="c-arrow" id="c-prev" aria-label="Previous image">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="carousel-layer" id="c-layer-a"></div>
+        <div class="carousel-layer" id="c-layer-b"></div>
+        <button class="c-arrow" id="c-next" aria-label="Next image">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+
+      <div class="carousel-caption-area">
+        <span id="c-caption"></span>
+      </div>
+
+      <div class="carousel-footer">
+        <div class="c-dots" id="c-dots"></div>
+        <div class="c-thumbs" id="c-thumbs"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════════════════════ FOOTER ══════════════════════════════════════ -->
   <footer id="contact">
     <div class="container">
       <div class="footer-content">
@@ -124,13 +775,392 @@
           <div class="footer-brand">SIMR VIRK</div>
           <p class="footer-tagline">Mechatronic Systems Engineering<br>Simon Fraser University · Burnaby, BC</p>
         </div>
+        <div class="footer-links-grid">
+          <a href="https://www.linkedin.com/in/simr-virk" target="_blank" class="footer-link">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a>
+          <a href="mailto:ssv10@sfu.ca" class="footer-link">
+            <i class="fas fa-envelope"></i> ssv10@sfu.ca
+          </a>
+          <a href="tel:7785755444" class="footer-link">
+            <i class="fas fa-phone"></i> 778-575-5444
+          </a>
+          <a href="resume.pdf" target="_blank" class="footer-link">
+            <i class="fas fa-file-alt"></i> Resume
+          </a>
+        </div>
       </div>
       <div class="footer-bottom">
-        <span>© 2025 Simr Virk — Built with purpose.</span>
+        <span>© 2026 Simr Virk — Built with purpose.</span>
+        <span class="footer-version">
+          <i class="fas fa-circle" style="color: #22c55e; font-size: 0.5rem;"></i>
+          Available for Fall 2027 Co-op
+        </span>
       </div>
     </div>
   </footer>
 
   <script src="script.js"></script>
+
+  <script>
+    /* ════════════════════════════════════════════════════════════════════════
+       GALLERY DATA
+       ════════════════════════════════════════════════════════════════════════
+       HOW TO ADD PHOTOS:
+         1. Create the folder structure below inside your project root:
+               about/
+                 books/
+                 golf/
+                 travel/
+                 outdoor/
+                 society/
+                 creative/
+         2. Drop your images/videos into the matching folder.
+         3. Add an entry to the correct SLIDES array:
+               { src: 'about/folder/filename.jpg', alt: '...', caption: '...' }
+         SUPPORTED: .jpg .png .webp .gif (images) · .mp4 .mov .webm (videos)
+         Videos are auto-detected from the file extension and rendered with controls.
+    ════════════════════════════════════════════════════════════════════════ */
+
+    /* ── 01 · BOOKS ──────────────────────────────────────────────────────── */
+    const SLIDES_BOOKS = [
+      {
+        src:     'about/books/atomic-habits.jpg',
+        alt:     'Atomic Habits — James Clear',
+        caption: 'Atomic Habits — James Clear  |  Systems over goals. 1% better, compounded.',
+      },
+      {
+        src:     'about/books/shoe-dog.jpg',
+        alt:     'Shoe Dog — Phil Knight',
+        caption: 'Shoe Dog — Phil Knight  |  The unglamorous marathon of building something real.',
+      },
+      {
+        src:     'about/books/elon-musk.jpg',
+        alt:     'Elon Musk — Walter Isaacson',
+        caption: 'Elon Musk — Walter Isaacson  |  First-principles thinking taken to its extreme.',
+      },
+      {
+        src:     'about/books/thinking-fast-slow.jpg',
+        alt:     'Thinking, Fast and Slow — Daniel Kahneman',
+        caption: 'Thinking, Fast and Slow — Kahneman  |  How invisible bias shapes every decision.',
+      },
+      /* ↓ Keep adding books below ↓
+      {
+        src:     'about/books/your-book.jpg',
+        alt:     'Book title and author',
+        caption: 'Title — Author  |  One sentence on why it mattered.',
+      },
+      */
+    ];
+
+    /* ── 02 · GOLF ───────────────────────────────────────────────────────── */
+    const SLIDES_GOLF = [
+      {
+        src:     'about/golf/golf-01.jpg',
+        alt:     'On the course',
+        caption: 'Weekend round — still chasing par.',
+      },
+      {
+        src:     'about/golf/golf-swing.mp4',   /* .mp4 → renders as autoplay video */
+        alt:     'Swing video',
+        caption: 'Working on the backswing. Iteration never stops.',
+      },
+      /* ↓ Add more golf photos/videos below ↓ */
+    ];
+
+    /* ── 03 · TRAVEL ─────────────────────────────────────────────────────── */
+    const SLIDES_TRAVEL = [
+      {
+        src:     'about/travel/travel-01.jpg',
+        alt:     'Travel photo',
+        caption: '[Location] — [Year]',
+      },
+      {
+        src:     'about/travel/travel-02.jpg',
+        alt:     'Travel photo',
+        caption: '[Location] — [Year]',
+      },
+      /* ↓ Add more travel photos below ↓ */
+    ];
+
+    /* ── 04 · OUTDOORS ───────────────────────────────────────────────────── */
+    const SLIDES_OUTDOOR = [
+      {
+        src:     'about/outdoor/outdoor-01.jpg',
+        alt:     'Outdoor activity',
+        caption: '[Trail / Location], BC — [Season/Year]',
+      },
+      {
+        src:     'about/outdoor/outdoor-02.jpg',
+        alt:     'Outdoor activity',
+        caption: '[Description]',
+      },
+      /* ↓ Add more outdoor photos below ↓ */
+    ];
+
+    /* ── 05 · STUDENT SOCIETY ────────────────────────────────────────────── */
+    const SLIDES_SOCIETY = [
+      {
+        src:     'about/society/society-01.jpg',
+        alt:     'Student society event',
+        caption: '[Event Name] — [Date]  |  [One line description]',
+      },
+      {
+        src:     'about/society/society-02.jpg',
+        alt:     'Student society',
+        caption: '[Description]',
+      },
+      /* ↓ Add more society photos below ↓ */
+    ];
+
+    /* ── 06 · CREATIVE BUILDS ────────────────────────────────────────────── */
+    const SLIDES_CREATIVE = [
+      {
+        src:     'about/creative/roblox-01.jpg',
+        alt:     'Roblox build screenshot',
+        caption: '[Project Name]  |  [What it does / key mechanic]',
+      },
+      {
+        src:     'about/creative/roblox-02.jpg',
+        alt:     'Roblox build',
+        caption: '[Description]',
+      },
+      /* ↓ Add more creative screenshots / gameplay videos below ↓ */
+    ];
+
+
+    /* ════════════════════════════════════════════════════════════════════════
+       SHARED LIGHTBOX ENGINE
+       ════════════════════════════════════════════════════════════════════════
+       One lightbox DOM element serves all galleries. When a grid thumbnail is
+       clicked, the engine is seeded with that gallery's slides array and opens
+       at the clicked index. Keyboard, swipe, arrows, dots, and thumbnails all
+       work across every gallery without any duplication.
+    ════════════════════════════════════════════════════════════════════════ */
+    (function () {
+
+      /* DOM — shared lightbox elements */
+      const overlay   = document.getElementById('lightboxOverlay');
+      const btnClose  = document.getElementById('c-close');
+      const counter   = document.getElementById('c-counter');
+      const layerA    = document.getElementById('c-layer-a');
+      const layerB    = document.getElementById('c-layer-b');
+      const captionEl = document.getElementById('c-caption');
+      const dotsEl    = document.getElementById('c-dots');
+      const thumbsEl  = document.getElementById('c-thumbs');
+      const btnPrev   = document.getElementById('c-prev');
+      const btnNext   = document.getElementById('c-next');
+      const stage     = document.getElementById('c-stage');
+
+      const DURATION = 300; /* slide-transition ms */
+
+      /* Mutable lightbox state */
+      let SLIDES      = [];
+      let current     = 0;
+      let active      = 'a'; /* which layer is foreground */
+      let isAnimating = false;
+      let isOpen      = false;
+
+      /* Layer helpers */
+      const fg = () => active === 'a' ? layerA : layerB;
+      const bg = () => active === 'a' ? layerB : layerA;
+
+      const isVideo = src => /\.(mp4|mov|webm)$/i.test(src);
+
+      function makeNode(slide) {
+        return isVideo(slide.src)
+          ? `<video src="${slide.src}" controls autoplay playsinline></video>`
+          : `<img src="${slide.src}" alt="${slide.alt}" draggable="false">`;
+      }
+
+      /* ── Open ─────────────────────────────────────────────────────── */
+      function open(slides, startIndex) {
+        SLIDES  = slides;
+        current = startIndex;
+        isOpen  = true;
+
+        /* Rebuild dot/thumb strip for this gallery */
+        dotsEl.innerHTML   = '';
+        thumbsEl.innerHTML = '';
+        SLIDES.forEach((slide, i) => {
+          const dot = document.createElement('button');
+          dot.className = 'c-dot';
+          dot.setAttribute('aria-label', 'Go to item ' + (i + 1));
+          dot.addEventListener('click', () => goTo(i));
+          dotsEl.appendChild(dot);
+
+          const thumb = document.createElement('div');
+          thumb.className = 'c-thumb';
+          thumb.innerHTML = isVideo(slide.src)
+            ? `<video src="${slide.src}" muted playsinline preload="metadata"></video><div class="video-badge"><i class="fas fa-play"></i></div>`
+            : `<img src="${slide.src}" alt="${slide.alt}" draggable="false">`;
+          thumb.addEventListener('click', () => goTo(i));
+          thumbsEl.appendChild(thumb);
+        });
+
+        document.body.style.overflow = 'hidden';
+        overlay.classList.add('active');
+        jumpTo(current);
+      }
+
+      /* ── Close ────────────────────────────────────────────────────── */
+      function close() {
+        isOpen = false;
+        document.body.style.overflow = '';
+        overlay.classList.remove('active');
+        setTimeout(() => { layerA.innerHTML = ''; layerB.innerHTML = ''; }, 310);
+      }
+
+      /* ── Jump (no animation — used on open) ──────────────────────── */
+      function jumpTo(idx) {
+        const N = SLIDES.length;
+        current = ((idx % N) + N) % N;
+        fg().innerHTML = makeNode(SLIDES[current]);
+        fg().style.cssText = 'opacity:1;transform:translateX(0);z-index:2;transition:none;';
+        bg().innerHTML = '';
+        bg().style.cssText = 'opacity:0;transform:translateX(0);z-index:1;transition:none;';
+        sync();
+      }
+
+      /* ── Animated slide ───────────────────────────────────────────── */
+      function goTo(newIdx) {
+        const N = SLIDES.length;
+        if (isAnimating || N < 2) return;
+        newIdx = ((newIdx % N) + N) % N;
+        if (newIdx === current) return;
+        isAnimating = true;
+
+        const forward =
+          (current === N-1 && newIdx === 0)   ? true  :
+          (current === 0   && newIdx === N-1)  ? false :
+          newIdx > current;
+
+        const eIn  = forward ? '52px' : '-52px';
+        const eOut = forward ? '-52px' : '52px';
+
+        bg().innerHTML = makeNode(SLIDES[newIdx]);
+        bg().style.cssText = `opacity:0;transform:translateX(${eIn});z-index:3;transition:none;`;
+        captionEl.classList.add('fading');
+
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          const T = `opacity ${DURATION}ms ease,transform ${DURATION}ms ease`;
+          bg().style.transition = T; bg().style.opacity = '1'; bg().style.transform = 'translateX(0)';
+          fg().style.transition = T; fg().style.opacity = '0'; fg().style.transform = `translateX(${eOut})`;
+          fg().style.zIndex = '2';
+
+          setTimeout(() => {
+            fg().innerHTML = '';
+            fg().style.cssText = 'opacity:0;transform:translateX(0);z-index:1;transition:none;';
+            active  = active === 'a' ? 'b' : 'a';
+            current = newIdx;
+            sync();
+            isAnimating = false;
+          }, DURATION);
+        }));
+      }
+
+      /* ── Sync UI (caption, counter, dots, thumbs) ────────────────── */
+      function sync() {
+        const N = SLIDES.length;
+        captionEl.textContent = SLIDES[current].caption;
+        captionEl.classList.remove('fading');
+        counter.textContent = `${current + 1} / ${N}`;
+
+        Array.from(dotsEl.children).forEach((d, i)   => d.classList.toggle('active', i === current));
+        Array.from(thumbsEl.children).forEach((t, i) => t.classList.toggle('active', i === current));
+        if (isOpen) {
+          thumbsEl.children[current]?.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
+      }
+
+      /* ── Event wiring ─────────────────────────────────────────────── */
+      btnClose.addEventListener('click', close);
+      overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+      btnPrev.addEventListener('click', e => { e.stopPropagation(); goTo(current - 1); });
+      btnNext.addEventListener('click', e => { e.stopPropagation(); goTo(current + 1); });
+
+      document.addEventListener('keydown', e => {
+        if (!isOpen) return;
+        if (e.key === 'Escape')      close();
+        if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
+        if (e.key === 'ArrowLeft')  { e.preventDefault(); goTo(current - 1); }
+      });
+
+      /* Touch swipe */
+      let tx = null, ty = null;
+      stage.addEventListener('touchstart', e => { tx = e.changedTouches[0].clientX; ty = e.changedTouches[0].clientY; }, { passive: true });
+      stage.addEventListener('touchend', e => {
+        if (tx === null) return;
+        const dx = e.changedTouches[0].clientX - tx;
+        const dy = e.changedTouches[0].clientY - ty;
+        tx = ty = null;
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 48) goTo(dx < 0 ? current + 1 : current - 1);
+      }, { passive: true });
+
+      /* ── Grid builder ─────────────────────────────────────────────── */
+      const videoObserver = new IntersectionObserver(entries => {
+        entries.forEach(en => en.isIntersecting ? en.target.play().catch(() => {}) : en.target.pause());
+      }, { threshold: 0.2 });
+
+      /**
+       * initGallery(slides, gridId)
+       * Populates a .photo-grid element and wires click → lightbox.
+       * slides  {Array}  — the SLIDES_* array for this gallery
+       * gridId  {string} — the id of the target .photo-grid div
+       */
+      window.initGallery = function (slides, gridId) {
+        const grid = document.getElementById(gridId);
+        if (!grid) return;
+
+        if (!slides || slides.length === 0) {
+          /* Empty-state placeholder while photos are being added */
+          grid.innerHTML = `
+            <div class="gallery-empty" style="grid-column:1/-1;">
+              <i class="fas fa-images"></i>
+              <span class="gallery-empty-label">Photos coming soon</span>
+            </div>`;
+          return;
+        }
+
+        slides.forEach((slide, i) => {
+          const item = document.createElement('div');
+          item.className = 'photo-grid-item';
+
+          if (isVideo(slide.src)) {
+            const vid = document.createElement('video');
+            vid.src = slide.src; vid.muted = true; vid.loop = true; vid.playsInline = true;
+            item.appendChild(vid);
+            videoObserver.observe(vid);
+            const badge = document.createElement('div');
+            badge.className = 'video-badge';
+            badge.innerHTML = '<i class="fas fa-video"></i> Video';
+            item.appendChild(badge);
+          } else {
+            const img = document.createElement('img');
+            img.src = slide.src; img.alt = slide.alt; img.loading = 'lazy';
+            item.appendChild(img);
+          }
+
+          item.addEventListener('click', () => open(slides, i));
+          grid.appendChild(item);
+        });
+      };
+
+    })(); /* end lightbox engine IIFE */
+
+
+    /* ════════════════════════════════════════════════════════════════════════
+       INITIALIZE ALL GALLERIES
+       — Wire each SLIDES_* array to its corresponding .photo-grid div.
+       — Order here matches the visual order on the page.
+    ════════════════════════════════════════════════════════════════════════ */
+    initGallery(SLIDES_BOOKS,    'photoGrid-books');
+    initGallery(SLIDES_GOLF,     'photoGrid-golf');
+    initGallery(SLIDES_TRAVEL,   'photoGrid-travel');
+    initGallery(SLIDES_OUTDOOR,  'photoGrid-outdoor');
+    initGallery(SLIDES_SOCIETY,  'photoGrid-society');
+    initGallery(SLIDES_CREATIVE, 'photoGrid-creative');
+
+  </script>
 </body>
 </html>
