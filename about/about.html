@@ -624,42 +624,20 @@
             <h3 class="hobby-block-title">Immersive<br>Worlds</h3>
           </div>
           <div>
-            <p class="hobby-block-desc">I am a massive fan of immersive single-player narratives and punishing souls-like titles. It ultimately boils down to pattern recognition, timing, and problem-solving—just in a virtual arena.</p>
+            <p class="hobby-block-desc">I am a massive fan of immersive single-player narratives and punishing souls-like titles. Whether I am exploring the meticulously crafted environments of Red Dead Redemption 2 and Ghost of Tsushima, or calculating my next dodge in Elden Ring and God of War, I appreciate games that blend rich storytelling with demanding mechanics. It ultimately boils down to pattern recognition, timing, and problem-solving—just in a virtual arena.</p>
             <div class="hobby-tags">
-              <span class="tag">Souls-likes</span>
-              <span class="tag">Single-Player RPGs</span>
-              <span class="tag">Pattern Recognition</span>
+              <span class="tag" data-color="#ef4444">Souls-likes</span>
+              <span class="tag" data-color="#a855f7">Single-Player RPGs</span>
+              <span class="tag" data-color="#eab308">Pattern Recognition</span>
             </div>
           </div>
         </div>
-        
-        <div class="split-feature">
-          <div class="split-text">
-            <ul class="fav-list">
-              <li class="fav-item">
-                <h4>Elden Ring</h4>
-                <p>The sheer scale of the world and the unforgiving mechanics force you to adapt, iterate, and learn patterns. It's the ultimate test of trial and error.</p>
-              </li>
-              <li class="fav-item">
-                <h4>Red Dead Redemption 2</h4>
-                <p>A masterclass in world-building and narrative pacing. Every detail, from the physics to the character arcs, feels incredibly intentional and polished.</p>
-              </li>
-              <li class="fav-item">
-                <h4>Ghost of Tsushima</h4>
-                <p>The combat feels like a perfectly tuned control system. It is a rhythm game disguised as a samurai epic, set against stunning visual direction.</p>
-              </li>
-            </ul>
-          </div>
-          <div class="split-slider">
-            <div class="slider-track" id="slider-track-gaming"></div>
-          </div>
-        </div>
-
+        <div class="photo-grid" id="photoGrid-gaming"></div>
       </div>
     </div>
 
-    <!-- 08 · Anime -->
     
+        <!-- 08 · Anime/Manga -->
     <div class="hobby-block fade-up">
       <div class="container">
         <div class="hobby-block-header">
@@ -668,7 +646,7 @@
             <h3 class="hobby-block-title">Illustrated<br>Stories</h3>
           </div>
           <div>
-            <p class="hobby-block-desc">When I am stepping completely away from the screen to decompress, I dive into anime and manga. It is a great way to disconnect from the rigidity of engineering, appreciate phenomenal art, and enjoy over-the-top, ridiculous comedic moments.</p>
+            <p class="hobby-block-desc">When I am stepping completely away from the screen to decompress, I dive into anime and manga. I gravitate towards stories with incredible world-building, high-stakes narratives, and boundary-pushing animation. It is a great way to disconnect from the rigidity of engineering, appreciate some phenomenal art, and enjoy the occasional over-the-top, ridiculous comedic moments that only this medium can pull off.</p>
             <div class="hobby-tags">
               <span class="tag">Animation</span>
               <span class="tag">Manga</span>
@@ -676,29 +654,7 @@
             </div>
           </div>
         </div>
-        
-        <div class="split-feature">
-          <div class="split-text">
-            <ul class="fav-list">
-              <li class="fav-item">
-                <h4>Attack on Titan</h4>
-                <p>The intricate foreshadowing and high-stakes narrative show incredible long-term planning. Watching the puzzle pieces slowly lock into place over the seasons is brilliant.</p>
-              </li>
-              <li class="fav-item">
-                <h4>Vinland Saga</h4>
-                <p>A profound exploration of character growth, redemption, and philosophy wrapped in a historical epic. It trades constant action for incredible character development.</p>
-              </li>
-              <li class="fav-item">
-                <h4>Jujutsu Kaisen</h4>
-                <p>Incredible, boundary-pushing animation paired with a complex power system that feels like solving logic puzzles in real-time during combat sequences.</p>
-              </li>
-            </ul>
-          </div>
-          <div class="split-slider">
-            <div class="slider-track" id="slider-track-anime"></div>
-          </div>
-        </div>
-
+        <div class="photo-grid" id="photoGrid-anime"></div>
       </div>
     </div>
 
@@ -851,33 +807,34 @@
 
     const SLIDES_GAMING = [
       /* ↓ EDIT ↓ */
-      { src:'games/games1.jpg',                   alt:'On the course',      caption:'Atomic Habits — James Clear  |  Systems over goals. 1% better, compounded.' },
-      { src:'games/games2.jpg',                   alt:'Shoe Dog',           caption:'Shoe Dog — Phil Knight  |  The unglamorous marathon of building something real.' },
-      { src:'games/games3.jpg',                   alt:'Elon Musk',          caption:'Elon Musk — Walter Isaacson  |  First-principles thinking taken to its extreme.' },
-      { src:'games/games4.jpg',                   alt:'Thinking Fast Slow', caption:'Thinking, Fast and Slow — Kahneman  |  How invisible bias shapes every decision.' },
-      { src:'games/games5.jpg',                   alt:'On the course',      caption:'Atomic Habits — James Clear  |  Systems over goals. 1% better, compounded.' },
-      { src:'games/games6.jpeg',                  alt:'Shoe Dog',           caption:'Shoe Dog — Phil Knight  |  The unglamorous marathon of building something real.' },
-      { src:'games/games7.jpg',                   alt:'Elon Musk',          caption:'Elon Musk — Walter Isaacson  |  First-principles thinking taken to its extreme.' },
-      { src:'games/games8.jpg',                   alt:'Thinking Fast Slow', caption:'Thinking, Fast and Slow — Kahneman  |  How invisible bias shapes every decision.' },
-      { src:'games/games9.jpg',                   alt:'On the course',      caption:'Atomic Habits — James Clear  |  Systems over goals. 1% better, compounded.' },
-      { src:'games/games10.jpg',                  alt:'Shoe Dog',           caption:'Shoe Dog — Phil Knight  |  The unglamorous marathon of building something real.' },
-      { src:'games/games11.jpg',                  alt:'Elon Musk',          caption:'Elon Musk — Walter Isaacson  |  First-principles thinking taken to its extreme.' },
-      { src:'games/games12.jpg',                  alt:'Thinking Fast Slow', caption:'Thinking, Fast and Slow — Kahneman  |  How invisible bias shapes every decision.' },
+      { src:'roblox/roblox1.png',                 alt:'On the course',      caption:'Atomic Habits — James Clear  |  Systems over goals. 1% better, compounded.' },
+      { src:'roblox/roblox2.png',                 alt:'Shoe Dog',           caption:'Shoe Dog — Phil Knight  |  The unglamorous marathon of building something real.' },
+      { src:'roblox/roblox3.png',                 alt:'Elon Musk',          caption:'Elon Musk — Walter Isaacson  |  First-principles thinking taken to its extreme.' },
+      { src:'roblox/roblox4.png',                 alt:'Thinking Fast Slow', caption:'Thinking, Fast and Slow — Kahneman  |  How invisible bias shapes every decision.' },
+      { src:'roblox/roblox55.png',                alt:'On the course',      caption:'Atomic Habits — James Clear  |  Systems over goals. 1% better, compounded.' },
+      { src:'roblox/roblox6.png',                 alt:'Shoe Dog',           caption:'Shoe Dog — Phil Knight  |  The unglamorous marathon of building something real.' },
+      { src:'roblox/roblox77.png',                alt:'Elon Musk',          caption:'Elon Musk — Walter Isaacson  |  First-principles thinking taken to its extreme.' },
+      { src:'roblox/roblox8.png',                 alt:'Thinking Fast Slow', caption:'Thinking, Fast and Slow — Kahneman  |  How invisible bias shapes every decision.' },
+      { src:'roblox/roblox9.png',                 alt:'On the course',      caption:'Atomic Habits — James Clear  |  Systems over goals. 1% better, compounded.' },
+      { src:'roblox/roblox10.png',                alt:'Shoe Dog',           caption:'Shoe Dog — Phil Knight  |  The unglamorous marathon of building something real.' },
+      { src:'roblox/roblox11.png',                alt:'Elon Musk',          caption:'Elon Musk — Walter Isaacson  |  First-principles thinking taken to its extreme.' },
+      { src:'roblox/roblox12.png',                alt:'Thinking Fast Slow', caption:'Thinking, Fast and Slow — Kahneman  |  How invisible bias shapes every decision.' },
     ];
 
     const SLIDES_ANIME = [
       /* ↓ EDIT ↓ */
-      { src:'anime/anime1.jpeg',                 alt:'On the course',      caption:'Atomic Habits — James Clear  |  Systems over goals. 1% better, compounded.' },
-      { src:'anime/anime2.jpg',                 alt:'Shoe Dog',           caption:'Shoe Dog — Phil Knight  |  The unglamorous marathon of building something real.' },
-      { src:'anime/anime3.jpg',                 alt:'Elon Musk',          caption:'Elon Musk — Walter Isaacson  |  First-principles thinking taken to its extreme.' },
-      { src:'anime/anime4.jpg',                 alt:'Thinking Fast Slow', caption:'Thinking, Fast and Slow — Kahneman  |  How invisible bias shapes every decision.' },
-      { src:'anime/anime5.jpg',                alt:'On the course',      caption:'Atomic Habits — James Clear  |  Systems over goals. 1% better, compounded.' },
-      { src:'anime/anime6.jpg',                 alt:'Shoe Dog',           caption:'Shoe Dog — Phil Knight  |  The unglamorous marathon of building something real.' },
-      { src:'anime/anime7.jpg',                alt:'Elon Musk',          caption:'Elon Musk — Walter Isaacson  |  First-principles thinking taken to its extreme.' },
-      { src:'anime/anime8.jpg',                 alt:'Thinking Fast Slow', caption:'Thinking, Fast and Slow — Kahneman  |  How invisible bias shapes every decision.' },
-      { src:'anime/anime9.jpg',                 alt:'On the course',      caption:'Atomic Habits — James Clear  |  Systems over goals. 1% better, compounded.' },
-      { src:'anime/anime10.jpeg',                alt:'Shoe Dog',           caption:'Shoe Dog — Phil Knight  |  The unglamorous marathon of building something real.' },
-      { src:'anime/anime11.jpg',                alt:'Elon Musk',          caption:'Elon Musk — Walter Isaacson  |  First-principles thinking taken to its extreme.' },
+      { src:'roblox/roblox1.png',                 alt:'On the course',      caption:'Atomic Habits — James Clear  |  Systems over goals. 1% better, compounded.' },
+      { src:'roblox/roblox2.png',                 alt:'Shoe Dog',           caption:'Shoe Dog — Phil Knight  |  The unglamorous marathon of building something real.' },
+      { src:'roblox/roblox3.png',                 alt:'Elon Musk',          caption:'Elon Musk — Walter Isaacson  |  First-principles thinking taken to its extreme.' },
+      { src:'roblox/roblox4.png',                 alt:'Thinking Fast Slow', caption:'Thinking, Fast and Slow — Kahneman  |  How invisible bias shapes every decision.' },
+      { src:'roblox/roblox55.png',                alt:'On the course',      caption:'Atomic Habits — James Clear  |  Systems over goals. 1% better, compounded.' },
+      { src:'roblox/roblox6.png',                 alt:'Shoe Dog',           caption:'Shoe Dog — Phil Knight  |  The unglamorous marathon of building something real.' },
+      { src:'roblox/roblox77.png',                alt:'Elon Musk',          caption:'Elon Musk — Walter Isaacson  |  First-principles thinking taken to its extreme.' },
+      { src:'roblox/roblox8.png',                 alt:'Thinking Fast Slow', caption:'Thinking, Fast and Slow — Kahneman  |  How invisible bias shapes every decision.' },
+      { src:'roblox/roblox9.png',                 alt:'On the course',      caption:'Atomic Habits — James Clear  |  Systems over goals. 1% better, compounded.' },
+      { src:'roblox/roblox10.png',                alt:'Shoe Dog',           caption:'Shoe Dog — Phil Knight  |  The unglamorous marathon of building something real.' },
+      { src:'roblox/roblox11.png',                alt:'Elon Musk',          caption:'Elon Musk — Walter Isaacson  |  First-principles thinking taken to its extreme.' },
+      { src:'roblox/roblox12.png',                alt:'Thinking Fast Slow', caption:'Thinking, Fast and Slow — Kahneman  |  How invisible bias shapes every decision.' },
     ];
 
     /* ════════════════════════════════════════════════════════════════════
@@ -942,41 +899,8 @@
     initGallery(SLIDES_OUTDOOR,  'photoGrid-outdoor');
     initGallery(SLIDES_SOCIETY,  'photoGrid-society');
     initGallery(SLIDES_CREATIVE, 'photoGrid-creative');
-
-/* ════════════════════════════════════════════════════════════════════
-       AUTO-SLIDER ENGINE (For Gaming & Anime Sections)
-    ════════════════════════════════════════════════════════════════════ */
-    function initAutoSlider(trackId, slidesArray) {
-      const track = document.getElementById(trackId);
-      if (!track || !slidesArray || !slidesArray.length) return;
-
-      // 1. Inject images into the track
-      slidesArray.forEach(slide => {
-        // Only use images for the auto-slider (skip videos to avoid audio issues)
-        if (!/\.(mp4|mov|webm)$/i.test(slide.src)) {
-          const img = document.createElement('img');
-          img.src = slide.src;
-          img.alt = slide.alt || "Favorite item";
-          track.appendChild(img);
-        }
-      });
-
-      const totalSlides = track.children.length;
-      if (totalSlides <= 1) return; // No need to slide if there's only 1 image
-
-      let currentIndex = 0;
-
-      // 2. Set interval to slide every 4 seconds
-      setInterval(() => {
-        currentIndex = (currentIndex + 1) % totalSlides;
-        track.style.transform = `translateX(-${currentIndex * 100}%)`;
-      }, 4000); 
-    }
-
-    // Initialize the new auto-sliders using your existing arrays
-    initAutoSlider('slider-track-gaming', SLIDES_GAMING);
-    initAutoSlider('slider-track-anime', SLIDES_ANIME);
-    
+    initGallery(SLIDES_GAMING,   'photoGrid-gaming');
+    initGallery(SLIDES_ANIME,    'photoGrid-anime');
   </script>
 </body>
 </html>
