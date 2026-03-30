@@ -316,6 +316,216 @@
       #c-caption{font-size:.75rem;}
       .about-grid{grid-template-columns:1fr!important;gap:48px!important;}
     }
+
+    /* ─────────────────────────────────────────────────────────────────
+       HOBBY MEDIA BLOCK — split layout for gaming & anime sections
+       Left or right panel = auto-slideshow; other side = list content
+    ───────────────────────────────────────────────────────────────── */
+
+    /* Override the 260px/1fr header grid for media blocks */
+    .hobby-block--media .hobby-block-header {
+      grid-template-columns: 1fr; /* header stays single-col */
+      gap: 0;
+      margin-bottom: 0;
+    }
+
+    /* The main split layout below the header */
+    .hobby-media-body {
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 48px;
+      align-items: start;
+      margin-top: 36px;
+    }
+    .hobby-media-body.reverse {
+      grid-template-columns: 1fr 320px;
+    }
+    .hobby-media-body.reverse .hobby-slider-panel {
+      order: 2;
+    }
+    .hobby-media-body.reverse .hobby-list-panel {
+      order: 1;
+    }
+
+    /* ── Slider panel ─────────────────────────────────────────── */
+    .hobby-slider-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: sticky;
+      top: 88px;
+    }
+
+    .hobby-slider {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 4;   /* portrait — good for game/anime box art */
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--accent-border);
+      background: var(--bg-card);
+      cursor: pointer;
+    }
+
+    .hobby-slider-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.55s ease;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .hobby-slider-img.active { opacity: 1; }
+
+    /* Caption bar at the bottom of the slider */
+    .hobby-slider-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(0deg, rgba(3,3,8,0.92) 0%, transparent 100%);
+      padding: 28px 14px 12px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.85);
+      line-height: 1.45;
+      pointer-events: none;
+    }
+
+    /* Prev / Next arrow buttons on the slider */
+    .hobby-slider-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      width: 34px; height: 34px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(9,9,15,0.72);
+      border: 1px solid rgba(0,229,255,0.28);
+      border-radius: 50%;
+      color: var(--accent);
+      font-size: 0.75rem;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+    .hobby-slider:hover .hobby-slider-btn { opacity: 1; }
+    .hobby-slider-btn:hover {
+      background: rgba(0,229,255,0.14);
+      border-color: rgba(0,229,255,0.7);
+    }
+    .hobby-slider-btn.prev { left: 8px; }
+    .hobby-slider-btn.next { right: 8px; }
+
+    /* Dot strip below the slider */
+    .hobby-slider-dots {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    .hobby-slider-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.18);
+      border: none; padding: 0;
+      cursor: pointer;
+      transition: background 0.25s ease, transform 0.25s ease;
+    }
+    .hobby-slider-dot.active {
+      background: var(--accent);
+      transform: scale(1.5);
+    }
+
+    /* Progress bar — thin accent line that fills over the slide interval */
+    .hobby-slider-progress {
+      height: 2px;
+      background: var(--border);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+    .hobby-slider-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      transition: width 0s linear; /* driven by JS */
+      border-radius: 1px;
+    }
+
+    /* ── List panel ───────────────────────────────────────────── */
+    .hobby-list-panel {}
+
+    .hobby-item-list {
+      list-style: none;
+      padding: 0; margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .hobby-item {
+      display: grid;
+      grid-template-columns: 20px 1fr;
+      gap: 0 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: background 0.15s ease;
+    }
+    .hobby-item:last-child { border-bottom: none; }
+
+    /* The accent bullet */
+    .hobby-item-bullet {
+      margin-top: 3px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.5;
+      flex-shrink: 0;
+      align-self: start;
+      justify-self: center;
+      transition: opacity 0.2s;
+    }
+    .hobby-item:hover .hobby-item-bullet { opacity: 1; }
+
+    .hobby-item-content {}
+
+    .hobby-item-title {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.3;
+      margin-bottom: 3px;
+      font-family: var(--font-body);
+    }
+
+    .hobby-item-reason {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-family: var(--font-body);
+    }
+
+    /* Responsive — collapse to single column on medium screens */
+    @media (max-width: 1024px) {
+      .hobby-media-body,
+      .hobby-media-body.reverse {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .hobby-media-body.reverse .hobby-slider-panel,
+      .hobby-media-body.reverse .hobby-list-panel {
+        order: unset;
+      }
+      .hobby-slider-panel { position: static; }
+      .hobby-slider { aspect-ratio: 16/9; } /* landscape on mobile — less tall */
+    }
+
+    @media (max-width: 768px) {
+      .hobby-slider { aspect-ratio: 4/3; }
+      .hobby-slider-btn { opacity: 1; } /* always visible on touch */
+    }
   </style>
 </head>
 <body>
@@ -422,7 +632,7 @@
           <div class="about-links">
             <!-- ↓ EDIT: URLs / email ↓ -->
             <a href="https://www.linkedin.com/in/simr-virk" target="_blank" class="about-link"><i class="fab fa-linkedin"></i> LinkedIn</a>
-            <a href="mailto:ssv10@sfu.ca" class="about-link"><i class="fas fa-envelope"></i> Email Me</a>
+            <a href="/cdn-cgi/l/email-protection#2c5f5f5a1d1c6c5f4a59024f4d" class="about-link"><i class="fas fa-envelope"></i> Email Me</a>
             <a href="resume.pdf" target="_blank" class="about-link"><i class="fas fa-file-alt"></i> Resume</a>
           </div>
         </div>
@@ -615,46 +825,240 @@
       </div>
     </div>
 
-        <!-- 07 · Gaming -->
-    <div class="hobby-block fade-up">
+        <!-- 07 · GAMING -->
+    <div class="hobby-block hobby-block--media fade-up">
       <div class="container">
+
+        <!-- Section header stays in the standard format -->
         <div class="hobby-block-header">
           <div>
             <div class="section-label"><span class="label-line"></span><span class="label-text">07 — Gaming</span></div>
             <h3 class="hobby-block-title">Immersive<br>Worlds</h3>
           </div>
           <div>
-            <p class="hobby-block-desc">I am a massive fan of immersive single-player narratives and punishing souls-like titles. Whether I am exploring the meticulously crafted environments of Red Dead Redemption 2 and Ghost of Tsushima, or calculating my next dodge in Elden Ring and God of War, I appreciate games that blend rich storytelling with demanding mechanics. It ultimately boils down to pattern recognition, timing, and problem-solving—just in a virtual arena.</p>
+            <p class="hobby-block-desc">I'm drawn to games that demand something from you — tight mechanical skill, careful observation, or genuine emotional investment in the world. Whether it's calculating a parry window in Elden Ring or getting lost in the open plains of Red Dead Redemption 2 at 2am, I appreciate games designed with intent. The slider cycles through my current list; one cover at a time.</p>
             <div class="hobby-tags">
               <span class="tag" data-color="#ef4444">Souls-likes</span>
               <span class="tag" data-color="#a855f7">Single-Player RPGs</span>
-              <span class="tag" data-color="#eab308">Pattern Recognition</span>
+              <span class="tag" data-color="#eab308">Open World</span>
+              <span class="tag" data-color="#00e5ff">Action-Adventure</span>
             </div>
           </div>
         </div>
-        <div class="photo-grid" id="photoGrid-gaming"></div>
+
+        <!-- Split: slideshow LEFT, list RIGHT -->
+        <div class="hobby-media-body">
+
+          <!-- LEFT: auto-cycling cover art slideshow -->
+          <div class="hobby-slider-panel">
+            <div class="hobby-slider" id="slider-gaming">
+              <!-- Images injected by initHobbySlider() -->
+              <button class="hobby-slider-btn prev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+              <button class="hobby-slider-btn next" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+              <div class="hobby-slider-caption" id="slider-gaming-caption"></div>
+            </div>
+            <div class="hobby-slider-progress"><div class="hobby-slider-progress-fill" id="slider-gaming-progress"></div></div>
+            <div class="hobby-slider-dots" id="slider-gaming-dots"></div>
+          </div>
+
+          <!-- RIGHT: bulleted list of games -->
+          <div class="hobby-list-panel">
+            <ul class="hobby-item-list">
+              <!--
+                ↓↓ EDIT: update titles, reasons, and matching image paths in SLIDES_GAMING below ↓↓
+                Each entry here should correspond (by index) to an entry in SLIDES_GAMING.
+              -->
+              <li class="hobby-item">
+                <div class="hobby-item-bullet"></div>
+                <div class="hobby-item-content">
+                  <div class="hobby-item-title">Elden Ring</div>
+                  <div class="hobby-item-reason">The pinnacle of the FromSoftware formula — every encounter is a puzzle that rewards patience and pattern recognition over brute force.</div>
+                </div>
+              </li>
+              <li class="hobby-item">
+                <div class="hobby-item-bullet"></div>
+                <div class="hobby-item-content">
+                  <div class="hobby-item-title">God of War (2018)</div>
+                  <div class="hobby-item-reason">Proof that combat depth and emotional storytelling aren't mutually exclusive. Kratos and Atreus remains one of gaming's best character arcs.</div>
+                </div>
+              </li>
+              <li class="hobby-item">
+                <div class="hobby-item-bullet"></div>
+                <div class="hobby-item-content">
+                  <div class="hobby-item-title">Red Dead Redemption 2</div>
+                  <div class="hobby-item-reason">The most meticulously crafted open world ever built. I've spent hours just watching NPCs live their lives. Nothing else comes close for atmosphere.</div>
+                </div>
+              </li>
+              <li class="hobby-item">
+                <div class="hobby-item-bullet"></div>
+                <div class="hobby-item-content">
+                  <div class="hobby-item-title">Ghost of Tsushima</div>
+                  <div class="hobby-item-reason">Breathtaking art direction and a combat system that feels genuinely elegant. Wind guiding you to objectives was a design idea that deserved a patent.</div>
+                </div>
+              </li>
+              <li class="hobby-item">
+                <div class="hobby-item-bullet"></div>
+                <div class="hobby-item-content">
+                  <div class="hobby-item-title">Sekiro: Shadows Die Twice</div>
+                  <div class="hobby-item-reason">The purest expression of skill-based combat FromSoftware has ever made. No build variety — just you, your reflexes, and the posture bar.</div>
+                </div>
+              </li>
+              <li class="hobby-item">
+                <div class="hobby-item-bullet"></div>
+                <div class="hobby-item-content">
+                  <div class="hobby-item-title">Dark Souls III</div>
+                  <div class="hobby-item-reason">My entry point into the souls genre. The interconnected world design and environmental storytelling rewired how I think about game architecture.</div>
+                </div>
+              </li>
+              <li class="hobby-item">
+                <div class="hobby-item-bullet"></div>
+                <div class="hobby-item-content">
+                  <div class="hobby-item-title">Hollow Knight</div>
+                  <div class="hobby-item-reason">Indie proof-of-concept that a two-person team can out-design a AAA studio. Precise platforming, haunting atmosphere, and endless depth.</div>
+                </div>
+              </li>
+              <li class="hobby-item">
+                <div class="hobby-item-bullet"></div>
+                <div class="hobby-item-content">
+                  <div class="hobby-item-title">The Witcher 3: Wild Hunt</div>
+                  <div class="hobby-item-reason">The gold standard for narrative RPGs. The Bloody Baron questline alone is better writing than most films I've seen.</div>
+                </div>
+              </li>
+              <li class="hobby-item">
+                <div class="hobby-item-bullet"></div>
+                <div class="hobby-item-content">
+                  <div class="hobby-item-title">Bloodborne</div>
+                  <div class="hobby-item-reason">The gothic horror aesthetic and aggressive, high-risk combat loop hit differently than any other souls title. Gascoigne is a perfect boss fight.</div>
+                </div>
+              </li>
+              <li class="hobby-item">
+                <div class="hobby-item-bullet"></div>
+                <div class="hobby-item-content">
+                  <div class="hobby-item-title">Hades</div>
+                  <div class="hobby-item-reason">The roguelike that proved narrative and replayability aren't opposites. Supergiant made dying feel like a story beat, not a punishment.</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+        </div>
       </div>
     </div>
 
-    
-        <!-- 08 · Anime/Manga -->
-    <div class="hobby-block fade-up">
+    <!-- 08 · ANIME / MANGA -->
+    <div class="hobby-block hobby-block--media fade-up">
       <div class="container">
+
         <div class="hobby-block-header">
           <div>
-            <div class="section-label"><span class="label-line"></span><span class="label-text">08 — Anime & Manga</span></div>
+            <div class="section-label"><span class="label-line"></span><span class="label-text">08 — Anime &amp; Manga</span></div>
             <h3 class="hobby-block-title">Illustrated<br>Stories</h3>
           </div>
           <div>
-            <p class="hobby-block-desc">When I am stepping completely away from the screen to decompress, I dive into anime and manga. I gravitate towards stories with incredible world-building, high-stakes narratives, and boundary-pushing animation. It is a great way to disconnect from the rigidity of engineering, appreciate some phenomenal art, and enjoy the occasional over-the-top, ridiculous comedic moments that only this medium can pull off.</p>
+            <p class="hobby-block-desc">I gravitate toward anime and manga with serious world-building and high-stakes narratives — the kind that make you think about something long after you've finished it. Less shonen power-scaling, more thematic weight. The list below leans toward titles that either redefined the medium or made me genuinely reconsider something. The slider cycles through cover art automatically.</p>
             <div class="hobby-tags">
-              <span class="tag">Animation</span>
-              <span class="tag">Manga</span>
+              <span class="tag">Shonen</span>
+              <span class="tag">Seinen</span>
               <span class="tag">World-Building</span>
+              <span class="tag" data-color="#a855f7">High-Stakes Narrative</span>
             </div>
           </div>
         </div>
-        <div class="photo-grid" id="photoGrid-anime"></div>
+
+        <!-- Split: list LEFT, slideshow RIGHT (reversed for visual variety) -->
+        <div class="hobby-media-body reverse">
+
+          <!-- LEFT: bulleted list of anime -->
+          <div class="hobby-list-panel">
+            <ul class="hobby-item-list">
+              <!--
+                ↓↓ EDIT: update titles, reasons, and matching image paths in SLIDES_ANIME below ↓↓
+              -->
+              <li class="hobby-item">
+                <div class="hobby-item-bullet"></div>
+                <div class="hobby-item-content">
+                  <div class="hobby-item-title">Attack on Titan</div>
+                  <div class="hobby-item-reason">The most complete narrative in anime — every detail in season 1 pays off years later. The finale is divisive but the journey is unmatched.</div>
+                </div>
+              </li>
+              <li class="hobby-item">
+                <div class="hobby-item-bullet"></div>
+                <div class="hobby-item-content">
+                  <div class="hobby-item-title">Vinland Saga</div>
+                  <div class="hobby-item-reason">A slow-burn deconstruction of revenge and violence. Thorfinn's arc from Season 1 to Season 2 is the best character growth in the medium.</div>
+                </div>
+              </li>
+              <li class="hobby-item">
+                <div class="hobby-item-bullet"></div>
+                <div class="hobby-item-content">
+                  <div class="hobby-item-title">Fullmetal Alchemist: Brotherhood</div>
+                  <div class="hobby-item-reason">Perfectly paced, thematically rich, and emotionally devastating. The alchemy rules are tight enough to be genuinely satisfying as a systems-thinker.</div>
+                </div>
+              </li>
+              <li class="hobby-item">
+                <div class="hobby-item-bullet"></div>
+                <div class="hobby-item-content">
+                  <div class="hobby-item-title">Berserk (Manga)</div>
+                  <div class="hobby-item-reason">Kentaro Miura's masterwork. The Golden Age arc is a tragedy in the classical sense — and the art is some of the most detailed ever drawn.</div>
+                </div>
+              </li>
+              <li class="hobby-item">
+                <div class="hobby-item-bullet"></div>
+                <div class="hobby-item-content">
+                  <div class="hobby-item-title">Death Note</div>
+                  <div class="hobby-item-reason">A chess match stretched into 37 episodes. The cat-and-mouse dynamic between Light and L is still the sharpest writing in anime.</div>
+                </div>
+              </li>
+              <li class="hobby-item">
+                <div class="hobby-item-bullet"></div>
+                <div class="hobby-item-content">
+                  <div class="hobby-item-title">Jujutsu Kaisen</div>
+                  <div class="hobby-item-reason">Best animation in the modern era, and Gege Akutami genuinely doesn't care about keeping fan-favourite characters alive. Stakes feel real.</div>
+                </div>
+              </li>
+              <li class="hobby-item">
+                <div class="hobby-item-bullet"></div>
+                <div class="hobby-item-content">
+                  <div class="hobby-item-title">Hunter x Hunter</div>
+                  <div class="hobby-item-reason">The Chimera Ant arc is the most ambitious piece of storytelling in shonen manga. Yoshihiro Togashi writes like no one else in the medium.</div>
+                </div>
+              </li>
+              <li class="hobby-item">
+                <div class="hobby-item-bullet"></div>
+                <div class="hobby-item-content">
+                  <div class="hobby-item-title">Chainsaw Man</div>
+                  <div class="hobby-item-reason">Deranged, funny, genuinely moving, and visually unlike anything that came before it. Fujimoto is doing something different from everyone else.</div>
+                </div>
+              </li>
+              <li class="hobby-item">
+                <div class="hobby-item-bullet"></div>
+                <div class="hobby-item-content">
+                  <div class="hobby-item-title">Demon Slayer</div>
+                  <div class="hobby-item-reason">Ufotable's animation is an achievement in itself. The Mugen Train arc and Entertainment District arc contain some of the most beautiful sequences ever animated.</div>
+                </div>
+              </li>
+              <li class="hobby-item">
+                <div class="hobby-item-bullet"></div>
+                <div class="hobby-item-content">
+                  <div class="hobby-item-title">One Piece</div>
+                  <div class="hobby-item-reason">The longest-running commitment I've made to any piece of fiction. 1000+ chapters and Oda is still planting seeds from a decade ago. Unmatched world-building scale.</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- RIGHT: auto-cycling cover art slideshow -->
+          <div class="hobby-slider-panel">
+            <div class="hobby-slider" id="slider-anime">
+              <button class="hobby-slider-btn prev" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+              <button class="hobby-slider-btn next" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+              <div class="hobby-slider-caption" id="slider-anime-caption"></div>
+            </div>
+            <div class="hobby-slider-progress"><div class="hobby-slider-progress-fill" id="slider-anime-progress"></div></div>
+            <div class="hobby-slider-dots" id="slider-anime-dots"></div>
+          </div>
+
+        </div>
       </div>
     </div>
 
@@ -690,7 +1094,7 @@
         <div class="footer-links-grid">
           <!-- ↓ EDIT: contact details ↓ -->
           <a href="https://www.linkedin.com/in/simr-virk" target="_blank" class="footer-link"><i class="fab fa-linkedin"></i> LinkedIn</a>
-          <a href="mailto:ssv10@sfu.ca" class="footer-link"><i class="fas fa-envelope"></i> ssv10@sfu.ca</a>
+          <a href="/cdn-cgi/l/email-protection#196a6a6f2829596a7f6c377a78" class="footer-link"><i class="fas fa-envelope"></i> <span class="__cf_email__" data-cfemail="27545451161767544152094446">[email&#160;protected]</span></a>
           <a href="tel:7785755444" class="footer-link"><i class="fas fa-phone"></i> 778-575-5444</a>
           <a href="resume.pdf" target="_blank" class="footer-link"><i class="fas fa-file-alt"></i> Resume</a>
         </div>
@@ -706,7 +1110,7 @@
     </div>
   </footer>
 
-  <script src="/script.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/script.js"></script>
   <script>
     /* ════════════════════════════════════════════════════════════════════
        GALLERY DATA
@@ -805,37 +1209,242 @@
       { src:'roblox/roblox12.png',                alt:'Thinking Fast Slow', caption:'Thinking, Fast and Slow — Kahneman  |  How invisible bias shapes every decision.' },
     ];
 
+    /* ════════════════════════════════════════════════════════════════════
+       HOBBY SLIDER DATA
+       ════════════════════════════════════════════════════════════════════
+       Each entry: { src: 'path/to/cover.jpg', alt: 'Title', caption: 'Title shown in slider' }
+       The ORDER here must match the order of <li> entries in the HTML list above.
+
+       HOW TO ADD IMAGES:
+         1. Create folders:  about/gaming/   about/anime/
+         2. Drop cover art JPGs in (portrait aspect recommended, e.g. 600×800px)
+         3. Update src paths below — one entry per game/anime in your list
+    ════════════════════════════════════════════════════════════════════ */
+
+    /* ── Gaming covers (matches the 10-item HTML list order) ──────── */
     const SLIDES_GAMING = [
-      /* ↓ EDIT ↓ */
-      { src:'roblox/roblox1.png',                 alt:'On the course',      caption:'Atomic Habits — James Clear  |  Systems over goals. 1% better, compounded.' },
-      { src:'roblox/roblox2.png',                 alt:'Shoe Dog',           caption:'Shoe Dog — Phil Knight  |  The unglamorous marathon of building something real.' },
-      { src:'roblox/roblox3.png',                 alt:'Elon Musk',          caption:'Elon Musk — Walter Isaacson  |  First-principles thinking taken to its extreme.' },
-      { src:'roblox/roblox4.png',                 alt:'Thinking Fast Slow', caption:'Thinking, Fast and Slow — Kahneman  |  How invisible bias shapes every decision.' },
-      { src:'roblox/roblox55.png',                alt:'On the course',      caption:'Atomic Habits — James Clear  |  Systems over goals. 1% better, compounded.' },
-      { src:'roblox/roblox6.png',                 alt:'Shoe Dog',           caption:'Shoe Dog — Phil Knight  |  The unglamorous marathon of building something real.' },
-      { src:'roblox/roblox77.png',                alt:'Elon Musk',          caption:'Elon Musk — Walter Isaacson  |  First-principles thinking taken to its extreme.' },
-      { src:'roblox/roblox8.png',                 alt:'Thinking Fast Slow', caption:'Thinking, Fast and Slow — Kahneman  |  How invisible bias shapes every decision.' },
-      { src:'roblox/roblox9.png',                 alt:'On the course',      caption:'Atomic Habits — James Clear  |  Systems over goals. 1% better, compounded.' },
-      { src:'roblox/roblox10.png',                alt:'Shoe Dog',           caption:'Shoe Dog — Phil Knight  |  The unglamorous marathon of building something real.' },
-      { src:'roblox/roblox11.png',                alt:'Elon Musk',          caption:'Elon Musk — Walter Isaacson  |  First-principles thinking taken to its extreme.' },
-      { src:'roblox/roblox12.png',                alt:'Thinking Fast Slow', caption:'Thinking, Fast and Slow — Kahneman  |  How invisible bias shapes every decision.' },
+      /* ↓ EDIT: replace src paths with your actual cover art files ↓ */
+      { src: 'gaming/games1.jpg',       alt: 'Elden Ring',                  caption: 'Elden Ring  ·  FromSoftware, 2022' },
+      { src: 'gaming/games2.jpg',       alt: 'God of War',                  caption: 'God of War  ·  Santa Monica Studio, 2018' },
+      { src: 'gaming/games3.jpg',             alt: 'Red Dead Redemption 2',        caption: 'Red Dead Redemption 2  ·  Rockstar Games, 2018' },
+      { src: 'gaming/games4.jpg',    alt: 'Ghost of Tsushima',           caption: 'Ghost of Tsushima  ·  Sucker Punch, 2020' },
+      { src: 'gaming/games5.png',           alt: 'Sekiro: Shadows Die Twice',   caption: 'Sekiro: Shadows Die Twice  ·  FromSoftware, 2019' },
+      { src: 'gaming/games6.jpg',     alt: 'Dark Souls III',              caption: 'Dark Souls III  ·  FromSoftware, 2016' },
+      { src: 'gaming/games7.png',    alt: 'Hollow Knight',               caption: 'Hollow Knight  ·  Team Cherry, 2017' },
+      { src: 'gaming/games8.jpg',        alt: 'The Witcher 3: Wild Hunt',    caption: 'The Witcher 3: Wild Hunt  ·  CD Projekt Red, 2015' },
+      { src: 'gaming/games9.jpg',       alt: 'Bloodborne',                  caption: 'Bloodborne  ·  FromSoftware, 2015' },
+      { src: 'gaming/games10.jpg',            alt: 'Hades',                       caption: 'Hades  ·  Supergiant Games, 2020' },
+      { src: 'gaming/games11.jpeg',             alt: 'Red Dead Redemption 2',        caption: 'Red Dead Redemption 2  ·  Rockstar Games, 2018' },
+      { src: 'gaming/games12.jpg',    alt: 'Ghost of Tsushima',           caption: 'Ghost of Tsushima  ·  Sucker Punch, 2020' },
+      { src: 'gaming/games13.png',           alt: 'Sekiro: Shadows Die Twice',   caption: 'Sekiro: Shadows Die Twice  ·  FromSoftware, 2019' },
+      { src: 'gaming/games14.jpg',     alt: 'Dark Souls III',              caption: 'Dark Souls III  ·  FromSoftware, 2016' },
+      { src: 'gaming/games15.png',    alt: 'Hollow Knight',               caption: 'Hollow Knight  ·  Team Cherry, 2017' },
+      { src: 'gaming/games16.jpg',        alt: 'The Witcher 3: Wild Hunt',    caption: 'The Witcher 3: Wild Hunt  ·  CD Projekt Red, 2015' },
+      { src: 'gaming/games17.jpg',       alt: 'Bloodborne',                  caption: 'Bloodborne  ·  FromSoftware, 2015' },
+      { src: 'gaming/games18.jpg',            alt: 'Hades',                       caption: 'Hades  ·  Supergiant Games, 2020' },
     ];
 
+    /* ── Anime / manga covers (matches the 10-item HTML list order) ─ */
     const SLIDES_ANIME = [
-      /* ↓ EDIT ↓ */
-      { src:'roblox/roblox1.png',                 alt:'On the course',      caption:'Atomic Habits — James Clear  |  Systems over goals. 1% better, compounded.' },
-      { src:'roblox/roblox2.png',                 alt:'Shoe Dog',           caption:'Shoe Dog — Phil Knight  |  The unglamorous marathon of building something real.' },
-      { src:'roblox/roblox3.png',                 alt:'Elon Musk',          caption:'Elon Musk — Walter Isaacson  |  First-principles thinking taken to its extreme.' },
-      { src:'roblox/roblox4.png',                 alt:'Thinking Fast Slow', caption:'Thinking, Fast and Slow — Kahneman  |  How invisible bias shapes every decision.' },
-      { src:'roblox/roblox55.png',                alt:'On the course',      caption:'Atomic Habits — James Clear  |  Systems over goals. 1% better, compounded.' },
-      { src:'roblox/roblox6.png',                 alt:'Shoe Dog',           caption:'Shoe Dog — Phil Knight  |  The unglamorous marathon of building something real.' },
-      { src:'roblox/roblox77.png',                alt:'Elon Musk',          caption:'Elon Musk — Walter Isaacson  |  First-principles thinking taken to its extreme.' },
-      { src:'roblox/roblox8.png',                 alt:'Thinking Fast Slow', caption:'Thinking, Fast and Slow — Kahneman  |  How invisible bias shapes every decision.' },
-      { src:'roblox/roblox9.png',                 alt:'On the course',      caption:'Atomic Habits — James Clear  |  Systems over goals. 1% better, compounded.' },
-      { src:'roblox/roblox10.png',                alt:'Shoe Dog',           caption:'Shoe Dog — Phil Knight  |  The unglamorous marathon of building something real.' },
-      { src:'roblox/roblox11.png',                alt:'Elon Musk',          caption:'Elon Musk — Walter Isaacson  |  First-principles thinking taken to its extreme.' },
-      { src:'roblox/roblox12.png',                alt:'Thinking Fast Slow', caption:'Thinking, Fast and Slow — Kahneman  |  How invisible bias shapes every decision.' },
+      /* ↓ EDIT: replace src paths with your actual cover art files ↓ */
+      { src: 'anime/anime1.jpg',   alt: 'Attack on Titan',                   caption: 'Attack on Titan  ·  Hajime Isayama' },
+      { src: 'anime/anime2.jpg',      alt: 'Vinland Saga',                      caption: 'Vinland Saga  ·  Makoto Yukimura' },
+      { src: 'anime/anime3.jpg',              alt: 'Fullmetal Alchemist: Brotherhood',  caption: 'Fullmetal Alchemist: Brotherhood  ·  Hiromu Arakawa' },
+      { src: 'anime/anime4.jpg',           alt: 'Berserk',                           caption: 'Berserk  ·  Kentaro Miura' },
+      { src: 'anime/anime5.jpg',        alt: 'Death Note',                        caption: 'Death Note  ·  Tsugumi Ohba & Takeshi Obata' },
+      { src: 'anime/anime6.jpg',    alt: 'Jujutsu Kaisen',                    caption: 'Jujutsu Kaisen  ·  Gege Akutami' },
+      { src: 'anime/anime7.jpg',               alt: 'Hunter x Hunter',                   caption: 'Hunter x Hunter  ·  Yoshihiro Togashi' },
+      { src: 'anime/anime8.jpg',      alt: 'Chainsaw Man',                      caption: 'Chainsaw Man  ·  Tatsuki Fujimoto' },
+      { src: 'anime/anime9.jpg',      alt: 'Demon Slayer',                      caption: 'Demon Slayer  ·  Koyoharu Gotouge' },
+      { src: 'anime/anime10.jpeg',         alt: 'One Piece',                         caption: 'One Piece  ·  Eiichiro Oda' },
+      { src: 'anime/anime11.jpg',      alt: 'Chainsaw Man',                      caption: 'Chainsaw Man  ·  Tatsuki Fujimoto' },
+      { src: 'anime/anime12.jpg',      alt: 'Demon Slayer',                      caption: 'Demon Slayer  ·  Koyoharu Gotouge' },
+      { src: 'anime/anime13.jpg',         alt: 'One Piece',                         caption: 'One Piece  ·  Eiichiro Oda' },
     ];
+
+    /* ════════════════════════════════════════════════════════════════════
+       HOBBY SLIDER ENGINE
+       ════════════════════════════════════════════════════════════════════
+       Self-contained auto-advancing slideshow.
+       - Shows ONE image at a time with a smooth cross-fade.
+       - Auto-advances every INTERVAL ms, pauses on hover.
+       - Prev/next buttons, dot indicators, and a progress bar.
+       - Loops infinitely.
+
+       Usage: initHobbySlider(slides, sliderId, {interval: 3500})
+         slides   — array of { src, alt, caption }
+         sliderId — id of the .hobby-slider div (without '#')
+    ════════════════════════════════════════════════════════════════════ */
+    (function () {
+
+      const FADE_MS    = 550;   /* cross-fade duration in ms */
+      const INTERVAL   = 3500; /* auto-advance interval in ms */
+
+      window.initHobbySlider = function (slides, sliderId, opts) {
+        const cfg      = Object.assign({ interval: INTERVAL }, opts || {});
+        const root     = document.getElementById(sliderId);
+        if (!root || !slides || !slides.length) return;
+
+        const captionEl  = document.getElementById(sliderId + '-caption');
+        const dotsEl     = document.getElementById(sliderId + '-dots');
+        const progressEl = document.getElementById(sliderId + '-progress');
+
+        /* ── Build image nodes ───────────────────────────────── */
+        const imgs = slides.map((slide, i) => {
+          const img = document.createElement('img');
+          img.className  = 'hobby-slider-img' + (i === 0 ? ' active' : '');
+          img.src        = slide.src;
+          img.alt        = slide.alt;
+          img.loading    = i === 0 ? 'eager' : 'lazy';
+          img.draggable  = false;
+          /* Insert before the buttons */
+          root.insertBefore(img, root.querySelector('.hobby-slider-btn.prev'));
+          return img;
+        });
+
+        /* ── Build dots ──────────────────────────────────────── */
+        if (dotsEl) {
+          slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.className = 'hobby-slider-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+            dot.addEventListener('click', () => goTo(i));
+            dotsEl.appendChild(dot);
+          });
+        }
+
+        /* ── State ───────────────────────────────────────────── */
+        let cur       = 0;
+        let timer     = null;
+        let progTimer = null;
+        let paused    = false;
+
+        /* ── Helpers ─────────────────────────────────────────── */
+        function updateDots(idx) {
+          if (!dotsEl) return;
+          Array.from(dotsEl.children).forEach((d, i) =>
+            d.classList.toggle('active', i === idx));
+        }
+
+        function updateCaption(idx) {
+          if (captionEl) captionEl.textContent = slides[idx].caption;
+        }
+
+        function resetProgress() {
+          if (!progressEl) return;
+          progressEl.style.transition = 'none';
+          progressEl.style.width      = '0%';
+          /* Force reflow then animate */
+          void progressEl.offsetWidth;
+          progressEl.style.transition = `width ${cfg.interval}ms linear`;
+          progressEl.style.width      = '100%';
+        }
+
+        function stopProgress() {
+          if (!progressEl) return;
+          progressEl.style.transition = 'none';
+          const computed = getComputedStyle(progressEl).width;
+          const parent   = progressEl.parentElement;
+          if (parent) {
+            const pct = (parseFloat(computed) / parent.offsetWidth * 100).toFixed(1);
+            progressEl.style.width = pct + '%';
+          }
+        }
+
+        /* ── Transition to slide idx ─────────────────────────── */
+        function goTo(idx) {
+          const N   = slides.length;
+          const next = ((idx % N) + N) % N;
+          if (next === cur) return;
+
+          imgs[cur].classList.remove('active');
+          imgs[next].classList.add('active');
+          cur = next;
+
+          updateDots(cur);
+          updateCaption(cur);
+        }
+
+        /* ── Tick ────────────────────────────────────────────── */
+        function tick() {
+          goTo(cur + 1);
+          resetProgress();
+        }
+
+        function startAuto() {
+          if (timer) clearInterval(timer);
+          timer = setInterval(tick, cfg.interval);
+          resetProgress();
+        }
+
+        function stopAuto() {
+          clearInterval(timer);
+          timer = null;
+          stopProgress();
+        }
+
+        /* ── Prev / Next buttons ─────────────────────────────── */
+        const btnPrev = root.querySelector('.hobby-slider-btn.prev');
+        const btnNext = root.querySelector('.hobby-slider-btn.next');
+        if (btnPrev) {
+          btnPrev.addEventListener('click', (e) => {
+            e.stopPropagation();
+            goTo(cur - 1);
+            /* Reset the timer so we don't skip instantly after manual nav */
+            stopAuto();
+            startAuto();
+          });
+        }
+        if (btnNext) {
+          btnNext.addEventListener('click', (e) => {
+            e.stopPropagation();
+            goTo(cur + 1);
+            stopAuto();
+            startAuto();
+          });
+        }
+
+        /* ── Hover pause ─────────────────────────────────────── */
+        root.addEventListener('mouseenter', () => {
+          paused = true;
+          stopAuto();
+        });
+        root.addEventListener('mouseleave', () => {
+          paused = false;
+          startAuto();
+        });
+
+        /* ── Touch swipe ─────────────────────────────────────── */
+        let touchStartX = null;
+        root.addEventListener('touchstart', e => {
+          touchStartX = e.changedTouches[0].clientX;
+        }, { passive: true });
+        root.addEventListener('touchend', e => {
+          if (touchStartX === null) return;
+          const dx = e.changedTouches[0].clientX - touchStartX;
+          touchStartX = null;
+          if (Math.abs(dx) > 40) {
+            goTo(dx < 0 ? cur + 1 : cur - 1);
+            stopAuto(); startAuto();
+          }
+        }, { passive: true });
+
+        /* ── Intersection observer — pause when off-screen ───── */
+        const obs = new IntersectionObserver(entries => {
+          entries.forEach(en => {
+            if (en.isIntersecting && !paused) { startAuto(); }
+            else { stopAuto(); }
+          });
+        }, { threshold: 0.2 });
+        obs.observe(root);
+
+        /* ── Init ────────────────────────────────────────────── */
+        updateCaption(0);
+        updateDots(0);
+        startAuto();
+      };
+
+    })(); /* end initHobbySlider IIFE */
 
     /* ════════════════════════════════════════════════════════════════════
        SHARED LIGHTBOX ENGINE
@@ -899,8 +1508,23 @@
     initGallery(SLIDES_OUTDOOR,  'photoGrid-outdoor');
     initGallery(SLIDES_SOCIETY,  'photoGrid-society');
     initGallery(SLIDES_CREATIVE, 'photoGrid-creative');
-    initGallery(SLIDES_GAMING,   'photoGrid-gaming');
-    initGallery(SLIDES_ANIME,    'photoGrid-anime');
+
+    /* ── Initialize the hobby sliders ──────────────────────────────── */
+    initHobbySlider(SLIDES_GAMING, 'slider-gaming', { interval: 3500 });
+    initHobbySlider(SLIDES_ANIME,  'slider-anime',  { interval: 3800 });
+
+    /* ── Tag colour initializer ────────────────────────────────────── */
+    (function initTagColors() {
+      document.querySelectorAll('.tag[data-color]').forEach(function(tag) {
+        var hex = tag.dataset.color.trim().replace(/^#/, '');
+        if (hex.length === 3) hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+        tag.style.setProperty('--tc-r', parseInt(hex.substring(0,2),16));
+        tag.style.setProperty('--tc-g', parseInt(hex.substring(2,4),16));
+        tag.style.setProperty('--tc-b', parseInt(hex.substring(4,6),16));
+        tag.style.setProperty('--tc-hex', '#'+hex);
+      });
+    })();
+
   </script>
 </body>
 </html>
