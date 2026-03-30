@@ -380,36 +380,36 @@
       <div class="project-hero-grid">
         <div>
           <div class="project-category-label">Robotics / Mechatronics</div>
-          <h1 class="project-title">PROJECT<br>NAME HERE</h1>
+          <h1 class="project-title">Precision PID<br>Ball Launcher</h1>
           <p class="project-summary">
-            Write a concise 2–3 sentence summary of the project here.
-            Explain what you built, what problem it solved, and the key
-            technical achievement that makes this project noteworthy.
+            Designed and controlled a highly optimized mechanical arm and sorting mechanism to autonomously categorize and launch projectiles. 
+            Engineered an ultra-lightweight 30g truss structure in SolidWorks and developed a robust closed-loop PID control architecture in MATLAB/Simulink, 
+            overcoming catastrophic late-stage electrical failures to secure 2nd place overall.
           </p>
           <div class="project-tech-list">
-            <span class="tag">Python</span>
-            <span class="tag">ROS</span>
-            <span class="tag">SolidWorks</span>
-            <span class="tag">OpenCV</span>
-            <span class="tag">Arduino</span>
+            <span class="tag" data-color="#22c55e">MATLAB/Simulink</span>
+            <span class="tag" data-color="#f43f5e">SolidWorks</span>
+            <span class="tag" data-color="#06b6d4">PID Control</span>
+            <span class="tag" data-color="#00e5ff">Arduino</span>
+            <span class="tag" data-color="#f97316">FEA Analysis</span>
           </div>
         </div>
         <div class="project-meta-card">
           <div class="project-meta-item">
             <div class="meta-label">Duration</div>
-            <div class="meta-value">Month Year – Month Year</div>
+            <div class="meta-value">May 2025 – July 2025</div>
           </div>
           <div class="project-meta-item">
             <div class="meta-label">Team Size</div>
-            <div class="meta-value">Solo Project</div>
+            <div class="meta-value">5 Members</div>
           </div>
           <div class="project-meta-item">
             <div class="meta-label">My Role</div>
-            <div class="meta-value">Lead Engineer</div>
+            <div class="meta-value">Lead Mechanical & Controls Engineer</div>
           </div>
           <div class="project-meta-item">
             <div class="meta-label">Course / Context</div>
-            <div class="meta-value">ENSC 4XX · Project Name</div>
+            <div class="meta-value">MSE 312 · Mechatronics Design II</div>
           </div>
           <div class="project-meta-item">
             <div class="meta-label">Status</div>
@@ -429,24 +429,26 @@
         <div>
           <div class="project-section-title">The Problem</div>
           <p>
-            Describe the problem or engineering challenge this project was
-            designed to solve. Be specific — mention constraints, requirements,
-            or real-world needs that drove the design decisions.
+            The objective was to engineer an autonomous mechanical system capable of sorting and accurately launching lightweight projectiles into designated targets using a DC motor. 
+            The system needed to strictly adhere to dimensional and material constraints while managing variable ball masses, which drastically affected the required launch trajectories.
           </p>
           <p>
-            Add a second paragraph with more context if needed.
-            What made this problem particularly interesting or difficult?
+            To achieve consistent accuracy, the design required a highly responsive closed-loop control system and an ultra-lightweight, rigid mechanical arm. 
+            Minimizing rotational inertia while maximizing structural stiffness was critical to prevent severe overshooting and ensure the motor could rapidly reach target launch velocities.
           </p>
         </div>
         <div>
           <div class="project-section-title">My Approach</div>
           <p>
-            Explain the approach you took to solve the problem. What design
-            decisions did you make and why? What alternatives did you consider?
+            I spearheaded 100% of the mechanical and control systems design. 
+            Mechanically, I utilized SolidWorks optimization to engineer a 30-gram truss arm. 
+            By strategically removing material via triangular cutouts, I balanced minimal rotational inertia with high rigidity. 
+            I also independently designed a custom mechanical ball-sorting mechanism to categorize the variable projectiles prior to launch.
           </p>
           <p>
-            Highlight your unique contribution — what was creative, novel, or
-            technically challenging about your solution?
+            On the controls side, I developed a closed-loop PID architecture in MATLAB/Simulink. 
+            By utilizing encoder feedback, the system dynamically adjusted PWM signals to the full H-bridge motor driver,
+            dictating precise angular positioning and speed to accommodate the differing masses of the sorted projectiles.
           </p>
         </div>
       </div>
@@ -492,26 +494,28 @@
         <div>
           <div class="project-section-title">Technical Details</div>
           <p>
-            Describe the technical details of your implementation here.
-            What hardware did you use? What software architecture did you design?
-            What algorithms or calculations were central to the system?
+            The mechanical arm, measuring 177.4 mm in length, was optimized using FEA to achieve a simulated maximum vertical deflection of just 0.63 mm under a 10N load. 
+            Its rotational inertia was minimized to 38,686 g*mm² to maximize angular acceleration. 
+            Deflection testing revealed that physical compliance was actually isolated to the 3D-printed shaft attachment tolerances, not the truss itself.
           </p>
           <p>
-            Engineers and recruiters will read this section closely.
-            Use precise language — component specs, tolerances,
-            communication protocols, control loops, etc.
+            The control loop utilized Proportional and Integral gains (P=0.65, I=0.35); derivative gain was intentionally omitted,
+            as it introduced severe motor vibration and instability caused by high-frequency PWM switching noise. 
+            This PI configuration allowed the system to settle in 3-4 oscillations with a controlled 30% overshoot, perfectly balancing responsiveness and stability.
           </p>
         </div>
         <div>
           <div class="project-section-title">Challenges &amp; Learnings</div>
           <p>
-            Describe the most significant technical challenge you encountered
-            and how you resolved it. Be honest — challenges show real
-            engineering experience.
+            A catastrophic electrical failure occurred just days before our final demonstration, leaving us with zero successful trial launches. 
+            The night before the presentation, I stayed on campus until 3:00 AM with a teammate, 
+            systematically debugging the circuit until we isolated and bypassed a faulty terminal block causing inconsistent power delivery.
+          </p>.
           </p>
           <p>
-            What would you do differently if you started over?
-            What skills or knowledge did this project give you?
+            With the hardware finally functioning, I had exactly 7 hours to tune the PID controller and calibrate the launch trajectories for various ball masses from scratch. 
+            Fortunately, my MATLAB control architecture was highly modular and robust; I was able to rapidly tweak the parameters on the fly. 
+            We integrated my untested ball-sorting mechanism that same morning and successfully executed our demonstration.
           </p>
         </div>
       </div>
@@ -558,16 +562,16 @@
       <div class="project-section-title" style="margin-bottom: 20px;">Outcomes</div>
       <div class="outcomes-grid">
         <div class="outcome-card">
-          <div class="outcome-number">XX%</div>
-          <div class="outcome-label">Metric or Achievement #1</div>
+          <div class="outcome-number">2nd</div>
+          <div class="outcome-label">Place in Overall Class Competition</div>
         </div>
         <div class="outcome-card">
-          <div class="outcome-number">XX</div>
-          <div class="outcome-label">Metric or Achievement #2</div>
+          <div class="outcome-number">30g</div>
+          <div class="outcome-label">Optimized Arm Weight via FEA</div>
         </div>
         <div class="outcome-card">
-          <div class="outcome-number">A+</div>
-          <div class="outcome-label">Grade Received / Recognition</div>
+          <div class="outcome-number">7 Hrs</div>
+          <div class="outcome-label">To Successfully Tune & Calibrate System</div>
         </div>
       </div>
     </div>
