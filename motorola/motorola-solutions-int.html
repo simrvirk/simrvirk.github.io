@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- ↓ EDIT: update description / title for each internship ↓ -->
-  <meta name="description" content="Motorola Solutions (Avigilon) — Design Validation Engineering Intern. Simr Virk's co-op case study: automated FOV goniometer, computer vision pipelines, and validation infrastructure.">
-  <title>Motorola Solutions — Simr Virk</title>
+  <meta name="description" content="Motorola Solutions (Avigilon) — Design Validation Engineering Intern. Simr Virk built an automated FOV Goniometer achieving ±0.5° accuracy and 85% faster test cycles, plus hardware validation across H6SL, PD IOP, and Dualhead camera lines.">
+  <title>Motorola Solutions · Avigilon — Simr Virk</title>
   <link rel="stylesheet" href="/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -583,34 +582,33 @@
 
       <div class="internship-header-grid">
         <div>
-          <!-- ↓ EDIT: update role title ↓ -->
           <h1 class="internship-role">Design Validation<br>Engineering Intern</h1>
-          <!-- ↓ EDIT: update company + division ↓ -->
-          <div class="internship-company">Motorola Solutions · Avigilon Division</div>
+          <div class="internship-company">Motorola Solutions · Avigilon Division · Vancouver, BC</div>
         </div>
 
         <!-- Meta pills (right-aligned) -->
         <div class="internship-meta-group">
-          <!-- ↓ EDIT: update dates ↓ -->
-          <span class="meta-pill"><i class="fas fa-calendar-alt"></i> May 2025 – Apr 2026</span>
-          <!-- ↓ EDIT: update location ↓ -->
+          <span class="meta-pill"><i class="fas fa-calendar-alt"></i> Sep 2025 – Apr 2026</span>
           <span class="meta-pill"><i class="fas fa-map-marker-alt"></i> Vancouver, BC</span>
-          <span class="meta-pill"><i class="fas fa-briefcase"></i> Co-op · Full-time</span>
+          <span class="meta-pill"><i class="fas fa-briefcase"></i> 2 Co-op Terms · 8 Months</span>
         </div>
       </div>
 
-      <!-- Skill tags — add data-color="#hex" to any tag to override the accent colour -->
-      <!-- ↓ EDIT: update tags to match actual skills used ↓ -->
+      <!-- Skill tags — custom colors via data-color="#hex" attribute -->
       <div class="header-tags">
-        <span class="tag">Python</span>
-        <span class="tag">OpenCV</span>
-        <span class="tag">C / C++</span>
-        <span class="tag">Computer Vision</span>
-        <span class="tag">Test Automation</span>
-        <span class="tag">Embedded Linux</span>
-        <span class="tag">GD&amp;T</span>
-        <span class="tag">SolidWorks</span>
-        <span class="tag">RTSP Pipelines</span>
+        <span class="tag" data-color="#00e5ff">Python 3</span>
+        <span class="tag" data-color="#00e5ff">OpenCV</span>
+        <span class="tag" data-color="#00e5ff">RTSP Streaming</span>
+        <span class="tag" data-color="#22c55e">Computer Vision</span>
+        <span class="tag" data-color="#22c55e">Test Automation</span>
+        <span class="tag" data-color="#f97316">Embedded Linux</span>
+        <span class="tag" data-color="#f97316">C / C++</span>
+        <span class="tag" data-color="#f97316">Bash / Shell Scripting</span>
+        <span class="tag" data-color="#a855f7">SolidWorks</span>
+        <span class="tag" data-color="#a855f7">GD&amp;T</span>
+        <span class="tag" data-color="#a855f7">3D Printing</span>
+        <span class="tag" data-color="#eab308">Zaber Motion API</span>
+        <span class="tag" data-color="#eab308">Optical Metrology</span>
       </div>
 
     </div>
@@ -628,12 +626,13 @@
             <span class="label-text">Overview</span>
           </div>
 
-          <!-- ↓ EDIT: replace with your own narrative about the role ↓ -->
+          <!-- Overview narrative -->
           <div class="overview-body">
-            <p>At Motorola Solutions' Avigilon division in Vancouver, I worked as a Design Validation Engineering Intern within the hardware team, reporting to the Mechanical Engineering group. My mandate was to build and deploy automated validation infrastructure for camera hardware — reducing manual test burden, increasing measurement precision, and generating repeatable data that feeds directly into product certification decisions.</p>
-            <p>The role sat at the intersection of mechanical systems, software automation, and computer vision. I wasn't running tests — I was designing and building the systems that run the tests. That distinction shaped everything I produced during this term.</p>
-            <p>The flagship deliverable was a fully automated Field of View (FOV) goniometer system — a Python-based, camera-driven pipeline capable of measuring angular FOV with ±0.5° accuracy across full product sweep cycles with no human intervention. It cut cycle time by 85% versus the manual baseline and is now part of the lab's standard test infrastructure.</p>
-            <!-- ↓ EDIT: add more paragraphs if needed ↓ -->
+            <p>At Motorola Solutions' Avigilon division in Vancouver, I completed two consecutive co-op work terms (September 2025 – April 2026) embedded within the Design Validation Team (DVT). The DVT is the gatekeeping function between engineering and mass production — every camera product that ships has passed through the processes this team owns. The role demanded fluency across mechanical systems, electronics, firmware behaviour, optics, and software automation, often in the same week.</p>
+
+            <p>During my first term I functioned as a full member of the DVT, performing temperature and environmental stress testing on new camera designs, conducting optical and image quality evaluations, executing hardware functionality assessments, and carrying out failure investigations with root cause analysis. I collaborated directly with mechanical, electrical, and firmware engineering teams to reproduce issues, characterize their source, and validate that proposed fixes resolved them — the full DVT loop. I also developed scripted test automation to reduce manual burden on repetitive procedures.</p>
+
+            <p>During my second term I was given ownership of a harder problem: replace the DVT's manual, trigonometry-based Field of View measurement method with something automated, accurate, and scalable. I conceived, designed, and built a fully automated FOV Goniometer system — a Python and OpenCV pipeline integrated with a Zaber motorized rotary stage that measures camera FOV directly via angular encoder feedback. The system achieved ±0.5° measurement accuracy against the Trioptics ImageMaster optical bench (a commercially available precision instrument valued at a minimum of $40,000 USD) and reduced test cycle time by 85%, exceeding the 50% reduction target set at project kickoff. It is now part of the lab's permanent validation infrastructure, operable by any engineering staff member with zero optical training required.</p>
           </div>
         </div>
 
@@ -641,31 +640,41 @@
         <div class="overview-facts-card">
           <div class="facts-card-title">At a Glance</div>
 
-          <!-- ↓ EDIT: update each fact row ↓ -->
           <div class="fact-row">
             <span class="fact-label">Company</span>
-            <span class="fact-value">Motorola Solutions</span>
+            <span class="fact-value">Motorola Solutions Inc.</span>
           </div>
           <div class="fact-row">
             <span class="fact-label">Division</span>
-            <span class="fact-value">Avigilon (Security Cameras)</span>
+            <span class="fact-value">Avigilon — Video Security &amp; Analytics</span>
           </div>
           <div class="fact-row">
             <span class="fact-label">Duration</span>
-            <span class="fact-value">12 months (Co-op)</span>
+            <span class="fact-value">8 months · Sep 2025 – Apr 2026 (2 terms)</span>
           </div>
           <div class="fact-row">
-            <span class="fact-label">Supervisor</span>
-            <!-- ↓ EDIT: update supervisor name ↓ -->
-            <span class="fact-value">Zoltan Feldman</span>
+            <span class="fact-label">Term 1 Supervisor</span>
+            <span class="fact-value">Zoltan Feldman · Sr. Manager, Test Engineering</span>
           </div>
           <div class="fact-row">
-            <span class="fact-label">Primary Focus</span>
-            <span class="fact-value">Automated Test Infrastructure</span>
+            <span class="fact-label">Term 2 Supervisor</span>
+            <span class="fact-value">Leeny Adelsberger · Manager, Optical Design</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-label">Team</span>
+            <span class="fact-value">Design Validation Team (DVT)</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-label">Term 1 Scope</span>
+            <span class="fact-value">Environmental Testing · Optical Validation · Failure Analysis · FAI</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-label">Term 2 Scope</span>
+            <span class="fact-value">Automated FOV Goniometer — end-to-end design &amp; deployment</span>
           </div>
           <div class="fact-row">
             <span class="fact-label">Core Stack</span>
-            <span class="fact-value">Python · OpenCV · C/C++ · Linux</span>
+            <span class="fact-value">Python · OpenCV · C/C++ · Embedded Linux · Zaber API</span>
           </div>
         </div>
 
@@ -683,45 +692,53 @@
       </div>
       <h2 class="section-title">Key Contributions</h2>
 
-      <!-- ↓ EDIT: update each card's icon, number, title, and description ↓ -->
       <div class="contrib-grid">
+
+        <!-- TERM 2 — DETAILED (Report #2, fully public) -->
 
         <div class="contrib-card fade-up">
           <div class="contrib-icon"><i class="fas fa-crosshairs"></i></div>
-          <div class="contrib-number">01 — Flagship Project</div>
+          <div class="contrib-number">01 — Flagship · Term 2</div>
           <div class="contrib-title">Automated FOV Goniometer System</div>
-          <div class="contrib-desc">Designed and built a fully automated test system for measuring camera field of view using a motorized Zaber rotary stage, RTSP video stream ingestion, and OpenCV-based image processing. Achieved ±0.5° angular accuracy and eliminated the need for manual jig alignment.</div>
+          <div class="contrib-desc">Designed and built an automated Field of View measurement system from the ground up, replacing the manual flat-wall trigonometry method the DVT had been using. The system uses a Zaber motorized rotary stage to rotate a green laser line while a Python/OpenCV pipeline streams live RTSP video from the camera under test (DUT). FOV is measured directly via the motor's internal rotary encoder — the physical standoff distance is mathematically irrelevant, eliminating the dominant error source of the old approach. Custom SolidWorks-designed, 3D-printed mounts integrated the laser and camera precisely on the stage axis. Achieved ±0.5° accuracy versus the Trioptics ImageMaster optical bench ($40,000+ instrument) with 85% reduction in test cycle time.</div>
         </div>
 
         <div class="contrib-card fade-up">
           <div class="contrib-icon"><i class="fas fa-eye"></i></div>
-          <div class="contrib-number">02 — Computer Vision</div>
-          <div class="contrib-title">RTSP Pipeline & Green-Channel Detection</div>
-          <div class="contrib-desc">Built a Python/OpenCV real-time pipeline ingesting live RTSP streams from test cameras. Implemented green-channel thresholding and centroid tracking to detect laser target positions sub-pixel accurately, enabling precise FOV boundary identification across full goniometer sweeps.</div>
+          <div class="contrib-number">02 — Computer Vision · Term 2</div>
+          <div class="contrib-title">RTSP Pipeline &amp; Single-Channel Thresholding</div>
+          <div class="contrib-desc">Built a real-time Python/OpenCV video processing pipeline that ingests live RTSP streams from cameras under test without any proprietary software integration. Initial RGB channel processing proved unstable at wide-angle edges due to chromatic aberration causing color fringing across adjacent pixel columns, corrupting laser boundary detection. Redesigned the pipeline to extract only the raw green grayscale luminance channel and apply strict binary thresholding, producing the detection mask. This single-channel approach yielded sharper, faster, more consistent edge detection and proved immune to chromatic aberration — a non-obvious fix that required understanding both the optics and the software.</div>
+        </div>
+
+        <div class="contrib-card fade-up">
+          <div class="contrib-icon"><i class="fas fa-microchip"></i></div>
+          <div class="contrib-number">03 — Architecture · Term 2</div>
+          <div class="contrib-title">Discrete Step Engine (DSE)</div>
+          <div class="contrib-desc">Initial motor control used continuous velocity sweep commands, which produced asynchronous TCP buffer collisions due to network latency — causing the Zaber controller to drop connections mid-sweep and corrupt angular readings. Replaced the architecture with a Discrete Step Engine: the motor advances in fixed 0.05° increments, comes to a complete mechanical stop, flushes the network buffer, then evaluates the current video frame before advancing. This eliminated all connection failures and guaranteed that each encoder position report was synchronized with a corresponding captured video frame. Clean architecture that future engineers can maintain and extend.</div>
         </div>
 
         <div class="contrib-card fade-up">
           <div class="contrib-icon"><i class="fas fa-ruler-combined"></i></div>
-          <div class="contrib-number">03 — Mechanical Correction</div>
-          <div class="contrib-title">Nodal Point Parallax Compensation</div>
-          <div class="contrib-desc">Developed and integrated a nodal point parallax correction algorithm to compensate for lens-to-rotation-axis offset inherent in the goniometer fixture geometry. This significantly improved accuracy at wide angles where parallax error dominates.</div>
+          <div class="contrib-number">04 — Optical Metrology · Term 2</div>
+          <div class="contrib-title">Advanced Error Correction Suite</div>
+          <div class="contrib-desc">Identified and corrected three independent systematic error sources that prevented the system from meeting the ±0.5° accuracy target. <strong style="color:var(--text-primary)">Finite beam error:</strong> the laser's non-zero angular width artificially inflated raw FOV readings — resolved via an automated pre-sweep calibration that dynamically profiles and subtracts beam angular width per session. <strong style="color:var(--text-primary)">Focus breathing:</strong> contrast-detect autofocus hunting in a darkened environment caused frame-to-frame focal length drift — resolved by introducing controlled ambient lighting and high-contrast reference targets. <strong style="color:var(--text-primary)">Entrance pupil parallax:</strong> rotating about the front lens rather than the nodal point introduced up to 2.2° of geometric parallax error — root cause identified; proposed macro rail calibration procedure for future elimination.</div>
+        </div>
+
+        <!-- TERM 1 — HIGH LEVEL ONLY (non-confidential, aligned with public job description) -->
+
+        <div class="contrib-card fade-up">
+          <div class="contrib-icon"><i class="fas fa-thermometer-half"></i></div>
+          <div class="contrib-number">05 — Environmental Testing · Term 1</div>
+          <div class="contrib-title">Camera Validation &amp; Environmental Stress Testing</div>
+          <div class="contrib-desc">As a full member of the DVT during my first term, I performed temperature and environmental stress testing on new camera designs across multiple product lines — High/Low Temperature, Accelerated Life Tests (ALT), condensation cycling, and cold-start verification, all within dedicated climate chambers. I also conducted optical and image quality baselining (FOV, occlusion, vignetting), camera functionality evaluation, and assessments of lens and optical element performance. Developed scripted test automation using Python and Bash to reduce manual burden on high-repetition procedures, consistent with the team's push-button operation philosophy.</div>
         </div>
 
         <div class="contrib-card fade-up">
-          <div class="contrib-icon"><i class="fas fa-cogs"></i></div>
-          <div class="contrib-number">04 — Software Architecture</div>
-          <div class="contrib-title">Discrete Step Engine & Test Automation</div>
-          <div class="contrib-desc">Architected a modular Discrete Step Engine that sequences goniometer positioning, image capture, and data logging into a fully autonomous test cycle. Reduced full-suite cycle time by 85% versus the manual baseline and produced structured output reports consumed downstream by the validation team.</div>
+          <div class="contrib-icon"><i class="fas fa-search"></i></div>
+          <div class="contrib-number">06 — Cross-Team Collaboration · Term 1</div>
+          <div class="contrib-title">Failure Investigation, Root Cause Analysis &amp; FAI</div>
+          <div class="contrib-desc">Performed failure investigations and root cause analysis on pre-production hardware in collaboration with mechanical, electrical, and firmware engineering teams — the full DVT loop from issue reproduction to fix validation. Carried out First Article Inspections (FAI) on new production units to verify conformance before release. Findings were documented in structured test reports and escalated through the appropriate engineering channels. Working at this intersection — between hardware, firmware, and manufacturing — reinforced that the most effective validation engineers understand enough of each discipline to ask the right question before they start running tests.</div>
         </div>
-
-        <!-- ↓ EDIT: add a 5th card if needed, or remove one ↓
-        <div class="contrib-card fade-up">
-          <div class="contrib-icon"><i class="fas fa-file-alt"></i></div>
-          <div class="contrib-number">05 — Documentation</div>
-          <div class="contrib-title">Your 5th Contribution Title</div>
-          <div class="contrib-desc">Description of the contribution.</div>
-        </div>
-        -->
 
       </div>
     </div>
@@ -733,98 +750,106 @@
 
       <div class="section-label spotlight-label">
         <span class="label-line"></span>
-        <!-- ↓ EDIT: update spotlight label ↓ -->
-        <span class="label-text">Deep Dive</span>
+        <span class="label-text">Deep Dive — Term 2</span>
       </div>
-      <!-- ↓ EDIT: update spotlight headline ↓ -->
       <h2 class="spotlight-headline">FOV Goniometer<br><span>Automation System</span></h2>
 
       <div class="spotlight-cols">
 
-        <!-- Left: full narrative -->
+        <!-- Left: full technical narrative -->
         <div class="spotlight-narrative">
-          <!-- ↓ EDIT: replace with detailed technical narrative of your featured project ↓ -->
-          <p><strong style="color: var(--text-primary);">The problem:</strong> Validating the field of view of camera products required a technician to manually position a jig, capture stills, and measure angular bounds by hand — a process that was slow, operator-dependent, and non-repeatable at the precision levels required for certification.</p>
+          <p><strong style="color: var(--text-primary);">The problem.</strong> The DVT's standard FOV measurement relied on flat-wall trigonometry: position a camera at a known standoff distance, photograph a marked wall, and calculate the FOV using <code style="font-family:var(--font-mono);font-size:0.85em;color:var(--accent)">FOV = 2 × arctan(BC / 2AD)</code>. This suffered from three compounding deficiencies: at a 50 cm standoff, a 1 cm distance measurement error introduced a 1.3% FOV error; the method was geometrically invalid for fisheye and wide-angle lenses due to their nonlinear distortion; and manual operator edge-identification introduced per-unit variance that made repeatability impossible to certify.</p>
 
-          <p><strong style="color: var(--text-primary);">The approach:</strong> I designed a fully software-driven test system around a Zaber motorized rotary stage, which sweeps the camera through a calibrated angular range while the system continuously captures and analyzes live RTSP video frames. The core image processing chain uses OpenCV's green-channel thresholding to isolate a laser reference target in the scene, then tracks its centroid pixel position through each angular increment.</p>
+          <p><strong style="color: var(--text-primary);">The architecture.</strong> I replaced linear distance measurement with direct angular encoder feedback. A Zaber motorized rotary stage serves as the precision platform. A green laser line is mounted on the stage and rotated while the camera under test (DUT) observes from a fixed position on the rotation axis. Python-based control software monitors the camera's RTSP stream and records the precise encoder angle at the moment the laser reaches each extreme edge of the camera frame. The FOV is the angular difference between those two positions. Because the measurement relies exclusively on the motor's internal rotary encoder, the physical standoff distance is mathematically irrelevant — the dominant error source of the old method is structurally eliminated.</p>
 
-          <p><strong style="color: var(--text-primary);">The architecture:</strong> The Discrete Step Engine (DSE) sequences stage movement, frame acquisition, and analysis into a closed-loop cycle. At each step, the engine: commands the Zaber stage to a target angle, waits for settle, grabs a frame from the RTSP buffer, thresholds and detects the target, logs the angle + pixel position, then advances. All timing, retry logic, and edge-case handling is encapsulated in the engine so test scripts remain clean and readable.</p>
+          <p><strong style="color: var(--text-primary);">The Discrete Step Engine.</strong> Continuous velocity sweep commands initially caused asynchronous TCP buffer collisions due to Zaber network latency, dropping motor controller connections during active sweeps. I replaced this with a DSE: the motor advances in fixed 0.05° increments, comes to a complete mechanical stop, flushes the TCP network buffer, then evaluates the current video frame before issuing the next move command. Every reported encoder angle is guaranteed to correspond to its matching video frame — no interpolation, no drift.</p>
 
-          <p><strong style="color: var(--text-primary);">The challenge:</strong> Real camera lenses introduce nodal point offset — the entrance pupil is not co-located with the rotation axis of the goniometer. At wide angles this creates measurable parallax error that corrupts the FOV reading. I modelled the geometry and implemented a correction factor derived from the measured nodal point position, applied automatically at each angular step. This was the difference between a plausible demo and a production-quality validation tool.</p>
+          <p><strong style="color: var(--text-primary);">The error correction suite.</strong> Three independent systematic error sources required targeted solutions before the system could meet the ±0.5° target. First, <em>chromatic aberration</em> at wide-angle edges caused RGB-based laser detection to fail — solved by switching to single green-channel binary thresholding. Second, <em>finite beam width</em> inflated raw FOV readings because the detector triggered on the leading edge of one side and the trailing edge of the other — solved via an automated pre-sweep center-frame calibration that dynamically measures and subtracts beam angular width for each test session. Third, <em>focus breathing</em> in fully darkened environments caused contrast-detect autofocus to hunt between frames, introducing trial-to-trial focal length variance — solved by introducing controlled ambient lighting and high-contrast reference targets to stabilize the autofocus lock position.</p>
 
-          <!-- ↓ EDIT: add additional paragraphs about approach, challenges, or lessons ↓ -->
+          <p><strong style="color: var(--text-primary);">Remaining work — nodal point parallax.</strong> Initial prototype testing revealed FOV errors up to 2.2° at full-wide zoom, traceable to entrance pupil parallax: the camera's nodal point was not co-located with the rotary stage axis. After all other corrections, residual error reduced to approximately 0.5°. I proposed and designed a macro rail (or Zaber linear actuator) nodal point calibration procedure — a foreground-background alignment test where near-field and far-field targets are observed simultaneously while the camera translates along the optical axis until neither target shows lateral displacement during stage rotation. This centers the nodal point precisely over the rotation axis and projects elimination of the remaining parallax artifact.</p>
         </div>
 
         <!-- Right: results card -->
         <div class="results-card">
-          <div class="results-card-title">Results & Impact</div>
-          <!-- ↓ EDIT: update numbers and labels ↓ -->
+          <div class="results-card-title">Results &amp; Impact</div>
           <div class="result-stat">
             <div class="result-number">±0.5°</div>
-            <div class="result-label">Angular accuracy achieved — meets full certification tolerance</div>
+            <div class="result-label">Angular accuracy — matches Trioptics ImageMaster ($40K+ instrument)</div>
           </div>
           <div class="result-stat">
             <div class="result-number">85%</div>
-            <div class="result-label">Reduction in test cycle time vs. manual baseline</div>
+            <div class="result-label">Reduction in test cycle time — exceeded the 50% target by 35 points</div>
           </div>
           <div class="result-stat">
-            <div class="result-number">100%</div>
-            <div class="result-label">Automation — zero manual intervention required per cycle</div>
+            <div class="result-number">0</div>
+            <div class="result-label">Manual interventions required per test cycle — fully push-button operation</div>
           </div>
           <div class="result-stat">
-            <div class="result-number">N+</div>
-            <!-- ↓ EDIT: update with actual number of products if known ↓ -->
-            <div class="result-label">Camera SKUs now validated through the automated pipeline</div>
+            <div class="result-number">2.2°→0.5°</div>
+            <div class="result-label">Error reduction from prototype to final system across all correction stages</div>
           </div>
         </div>
 
       </div>
 
-      <!-- Pipeline architecture diagram (text-based, no dependencies) -->
+      <!-- Pipeline architecture diagram -->
       <div class="pipeline-section fade-up">
-        <div class="pipeline-label">System Pipeline</div>
+        <div class="pipeline-label">Discrete Step Engine — System Pipeline</div>
         <div class="pipeline-steps">
 
-          <!-- ↓ EDIT: update pipeline steps to match your architecture ↓ -->
           <div class="pipeline-step">
             <div class="pipeline-step-num">01</div>
-            <div class="pipeline-step-name">Stage Command</div>
-            <div class="pipeline-step-detail">Zaber rotary<br>to target angle</div>
+            <div class="pipeline-step-name">Pre-Sweep Cal</div>
+            <div class="pipeline-step-detail">Beam width<br>profiled at center<br>for this session</div>
           </div>
           <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
 
           <div class="pipeline-step">
             <div class="pipeline-step-num">02</div>
-            <div class="pipeline-step-name">Frame Capture</div>
-            <div class="pipeline-step-detail">RTSP stream<br>buffer read</div>
+            <div class="pipeline-step-name">Stage Advance</div>
+            <div class="pipeline-step-detail">Zaber moves<br>+0.05° increment<br>→ full stop</div>
           </div>
           <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
 
           <div class="pipeline-step">
             <div class="pipeline-step-num">03</div>
-            <div class="pipeline-step-name">Thresholding</div>
-            <div class="pipeline-step-detail">Green-channel<br>isolation (OpenCV)</div>
+            <div class="pipeline-step-name">Buffer Flush</div>
+            <div class="pipeline-step-detail">TCP buffer<br>cleared to<br>prevent collision</div>
           </div>
           <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
 
           <div class="pipeline-step">
             <div class="pipeline-step-num">04</div>
-            <div class="pipeline-step-name">Centroid Track</div>
-            <div class="pipeline-step-detail">Sub-pixel laser<br>position detection</div>
+            <div class="pipeline-step-name">Frame Capture</div>
+            <div class="pipeline-step-detail">RTSP stream<br>frame read<br>(synced to encoder)</div>
           </div>
           <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
 
           <div class="pipeline-step">
             <div class="pipeline-step-num">05</div>
-            <div class="pipeline-step-name">Parallax Correct</div>
-            <div class="pipeline-step-detail">Nodal point offset<br>compensation</div>
+            <div class="pipeline-step-name">Green-Ch Threshold</div>
+            <div class="pipeline-step-detail">Single-channel<br>binary mask<br>(chromatic aberration immune)</div>
           </div>
           <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
 
           <div class="pipeline-step">
             <div class="pipeline-step-num">06</div>
-            <div class="pipeline-step-name">Log & Advance</div>
-            <div class="pipeline-step-detail">Angle + pixel data<br>→ report output</div>
+            <div class="pipeline-step-name">Edge Detection</div>
+            <div class="pipeline-step-detail">Left / right frame<br>boundary → angle<br>recorded</div>
+          </div>
+          <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
+
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">07</div>
+            <div class="pipeline-step-name">Beam Correction</div>
+            <div class="pipeline-step-detail">Subtract pre-cal<br>beam width from<br>raw FOV</div>
+          </div>
+          <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
+
+          <div class="pipeline-step">
+            <div class="pipeline-step-num">08</div>
+            <div class="pipeline-step-name">Report Output</div>
+            <div class="pipeline-step-detail">Angle + corrected<br>FOV logged to<br>validation report</div>
           </div>
 
         </div>
@@ -843,8 +868,7 @@
       </div>
       <h2 class="section-title">Photos &amp; Documentation</h2>
       <div class="gallery-subtitle">
-        <!-- ↓ EDIT: update gallery subtitle ↓ -->
-        Lab setup · test apparatus · system output · team moments
+        Goniometer rig · test apparatus · thermal chamber · camera teardowns · team
       </div>
 
       <!-- ↓↓ ADD YOUR PHOTOS/VIDEOS HERE ↓↓
@@ -868,7 +892,6 @@
       </div>
       <h2 class="section-title">Tools &amp; Technologies</h2>
 
-      <!-- ↓ EDIT: update each tool group and item list ↓ -->
       <div class="tools-grid fade-up">
 
         <div class="tool-group">
@@ -876,34 +899,47 @@
           <div class="tool-list">
             <span class="tool-item">Python 3</span>
             <span class="tool-item">C / C++</span>
-            <span class="tool-item">Bash / Shell</span>
+            <span class="tool-item">Bash / Shell Scripting</span>
           </div>
         </div>
 
         <div class="tool-group">
-          <div class="tool-group-label">Vision & Data</div>
+          <div class="tool-group-label">Computer Vision</div>
           <div class="tool-list">
             <span class="tool-item">OpenCV</span>
-            <span class="tool-item">NumPy</span>
-            <span class="tool-item">RTSP Streams</span>
+            <span class="tool-item">RTSP Stream Ingestion</span>
+            <span class="tool-item">Binary Thresholding</span>
+            <span class="tool-item">Green-Channel Isolation</span>
           </div>
         </div>
 
         <div class="tool-group">
           <div class="tool-group-label">Hardware Control</div>
           <div class="tool-list">
-            <span class="tool-item">Zaber Motion API</span>
-            <span class="tool-item">Serial / USB Comms</span>
-            <span class="tool-item">Motorized Goniometer</span>
+            <span class="tool-item">Zaber TCP Motion API</span>
+            <span class="tool-item">Motorized Rotary Stage</span>
+            <span class="tool-item">Rotary Encoder Feedback</span>
+            <span class="tool-item">I2C Temperature Sensing</span>
           </div>
         </div>
 
         <div class="tool-group">
           <div class="tool-group-label">Mechanical</div>
           <div class="tool-list">
-            <span class="tool-item">SolidWorks</span>
+            <span class="tool-item">SolidWorks (CAD)</span>
             <span class="tool-item">GD&amp;T</span>
+            <span class="tool-item">3D Printing (FDM)</span>
             <span class="tool-item">Fixture Design</span>
+          </div>
+        </div>
+
+        <div class="tool-group">
+          <div class="tool-group-label">Test Infrastructure</div>
+          <div class="tool-list">
+            <span class="tool-item">Thermal Chambers (Hi/Lo Temp)</span>
+            <span class="tool-item">ALT (Accelerated Life Test)</span>
+            <span class="tool-item">IP Ingress Protection Testing</span>
+            <span class="tool-item">Trioptics ImageMaster</span>
           </div>
         </div>
 
@@ -911,17 +947,28 @@
           <div class="tool-group-label">Dev Environment</div>
           <div class="tool-list">
             <span class="tool-item">Embedded Linux</span>
+            <span class="tool-item">SSH / PuTTY</span>
             <span class="tool-item">Git / Version Control</span>
-            <span class="tool-item">SSH / Remote Dev</span>
+          </div>
+        </div>
+
+        <div class="tool-group">
+          <div class="tool-group-label">Optical Metrology</div>
+          <div class="tool-list">
+            <span class="tool-item">Direct-Angle Measurement</span>
+            <span class="tool-item">Chromatic Aberration Analysis</span>
+            <span class="tool-item">Nodal Point / Entrance Pupil</span>
+            <span class="tool-item">Beam Width Calibration</span>
           </div>
         </div>
 
         <div class="tool-group">
           <div class="tool-group-label">Documentation</div>
           <div class="tool-list">
-            <span class="tool-item">Technical Reports</span>
+            <span class="tool-item">Co-op Technical Reports (×2)</span>
             <span class="tool-item">Test Specifications</span>
-            <span class="tool-item">Internal Wiki</span>
+            <span class="tool-item">Root Cause Analysis Reports</span>
+            <span class="tool-item">First Article Inspection Logs</span>
           </div>
         </div>
 
@@ -958,7 +1005,7 @@
         </div>
         <div class="footer-links-grid">
           <a href="https://www.linkedin.com/in/simr-virk" target="_blank" class="footer-link"><i class="fab fa-linkedin"></i> LinkedIn</a>
-          <a href="mailto:ssv10@sfu.ca" class="footer-link"><i class="fas fa-envelope"></i> ssv10@sfu.ca</a>
+          <a href="/cdn-cgi/l/email-protection#dba8a8adeaeb9ba8bdaef5b8ba" class="footer-link"><i class="fas fa-envelope"></i> <span class="__cf_email__" data-cfemail="17646461262757647162397476">[email&#160;protected]</span></a>
           <a href="tel:7785755444" class="footer-link"><i class="fas fa-phone"></i> 778-575-5444</a>
           <a href="resume.pdf" target="_blank" class="footer-link"><i class="fas fa-file-alt"></i> Resume</a>
         </div>
@@ -973,9 +1020,24 @@
     </div>
   </footer>
 
-  <script src="/script.js"></script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="/script.js"></script>
 
   <script>
+    /* ════════════════════════════════════════════════════════════════
+       TAG COLOUR INITIALIZER
+       Reads data-color="#hex" on any .tag element and injects R/G/B
+       CSS custom properties so the tinted background + border render.
+    ════════════════════════════════════════════════════════════════ */
+    (function initTagColors() {
+      document.querySelectorAll('.tag[data-color]').forEach(function(tag) {
+        var hex = tag.dataset.color.trim().replace(/^#/, '');
+        if (hex.length === 3) hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+        tag.style.setProperty('--tc-r', parseInt(hex.substring(0,2),16));
+        tag.style.setProperty('--tc-g', parseInt(hex.substring(2,4),16));
+        tag.style.setProperty('--tc-b', parseInt(hex.substring(4,6),16));
+        tag.style.setProperty('--tc-hex', '#'+hex);
+      });
+    })();
     /* ════════════════════════════════════════════════════════════════
        GALLERY DATA
        ════════════════════════════════════════════════════════════════
@@ -988,33 +1050,58 @@
        SUPPORTED: .jpg .png .webp .gif  ·  .mp4 .mov .webm
     ════════════════════════════════════════════════════════════════ */
     const SLIDES_INTERNSHIP = [
-      /* ↓ EDIT: add your lab / internship photos here ↓ */
-      /* EXAMPLE ENTRIES — replace src paths with your actual files:
+      /*
+        ↓↓ ADD YOUR PHOTOS HERE ↓↓
+        Place image files in: experience/motorola/
+        Format: { src: 'path', alt: 'desc', caption: 'caption text', featured: true/false }
+        Set featured: true on ONE image to span 2 columns (use the best photo for this).
+
+        Suggested shots to take / find:
+          1. The full goniometer rig (Zaber stage + laser + camera DUT mounted) — featured
+          2. Close-up of the 3D-printed laser mount on the rotary stage
+          3. Python RTSP pipeline terminal output during a live sweep
+          4. Thermal chamber with cameras inside
+          5. Dualhead camera gasket teardown / failure analysis photo
+          6. The Trioptics ImageMaster for comparison context
+          7. DVT team photo or workspace
+          8. P10 Thermal camera FAI / Forge screenshot (if cleared to share)
+      */
       {
-        src:      'experience/motorola/goniometer-setup.jpg',
-        alt:      'FOV Goniometer test setup',
-        caption:  'Goniometer test bench — Zaber rotary stage with camera DUT mounted.',
-        featured: true,    // ← set true on ONE image to span 2 columns
+        src:      'experience/motorola/goniometer-rig.jpg',
+        alt:      'Automated FOV Goniometer test rig — Zaber rotary stage with camera DUT mounted',
+        caption:  'FOV Goniometer rig — Zaber T-RSW60B rotary stage with 3D-printed laser mount and camera under test (DUT) on the axis of rotation.',
+        featured: true,
+      },
+      {
+        src:      'experience/motorola/laser-mount-closeup.jpg',
+        alt:      'Custom 3D-printed laser line mount on Zaber rotary stage',
+        caption:  'SolidWorks-designed, FDM-printed laser line mount — aligns the green laser precisely to the stage rotation axis.',
       },
       {
         src:      'experience/motorola/rtsp-pipeline.jpg',
-        alt:      'Python RTSP pipeline running',
-        caption:  'Live RTSP pipeline during a sweep cycle — centroid tracking active.',
-        featured: false,
+        alt:      'Python OpenCV RTSP pipeline terminal output during live FOV sweep',
+        caption:  'Live RTSP pipeline during a sweep cycle — green-channel thresholding active, encoder angle logged at each frame.',
       },
       {
-        src:      'experience/motorola/team-photo.jpg',
-        alt:      'Team photo',
-        caption:  'Avigilon DVE team — Motorola Solutions, Vancouver.',
-        featured: false,
+        src:      'experience/motorola/thermal-chamber.jpg',
+        alt:      'Thermal chamber during H6SL camera stress testing',
+        caption:  'Thermal chamber setup — H6SL units undergoing High/Low Temperature and ALT stress testing. Cameras monitored via SSH during temperature ramp.',
       },
       {
-        src:      'experience/motorola/output-report.jpg',
-        alt:      'Test output report',
-        caption:  'Automated FOV report output — angle vs. pixel position data.',
-        featured: false,
+        src:      'experience/motorola/dualhead-gasket.jpg',
+        alt:      'Dualhead camera gasket assembly failure — root cause analysis',
+        caption:  'Dualhead IP68 failure root cause — gasket tab displaced from retention slot (left: failure mode; right: correct seating). Assembly error, not design flaw.',
       },
-      */
+      {
+        src:      'experience/motorola/trioptics-bench.jpg',
+        alt:      'Trioptics ImageMaster optical bench — reference instrument for FOV validation',
+        caption:  'Trioptics ImageMaster — the $40,000+ reference optical bench used to validate the goniometer system accuracy. Target: ±0.5° agreement. Achieved.',
+      },
+      {
+        src:      'experience/motorola/team.jpg',
+        alt:      'Avigilon Design Validation Team — Motorola Solutions Vancouver',
+        caption:  'Design Validation Team (DVT) — Avigilon, Motorola Solutions, Vancouver. Two co-op terms completed with this team: Sep 2025 – Apr 2026.',
+      },
     ];
 
     /* ════════════════════════════════════════════════════════════════
@@ -1062,14 +1149,3 @@
           if (slide.caption) {
             const cap = document.createElement('div'); cap.className = 'photo-caption-overlay'; cap.textContent = slide.caption; item.appendChild(cap);
           }
-          item.addEventListener('click', () => open(slides, i)); grid.appendChild(item);
-        });
-      };
-    })();
-
-    /* Initialize gallery */
-    initGallery(SLIDES_INTERNSHIP, 'photoGrid-internship');
-  </script>
-
-</body>
-</html>
