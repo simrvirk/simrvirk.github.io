@@ -366,19 +366,17 @@
       </a>
       <div class="project-hero-grid">
         <div>
-          <div class="project-category-label">Robotics / Mechatronics</div>
+          <div class="project-category-label">Mechanical Design / CAD</div>
           <h1 class="project-title">V12 Combustion<br>Engine CAD</h1>
           <p class="project-summary">
-            Write a concise 2–3 sentence summary of the project here.
-            Explain what you built, what problem it solved, and the key
-            technical achievement that makes this project noteworthy.
+            Modeled a fully kinematic V12 combustion engine in SolidWorks — 50+ components spanning pistons, crankshafts, camshafts, valve assemblies, spark plugs, and cylinder heads — as a deliberate self-directed skill-building exercise beyond what MSE 100 covered. Built by studying a senior mechanical engineer's workflow feature-by-feature in real time; the skills developed here form the foundation of my professional SolidWorks proficiency and contributed directly to earning my CSWP certification.
           </p>
           <div class="project-tech-list">
-            <span class="tag">Python</span>
-            <span class="tag">ROS</span>
             <span class="tag">SolidWorks</span>
-            <span class="tag">OpenCV</span>
-            <span class="tag">Arduino</span>
+            <span class="tag">CAD Assembly</span>
+            <span class="tag">Motion Study</span>
+            <span class="tag">Part Modeling</span>
+            <span class="tag">CSWP</span>
           </div>
         </div>
         <div class="project-meta-card">
@@ -414,26 +412,21 @@
 
       <div class="project-body-grid">
         <div>
-          <div class="project-section-title">The Problem</div>
+          <div class="project-section-title">The Goal</div>
           <p>
-            Describe the problem or engineering challenge this project was
-            designed to solve. Be specific — mention constraints, requirements,
-            or real-world needs that drove the design decisions.
+            After MSE 100, I recognized a gap between basic part modeling and the multi-body assembly workflows required for complex mechanical systems. Rather than wait for coursework to close it, I chose the most mechanically demanding self-directed exercise I could think of: model a complete V12 combustion engine in SolidWorks — one of the most component-dense assemblies in automotive engineering.
           </p>
           <p>
-            Add a second paragraph with more context if needed.
-            What made this problem particularly interesting or difficult?
+            The challenge was building 50+ individual components each with correct dimensional geometry, proper sketch intent, and valid mating relationships — then assembling them into a master assembly that exhibits real kinematic behavior. Every subsystem had to integrate spatially and dynamically: piston stroke cycles timed to crankshaft throws, valve motion sequenced to camshaft lobe profiles, and no conflicting or overconstrained mates anywhere in the tree.
           </p>
         </div>
         <div>
           <div class="project-section-title">My Approach</div>
           <p>
-            Explain the approach you took to solve the problem. What design
-            decisions did you make and why? What alternatives did you consider?
+            The learning method was deliberate: instead of following written documentation, I studied a senior mechanical engineer building each sketch and feature in real time, then replicated every step independently. This forced active engagement with the <em>why</em> behind each feature — design intent, sketch organization, and feature order — rather than just the button sequence. That distinction matters; it's the difference between knowing a tool exists and knowing when and how to use it.
           </p>
           <p>
-            Highlight your unique contribution — what was creative, novel, or
-            technically challenging about your solution?
+            Each component was modeled individually, assembled into subsystems, then integrated into the full V12 block. No detail was omitted: spark plugs, pistons, connecting rods, crankshaft with correctly offset throw geometry, camshafts, valve trains, cylinder heads, intake manifold, and oil pan are all present and fully constrained. The final assembly runs a SolidWorks Motion Study that replicates real engine kinematics — pistons traveling on correct stroke cycles relative to crankshaft rotation, valves opening in sequence per camshaft profile.
           </p>
         </div>
       </div>
@@ -479,26 +472,19 @@
         <div>
           <div class="project-section-title">Technical Details</div>
           <p>
-            Describe the technical details of your implementation here.
-            What hardware did you use? What software architecture did you design?
-            What algorithms or calculations were central to the system?
+            The assembly spans 50+ components across a 12-cylinder, 2-bank configuration. Every part was modeled using the full range of SolidWorks feature tools: lofted cuts, revolved boss/cut features, swept features along 3D paths, linear and circular patterns, configuration management, and reference geometry planes. Crankshaft throw geometry was modeled with correct angular offsets between cylinder pairs; connecting rod big-end and small-end bores were dimensioned to match piston pin and crankshaft journal diameters. All assembly mates use concentric, coincident, and parallel relationships — no rigid groups or suppressed conflicts.
           </p>
           <p>
-            Engineers and recruiters will read this section closely.
-            Use precise language — component specs, tolerances,
-            communication protocols, control loops, etc.
+            The SolidWorks Motion Study validates the full kinematic chain: applying rotation to the crankshaft propagates correctly through connecting rods to each piston, and camshaft rotation (driven at half crankshaft speed via the timing drive) sequences the intake and exhaust valve lifts per cylinder. The model includes components not visible in external renders — spark plugs threaded into heads, piston rings seated in grooves, valve springs captured between retainer and head — because geometric accuracy, not visual simplicity, was the objective.
           </p>
         </div>
         <div>
           <div class="project-section-title">Challenges &amp; Learnings</div>
           <p>
-            Describe the most significant technical challenge you encountered
-            and how you resolved it. Be honest — challenges show real
-            engineering experience.
+            Assembly mate management at 50+ components is where complexity compounds fast. A single overconstrained or conflicting mate cascades errors through all downstream components and breaks the motion study. Learning to diagnose mate conflicts — particularly with crankshaft throw geometry interacting with connecting rod pin mates across 12 cylinders — was the steepest part of the learning curve. The fix was methodical: resolve every conflict at the subassembly level before promoting to the master assembly, rather than troubleshooting the full tree.
           </p>
           <p>
-            What would you do differently if you started over?
-            What skills or knowledge did this project give you?
+            This project is the single largest contributor to my SolidWorks proficiency. Replicating a senior engineer's workflow in real time — rather than reading instructions — built design intuition that passive learning can't replicate. The same tools and thinking patterns I developed here carried directly into the pendulum clock gear train, chassis design at Team Phantom, and professional CAD work at Motorola Solutions. I credit this project as a significant factor in passing the CSWP exam. It also gave me a much deeper understanding of how a gasoline engine actually works mechanically — something no thermodynamics lecture conveys as concretely as building one component at a time.
           </p>
         </div>
       </div>
@@ -535,7 +521,7 @@
       </div>
       <div class="viewer-caption">
         <i class="fas fa-drafting-compass" style="color:var(--accent); margin-right:6px;"></i>
-        SolidWorks Assembly — [describe your model here, e.g. "47 components · 6 DOF · exported as STEP"]
+        SolidWorks Assembly — V12 combustion engine · 50+ components · fully kinematic · exported as STEP
       </div>
     </div>
   </div>
@@ -545,16 +531,16 @@
       <div class="project-section-title" style="margin-bottom: 20px;">Outcomes</div>
       <div class="outcomes-grid">
         <div class="outcome-card">
-          <div class="outcome-number">XX%</div>
-          <div class="outcome-label">Metric or Achievement #1</div>
+          <div class="outcome-number">50+</div>
+          <div class="outcome-label">Fully Mated Components — Zero Suppressed Conflicts</div>
         </div>
         <div class="outcome-card">
-          <div class="outcome-number">XX</div>
-          <div class="outcome-label">Metric or Achievement #2</div>
+          <div class="outcome-number">100%</div>
+          <div class="outcome-label">Kinematically Accurate — Motion Study Validates Full Engine Cycle</div>
         </div>
         <div class="outcome-card">
-          <div class="outcome-number">A+</div>
-          <div class="outcome-label">Grade Received / Recognition</div>
+          <div class="outcome-number">CSWP</div>
+          <div class="outcome-label">Certified SolidWorks Professional — Skills Built on This Project</div>
         </div>
       </div>
     </div>
@@ -597,23 +583,23 @@
     const SLIDES = [
       {
         src:     'v12-engine1.png',
-        alt:     'Chess robot base assembly',
-        caption: 'Base assembly — structural frame and servo mounts',
+        alt:     'V12 engine full assembly isometric view',
+        caption: 'Full assembly — 50+ components, all mated and fully constrained',
       },
       {
         src:     'v12-engine2.png',
-        alt:     'Fully built chess robot arm',
-        caption: 'Completed build — all 5 degrees of freedom assembled',
+        alt:     'V12 engine top view showing cylinder banks',
+        caption: '12-cylinder, 2-bank configuration — intake manifold and valve covers visible',
       },
       {
         src:     'v12-engine-crankshaft.png',
-        alt:     'End-effector gripper detail',
-        caption: 'End-effector gripper — custom 3D-printed design',
+        alt:     'Crankshaft detail view',
+        caption: 'Crankshaft — offset throw geometry correctly modeled per cylinder pair',
       },
       {
         src:     'v12-engine-piston.png',
-        alt:     'Isometric CAD view',
-        caption: 'SolidWorks isometric view — full assembly',
+        alt:     'Piston and connecting rod assembly',
+        caption: 'Piston and connecting rod — rings, pin bore, and big-end journal all dimensioned to spec',
       }
     ];
 
