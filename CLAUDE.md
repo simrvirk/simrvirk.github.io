@@ -27,9 +27,24 @@ Personal portfolio website for Simr Virk, a Mechatronic Systems Engineering stud
 - Post Graduation, full time offer as a product designer at Google, Apple, or similar.
 
 **Personal Goal**
-- To have a website to document everything about myself
+- To have a website to document everything about my engineering journey
 
-**Voice & Tone:** Casual/Personal tone, data-driven, yet still explains the technical details. Focus on the "Why" and "How" of engineering decisions rather than just listing features.
+**Voice & Tone:** Professional tone, data-driven, yet still explains the technical details. Focus on the "Why" and "How" of engineering decisions rather than just listing features.
+
+## Content & Editorial Standards (The "Elite Engineering" Filter)
+
+**Tone Goal:** Professional, high-density, and outcome-oriented. Avoid "blog-style" narratives (e.g., "I had a fun time building this...") in favor of "System Design" narratives (e.g., "Optimized 6-DOF kinematics for...").
+
+**The "Tesla/Apple" Bar:**
+When I ask to "Review" or "Refine" my text, apply the following strict criteria:
+1. **Precision over Fluff:** Replace vague verbs like "worked on," "helped," or "fixed" with "Engineered," "Validated," "Architected," or "Optimized."
+2. **Quantified Impact:** Always look for opportunities to add numbers. (e.g., "Improved speed" → "Reduced cycle time by 15%").
+3. **Technical Ownership:** Focus on the *mechanical/mechatronic constraints*. Mention specific materials (TPU, 6061 Aluminum), protocols (I2C, PWM), or software (SOLIDWORKS, OpenCV).
+4. **Constraint-Based Writing:** High-end recruiters want to know *why* a choice was made. Instead of "I used a stepper motor," use "Selected closed-loop stepper motors to eliminate position drift without the cost of high-end servos."
+
+**Trigger Instruction:**
+If I provide text that is too casual, conversational, or lacks technical depth, **you must warn me** before making changes. Start your response with: 
+> "⚠️ **Editorial Note:** This draft leans toward 'Personal Blog' style. I can elevate this to 'Design Engineer' level by focusing on [specific technical gap]."
 
 ## Development
 
