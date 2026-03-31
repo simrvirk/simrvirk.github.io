@@ -149,12 +149,23 @@ function initMobileNav() {
     }
   });
 
-  // Close on link click
+  // Close on link click — only collapse if the mobile menu was actually open
   navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
-      open = false;
-      navLinks.style.cssText = 'display: none;';
+      if (open) {
+        open = false;
+        navLinks.style.cssText = 'display: none;';
+      }
     });
+  });
+
+  // When the browser restores this page from the back/forward cache,
+  // clear any inline display style left over from a previous mobile-menu close.
+  window.addEventListener('pageshow', function (e) {
+    if (e.persisted) {
+      open = false;
+      navLinks.style.cssText = '';
+    }
   });
 }
 
