@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chess Robot Arm - Simr Virk</title>
+  <title>Automatic Dog Feeder - Simr Virk</title>
   <link rel="stylesheet" href="/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -359,6 +359,17 @@
 
   <script src="/nav.js"></script>
 
+  <div style="background: rgba(255, 180, 0, 0.07); border-top: 2px solid rgba(255, 180, 0, 0.45); border-bottom: 1px solid rgba(255, 180, 0, 0.2); padding: 14px 0;">
+    <div class="container" style="display: flex; align-items: flex-start; gap: 14px;">
+      <i class="fas fa-drafting-compass" style="color: rgba(255, 180, 0, 0.8); font-size: 1rem; margin-top: 2px; flex-shrink: 0;"></i>
+      <p style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.4px; color: rgba(255,255,255,0.65); line-height: 1.7; margin: 0;">
+        <strong style="color: rgba(255, 180, 0, 0.9); letter-spacing: 1px; font-size: 0.7rem;">DESIGN REVIEW NOTE</strong><br>
+        This project was completed in early 2025 and is included to demonstrate end-to-end mechatronic system design, not as a polished final product.
+        The <em>Challenges &amp; Learnings</em> section below documents significant design flaws identified post-completion and the concrete engineering improvements I would implement in a v2 revision — an exercise in honest technical retrospection.
+      </p>
+    </div>
+  </div>
+
   <div class="project-hero">
     <div class="container">
       <a href="index.html#projects" class="project-back">
@@ -369,16 +380,15 @@
           <div class="project-category-label">Robotics / Mechatronics</div>
           <h1 class="project-title">Automatic<br>Dog Feeder</h1>
           <p class="project-summary">
-            Write a concise 2–3 sentence summary of the project here.
-            Explain what you built, what problem it solved, and the key
-            technical achievement that makes this project noteworthy.
+            Engineered a fully-automated, gravity-fed dog feeder to eliminate irregular meal scheduling caused by household miscommunication. The system dispatches up to 3 precisely-timed daily meals via a servo-actuated metering arm gated by a DS3231 RTC module, with real-time kibble inventory monitoring via an internal ultrasonic sensor — achieving ±5g dispensing repeatability with zero manual intervention required.
           </p>
           <div class="project-tech-list">
-            <span class="tag">Python</span>
-            <span class="tag">ROS</span>
+            <span class="tag">Arduino / C++</span>
             <span class="tag">SolidWorks</span>
-            <span class="tag">OpenCV</span>
-            <span class="tag">Arduino</span>
+            <span class="tag">DS3231 RTC</span>
+            <span class="tag">Ultrasonic Sensing</span>
+            <span class="tag">Servo Control</span>
+            <span class="tag">PLA (FDM)</span>
           </div>
         </div>
         <div class="project-meta-card">
@@ -416,24 +426,19 @@
         <div>
           <div class="project-section-title">The Problem</div>
           <p>
-            Describe the problem or engineering challenge this project was
-            designed to solve. Be specific — mention constraints, requirements,
-            or real-world needs that drove the design decisions.
+            Irregular meal scheduling caused by household miscommunication — double-feeding or skipped meals entirely — created a clear need for a reliable, autonomous dispensing system. Manual feeding introduced an uncontrolled variable that impacted the dog's health and routine.
           </p>
           <p>
-            Add a second paragraph with more context if needed.
-            What made this problem particularly interesting or difficult?
+            The core design requirements were: dispense up to 3 fixed daily meals without human input, alert when kibble inventory dropped critically low, and support manual meal-skip functionality for days when an alternate diet was preferred — all within a compact, self-contained unit.
           </p>
         </div>
         <div>
           <div class="project-section-title">My Approach</div>
           <p>
-            Explain the approach you took to solve the problem. What design
-            decisions did you make and why? What alternatives did you consider?
+            Designed a gravity-fed kibble hopper in SolidWorks optimized for passive, jam-free flow, paired with a servo-controlled metering arm that gates each dispensing event. A DS3231 RTC module maintains schedule integrity independent of power cycles via onboard coin-cell backup. The hopper and top cover were 3D-printed in PLA on a Bambu P1S.
           </p>
           <p>
-            Highlight your unique contribution — what was creative, novel, or
-            technically challenging about your solution?
+            Real-time inventory monitoring was implemented via an internal ultrasonic sensor — continuously converting distance readings to estimated fill percentage and triggering a dual-LED warning array when inventory dropped below 10% capacity. A debounced push-button interrupt enables manual meal skipping without disrupting the automated schedule. All wiring was routed internally within the chassis to achieve a clean, consumer-grade exterior.
           </p>
         </div>
       </div>
@@ -479,26 +484,19 @@
         <div>
           <div class="project-section-title">Technical Details</div>
           <p>
-            Describe the technical details of your implementation here.
-            What hardware did you use? What software architecture did you design?
-            What algorithms or calculations were central to the system?
+            The metering mechanism uses a servo-actuated arm to gate kibble through the hopper outlet at scheduled intervals, achieving ±5g dispensing repeatability across three daily cycles. The DS3231 RTC maintains timekeeping accuracy to ±2 ppm and communicates with the Arduino via I²C, retaining schedule data through power loss. The firmware triggers a servo sweep at each scheduled time, holds position for a calibrated dwell period to release a single portion, then returns to the closed position.
           </p>
           <p>
-            Engineers and recruiters will read this section closely.
-            Use precise language — component specs, tolerances,
-            communication protocols, control loops, etc.
+            The ultrasonic sensor samples hopper fill level at 1 Hz, mapping raw distance readings to a volumetric fill percentage using a pre-characterized hopper geometry curve. When fill drops below 10%, a pair of indicator LEDs switch from green to red. The push-button is handled via a hardware interrupt with 50 ms software debounce, toggling a meal-skip flag that suppresses the next scheduled dispense event without modifying the RTC-stored schedule.
           </p>
         </div>
         <div>
           <div class="project-section-title">Challenges &amp; Learnings</div>
           <p>
-            Describe the most significant technical challenge you encountered
-            and how you resolved it. Be honest — challenges show real
-            engineering experience.
+            The primary failure mode in v1 is the servo-mounted metering arm: kibble load induces torque-driven sagging at the arm tip, creating a gap between the arm and hopper wall that causes jamming and inconsistent portions. A v2 revision would replace this mechanism entirely with a DC motor-driven waterwheel disc — a circular plate with equidistant radial prongs spaced to a single-portion volume, rotating over a fixed dispensing aperture. This eliminates cantilever loading, removes the jam failure mode, and provides deterministic per-revolution portion control.
           </p>
           <p>
-            What would you do differently if you started over?
-            What skills or knowledge did this project give you?
+            Additional planned improvements: (1) guide rails downstream of the dispense aperture to direct kibble precisely into the bowl, removing the current proximity constraint; (2) a fully redesigned electronics enclosure with proper cable management and strain relief; (3) a material switch from PLA to food-grade PETG or ABS to meet food-contact safety standards — a critical oversight in the v1 design. Reflecting on this project ~1 year post-completion, the most valuable outcome was internalizing how early mechanism selection locks in downstream constraints that are expensive to fix retroactively.
           </p>
         </div>
       </div>
@@ -535,7 +533,7 @@
       </div>
       <div class="viewer-caption">
         <i class="fas fa-drafting-compass" style="color:var(--accent); margin-right:6px;"></i>
-        SolidWorks Assembly — [describe your model here, e.g. "47 components · 6 DOF · exported as STEP"]
+        SolidWorks Assembly — Gravity-fed hopper &amp; servo metering arm · exported as STEP
       </div>
     </div>
   </div>
@@ -545,16 +543,16 @@
       <div class="project-section-title" style="margin-bottom: 20px;">Outcomes</div>
       <div class="outcomes-grid">
         <div class="outcome-card">
-          <div class="outcome-number">XX%</div>
-          <div class="outcome-label">Metric or Achievement #1</div>
+          <div class="outcome-number">±5g</div>
+          <div class="outcome-label">Dispensing Repeatability Per Meal</div>
         </div>
         <div class="outcome-card">
-          <div class="outcome-number">XX</div>
-          <div class="outcome-label">Metric or Achievement #2</div>
+          <div class="outcome-number">3×</div>
+          <div class="outcome-label">Scheduled Daily Meals, Fully Automated</div>
         </div>
         <div class="outcome-card">
-          <div class="outcome-number">A+</div>
-          <div class="outcome-label">Grade Received / Recognition</div>
+          <div class="outcome-number">&lt;10%</div>
+          <div class="outcome-label">Inventory Threshold for Low-Food Warning</div>
         </div>
       </div>
     </div>
