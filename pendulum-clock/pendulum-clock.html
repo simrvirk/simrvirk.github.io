@@ -548,19 +548,18 @@
       </a>
       <div class="project-hero-grid">
         <div>
-          <div class="project-category-label">Robotics / Mechatronics</div>
+          <div class="project-category-label">Mechanical Design / CAD</div>
           <h1 class="project-title">Weight-Driven<br>Pendulum Clock</h1>
           <p class="project-summary">
-            Write a concise 2–3 sentence summary of the project here.
-            Explain what you built, what problem it solved, and the key
-            technical achievement that makes this project noteworthy.
+            Designed the complete gear train architecture, concentric coaxial shaft system, and frame for a fully SolidWorks-modeled weight-driven grandfather clock in MSE 320. Engineered a 15-gear train achieving ratios of 2:1 (escapement→seconds), 60:1 (seconds→minutes), and 12:1 (minutes→hours) — all driven by gravitational potential energy and delivered through a single coaxial shaft assembly with all three hands rotating clockwise, validated via hand calculations, geargenerator.com simulation, and SolidWorks motion analysis.
           </p>
           <div class="project-tech-list">
-            <span class="tag">Python</span>
-            <span class="tag">ROS</span>
             <span class="tag">SolidWorks</span>
-            <span class="tag">OpenCV</span>
-            <span class="tag">Arduino</span>
+            <span class="tag">Gear Train Design</span>
+            <span class="tag">AISI 303 Steel</span>
+            <span class="tag">PLA (FDM)</span>
+            <span class="tag">FEA / Motion Analysis</span>
+            <span class="tag">CAD Assembly</span>
           </div>
         </div>
         <div class="project-meta-card">
@@ -570,7 +569,7 @@
           </div>
           <div class="project-meta-item">
             <div class="meta-label">Team Size</div>
-            <div class="meta-value">4</div>
+            <div class="meta-value">5 Members</div>
           </div>
           <div class="project-meta-item">
             <div class="meta-label">My Role</div>
@@ -604,24 +603,19 @@
         <div>
           <div class="project-section-title">The Problem</div>
           <p>
-            Describe the problem or engineering challenge this project was
-            designed to solve. Be specific — mention constraints, requirements,
-            or real-world needs that drove the design decisions.
+            The objective was to design a complete mechanical grandfather clock from first principles in SolidWorks — no electronics, no motors — powered solely by gravitational potential energy from a descending weight. The system had to produce three precisely-ratioed rotational outputs: one revolution per minute (seconds hand), one per hour (minutes hand), and one per 12 hours (hours hand), all delivered through a single coaxial shaft assembly on the clock face.
           </p>
           <p>
-            Add a second paragraph with more context if needed.
-            What made this problem particularly interesting or difficult?
+            The critical constraint was that all three time-keeping gears had to rotate clockwise. Achieving the required cascaded ratios (2:1, 60:1, 12:1) while enforcing clockwise rotation at every output required inserting direction-correcting idler gears at specific points in the train — a combinatorial constraint that drove the gear count up significantly. Axle placement also had to be arranged so that no shaft obstructed an adjacent gear while maintaining a compact enough footprint to fit within the frame envelope.
           </p>
         </div>
         <div>
           <div class="project-section-title">My Approach</div>
           <p>
-            Explain the approach you took to solve the problem. What design
-            decisions did you make and why? What alternatives did you consider?
+            I owned the gear train architecture, concentric shaft system, frame design, and hand-rotation mechanism end-to-end. I derived all gear ratios by hand — escapement at 2 RPM, linked to the seconds gear via a 12→24 tooth stage, then cascaded through 15 gears total to reach the minutes and hours outputs — verified the results in geargenerator.com, and cross-validated with a SolidWorks motion analysis (marking a tooth on the seconds gear to confirm exactly one revolution per simulated minute).
           </p>
           <p>
-            Highlight your unique contribution — what was creative, novel, or
-            technically challenging about your solution?
+            The clock-hand drive mechanism was the most technically novel problem I solved: three independently-rotating hands sharing the same axle location. I designed a system of three concentric hollow shafts — a solid inner shaft keyed to the seconds gear via a slot-and-tooth fit, a hollow shaft over it keyed to the minutes gear the same way, and a second hollow shaft over that for the hours gear. Each shaft extends through the front frame bearing and drives its respective hand independently. Bearings are pressed into the frame at the shaft exit; C-clips retain axial position. I also intentionally made the three time-keeping gears oversized and proud of the frame face — an explicit aesthetic decision to expose the mechanism rather than hide it.
           </p>
         </div>
       </div>
@@ -667,26 +661,19 @@
         <div>
           <div class="project-section-title">Technical Details</div>
           <p>
-            Describe the technical details of your implementation here.
-            What hardware did you use? What software architecture did you design?
-            What algorithms or calculations were central to the system?
+            The gear train spans 15 gears with the escapement wheel governed by a simple pendulum (T = 2π√(L/g)) running at 2 RPM. A 12-tooth pinion on the escapement shaft meshes with a 24-tooth gear to produce the 2:1 ratio driving the seconds output (1 RPM). Subsequent cascaded stages achieve 60:1 to the minutes gear and 12:1 to the hours gear, with direction-correcting idler gears inserted at each stage where the natural mesh direction would produce counter-clockwise rotation. The spring-based decoupling system isolates the timekeeping train from the auxiliary hand-setting mechanism, allowing the clock face to be manually adjusted without disturbing the escapement. The ratchet gear enforces unidirectional drive during weight rewinding.
           </p>
           <p>
-            Engineers and recruiters will read this section closely.
-            Use precise language — component specs, tolerances,
-            communication protocols, control loops, etc.
+            Materials specified throughout: AISI 303 stainless steel for all gears and shafts (corrosion-resistant, excellent machinability), oak wood or PLA for the frame, brass for decorative face elements. All components were designed to be either off-the-shelf sourceable or easily manufactured — no custom tooling required. Frame shaft holes use keyfit geometry for fixed shafts and pressed bearing seats for the rotating coaxial assembly. The entire design was intentionally kept manufacturable: every feature maps to a standard fabrication operation or a standard stock component.
           </p>
         </div>
         <div>
           <div class="project-section-title">Challenges &amp; Learnings</div>
           <p>
-            Describe the most significant technical challenge you encountered
-            and how you resolved it. Be honest — challenges show real
-            engineering experience.
+            The hardest problem in the gear train was simultaneously satisfying the ratio constraints and the clockwise-rotation constraint at every output stage. Each time I closed a ratio correctly, a direction flip elsewhere would break a downstream gear's orientation. The solution was systematic: trace direction state explicitly at every mesh, and insert a 1:1 idler gear specifically to flip direction wherever needed — accepting the added gear count as the cost of meeting both constraints.
           </p>
           <p>
-            What would you do differently if you started over?
-            What skills or knowledge did this project give you?
+            If redesigning from scratch: (1) use compound gear pairs (two gears on a shared shaft) to achieve larger ratio multiplications per stage — the same three ratios could likely be achieved in 6–8 gears instead of 15; (2) switch from AISI 303 to machined brass or POM (Delrin) — brass is the traditional clock material for its wear properties and machinability, while POM is self-lubricating and ideal for 3D-printed prototyping; (3) adopt a standardized gear module (M1 or M1.5) across all gears so every gear is interchangeable and off-the-shelf sourcing is trivial; (4) replace C-clips with integrated snap-fit retention features designed directly into the printed shafts — C-clips are fiddly at small diameter and easy to lose during assembly.
           </p>
         </div>
       </div>
@@ -723,7 +710,7 @@
       </div>
       <div class="viewer-caption">
         <i class="fas fa-drafting-compass" style="color:var(--accent); margin-right:6px;"></i>
-        SolidWorks Assembly — [describe your model here, e.g. "47 components · 6 DOF · exported as STEP"]
+        SolidWorks Assembly — Full grandfather clock · 15-gear train · concentric coaxial shaft system · exported as STEP
       </div>
     </div>
   </div>
@@ -733,16 +720,16 @@
       <div class="project-section-title" style="margin-bottom: 20px;">Outcomes</div>
       <div class="outcomes-grid">
         <div class="outcome-card">
-          <div class="outcome-number">XX%</div>
-          <div class="outcome-label">Metric or Achievement #1</div>
+          <div class="outcome-number">15</div>
+          <div class="outcome-label">Gears — 3 Correct Ratios, All Clockwise</div>
         </div>
         <div class="outcome-card">
-          <div class="outcome-number">XX</div>
-          <div class="outcome-label">Metric or Achievement #2</div>
+          <div class="outcome-number">3×</div>
+          <div class="outcome-label">Concentric Coaxial Shafts Driving Independent Hands</div>
         </div>
         <div class="outcome-card">
-          <div class="outcome-number">A+</div>
-          <div class="outcome-label">Grade Received / Recognition</div>
+          <div class="outcome-number">3×</div>
+          <div class="outcome-label">Independent Validation Methods (Hand Calc · Sim · Motion Analysis)</div>
         </div>
       </div>
     </div>
