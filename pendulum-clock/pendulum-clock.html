@@ -299,6 +299,188 @@
       #c-caption { font-size: 0.75rem; }
     }
 
+    /* ── Technical Report Modal ─────────────────────────────────────────── */
+    .report-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      display: flex;
+      flex-direction: column;
+      background: rgba(3,3,8,0.97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s ease;
+    }
+    .report-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .report-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      height: 58px;
+      border-bottom: 1px solid rgba(54,148,237,.2);
+      background: rgba(9,9,15,.9);
+      flex-shrink: 0;
+      gap: 16px;
+    }
+    .report-modal-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-heading, 'Rajdhani', sans-serif);
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: var(--text-primary, #eaeaf4);
+      min-width: 0;
+    }
+    .report-modal-title i {
+      color: var(--accent, #3694ed);
+      font-size: 1.05rem;
+      flex-shrink: 0;
+    }
+    .report-modal-title span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .report-modal-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .report-header-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-mono, monospace);
+      font-size: 0.68rem;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--accent, #3694ed);
+      border: 1px solid rgba(54,148,237,.35);
+      border-radius: 4px;
+      padding: 6px 13px;
+      background: rgba(54,148,237,.07);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .report-header-link:hover {
+      background: rgba(54,148,237,.18);
+      border-color: rgba(54,148,237,.75);
+      box-shadow: 0 0 14px rgba(54,148,237,.2);
+    }
+    .report-close-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(9,9,15,.72);
+      border: 1px solid rgba(0,229,255,.28);
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .report-close-btn:hover {
+      background: rgba(0,229,255,.14);
+      border-color: rgba(0,229,255,.7);
+      color: var(--accent, #3694ed);
+      transform: scale(1.1);
+    }
+    .report-modal-body {
+      flex: 1;
+      min-height: 0;
+      position: relative;
+    }
+    .report-modal-body iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    .report-modal-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      color: var(--text-muted, #50506a);
+      text-align: center;
+      padding: 48px;
+    }
+    .report-modal-placeholder i {
+      font-size: 3rem;
+      color: rgba(54,148,237,.22);
+    }
+    .report-modal-placeholder h4 {
+      font-family: var(--font-heading, 'Rajdhani', sans-serif);
+      font-size: 1.1rem;
+      color: var(--text-secondary, #8a8aaa);
+      letter-spacing: .5px;
+    }
+    .report-modal-placeholder p {
+      font-family: var(--font-mono, monospace);
+      font-size: .7rem;
+      letter-spacing: .3px;
+      max-width: 420px;
+      line-height: 1.8;
+    }
+    .report-modal-placeholder code {
+      background: rgba(54,148,237,.07);
+      border: 1px solid rgba(54,148,237,.28);
+      color: var(--accent, #3694ed);
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+    /* Trigger button inside meta card */
+    .report-trigger-wrap {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border, rgba(255,255,255,.07));
+    }
+    .report-trigger-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      font-family: var(--font-mono, monospace);
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent, #3694ed);
+      border: 1px solid rgba(54,148,237,.4);
+      border-radius: 4px;
+      padding: 10px 16px;
+      background: rgba(54,148,237,.07);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .report-trigger-btn:hover {
+      background: rgba(54,148,237,.16);
+      border-color: rgba(54,148,237,.8);
+      box-shadow: 0 0 20px rgba(54,148,237,.18);
+    }
+    .report-trigger-btn i { font-size: 0.95rem; }
+    @media (max-width: 600px) {
+      .report-modal-title span { display: none; }
+      .report-header-link span { display: none; }
+      .report-header-link { padding: 6px 10px; }
+    }
+
     /* ── 3D viewer (unchanged) ─────────────────────────────────────────── */
     .viewer-section {
       padding: 64px 0;
@@ -416,6 +598,12 @@
             <div class="meta-value">
               <span class="card-status status-complete">✓ Completed</span>
             </div>
+          </div>
+          <!-- ── Technical Report trigger ──────────────────── -->
+          <div class="report-trigger-wrap">
+            <button class="report-trigger-btn" id="reportBtn">
+              <i class="fas fa-file-lines"></i> View Technical Report
+            </button>
           </div>
         </div>
       </div>
@@ -600,6 +788,57 @@
       </div>
     </div>
   </footer>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       TECHNICAL REPORT MODAL
+       Place the PDF at: pendulum-clock/pendulum-clock-report.pdf
+       Then update the href on .report-header-link and data-pdf below.
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <div class="report-modal" id="reportModal" role="dialog" aria-modal="true" aria-label="Technical Report">
+    <div class="report-modal-header">
+      <div class="report-modal-title">
+        <i class="fas fa-file-lines"></i>
+        <span>Technical Report — Weight-Driven Pendulum Clock</span>
+      </div>
+      <div class="report-modal-actions">
+        <a class="report-header-link"
+           href="pendulum-clock-report.pdf"
+           download
+           id="reportDownload">
+          <i class="fas fa-download"></i>
+          <span>Download PDF</span>
+        </a>
+        <a class="report-header-link"
+           href="pendulum-clock-report.pdf"
+           target="_blank"
+           rel="noopener"
+           id="reportNewTab">
+          <i class="fas fa-arrow-up-right-from-square"></i>
+          <span>Open in Tab</span>
+        </a>
+        <button class="report-close-btn" id="reportClose" aria-label="Close report">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+    <div class="report-modal-body">
+      <!-- Placeholder shown until PDF is added -->
+      <div class="report-modal-placeholder" id="reportPlaceholder">
+        <i class="fas fa-file-lines"></i>
+        <h4>Technical Report Coming Soon</h4>
+        <p>
+          Drop the PDF at <code>pendulum-clock/pendulum-clock-report.pdf</code><br>
+          and it will render here automatically.
+        </p>
+      </div>
+      <iframe
+        id="reportFrame"
+        title="Technical Report — Weight-Driven Pendulum Clock"
+        data-pdf="pendulum-clock-report.pdf"
+        style="display:none;">
+      </iframe>
+    </div>
+  </div>
 
   <script src="/script.js"></script>
 
@@ -899,6 +1138,63 @@
         placeholder.style.display = 'none';
         wrapper.appendChild(iframe);
       }
+    })();
+
+    /* ══════════════════════════════════════════════════════════════════════
+       TECHNICAL REPORT MODAL
+    ═══════════════════════════════════════════════════════════════════════ */
+    (function () {
+      const btn         = document.getElementById('reportBtn');
+      const modal       = document.getElementById('reportModal');
+      const closeBtn    = document.getElementById('reportClose');
+      const frame       = document.getElementById('reportFrame');
+      const placeholder = document.getElementById('reportPlaceholder');
+      if (!btn || !modal) return;
+
+      const pdfSrc = frame ? frame.getAttribute('data-pdf') : null;
+
+      /* Check if the PDF exists before showing the iframe */
+      function tryLoadPdf() {
+        if (!pdfSrc || !frame) return;
+        fetch(pdfSrc, { method: 'HEAD' })
+          .then(r => {
+            if (r.ok) {
+              frame.src = pdfSrc;
+              frame.style.display = 'block';
+              if (placeholder) placeholder.style.display = 'none';
+            }
+          })
+          .catch(() => {}); /* PDF not uploaded yet — keep placeholder */
+      }
+
+      let loaded = false;
+
+      function openModal() {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        if (!loaded) { tryLoadPdf(); loaded = true; }
+      }
+
+      function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      btn.addEventListener('click', openModal);
+      closeBtn.addEventListener('click', closeModal);
+
+      /* Close on backdrop click */
+      modal.addEventListener('click', e => {
+        if (e.target === modal) closeModal();
+      });
+
+      /* Keyboard: Escape closes report modal (guard against lightbox conflict) */
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+          e.stopImmediatePropagation();
+          closeModal();
+        }
+      });
     })();
   </script>
 </body>

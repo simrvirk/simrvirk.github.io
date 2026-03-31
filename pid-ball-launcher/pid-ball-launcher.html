@@ -299,6 +299,230 @@
       #c-caption { font-size: 0.75rem; }
     }
 
+    /* ── Technical Report Modal ─────────────────────────────────────────── */
+    .report-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 9998;
+      display: flex;
+      flex-direction: column;
+      background: rgba(3,3,8,0.97);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.28s ease;
+    }
+    .report-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .report-modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      height: 58px;
+      border-bottom: 1px solid rgba(54,148,237,.2);
+      background: rgba(9,9,15,.9);
+      flex-shrink: 0;
+      gap: 16px;
+    }
+    .report-modal-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--font-heading, 'Rajdhani', sans-serif);
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      color: var(--text-primary, #eaeaf4);
+      min-width: 0;
+    }
+    .report-modal-title i {
+      color: var(--accent, #3694ed);
+      font-size: 1.05rem;
+      flex-shrink: 0;
+    }
+    .report-modal-title span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .report-modal-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .report-header-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-family: var(--font-mono, monospace);
+      font-size: 0.68rem;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--accent, #3694ed);
+      border: 1px solid rgba(54,148,237,.35);
+      border-radius: 4px;
+      padding: 6px 13px;
+      background: rgba(54,148,237,.07);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .report-header-link:hover {
+      background: rgba(54,148,237,.18);
+      border-color: rgba(54,148,237,.75);
+      box-shadow: 0 0 14px rgba(54,148,237,.2);
+    }
+    .report-close-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(9,9,15,.72);
+      border: 1px solid rgba(0,229,255,.28);
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .report-close-btn:hover {
+      background: rgba(0,229,255,.14);
+      border-color: rgba(0,229,255,.7);
+      color: var(--accent, #3694ed);
+      transform: scale(1.1);
+    }
+    .report-modal-body {
+      flex: 1;
+      min-height: 0;
+      position: relative;
+    }
+    /* Tab bar */
+    .report-tab-bar {
+      display: flex;
+      align-items: stretch;
+      background: rgba(9,9,15,.85);
+      border-bottom: 1px solid rgba(54,148,237,.15);
+      flex-shrink: 0;
+      padding: 0 24px;
+      gap: 4px;
+    }
+    .report-tab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 18px;
+      height: 44px;
+      font-family: var(--font-mono, monospace);
+      font-size: 0.68rem;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      color: var(--text-muted, #50506a);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      cursor: pointer;
+      transition: color 0.2s ease, border-color 0.2s ease;
+      white-space: nowrap;
+    }
+    .report-tab:hover { color: var(--text-secondary, #8a8aaa); }
+    .report-tab.active {
+      color: var(--accent, #3694ed);
+      border-bottom-color: var(--accent, #3694ed);
+    }
+    .report-tab i { font-size: 0.8rem; }
+    /* Tab panels */
+    .report-tab-panel {
+      position: absolute;
+      inset: 0;
+      display: none;
+    }
+    .report-tab-panel.active { display: block; }
+    .report-modal-body iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    .report-modal-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      color: var(--text-muted, #50506a);
+      text-align: center;
+      padding: 48px;
+    }
+    .report-modal-placeholder i {
+      font-size: 3rem;
+      color: rgba(54,148,237,.22);
+    }
+    .report-modal-placeholder h4 {
+      font-family: var(--font-heading, 'Rajdhani', sans-serif);
+      font-size: 1.1rem;
+      color: var(--text-secondary, #8a8aaa);
+      letter-spacing: .5px;
+    }
+    .report-modal-placeholder p {
+      font-family: var(--font-mono, monospace);
+      font-size: .7rem;
+      letter-spacing: .3px;
+      max-width: 420px;
+      line-height: 1.8;
+    }
+    .report-modal-placeholder code {
+      background: rgba(54,148,237,.07);
+      border: 1px solid rgba(54,148,237,.28);
+      color: var(--accent, #3694ed);
+      padding: 2px 8px;
+      border-radius: 3px;
+    }
+    /* Trigger button inside meta card */
+    .report-trigger-wrap {
+      margin-top: 18px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border, rgba(255,255,255,.07));
+    }
+    .report-trigger-btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      font-family: var(--font-mono, monospace);
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent, #3694ed);
+      border: 1px solid rgba(54,148,237,.4);
+      border-radius: 4px;
+      padding: 10px 16px;
+      background: rgba(54,148,237,.07);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .report-trigger-btn:hover {
+      background: rgba(54,148,237,.16);
+      border-color: rgba(54,148,237,.8);
+      box-shadow: 0 0 20px rgba(54,148,237,.18);
+    }
+    .report-trigger-btn i { font-size: 0.95rem; }
+    @media (max-width: 600px) {
+      .report-modal-title span { display: none; }
+      .report-header-link span { display: none; }
+      .report-header-link { padding: 6px 10px; }
+    }
+
     /* ── 3D viewer (unchanged) ─────────────────────────────────────────── */
     .viewer-section {
       padding: 64px 0;
@@ -416,6 +640,12 @@
             <div class="meta-value">
               <span class="card-status status-complete">✓ Completed</span>
             </div>
+          </div>
+          <!-- ── Technical Report trigger ──────────────────── -->
+          <div class="report-trigger-wrap">
+            <button class="report-trigger-btn" id="reportBtn">
+              <i class="fas fa-file-lines"></i> View Technical Report
+            </button>
           </div>
         </div>
       </div>
@@ -604,6 +834,84 @@
       </div>
     </div>
   </footer>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       TECHNICAL REPORT MODAL (tabbed — two reports)
+       Mechanical:          pid-ball-launcher/pid-ball-launcher-report-mechanical.pdf
+       Electrical/Controls: pid-ball-launcher/pid-ball-launcher-report-electrical.pdf
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <div class="report-modal" id="reportModal" role="dialog" aria-modal="true" aria-label="Technical Reports">
+    <div class="report-modal-header">
+      <div class="report-modal-title">
+        <i class="fas fa-file-lines"></i>
+        <span>Technical Reports — Precision PID Ball Launcher</span>
+      </div>
+      <div class="report-modal-actions">
+        <a class="report-header-link"
+           href="pid-ball-launcher-report-mechanical.pdf"
+           download
+           id="reportDownload">
+          <i class="fas fa-download"></i>
+          <span>Download PDF</span>
+        </a>
+        <a class="report-header-link"
+           href="pid-ball-launcher-report-mechanical.pdf"
+           target="_blank"
+           rel="noopener"
+           id="reportNewTab">
+          <i class="fas fa-arrow-up-right-from-square"></i>
+          <span>Open in Tab</span>
+        </a>
+        <button class="report-close-btn" id="reportClose" aria-label="Close report">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Tab bar -->
+    <div class="report-tab-bar">
+      <button class="report-tab active" id="tabMech"
+              data-pdf="pid-ball-launcher-report-mechanical.pdf">
+        <i class="fas fa-drafting-compass"></i> Mechanical
+      </button>
+      <button class="report-tab" id="tabElec"
+              data-pdf="pid-ball-launcher-report-electrical.pdf">
+        <i class="fas fa-microchip"></i> Electrical &amp; Controls
+      </button>
+    </div>
+
+    <div class="report-modal-body">
+      <!-- Mechanical tab panel -->
+      <div class="report-tab-panel active" id="panelMech">
+        <div class="report-modal-placeholder" id="placeholderMech">
+          <i class="fas fa-drafting-compass"></i>
+          <h4>Mechanical Report Coming Soon</h4>
+          <p>
+            Drop the PDF at<br>
+            <code>pid-ball-launcher/pid-ball-launcher-report-mechanical.pdf</code>
+          </p>
+        </div>
+        <iframe id="frameMech"
+                title="Mechanical Technical Report"
+                style="display:none;"></iframe>
+      </div>
+
+      <!-- Electrical / Controls tab panel -->
+      <div class="report-tab-panel" id="panelElec">
+        <div class="report-modal-placeholder" id="placeholderElec">
+          <i class="fas fa-microchip"></i>
+          <h4>Electrical &amp; Controls Report Coming Soon</h4>
+          <p>
+            Drop the PDF at<br>
+            <code>pid-ball-launcher/pid-ball-launcher-report-electrical.pdf</code>
+          </p>
+        </div>
+        <iframe id="frameElec"
+                title="Electrical & Controls Technical Report"
+                style="display:none;"></iframe>
+      </div>
+    </div>
+  </div>
 
   <script src="/script.js"></script>
 
@@ -918,6 +1226,97 @@
         placeholder.style.display = 'none';
         wrapper.appendChild(iframe);
       }
+    })();
+
+    /* ══════════════════════════════════════════════════════════════════════
+       TECHNICAL REPORT MODAL — tabbed
+    ═══════════════════════════════════════════════════════════════════════ */
+    (function () {
+      const btn      = document.getElementById('reportBtn');
+      const modal    = document.getElementById('reportModal');
+      const closeBtn = document.getElementById('reportClose');
+      const dlLink   = document.getElementById('reportDownload');
+      const tabLink  = document.getElementById('reportNewTab');
+      if (!btn || !modal) return;
+
+      const TABS = [
+        {
+          tab:         document.getElementById('tabMech'),
+          panel:       document.getElementById('panelMech'),
+          frame:       document.getElementById('frameMech'),
+          placeholder: document.getElementById('placeholderMech'),
+          pdf:         'pid-ball-launcher-report-mechanical.pdf',
+          loaded:      false,
+        },
+        {
+          tab:         document.getElementById('tabElec'),
+          panel:       document.getElementById('panelElec'),
+          frame:       document.getElementById('frameElec'),
+          placeholder: document.getElementById('placeholderElec'),
+          pdf:         'pid-ball-launcher-report-electrical.pdf',
+          loaded:      false,
+        },
+      ];
+
+      let activeIdx = 0;
+
+      /* Try loading a PDF into its iframe (only once per tab) */
+      function tryLoad(t) {
+        if (t.loaded || !t.frame) return;
+        t.loaded = true;
+        fetch(t.pdf, { method: 'HEAD' })
+          .then(r => {
+            if (r.ok) {
+              t.frame.src = t.pdf;
+              t.frame.style.display = 'block';
+              if (t.placeholder) t.placeholder.style.display = 'none';
+            }
+          })
+          .catch(() => {});
+      }
+
+      /* Switch to tab by index */
+      function switchTab(idx) {
+        activeIdx = idx;
+        TABS.forEach((t, i) => {
+          t.tab.classList.toggle('active', i === idx);
+          t.panel.classList.toggle('active', i === idx);
+        });
+        /* Update header action links to point at active tab's PDF */
+        const pdf = TABS[idx].pdf;
+        dlLink.href  = pdf;
+        tabLink.href = pdf;
+        tryLoad(TABS[idx]);
+      }
+
+      TABS.forEach((t, i) => {
+        t.tab.addEventListener('click', () => switchTab(i));
+      });
+
+      function openModal() {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        tryLoad(TABS[activeIdx]);
+      }
+
+      function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      btn.addEventListener('click', openModal);
+      closeBtn.addEventListener('click', closeModal);
+
+      modal.addEventListener('click', e => {
+        if (e.target === modal) closeModal();
+      });
+
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+          e.stopImmediatePropagation();
+          closeModal();
+        }
+      });
     })();
   </script>
 </body>
