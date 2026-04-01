@@ -481,6 +481,49 @@
       .report-header-link { padding: 6px 10px; }
     }
 
+    /* ── Concise spec bullet lists ──────────────────────────── */
+    .spec-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      padding: 48px 0 56px;
+      border-bottom: 1px solid var(--border);
+    }
+    @media (max-width: 768px) { .spec-block { grid-template-columns: 1fr; gap: 32px; } }
+
+    .spec-col-label {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-transform: uppercase;
+      opacity: 0.8;
+      margin-bottom: 18px;
+    }
+
+    .spec-list {
+      list-style: none;
+      padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .spec-list li {
+      font-size: 0.91rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      padding-left: 20px;
+      position: relative;
+    }
+    .spec-list li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0.55em;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+    .spec-list li strong { color: var(--text-primary); font-weight: 600; }
+
     /* ── 3D viewer (unchanged) ─────────────────────────────────────────── */
     .viewer-section {
       padding: 64px 0;
@@ -551,7 +594,7 @@
           <div class="project-category-label">Mechanical Design / CAD</div>
           <h1 class="project-title">Weight-Driven<br>Pendulum Clock</h1>
           <p class="project-summary">
-            Designed the complete gear train architecture, concentric coaxial shaft system, and frame for a fully SolidWorks-modeled weight-driven grandfather clock in MSE 320. Engineered a 15-gear train achieving ratios of 2:1 (escapement→seconds), 60:1 (seconds→minutes), and 12:1 (minutes→hours) — all driven by gravitational potential energy and delivered through a single coaxial shaft assembly with all three hands rotating clockwise, validated via hand calculations, geargenerator.com simulation, and SolidWorks motion analysis.
+            Designed the gear train, concentric coaxial shaft system, and frame for a fully SolidWorks-modeled weight-driven grandfather clock (MSE 320). 15-gear train producing 2:1, 60:1, and 12:1 ratios — all clockwise — powered by gravitational potential energy, validated via hand calculations, simulation, and SolidWorks Motion Analysis.
           </p>
           <div class="project-tech-list">
             <span class="tag">SolidWorks</span>
@@ -599,24 +642,26 @@
   <div class="project-body">
     <div class="container">
 
-      <div class="project-body-grid">
+      <div class="spec-block">
         <div>
-          <div class="project-section-title">The Problem</div>
-          <p>
-            The objective was to design a complete mechanical grandfather clock from first principles in SolidWorks — no electronics, no motors — powered solely by gravitational potential energy from a descending weight. The system had to produce three precisely-ratioed rotational outputs: one revolution per minute (seconds hand), one per hour (minutes hand), and one per 12 hours (hours hand), all delivered through a single coaxial shaft assembly on the clock face.
-          </p>
-          <p>
-            The critical constraint was that all three time-keeping gears had to rotate clockwise. Achieving the required cascaded ratios (2:1, 60:1, 12:1) while enforcing clockwise rotation at every output required inserting direction-correcting idler gears at specific points in the train — a combinatorial constraint that drove the gear count up significantly. Axle placement also had to be arranged so that no shaft obstructed an adjacent gear while maintaining a compact enough footprint to fit within the frame envelope.
-          </p>
+          <div class="spec-col-label">Gear Train Architecture</div>
+          <ul class="spec-list">
+            <li><strong>15-gear train</strong> — escapement pendulum (T = 2π√(L/g)) runs at 2 RPM; 12→24 tooth stage drives seconds output at 1 RPM; cascaded stages produce 60:1 (minutes) and 12:1 (hours)</li>
+            <li><strong>Clockwise constraint</strong> — direction-correcting 1:1 idler gears inserted at each stage where natural mesh would produce CCW rotation; satisfying both ratio and rotation simultaneously drove gear count to 15</li>
+            <li><strong>Spring-based decoupler</strong> — isolates timekeeping train from hand-setting mechanism so clock face can be manually adjusted without disturbing the escapement</li>
+            <li><strong>Ratchet gear</strong> — enforces unidirectional drive during weight rewind</li>
+            <li><strong>Triple validation</strong> — all ratios derived by hand, verified in geargenerator.com, cross-validated via SolidWorks Motion Analysis (marked tooth confirmed exactly 1 revolution per simulated minute)</li>
+          </ul>
         </div>
         <div>
-          <div class="project-section-title">My Approach</div>
-          <p>
-            I owned the gear train architecture, concentric shaft system, frame design, and hand-rotation mechanism end-to-end. I derived all gear ratios by hand — escapement at 2 RPM, linked to the seconds gear via a 12→24 tooth stage, then cascaded through 15 gears total to reach the minutes and hours outputs — verified the results in geargenerator.com, and cross-validated with a SolidWorks motion analysis (marking a tooth on the seconds gear to confirm exactly one revolution per simulated minute).
-          </p>
-          <p>
-            The clock-hand drive mechanism was the most technically novel problem I solved: three independently-rotating hands sharing the same axle location. I designed a system of three concentric hollow shafts — a solid inner shaft keyed to the seconds gear via a slot-and-tooth fit, a hollow shaft over it keyed to the minutes gear the same way, and a second hollow shaft over that for the hours gear. Each shaft extends through the front frame bearing and drives its respective hand independently. Bearings are pressed into the frame at the shaft exit; C-clips retain axial position. I also intentionally made the three time-keeping gears oversized and proud of the frame face — an explicit aesthetic decision to expose the mechanism rather than hide it.
-          </p>
+          <div class="spec-col-label">Coaxial Drive System &amp; Design Decisions</div>
+          <ul class="spec-list">
+            <li><strong>Three concentric hollow shafts</strong> — solid inner shaft keyed to seconds gear, first hollow shaft over it keyed to minutes, second hollow for hours; each extends through the front frame bearing and drives its hand independently</li>
+            <li><strong>Slot-and-tooth keying</strong> for shaft-to-gear coupling; pressed bearing seats at frame shaft exits; C-clips for axial retention</li>
+            <li><strong>Materials</strong> — AISI 303 stainless steel for all gears and shafts (corrosion-resistant, excellent machinability); PLA/oak for frame; brass decorative elements — every component sourceable or standard fabrication</li>
+            <li><strong>Exposed mechanism aesthetic</strong> — three timekeeping gears intentionally oversized and proud of the frame face; deliberate design choice to show the gear train rather than conceal it</li>
+            <li><strong>Retrospective</strong> — compound gear pairs (two gears per shaft) could reduce count from 15 to ~6–8; standardized M1/M1.5 module across all gears would enable trivial off-the-shelf sourcing</li>
+          </ul>
         </div>
       </div>
 
@@ -657,26 +702,6 @@
       </div>
 
 
-      <div class="project-body-grid">
-        <div>
-          <div class="project-section-title">Technical Details</div>
-          <p>
-            The gear train spans 15 gears with the escapement wheel governed by a simple pendulum (T = 2π√(L/g)) running at 2 RPM. A 12-tooth pinion on the escapement shaft meshes with a 24-tooth gear to produce the 2:1 ratio driving the seconds output (1 RPM). Subsequent cascaded stages achieve 60:1 to the minutes gear and 12:1 to the hours gear, with direction-correcting idler gears inserted at each stage where the natural mesh direction would produce counter-clockwise rotation. The spring-based decoupling system isolates the timekeeping train from the auxiliary hand-setting mechanism, allowing the clock face to be manually adjusted without disturbing the escapement. The ratchet gear enforces unidirectional drive during weight rewinding.
-          </p>
-          <p>
-            Materials specified throughout: AISI 303 stainless steel for all gears and shafts (corrosion-resistant, excellent machinability), oak wood or PLA for the frame, brass for decorative face elements. All components were designed to be either off-the-shelf sourceable or easily manufactured — no custom tooling required. Frame shaft holes use keyfit geometry for fixed shafts and pressed bearing seats for the rotating coaxial assembly. The entire design was intentionally kept manufacturable: every feature maps to a standard fabrication operation or a standard stock component.
-          </p>
-        </div>
-        <div>
-          <div class="project-section-title">Challenges &amp; Learnings</div>
-          <p>
-            The hardest problem in the gear train was simultaneously satisfying the ratio constraints and the clockwise-rotation constraint at every output stage. Each time I closed a ratio correctly, a direction flip elsewhere would break a downstream gear's orientation. The solution was systematic: trace direction state explicitly at every mesh, and insert a 1:1 idler gear specifically to flip direction wherever needed — accepting the added gear count as the cost of meeting both constraints.
-          </p>
-          <p>
-            If redesigning from scratch: (1) use compound gear pairs (two gears on a shared shaft) to achieve larger ratio multiplications per stage — the same three ratios could likely be achieved in 6–8 gears instead of 15; (2) switch from AISI 303 to machined brass or POM (Delrin) — brass is the traditional clock material for its wear properties and machinability, while POM is self-lubricating and ideal for 3D-printed prototyping; (3) adopt a standardized gear module (M1 or M1.5) across all gears so every gear is interchangeable and off-the-shelf sourcing is trivial; (4) replace C-clips with integrated snap-fit retention features designed directly into the printed shafts — C-clips are fiddly at small diameter and easy to lose during assembly.
-          </p>
-        </div>
-      </div>
 
     </div>
   </div>
