@@ -299,6 +299,49 @@
       #c-caption { font-size: 0.75rem; }
     }
 
+    /* ── Concise spec bullet lists ──────────────────────────── */
+    .spec-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      padding: 48px 0 56px;
+      border-bottom: 1px solid var(--border);
+    }
+    @media (max-width: 768px) { .spec-block { grid-template-columns: 1fr; gap: 32px; } }
+
+    .spec-col-label {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-transform: uppercase;
+      opacity: 0.8;
+      margin-bottom: 18px;
+    }
+
+    .spec-list {
+      list-style: none;
+      padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .spec-list li {
+      font-size: 0.91rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      padding-left: 20px;
+      position: relative;
+    }
+    .spec-list li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0.55em;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+    .spec-list li strong { color: var(--text-primary); font-weight: 600; }
+
     /* ── 3D viewer (unchanged) ─────────────────────────────────────────── */
     .viewer-section {
       padding: 64px 0;
@@ -369,7 +412,7 @@
           <div class="project-category-label">Mechanical Design / CAD</div>
           <h1 class="project-title">V12 Combustion<br>Engine CAD</h1>
           <p class="project-summary">
-            Modeled a fully kinematic V12 combustion engine in SolidWorks — 50+ components spanning pistons, crankshafts, camshafts, valve assemblies, spark plugs, and cylinder heads — as a deliberate self-directed skill-building exercise beyond what MSE 100 covered. Built by studying a senior mechanical engineer's workflow feature-by-feature in real time; the skills developed here form the foundation of my professional SolidWorks proficiency and contributed directly to earning my CSWP certification.
+            50+ component fully kinematic V12 combustion engine modeled in SolidWorks — complete with working motion study. Built as a deliberate self-directed exercise that became the foundation of my professional SolidWorks proficiency and contributed directly to earning CSWP certification.
           </p>
           <div class="project-tech-list">
             <span class="tag">SolidWorks</span>
@@ -410,24 +453,26 @@
   <div class="project-body">
     <div class="container">
 
-      <div class="project-body-grid">
+      <div class="spec-block">
         <div>
-          <div class="project-section-title">The Goal</div>
-          <p>
-            After MSE 100, I recognized a gap between basic part modeling and the multi-body assembly workflows required for complex mechanical systems. Rather than wait for coursework to close it, I chose the most mechanically demanding self-directed exercise I could think of: model a complete V12 combustion engine in SolidWorks — one of the most component-dense assemblies in automotive engineering.
-          </p>
-          <p>
-            The challenge was building 50+ individual components each with correct dimensional geometry, proper sketch intent, and valid mating relationships — then assembling them into a master assembly that exhibits real kinematic behavior. Every subsystem had to integrate spatially and dynamically: piston stroke cycles timed to crankshaft throws, valve motion sequenced to camshaft lobe profiles, and no conflicting or overconstrained mates anywhere in the tree.
-          </p>
+          <div class="spec-col-label">Scope &amp; Assembly</div>
+          <ul class="spec-list">
+            <li><strong>50+ components</strong> — pistons, connecting rods, crankshaft, camshafts, valve trains, cylinder heads, intake manifold, oil pan, spark plugs</li>
+            <li><strong>12-cylinder, 2-bank configuration</strong> — all components individually modeled with correct dimensional geometry and sketch intent</li>
+            <li><strong>Fully constrained master assembly</strong> — zero suppressed conflicts; all mates resolved at subassembly level before promotion</li>
+            <li><strong>Internal geometry included</strong> — piston rings seated in grooves, valve springs captured between retainer and head; accuracy over visual simplicity</li>
+            <li><strong>SolidWorks Motion Study</strong> — validates full kinematic chain: crankshaft → rods → pistons, camshaft sequencing valves at half crank speed</li>
+          </ul>
         </div>
         <div>
-          <div class="project-section-title">My Approach</div>
-          <p>
-            The learning method was deliberate: instead of following written documentation, I studied a senior mechanical engineer building each sketch and feature in real time, then replicated every step independently. This forced active engagement with the <em>why</em> behind each feature — design intent, sketch organization, and feature order — rather than just the button sequence. That distinction matters; it's the difference between knowing a tool exists and knowing when and how to use it.
-          </p>
-          <p>
-            Each component was modeled individually, assembled into subsystems, then integrated into the full V12 block. No detail was omitted: spark plugs, pistons, connecting rods, crankshaft with correctly offset throw geometry, camshafts, valve trains, cylinder heads, intake manifold, and oil pan are all present and fully constrained. The final assembly runs a SolidWorks Motion Study that replicates real engine kinematics — pistons traveling on correct stroke cycles relative to crankshaft rotation, valves opening in sequence per camshaft profile.
-          </p>
+          <div class="spec-col-label">Process &amp; Technical Method</div>
+          <ul class="spec-list">
+            <li><strong>Learning by replication</strong> — shadowed a senior mechanical engineer feature-by-feature in real time, then rebuilt independently; forced engagement with design intent, not just button sequences</li>
+            <li><strong>Feature tools exercised</strong> — lofted cuts, revolved boss/base, swept features on 3D paths, linear &amp; circular patterns, configuration management, reference geometry planes</li>
+            <li><strong>Crankshaft throw geometry</strong> — angular offsets between cylinder pairs modeled correctly; rod big-end and small-end bores dimensioned to journal and pin diameters</li>
+            <li><strong>Mate conflict resolution</strong> — diagnosed cascade failures from crankshaft throw geometry interacting with rod mates across 12 cylinders; resolved methodically at subassembly level</li>
+            <li><strong>Outcome</strong> — primary contributor to CSWP certification; same workflows carried directly into Team Phantom chassis design and Motorola Solutions CAD work</li>
+          </ul>
         </div>
       </div>
 
@@ -468,26 +513,6 @@
       </div>
 
 
-      <div class="project-body-grid">
-        <div>
-          <div class="project-section-title">Technical Details</div>
-          <p>
-            The assembly spans 50+ components across a 12-cylinder, 2-bank configuration. Every part was modeled using the full range of SolidWorks feature tools: lofted cuts, revolved boss/cut features, swept features along 3D paths, linear and circular patterns, configuration management, and reference geometry planes. Crankshaft throw geometry was modeled with correct angular offsets between cylinder pairs; connecting rod big-end and small-end bores were dimensioned to match piston pin and crankshaft journal diameters. All assembly mates use concentric, coincident, and parallel relationships — no rigid groups or suppressed conflicts.
-          </p>
-          <p>
-            The SolidWorks Motion Study validates the full kinematic chain: applying rotation to the crankshaft propagates correctly through connecting rods to each piston, and camshaft rotation (driven at half crankshaft speed via the timing drive) sequences the intake and exhaust valve lifts per cylinder. The model includes components not visible in external renders — spark plugs threaded into heads, piston rings seated in grooves, valve springs captured between retainer and head — because geometric accuracy, not visual simplicity, was the objective.
-          </p>
-        </div>
-        <div>
-          <div class="project-section-title">Challenges &amp; Learnings</div>
-          <p>
-            Assembly mate management at 50+ components is where complexity compounds fast. A single overconstrained or conflicting mate cascades errors through all downstream components and breaks the motion study. Learning to diagnose mate conflicts — particularly with crankshaft throw geometry interacting with connecting rod pin mates across 12 cylinders — was the steepest part of the learning curve. The fix was methodical: resolve every conflict at the subassembly level before promoting to the master assembly, rather than troubleshooting the full tree.
-          </p>
-          <p>
-            This project is the single largest contributor to my SolidWorks proficiency. Replicating a senior engineer's workflow in real time — rather than reading instructions — built design intuition that passive learning can't replicate. The same tools and thinking patterns I developed here carried directly into the pendulum clock gear train, chassis design at Team Phantom, and professional CAD work at Motorola Solutions. I credit this project as a significant factor in passing the CSWP exam. It also gave me a much deeper understanding of how a gasoline engine actually works mechanically — something no thermodynamics lecture conveys as concretely as building one component at a time.
-          </p>
-        </div>
-      </div>
 
     </div>
   </div>
