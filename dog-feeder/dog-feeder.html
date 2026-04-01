@@ -299,6 +299,49 @@
       #c-caption { font-size: 0.75rem; }
     }
 
+    /* ── Concise spec bullet lists ──────────────────────────── */
+    .spec-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      padding: 48px 0 56px;
+      border-bottom: 1px solid var(--border);
+    }
+    @media (max-width: 768px) { .spec-block { grid-template-columns: 1fr; gap: 32px; } }
+
+    .spec-col-label {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-transform: uppercase;
+      opacity: 0.8;
+      margin-bottom: 18px;
+    }
+
+    .spec-list {
+      list-style: none;
+      padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .spec-list li {
+      font-size: 0.91rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      padding-left: 20px;
+      position: relative;
+    }
+    .spec-list li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0.55em;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+    .spec-list li strong { color: var(--text-primary); font-weight: 600; }
+
     /* ── 3D viewer (unchanged) ─────────────────────────────────────────── */
     .viewer-section {
       padding: 64px 0;
@@ -365,7 +408,7 @@
       <p style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.4px; color: rgba(255,255,255,0.65); line-height: 1.7; margin: 0;">
         <strong style="color: rgba(255, 180, 0, 0.9); letter-spacing: 1px; font-size: 0.7rem;">DESIGN REVIEW NOTE</strong><br>
         This project was completed in early 2025 and is included to demonstrate end-to-end mechatronic system design, not as a polished final product.
-        The <em>Challenges &amp; Learnings</em> section below documents significant design flaws identified post-completion and the concrete engineering improvements I would implement in a v2 revision — an exercise in honest technical retrospection.
+        The v1 failure modes and v2 redesign plan are documented in the <em>Mechanical Design &amp; Retrospective</em> section below.
       </p>
     </div>
   </div>
@@ -380,7 +423,7 @@
           <div class="project-category-label">Robotics / Mechatronics</div>
           <h1 class="project-title">Automatic<br>Dog Feeder</h1>
           <p class="project-summary">
-            Engineered a fully-automated, gravity-fed dog feeder to eliminate irregular meal scheduling caused by household miscommunication. The system dispatches up to 3 precisely-timed daily meals via a servo-actuated metering arm gated by a DS3231 RTC module, with real-time kibble inventory monitoring via an internal ultrasonic sensor — achieving ±5g dispensing repeatability with zero manual intervention required.
+            Fully-automated gravity-fed dog feeder eliminating irregular meal scheduling. DS3231 RTC dispatches 3 timed daily meals via a servo-actuated metering arm; internal ultrasonic sensor monitors kibble inventory in real time — ±5g dispensing repeatability, zero manual intervention.
           </p>
           <div class="project-tech-list">
             <span class="tag">Arduino / C++</span>
@@ -422,24 +465,26 @@
   <div class="project-body">
     <div class="container">
 
-      <div class="project-body-grid">
+      <div class="spec-block">
         <div>
-          <div class="project-section-title">The Problem</div>
-          <p>
-            Irregular meal scheduling caused by household miscommunication — double-feeding or skipped meals entirely — created a clear need for a reliable, autonomous dispensing system. Manual feeding introduced an uncontrolled variable that impacted the dog's health and routine.
-          </p>
-          <p>
-            The core design requirements were: dispense up to 3 fixed daily meals without human input, alert when kibble inventory dropped critically low, and support manual meal-skip functionality for days when an alternate diet was preferred — all within a compact, self-contained unit.
-          </p>
+          <div class="spec-col-label">Hardware &amp; Sensing</div>
+          <ul class="spec-list">
+            <li><strong>DS3231 RTC</strong> (I²C) — ±2 ppm timekeeping accuracy; coin-cell backup retains schedule through power loss</li>
+            <li><strong>Servo-actuated metering arm</strong> — sweeps at scheduled time, holds calibrated dwell period to release a single portion, returns to closed position; ±5g dispensing repeatability</li>
+            <li><strong>Ultrasonic sensor</strong> — samples fill level at 1 Hz; maps raw distance to volumetric fill % via pre-characterized hopper geometry curve; dual-LED array switches green→red below 10% capacity</li>
+            <li><strong>Debounced push-button interrupt</strong> — 50 ms software debounce; toggles meal-skip flag suppressing the next dispense without modifying the RTC-stored schedule</li>
+            <li><strong>Internal wiring routing</strong> — all cables dressed internally for a clean, consumer-grade exterior</li>
+          </ul>
         </div>
         <div>
-          <div class="project-section-title">My Approach</div>
-          <p>
-            Designed a gravity-fed kibble hopper in SolidWorks optimized for passive, jam-free flow, paired with a servo-controlled metering arm that gates each dispensing event. A DS3231 RTC module maintains schedule integrity independent of power cycles via onboard coin-cell backup. The hopper and top cover were 3D-printed in PLA on a Bambu P1S.
-          </p>
-          <p>
-            Real-time inventory monitoring was implemented via an internal ultrasonic sensor — continuously converting distance readings to estimated fill percentage and triggering a dual-LED warning array when inventory dropped below 10% capacity. A debounced push-button interrupt enables manual meal skipping without disrupting the automated schedule. All wiring was routed internally within the chassis to achieve a clean, consumer-grade exterior.
-          </p>
+          <div class="spec-col-label">Mechanical Design &amp; Retrospective</div>
+          <ul class="spec-list">
+            <li><strong>Gravity-fed hopper</strong> — designed in SolidWorks for passive, jam-free kibble flow; hopper and top cover 3D-printed in PLA on Bambu P1S</li>
+            <li><strong>v1 failure mode identified</strong> — kibble load induces torque-driven sag at servo arm tip, creating a gap between arm and hopper wall → intermittent jamming and inconsistent portions</li>
+            <li><strong>v2 redesign</strong> — replace metering arm with DC motor-driven waterwheel disc (radial prongs spaced to single-portion volume, rotating over fixed aperture); eliminates cantilever loading and provides deterministic per-revolution portion control</li>
+            <li><strong>Material oversight</strong> — PLA is not food-contact safe; v2 switches to food-grade PETG or ABS</li>
+            <li><strong>Key lesson</strong> — early mechanism selection locks in downstream constraints that are expensive to fix retroactively; v1 servo arm choice constrained hopper geometry, bowl placement, and portion consistency simultaneously</li>
+          </ul>
         </div>
       </div>
 
@@ -480,26 +525,6 @@
       </div>
 
 
-      <div class="project-body-grid">
-        <div>
-          <div class="project-section-title">Technical Details</div>
-          <p>
-            The metering mechanism uses a servo-actuated arm to gate kibble through the hopper outlet at scheduled intervals, achieving ±5g dispensing repeatability across three daily cycles. The DS3231 RTC maintains timekeeping accuracy to ±2 ppm and communicates with the Arduino via I²C, retaining schedule data through power loss. The firmware triggers a servo sweep at each scheduled time, holds position for a calibrated dwell period to release a single portion, then returns to the closed position.
-          </p>
-          <p>
-            The ultrasonic sensor samples hopper fill level at 1 Hz, mapping raw distance readings to a volumetric fill percentage using a pre-characterized hopper geometry curve. When fill drops below 10%, a pair of indicator LEDs switch from green to red. The push-button is handled via a hardware interrupt with 50 ms software debounce, toggling a meal-skip flag that suppresses the next scheduled dispense event without modifying the RTC-stored schedule.
-          </p>
-        </div>
-        <div>
-          <div class="project-section-title">Challenges &amp; Learnings</div>
-          <p>
-            The primary failure mode in v1 is the servo-mounted metering arm: kibble load induces torque-driven sagging at the arm tip, creating a gap between the arm and hopper wall that causes jamming and inconsistent portions. A v2 revision would replace this mechanism entirely with a DC motor-driven waterwheel disc — a circular plate with equidistant radial prongs spaced to a single-portion volume, rotating over a fixed dispensing aperture. This eliminates cantilever loading, removes the jam failure mode, and provides deterministic per-revolution portion control.
-          </p>
-          <p>
-            Additional planned improvements: (1) guide rails downstream of the dispense aperture to direct kibble precisely into the bowl, removing the current proximity constraint; (2) a fully redesigned electronics enclosure with proper cable management and strain relief; (3) a material switch from PLA to food-grade PETG or ABS to meet food-contact safety standards — a critical oversight in the v1 design. Reflecting on this project ~1 year post-completion, the most valuable outcome was internalizing how early mechanism selection locks in downstream constraints that are expensive to fix retroactively.
-          </p>
-        </div>
-      </div>
 
     </div>
   </div>
