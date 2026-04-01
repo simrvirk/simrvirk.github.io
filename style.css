@@ -15,9 +15,9 @@
   /* Accent Colors */
   --accent:           #3694ed;          /* motorola blue — main accent */
   --accent-warm:      #ff6b35;          /* orange — secondary accent */
-  --accent-dim:       rgba(0,229,255, 0.10);
-  --accent-border:    rgba(0,229,255, 0.28);
-  --accent-glow:      rgba(0,229,255, 0.18);
+  --accent-dim:       rgba(54, 148, 237, 0.10);
+  --accent-border:    rgba(54, 148, 237, 0.28);
+  --accent-glow:      rgba(54, 148, 237, 0.18);
 
   /* Text */
   --text-primary:     #eaeaf4;
@@ -40,7 +40,7 @@
   --radius-lg:     10px;
   --transition:    all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --shadow-card:   0 4px 32px rgba(0,0,0, 0.45);
-  --shadow-glow:   0 0 32px rgba(0,229,255, 0.14);
+  --shadow-glow:   0 0 32px rgba(54, 148, 237, 0.14);
 }
 
 /* ============================================================ RESET */
@@ -291,7 +291,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
 .btn-primary:hover {
   background: #00c8e0;
   transform: translateY(-2px);
-  box-shadow: 0 10px 36px rgba(0,229,255, 0.3);
+  box-shadow: 0 10px 36px rgba(54, 148, 237, 0.3);
 }
 
 .btn-secondary {
@@ -380,7 +380,7 @@ button { cursor: pointer; border: none; background: none; font-family: inherit; 
   font-family: var(--font-display);
   font-size: 5rem;
   letter-spacing: 8px;
-  color: rgba(0,229,255, 0.25);
+  color: rgba(54, 148, 237, 0.25);
 }
 .placeholder-hint {
   font-family: var(--font-mono);
@@ -664,14 +664,14 @@ section { padding: 104px 0; }
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at 50% 50%, rgba(0,229,255,0.07) 0%, var(--bg-card) 70%);
+  background: radial-gradient(circle at 50% 50%, rgba(54, 148, 237,0.07) 0%, var(--bg-card) 70%);
   position: relative;
 }
 .about-card-initials {
   font-family: var(--font-display);
   font-size: 5.5rem;
   letter-spacing: 10px;
-  color: rgba(0,229,255, 0.22);
+  color: rgba(54, 148, 237, 0.22);
   position: relative;
   z-index: 1;
 }
@@ -685,7 +685,7 @@ section { padding: 104px 0; }
 }
 .ring {
   position: absolute;
-  border: 1px solid rgba(0,229,255, 0.08);
+  border: 1px solid rgba(54, 148, 237, 0.08);
   border-radius: 50%;
   animation: ringPulse 4s ease-in-out infinite;
 }
@@ -836,7 +836,7 @@ section { padding: 104px 0; }
 .skill-fill {
   height: 100%;
   width: 0;
-  background: linear-gradient(90deg, var(--accent), rgba(0,229,255,0.45));
+  background: linear-gradient(90deg, var(--accent), rgba(54, 148, 237,0.45));
   border-radius: 2px;
   transition: width 1.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -1145,10 +1145,10 @@ section { padding: 104px 0; }
        <span class="tag" data-color="#a855f7">Industry</span>
        <span class="tag" data-color="#22c55e">Software</span>
        <span class="tag" data-color="#ef4444">Hardware</span>
-       <span class="tag" data-color="#00e5ff">Embedded</span>   ← accent blue (manual)
+       <span class="tag" data-color="#3694ed">Embedded</span>   ← accent blue (manual)
 
    SUGGESTED PALETTE (matches dark industrial aesthetic):
-     #00e5ff  — Electric cyan      (default accent, firmware / embedded)
+     #3694ed  — Motorola blue      (default accent, firmware / embedded)
      #f97316  — Amber orange       (mechanical / hardware)
      #a855f7  — Circuit violet     (industry / internship)
      #22c55e  — Signal green       (software / algorithms)
