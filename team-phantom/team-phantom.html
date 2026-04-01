@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- ↓ EDIT: update description / title for each internship ↓ -->
-  <meta name="description" content="Motorola Solutions (Avigilon) — Design Validation Engineering Intern. Simr Virk's co-op case study: automated FOV goniometer, computer vision pipelines, and validation infrastructure.">
-  <title>Motorola Solutions — Simr Virk</title>
+  <meta name="description" content="Team Phantom (SFU Formula Student) — Mechanical Designer, Chassis Team. Simr Virk's design case study: inverter mounting system, FEA-validated tube frame, and FSAE-compliant driver firewalls.">
+  <title>Team Phantom — Simr Virk</title>
   <link rel="stylesheet" href="/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -592,15 +592,14 @@
       <!-- Skill tags — add data-color="#hex" to any tag to override the accent colour -->
       <!-- ↓ EDIT: update tags to match actual skills used ↓ -->
       <div class="header-tags">
-        <span class="tag">Python</span>
-        <span class="tag">OpenCV</span>
-        <span class="tag">C / C++</span>
-        <span class="tag">Computer Vision</span>
-        <span class="tag">Test Automation</span>
-        <span class="tag">Embedded Linux</span>
-        <span class="tag">GD&amp;T</span>
         <span class="tag">SolidWorks</span>
-        <span class="tag">RTSP Pipelines</span>
+        <span class="tag">FEA Simulation</span>
+        <span class="tag">Sheet Metal Design</span>
+        <span class="tag">Tube Frame Design</span>
+        <span class="tag">FSAE Rulebook</span>
+        <span class="tag">Technical Drawings</span>
+        <span class="tag">Water Jet Cutting</span>
+        <span class="tag">GD&amp;T</span>
       </div>
 
     </div>
@@ -618,12 +617,10 @@
             <span class="label-text">Overview</span>
           </div>
 
-          <!-- ↓ EDIT: replace with your own narrative about the role ↓ -->
           <div class="overview-body">
-            <p>At Motorola Solutions' Avigilon division in Vancouver, I worked as a Design Validation Engineering Intern within the hardware team, reporting to the Mechanical Engineering group. My mandate was to build and deploy automated validation infrastructure for camera hardware — reducing manual test burden, increasing measurement precision, and generating repeatable data that feeds directly into product certification decisions.</p>
-            <p>The role sat at the intersection of mechanical systems, software automation, and computer vision. I wasn't running tests — I was designing and building the systems that run the tests. That distinction shaped everything I produced during this term.</p>
-            <p>The flagship deliverable was a fully automated Field of View (FOV) goniometer system — a Python-based, camera-driven pipeline capable of measuring angular FOV with ±0.5° accuracy across full product sweep cycles with no human intervention. It cut cycle time by 85% versus the manual baseline and is now part of the lab's standard test infrastructure.</p>
-            <!-- ↓ EDIT: add more paragraphs if needed ↓ -->
+            <p>Joined Team Phantom's Chassis team as a part-time mechanical designer in October 2024, contributing to SFU's Formula Student electric vehicle program. My scope covered two safety-critical structural systems: the high-voltage inverter mounting assembly and the driver-protection firewall suite — both governed by strict FSAE rulebook requirements and both requiring close collaboration across the electrical and manufacturing sub-teams.</p>
+            <p>The inverter mounting project began with an intensive systems research phase — interfacing directly with the electrical team to map connector geometry, liquid cooling line routing, and accumulator interconnect constraints before modelling began. Once the design envelope was established, I ran iterative FEA cycles in SolidWorks Simulation, refining the steel tube-and-gusset assembly until load path distribution and factor-of-safety targets were satisfied across all mounting faces. I produced dimensioned fabrication drawings for tube cuts, collaborated in the machine shop during part preparation, observed water jet cutting operations at BCIT for the mounting plates, and coordinated chassis weld-up with the manufacturing team. The final assembly was installed and structurally sound.</p>
+            <p>The firewall project demanded design-for-manufacturing within an extremely constrained packaging envelope. The firewalls isolate the driver from all tractive system components — accumulator, GVL box, high-voltage conductors, and liquid cooling loops. I modelled each sheet-metal panel in SolidWorks, applied the Unfold/Unbend feature to derive flat-pattern cut dimensions, and sized apertures to clear all inter-component pass-throughs. CAD was completed to manufacturing-ready state. The project was placed on hold when Team Phantom underwent organizational restructuring; I departed at that point, with the designs archived for the next build cycle.</p>
           </div>
         </div>
 
@@ -669,7 +666,7 @@
       <h2 class="section-title">Photos &amp; Documentation</h2>
       <div class="gallery-subtitle">
         <!-- ↓ EDIT: update gallery subtitle ↓ -->
-        Lab setup · test apparatus · system output · team moments
+        CAD models · fabrication · chassis integration · team & car
       </div>
 
       <!-- ↓↓ ADD YOUR PHOTOS/VIDEOS HERE ↓↓
@@ -693,45 +690,35 @@
       </div>
       <h2 class="section-title">Key Contributions</h2>
 
-      <!-- ↓ EDIT: update each card's icon, number, title, and description ↓ -->
       <div class="contrib-grid">
 
         <div class="contrib-card fade-up">
-          <div class="contrib-icon"><i class="fas fa-crosshairs"></i></div>
-          <div class="contrib-number">01 — Flagship Project</div>
-          <div class="contrib-title">Automated FOV Goniometer System</div>
-          <div class="contrib-desc">Designed and built a fully automated test system for measuring camera field of view using a motorized Zaber rotary stage, RTSP video stream ingestion, and OpenCV-based image processing. Achieved ±0.5° angular accuracy and eliminated the need for manual jig alignment.</div>
+          <div class="contrib-icon"><i class="fas fa-bolt"></i></div>
+          <div class="contrib-number">01 — Structural Design</div>
+          <div class="contrib-title">Inverter Mounting Assembly</div>
+          <div class="contrib-desc">Designed the steel tube-and-gusset mounting system for the vehicle's high-voltage inverter. Iterated through multiple SolidWorks concepts, validating each with FEA to confirm load path distribution and factor-of-safety margins across all chassis attachment points. Final design met FSAE structural requirements and was welded to the chassis.</div>
         </div>
 
         <div class="contrib-card fade-up">
-          <div class="contrib-icon"><i class="fas fa-eye"></i></div>
-          <div class="contrib-number">02 — Computer Vision</div>
-          <div class="contrib-title">RTSP Pipeline & Green-Channel Detection</div>
-          <div class="contrib-desc">Built a Python/OpenCV real-time pipeline ingesting live RTSP streams from test cameras. Implemented green-channel thresholding and centroid tracking to detect laser target positions sub-pixel accurately, enabling precise FOV boundary identification across full goniometer sweeps.</div>
+          <div class="contrib-icon"><i class="fas fa-shield-alt"></i></div>
+          <div class="contrib-number">02 — Safety Systems</div>
+          <div class="contrib-title">Driver Firewall Suite</div>
+          <div class="contrib-desc">Engineered a multi-panel sheet-metal firewall system to physically isolate the driver cell from all tractive system components — accumulator, GVL box, liquid cooling loops, and high-voltage conductors. Used SolidWorks Unfold/Unbend to extract flat-pattern dimensions for each panel, with apertures sized to all inter-component pass-throughs. Designs reached manufacturing-ready state.</div>
         </div>
 
         <div class="contrib-card fade-up">
-          <div class="contrib-icon"><i class="fas fa-ruler-combined"></i></div>
-          <div class="contrib-number">03 — Mechanical Correction</div>
-          <div class="contrib-title">Nodal Point Parallax Compensation</div>
-          <div class="contrib-desc">Developed and integrated a nodal point parallax correction algorithm to compensate for lens-to-rotation-axis offset inherent in the goniometer fixture geometry. This significantly improved accuracy at wide angles where parallax error dominates.</div>
+          <div class="contrib-icon"><i class="fas fa-project-diagram"></i></div>
+          <div class="contrib-number">03 — Cross-team Integration</div>
+          <div class="contrib-title">Electrical & Chassis Systems Coordination</div>
+          <div class="contrib-desc">Collaborated directly with the inverter sub-team to define connector envelope, liquid cooling inlet/outlet geometry, and accumulator interface constraints before beginning mechanical design. This upstream systems research prevented downstream rework and ensured the mounting bracket accommodated all electrical service access requirements.</div>
         </div>
 
         <div class="contrib-card fade-up">
-          <div class="contrib-icon"><i class="fas fa-cogs"></i></div>
-          <div class="contrib-number">04 — Software Architecture</div>
-          <div class="contrib-title">Discrete Step Engine & Test Automation</div>
-          <div class="contrib-desc">Architected a modular Discrete Step Engine that sequences goniometer positioning, image capture, and data logging into a fully autonomous test cycle. Reduced full-suite cycle time by 85% versus the manual baseline and produced structured output reports consumed downstream by the validation team.</div>
+          <div class="contrib-icon"><i class="fas fa-tools"></i></div>
+          <div class="contrib-number">04 — Manufacturing</div>
+          <div class="contrib-title">Fabrication & Chassis Weld-up</div>
+          <div class="contrib-desc">Produced dimensioned fabrication drawings for all tube cuts and plate features. Worked hands-on in the SFU machine shop during part preparation and observed water jet cutting operations at BCIT for the mounting plates. Coordinated with the manufacturing team to execute chassis weld-up, resulting in a secure, zero-play installation.</div>
         </div>
-
-        <!-- ↓ EDIT: add a 5th card if needed, or remove one ↓
-        <div class="contrib-card fade-up">
-          <div class="contrib-icon"><i class="fas fa-file-alt"></i></div>
-          <div class="contrib-number">05 — Documentation</div>
-          <div class="contrib-title">Your 5th Contribution Title</div>
-          <div class="contrib-desc">Description of the contribution.</div>
-        </div>
-        -->
 
       </div>
     </div>
@@ -746,95 +733,88 @@
         <!-- ↓ EDIT: update spotlight label ↓ -->
         <span class="label-text">Deep Dive</span>
       </div>
-      <!-- ↓ EDIT: update spotlight headline ↓ -->
-      <h2 class="spotlight-headline">FOV Goniometer<br><span>Automation System</span></h2>
+      <h2 class="spotlight-headline">Inverter Mounting<br><span>System Design</span></h2>
 
       <div class="spotlight-cols">
 
         <!-- Left: full narrative -->
         <div class="spotlight-narrative">
-          <!-- ↓ EDIT: replace with detailed technical narrative of your featured project ↓ -->
-          <p><strong style="color: var(--text-primary);">The problem:</strong> Validating the field of view of camera products required a technician to manually position a jig, capture stills, and measure angular bounds by hand — a process that was slow, operator-dependent, and non-repeatable at the precision levels required for certification.</p>
+          <p><strong style="color: var(--text-primary);">The constraint:</strong> Mounting an EV inverter to a Formula Student chassis is not a bracket-and-bolt problem. The inverter is the highest-current component on the car — its position governs coolant routing, high-voltage cable bend radii, and structural load paths simultaneously. Getting it wrong downstream meant rework at the worst possible point in the build cycle.</p>
 
-          <p><strong style="color: var(--text-primary);">The approach:</strong> I designed a fully software-driven test system around a Zaber motorized rotary stage, which sweeps the camera through a calibrated angular range while the system continuously captures and analyzes live RTSP video frames. The core image processing chain uses OpenCV's green-channel thresholding to isolate a laser reference target in the scene, then tracks its centroid pixel position through each angular increment.</p>
+          <p><strong style="color: var(--text-primary);">The research phase:</strong> Before any CAD was opened, I spent significant time with the inverter team mapping out the full interface envelope: which connectors attach where, which faces need clear access for service, where the coolant inlet and outlet ports sit relative to the existing cooling loop routing, and what the accumulator-to-inverter cable geometry demanded. The FSAE rulebook added a further layer of requirements around component enclosure and tractive system isolation. Only once those constraints were fully documented did design begin.</p>
 
-          <p><strong style="color: var(--text-primary);">The architecture:</strong> The Discrete Step Engine (DSE) sequences stage movement, frame acquisition, and analysis into a closed-loop cycle. At each step, the engine: commands the Zaber stage to a target angle, waits for settle, grabs a frame from the RTSP buffer, thresholds and detects the target, logs the angle + pixel position, then advances. All timing, retry logic, and edge-case handling is encapsulated in the engine so test scripts remain clean and readable.</p>
+          <p><strong style="color: var(--text-primary);">The design process:</strong> The mounting system is a steel tube-and-gusset structure welded to the spaceframe. I iterated through multiple configurations — each time modelling the assembly in SolidWorks, running a static FEA to check load distribution across the four chassis attachment points, and refining geometry to resolve stress concentrations and reduce mass where the simulation showed margin to spare. The goal was a design that was both structurally compliant and manufacturable by the team's existing welding capabilities.</p>
 
-          <p><strong style="color: var(--text-primary);">The challenge:</strong> Real camera lenses introduce nodal point offset — the entrance pupil is not co-located with the rotation axis of the goniometer. At wide angles this creates measurable parallax error that corrupts the FOV reading. I modelled the geometry and implemented a correction factor derived from the measured nodal point position, applied automatically at each angular step. This was the difference between a plausible demo and a production-quality validation tool.</p>
-
-          <!-- ↓ EDIT: add additional paragraphs about approach, challenges, or lessons ↓ -->
+          <p><strong style="color: var(--text-primary);">The outcome:</strong> Fabrication drawings were issued for tube cuts and plate features. I worked through the cuts in the SFU machine shop, observed water jet cutting of the gusset plates at BCIT, and coordinated chassis weld-up with the manufacturing team. The inverter mount was installed onto the vehicle — secure, with no play at any attachment point.</p>
         </div>
 
         <!-- Right: results card -->
         <div class="results-card">
-          <div class="results-card-title">Results & Impact</div>
-          <!-- ↓ EDIT: update numbers and labels ↓ -->
+          <div class="results-card-title">Project Outcomes</div>
           <div class="result-stat">
-            <div class="result-number">±0.5°</div>
-            <div class="result-label">Angular accuracy achieved — meets full certification tolerance</div>
+            <div class="result-number">2</div>
+            <div class="result-label">Safety-critical systems designed — inverter mount (installed) and firewall suite (CAD complete)</div>
           </div>
           <div class="result-stat">
-            <div class="result-number">85%</div>
-            <div class="result-label">Reduction in test cycle time vs. manual baseline</div>
+            <div class="result-number">FEA</div>
+            <div class="result-label">Iterative simulation-driven design — each revision validated before fabrication</div>
           </div>
           <div class="result-stat">
-            <div class="result-number">100%</div>
-            <div class="result-label">Automation — zero manual intervention required per cycle</div>
+            <div class="result-number">0</div>
+            <div class="result-label">Structural failures — mount installed and confirmed secure on chassis</div>
           </div>
           <div class="result-stat">
-            <div class="result-number">N+</div>
-            <!-- ↓ EDIT: update with actual number of products if known ↓ -->
-            <div class="result-label">Camera SKUs now validated through the automated pipeline</div>
+            <div class="result-number">FSAE</div>
+            <div class="result-label">Rulebook-compliant design across both structural and electrical isolation requirements</div>
           </div>
         </div>
 
       </div>
 
-      <!-- Pipeline architecture diagram (text-based, no dependencies) -->
+      <!-- Design pipeline -->
       <div class="pipeline-section fade-up">
-        <div class="pipeline-label">System Pipeline</div>
+        <div class="pipeline-label">Design Process</div>
         <div class="pipeline-steps">
 
-          <!-- ↓ EDIT: update pipeline steps to match your architecture ↓ -->
           <div class="pipeline-step">
             <div class="pipeline-step-num">01</div>
-            <div class="pipeline-step-name">Stage Command</div>
-            <div class="pipeline-step-detail">Zaber rotary<br>to target angle</div>
+            <div class="pipeline-step-name">Rulebook Review</div>
+            <div class="pipeline-step-detail">FSAE structural &amp;<br>tractive system rules</div>
           </div>
           <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
 
           <div class="pipeline-step">
             <div class="pipeline-step-num">02</div>
-            <div class="pipeline-step-name">Frame Capture</div>
-            <div class="pipeline-step-detail">RTSP stream<br>buffer read</div>
+            <div class="pipeline-step-name">Systems Research</div>
+            <div class="pipeline-step-detail">Interface mapping<br>with electrical team</div>
           </div>
           <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
 
           <div class="pipeline-step">
             <div class="pipeline-step-num">03</div>
-            <div class="pipeline-step-name">Thresholding</div>
-            <div class="pipeline-step-detail">Green-channel<br>isolation (OpenCV)</div>
+            <div class="pipeline-step-name">CAD Design</div>
+            <div class="pipeline-step-detail">SolidWorks<br>assembly modelling</div>
           </div>
           <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
 
           <div class="pipeline-step">
             <div class="pipeline-step-num">04</div>
-            <div class="pipeline-step-name">Centroid Track</div>
-            <div class="pipeline-step-detail">Sub-pixel laser<br>position detection</div>
+            <div class="pipeline-step-name">FEA Validation</div>
+            <div class="pipeline-step-detail">Static load analysis<br>→ iterate geometry</div>
           </div>
           <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
 
           <div class="pipeline-step">
             <div class="pipeline-step-num">05</div>
-            <div class="pipeline-step-name">Parallax Correct</div>
-            <div class="pipeline-step-detail">Nodal point offset<br>compensation</div>
+            <div class="pipeline-step-name">Fab Drawings</div>
+            <div class="pipeline-step-detail">Dimensioned tube<br>&amp; plate drawings</div>
           </div>
           <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
 
           <div class="pipeline-step">
             <div class="pipeline-step-num">06</div>
-            <div class="pipeline-step-name">Log & Advance</div>
-            <div class="pipeline-step-detail">Angle + pixel data<br>→ report output</div>
+            <div class="pipeline-step-name">Fabrication</div>
+            <div class="pipeline-step-detail">Machine shop, water<br>jet, chassis weld-up</div>
           </div>
 
         </div>
@@ -853,60 +833,59 @@
       </div>
       <h2 class="section-title">Tools &amp; Technologies</h2>
 
-      <!-- ↓ EDIT: update each tool group and item list ↓ -->
       <div class="tools-grid fade-up">
 
         <div class="tool-group">
-          <div class="tool-group-label">Languages</div>
+          <div class="tool-group-label">CAD</div>
           <div class="tool-list">
-            <span class="tool-item">Python 3</span>
-            <span class="tool-item">C / C++</span>
-            <span class="tool-item">Bash / Shell</span>
+            <span class="tool-item">SolidWorks (CSWP)</span>
+            <span class="tool-item">Sheet Metal / Unbend</span>
+            <span class="tool-item">Assembly Modelling</span>
           </div>
         </div>
 
         <div class="tool-group">
-          <div class="tool-group-label">Vision & Data</div>
+          <div class="tool-group-label">Simulation</div>
           <div class="tool-list">
-            <span class="tool-item">OpenCV</span>
-            <span class="tool-item">NumPy</span>
-            <span class="tool-item">RTSP Streams</span>
+            <span class="tool-item">SolidWorks Simulation</span>
+            <span class="tool-item">Static FEA</span>
+            <span class="tool-item">Load Path Analysis</span>
           </div>
         </div>
 
         <div class="tool-group">
-          <div class="tool-group-label">Hardware Control</div>
+          <div class="tool-group-label">Manufacturing</div>
           <div class="tool-list">
-            <span class="tool-item">Zaber Motion API</span>
-            <span class="tool-item">Serial / USB Comms</span>
-            <span class="tool-item">Motorized Goniometer</span>
+            <span class="tool-item">Water Jet Cutting (BCIT)</span>
+            <span class="tool-item">Tube Cutting / Machine Shop</span>
+            <span class="tool-item">MIG Welding (coordination)</span>
           </div>
         </div>
 
         <div class="tool-group">
-          <div class="tool-group-label">Mechanical</div>
+          <div class="tool-group-label">Design Standards</div>
           <div class="tool-list">
-            <span class="tool-item">SolidWorks</span>
+            <span class="tool-item">FSAE Rulebook</span>
             <span class="tool-item">GD&amp;T</span>
-            <span class="tool-item">Fixture Design</span>
+            <span class="tool-item">Fabrication Drawings</span>
           </div>
         </div>
 
         <div class="tool-group">
-          <div class="tool-group-label">Dev Environment</div>
+          <div class="tool-group-label">Materials</div>
           <div class="tool-list">
-            <span class="tool-item">Embedded Linux</span>
-            <span class="tool-item">Git / Version Control</span>
-            <span class="tool-item">SSH / Remote Dev</span>
+            <span class="tool-item">Steel Tube (spaceframe)</span>
+            <span class="tool-item">Sheet Metal (firewalls)</span>
+            <span class="tool-item">Steel Gusset Plate</span>
           </div>
         </div>
 
         <div class="tool-group">
-          <div class="tool-group-label">Documentation</div>
+          <div class="tool-group-label">Collaboration</div>
           <div class="tool-list">
-            <span class="tool-item">Technical Reports</span>
-            <span class="tool-item">Test Specifications</span>
-            <span class="tool-item">Internal Wiki</span>
+            <span class="tool-item">Electrical Sub-team</span>
+            <span class="tool-item">Manufacturing Team</span>
+            <span class="tool-item">Cross-discipline Interface</span>
           </div>
         </div>
 
@@ -974,57 +953,63 @@
     ════════════════════════════════════════════════════════════════ */
     const SLIDES_INTERNSHIP = [
       {
+        src:      'fsae-team-phantom.jpg',
+        alt:      'Team Phantom Formula Student car',
+        caption:  'Team Phantom — SFU Formula Student electric vehicle.',
+        featured: true,
+      },
+      {
         src:      'team-phantom1.png',
-        alt:      'FOV Goniometer test setup',
-        caption:  'Goniometer test bench — Zaber rotary stage with camera DUT mounted.',
-        featured: false,    // ← set true on ONE image to span 2 columns
+        alt:      'SolidWorks CAD model',
+        caption:  'SolidWorks assembly — inverter mounting system design.',
+        featured: false,
       },
       {
         src:      'team-phantom2.png',
-        alt:      'Python RTSP pipeline running',
-        caption:  'Live RTSP pipeline during a sweep cycle — centroid tracking active.',
+        alt:      'CAD detail view',
+        caption:  'Chassis integration view — tube-and-gusset mounting structure.',
         featured: false,
       },
       {
         src:      'team-phantom3.png',
-        alt:      'Team photo',
-        caption:  'Avigilon DVE team — Motorola Solutions, Vancouver.',
+        alt:      'FEA simulation result',
+        caption:  'FEA static load analysis — validating factor of safety at chassis attachment points.',
         featured: false,
       },
       {
         src:      'team-phantom6.png',
-        alt:      'Test output report',
-        caption:  'Automated FOV report output — angle vs. pixel position data.',
+        alt:      'Sheet metal firewall CAD',
+        caption:  'Firewall panel CAD — flat-pattern extracted via SolidWorks Unbend feature.',
         featured: false,
       },
       {
         src:      'team-phantom7.png',
-        alt:      'FOV Goniometer test setup',
-        caption:  'Goniometer test bench — Zaber rotary stage with camera DUT mounted.',
+        alt:      'Fabrication drawing',
+        caption:  'Dimensioned fabrication drawing — issued for tube cuts and water jet plates.',
         featured: false,
       },
       {
         src:      'team-phantom88.jpg',
-        alt:      'Python RTSP pipeline running',
-        caption:  'Live RTSP pipeline during a sweep cycle — centroid tracking active.',
+        alt:      'Machine shop fabrication',
+        caption:  'Fabrication — tube cutting and part preparation in the SFU machine shop.',
         featured: false,
       },
       {
         src:      'team-phantom99.jpg',
-        alt:      'Team photo',
-        caption:  'Avigilon DVE team — Motorola Solutions, Vancouver.',
+        alt:      'Water jet cutting at BCIT',
+        caption:  'Water jet cutting operations at BCIT — mounting plate production.',
         featured: false,
       },
       {
         src:      'team-phantom100.jpg',
-        alt:      'Test output report',
-        caption:  'Automated FOV report output — angle vs. pixel position data.',
+        alt:      'Chassis assembly',
+        caption:  'Chassis weld-up — inverter mount welded to spaceframe.',
         featured: false,
       },
       {
         src:      'team-phantom12.jpg',
-        alt:      'Test output report',
-        caption:  'Automated FOV report output — angle vs. pixel position data.',
+        alt:      'Team Phantom build session',
+        caption:  'Team Phantom build session — SFU campus.',
         featured: false,
       },
     ];
