@@ -523,6 +523,49 @@
       .report-header-link { padding: 6px 10px; }
     }
 
+    /* ── Concise spec bullet lists ──────────────────────────── */
+    .spec-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      padding: 48px 0 56px;
+      border-bottom: 1px solid var(--border);
+    }
+    @media (max-width: 768px) { .spec-block { grid-template-columns: 1fr; gap: 32px; } }
+
+    .spec-col-label {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-transform: uppercase;
+      opacity: 0.8;
+      margin-bottom: 18px;
+    }
+
+    .spec-list {
+      list-style: none;
+      padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .spec-list li {
+      font-size: 0.91rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      padding-left: 20px;
+      position: relative;
+    }
+    .spec-list li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0.55em;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+    .spec-list li strong { color: var(--text-primary); font-weight: 600; }
+
     /* ── 3D viewer (unchanged) ─────────────────────────────────────────── */
     .viewer-section {
       padding: 64px 0;
@@ -593,7 +636,7 @@
           <div class="project-category-label">Robotics / Mechatronics</div>
           <h1 class="project-title">Precision PID<br>Ball Launcher</h1>
           <p class="project-summary">
-            Architected 100% of the mechanical design and closed-loop control system for an autonomous multi-ball sorting and launching platform — placing 1st out of 20 competing teams in MSE 312. Engineered a 30g SolidWorks-optimized truss arm and a modular MATLAB/Simulink PID architecture that enabled full trajectory calibration in under 90 minutes after a multi-day circuit failure was resolved on the morning of competition.
+            Architected 100% of the mechanical design and closed-loop control system for an autonomous multi-ball sorting and launching platform — <strong>1st place out of 20 teams, MSE 312</strong>. 30g FEA-optimized truss arm + modular MATLAB/Simulink PI architecture enabled full trajectory calibration in &lt;90 minutes after a multi-day circuit fault was resolved on competition morning.
           </p>
           <div class="project-tech-list">
             <span class="tag">MATLAB/Simulink</span>
@@ -640,24 +683,27 @@
   <div class="project-body">
     <div class="container">
 
-      <div class="project-body-grid">
+      <div class="spec-block">
         <div>
-          <div class="project-section-title">The Problem</div>
-          <p>
-            The MSE 312 competition required a fully autonomous mechatronic system to classify three projectile types by mass and material — cedar wood (2g, ø20mm), glass (5g, ø12mm), and fluffy yellow (1g, ø25mm) — and launch each to a type-specific target with scored accuracy. The cedar ball required placement into a 34mm center vessel at a fixed 1.4m range; the fluffy yellow ball demanded programmable distance targeting between 1.0–1.2m, set via MATLAB console moments before each throw.
-          </p>
-          <p>
-            The 4× mass spread across ball types meant a single fixed launch trajectory would systematically overshoot or undershoot under competition conditions — each type required independently calibrated angular positions. The system also had to execute six throws in random ball order, with a single manual load cycle and no human intervention thereafter.
-          </p>
+          <div class="spec-col-label">Mechanical Design</div>
+          <ul class="spec-list">
+            <li><strong>177.35mm truss arm</strong> — 30g; FEA-optimized triangular cutouts positioned to minimize rotational inertia (38,687 g·mm²); 0.63mm simulated deflection under 10N tip load</li>
+            <li><strong>Ball holder</strong> accepts all three projectile diameters up to ø27mm — cedar (ø20mm), glass (ø12mm), fluffy yellow (ø25mm)</li>
+            <li><strong>Bifilar pendulum test</strong> validated inertia estimate; measured oscillation period of 1.25s</li>
+            <li><strong>FEA vs. experiment discrepancy</strong> — 5N load yielded 4.5mm measured deflection vs. 0.63mm simulated; traced to compliance at the 3D-printed square-shaft attachment interface, not the truss structure itself</li>
+            <li><strong>Ball-sorting mechanism</strong> designed from scratch — sensors and actuators selected to autonomously classify all three projectile types prior to the throw sequence; six throws executed in random order with no human intervention</li>
+          </ul>
         </div>
         <div>
-          <div class="project-section-title">My Approach</div>
-          <p>
-            I owned 100% of the mechanical design, sensor/actuator selection, ball-sorting mechanism, and all MATLAB/Simulink controls architecture. Mechanically, I used SolidWorks FEA-driven optimization to converge on a 177.35mm truss arm — triangular cutouts were positioned to minimize rotational inertia (38,687 g·mm²) while holding simulated vertical deflection to 0.63mm under a worst-case 10N tip load. The ball-sorting mechanism was designed from scratch, selecting the sensors and actuators required to classify each projectile type prior to the throw sequence.
-          </p>
-          <p>
-            For controls, I implemented a closed-loop PI architecture in MATLAB/Simulink with motor encoder feedback, commanding a full H-bridge driver via Arduino PWM. The critical design decision was making the system modular: every launch trajectory was driven by a single angle parameter per ball type, with kinematic launch angle calculations used to seed the search space. This architecture proved decisive — when hardware became operational for the first time on competition morning, I could iterate rapidly to final values rather than tuning from scratch blind.
-          </p>
+          <div class="spec-col-label">Closed-Loop Controls &amp; Competition</div>
+          <ul class="spec-list">
+            <li><strong>PI control in MATLAB/Simulink</strong> — motor encoder feedback; H-bridge driver via Arduino PWM; P = 0.65, I = 0.35, D = 0; settles in 3–4 oscillations with ~30% overshoot</li>
+            <li><strong>D-term excluded</strong> — derivative gain introduced severe motor vibration from high-frequency PWM switching noise; lead compensator also tested and rejected for same reason</li>
+            <li><strong>Modular angle-per-ball architecture</strong> — each ball type controlled by a single angle parameter, seeded from kinematic launch angle calculations; designed specifically so calibration could be done rapidly from a known starting point</li>
+            <li><strong>Circuit fault root cause</strong> — multi-day failure traced to a faulty terminal block causing inconsistent power delivery to the motor driver; fix was to eliminate the terminal block and hard-wire the supply directly</li>
+            <li><strong>Competition morning</strong> — hardware operational for the first time ~90 min before competition; all launch trajectories for both ball types calibrated and locked before we went up</li>
+            <li><strong>Result: 1st / 20 teams</strong> — full score on cedar vessel placement and fluffy yellow distance targeting</li>
+          </ul>
         </div>
       </div>
 
@@ -698,26 +744,6 @@
       </div>
 
 
-      <div class="project-body-grid">
-        <div>
-          <div class="project-section-title">Technical Details</div>
-          <p>
-            The 177.35mm truss arm weighs 30g with a SolidWorks-calculated rotational inertia of 38,687 g·mm². FEA under a 10N vertical tip load produced 0.63mm deflection — experimental testing under 5N showed 4.5mm, with the discrepancy traced entirely to compliance at the 3D-printed square-shaft attachment interface, not the truss structure. The ball holder accommodates diameters up to 27mm to span all three projectile types. A bifilar pendulum test validated the inertia estimate, yielding a measured oscillation period of 1.25s.
-          </p>
-          <p>
-            The control loop uses PI gains of P = 0.65, I = 0.35 with D = 0. Derivative gain was deliberately excluded after it introduced severe motor vibration caused by high-frequency PWM switching noise; a lead compensator was also tested and rejected for the same reason. The final PI configuration settles in 3–4 oscillations with ~30% overshoot — sufficient for the competition's angular positioning demands. The motor driver (12V supply, 2.77A peak current) is thermally managed via a THM6073 heat sink. A complementary 10µF / 100nF capacitor network filters low- and high-frequency supply noise respectively.
-          </p>
-        </div>
-        <div>
-          <div class="project-section-title">Challenges &amp; Learnings</div>
-          <p>
-            In the final days before demonstration, the team had not yet achieved a single successful launch. I spent multiple consecutive nights on campus until 1–3AM debugging the circuit alongside teammates — running on a breadboard (not legal for competition) while the permanent board continued to fail without any code or wiring changes. The system was clearly unstable and sensitive to unknown root cause. After days of systematic fault isolation — verifying wiring integrity, monitoring supply voltage on an oscilloscope, confirming ground continuity — the fault was traced to a faulty terminal block causing inconsistent power delivery to the motor driver. The fix: eliminate the terminal block entirely and hard-wire the supply directly. This was confirmed working on the morning of demonstration.
-          </p>
-          <p>
-            With hardware operational for the first time, I had approximately 90 minutes before competition to calibrate all launch trajectories across both ball types. Because I had pre-computed kinematic launch angle estimates and built the Simulink architecture so that each ball type's throw was controlled by a single angle parameter, I could iterate from a seeded starting point rather than tuning blind. All angles were locked in before we went up. The supervising professor — who had allocated significant TA time to our circuit debugging in the days prior — was visibly stunned by the outcome. Placing 1st out of 20 teams after nearly not having anything to show is an engineering result I'm very proud of.
-          </p>
-        </div>
-      </div>
 
     </div>
   </div>
