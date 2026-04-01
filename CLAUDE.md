@@ -29,11 +29,11 @@ Personal portfolio website for Simr Virk, a Mechatronic Systems Engineering stud
 **Personal Goal**
 - To have a website to document everything about my engineering journey
 
-**Voice & Tone:** Professional tone, data-driven, yet still explains the technical details. Focus on the "Why" and "How" of engineering decisions rather than just listing features.
+**Voice & Tone:** Professional tone, data-driven, yet still explains the technical details. Focus on the "Why" and "How" of engineering decisions rather than just listing features. Keep it concise - use concise statements such that a recruiter can skim through the page and understand what they need to know. Please highlight the most technically impressive/important details of the projects - details that get the message across to a recruiter that this person understands what hes doing.
 
 ## Content & Editorial Standards (The "Elite Engineering" Filter)
 
-**Tone Goal:** Professional, high-density, and outcome-oriented. Avoid "blog-style" narratives (e.g., "I had a fun time building this...") in favor of "System Design" narratives (e.g., "Optimized 6-DOF kinematics for...").
+**Tone Goal:** Professional, technical, and outcome-oriented. Avoid "blog-style" narratives (e.g., "I had a fun time building this...") in favor of "System Design" narratives (e.g., "Optimized 6-DOF kinematics for..."). 
 
 **The "Tesla/Apple" Bar:**
 When I ask to "Review" or "Refine" my text, apply the following strict criteria:
