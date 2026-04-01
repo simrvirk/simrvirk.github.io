@@ -528,6 +528,33 @@
     .c-thumb.active { border-color: var(--accent); opacity: 1; transform: scale(1.05); }
     .c-thumb:hover:not(.active) { opacity: 0.8; border-color: rgba(0,229,255,.4); }
 
+    /* ── Concise bullet lists (overview + spotlight) ────────── */
+    .overview-list, .spotlight-list {
+      list-style: none;
+      padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 11px;
+    }
+    .overview-list li, .spotlight-list li {
+      font-size: 0.93rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      padding-left: 20px;
+      position: relative;
+    }
+    .overview-list li::before, .spotlight-list li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0.56em;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+    .overview-list li strong, .spotlight-list li strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
     /* ─────────────────────────────────────────────────────────────────
        RESPONSIVE
     ───────────────────────────────────────────────────────────────── */
@@ -617,11 +644,12 @@
             <span class="label-text">Overview</span>
           </div>
 
-          <div class="overview-body">
-            <p>Joined Team Phantom's Chassis team as a part-time mechanical designer in October 2024, contributing to SFU's Formula Student electric vehicle program. My scope covered two safety-critical structural systems: the high-voltage inverter mounting assembly and the driver-protection firewall suite — both governed by strict FSAE rulebook requirements and both requiring close collaboration across the electrical and manufacturing sub-teams.</p>
-            <p>The inverter mounting project began with an intensive systems research phase — interfacing directly with the electrical team to map connector geometry, liquid cooling line routing, and accumulator interconnect constraints before modelling began. Once the design envelope was established, I ran iterative FEA cycles in SolidWorks Simulation, refining the steel tube-and-gusset assembly until load path distribution and factor-of-safety targets were satisfied across all mounting faces. I produced dimensioned fabrication drawings for tube cuts, collaborated in the machine shop during part preparation, observed water jet cutting operations at BCIT for the mounting plates, and coordinated chassis weld-up with the manufacturing team. The final assembly was installed and structurally sound.</p>
-            <p>The firewall project demanded design-for-manufacturing within an extremely constrained packaging envelope. The firewalls isolate the driver from all tractive system components — accumulator, GVL box, high-voltage conductors, and liquid cooling loops. I modelled each sheet-metal panel in SolidWorks, applied the Unfold/Unbend feature to derive flat-pattern cut dimensions, and sized apertures to clear all inter-component pass-throughs. CAD was completed to manufacturing-ready state. The project was placed on hold when Team Phantom underwent organizational restructuring; I departed at that point, with the designs archived for the next build cycle.</p>
-          </div>
+          <ul class="overview-list">
+            <li>Part-time Chassis member, SFU Formula Student EV program — Oct 2024 to Feb 2025</li>
+            <li><strong>2 safety-critical systems</strong> designed: HV inverter mounting assembly (installed on chassis) and multi-panel driver firewall suite (manufacturing-ready CAD), both FSAE rulebook-compliant</li>
+            <li><strong>Inverter mount</strong> — mapped full interface envelope with electrical team (connector locations, coolant ports, accumulator cable geometry) before CAD; FEA-iterated steel tube-and-gusset structure; issued fab drawings; executed machine shop → BCIT water jet → chassis weld-up</li>
+            <li><strong>Firewall suite</strong> — modelled multi-panel sheet-metal assembly isolating driver from accumulator, GVL box, HV conductors, and cooling loops; SolidWorks Unfold/Unbend used to extract flat-pattern cut dims; apertures sized to all inter-component pass-throughs; archived at manufacturing-ready state</li>
+          </ul>
         </div>
 
         <!-- Right: quick-facts card -->
@@ -696,28 +724,28 @@
           <div class="contrib-icon"><i class="fas fa-bolt"></i></div>
           <div class="contrib-number">01 — Structural Design</div>
           <div class="contrib-title">Inverter Mounting Assembly</div>
-          <div class="contrib-desc">Designed the steel tube-and-gusset mounting system for the vehicle's high-voltage inverter. Iterated through multiple SolidWorks concepts, validating each with FEA to confirm load path distribution and factor-of-safety margins across all chassis attachment points. Final design met FSAE structural requirements and was welded to the chassis.</div>
+          <div class="contrib-desc">FEA-iterated steel tube-and-gusset mount for the vehicle's HV inverter. Multiple SolidWorks configurations validated against load path distribution and FSAE structural requirements — final design welded to chassis.</div>
         </div>
 
         <div class="contrib-card fade-up">
           <div class="contrib-icon"><i class="fas fa-shield-alt"></i></div>
           <div class="contrib-number">02 — Safety Systems</div>
           <div class="contrib-title">Driver Firewall Suite</div>
-          <div class="contrib-desc">Engineered a multi-panel sheet-metal firewall system to physically isolate the driver cell from all tractive system components — accumulator, GVL box, liquid cooling loops, and high-voltage conductors. Used SolidWorks Unfold/Unbend to extract flat-pattern dimensions for each panel, with apertures sized to all inter-component pass-throughs. Designs reached manufacturing-ready state.</div>
+          <div class="contrib-desc">Multi-panel sheet-metal system isolating driver from accumulator, GVL box, HV conductors, and cooling loops. SolidWorks Unfold/Unbend used to derive flat-pattern cut dims; all apertures sized to inter-component pass-throughs. Reached manufacturing-ready state.</div>
         </div>
 
         <div class="contrib-card fade-up">
           <div class="contrib-icon"><i class="fas fa-project-diagram"></i></div>
           <div class="contrib-number">03 — Cross-team Integration</div>
           <div class="contrib-title">Electrical & Chassis Systems Coordination</div>
-          <div class="contrib-desc">Collaborated directly with the inverter sub-team to define connector envelope, liquid cooling inlet/outlet geometry, and accumulator interface constraints before beginning mechanical design. This upstream systems research prevented downstream rework and ensured the mounting bracket accommodated all electrical service access requirements.</div>
+          <div class="contrib-desc">Mapped connector envelope, coolant port geometry, and accumulator interface constraints with the electrical sub-team before design began — upstream research that prevented downstream rework and ensured full service access clearance.</div>
         </div>
 
         <div class="contrib-card fade-up">
           <div class="contrib-icon"><i class="fas fa-tools"></i></div>
           <div class="contrib-number">04 — Manufacturing</div>
           <div class="contrib-title">Fabrication & Chassis Weld-up</div>
-          <div class="contrib-desc">Produced dimensioned fabrication drawings for all tube cuts and plate features. Worked hands-on in the SFU machine shop during part preparation and observed water jet cutting operations at BCIT for the mounting plates. Coordinated with the manufacturing team to execute chassis weld-up, resulting in a secure, zero-play installation.</div>
+          <div class="contrib-desc">Issued tube-cut and plate fabrication drawings; hands-on in SFU machine shop during part prep; observed BCIT water jet cutting for gusset plates; coordinated chassis weld-up. Result: secure, zero-play installation.</div>
         </div>
 
       </div>
@@ -739,13 +767,12 @@
 
         <!-- Left: full narrative -->
         <div class="spotlight-narrative">
-          <p><strong style="color: var(--text-primary);">The constraint:</strong> Mounting an EV inverter to a Formula Student chassis is not a bracket-and-bolt problem. The inverter is the highest-current component on the car — its position governs coolant routing, high-voltage cable bend radii, and structural load paths simultaneously. Getting it wrong downstream meant rework at the worst possible point in the build cycle.</p>
-
-          <p><strong style="color: var(--text-primary);">The research phase:</strong> Before any CAD was opened, I spent significant time with the inverter team mapping out the full interface envelope: which connectors attach where, which faces need clear access for service, where the coolant inlet and outlet ports sit relative to the existing cooling loop routing, and what the accumulator-to-inverter cable geometry demanded. The FSAE rulebook added a further layer of requirements around component enclosure and tractive system isolation. Only once those constraints were fully documented did design begin.</p>
-
-          <p><strong style="color: var(--text-primary);">The design process:</strong> The mounting system is a steel tube-and-gusset structure welded to the spaceframe. I iterated through multiple configurations — each time modelling the assembly in SolidWorks, running a static FEA to check load distribution across the four chassis attachment points, and refining geometry to resolve stress concentrations and reduce mass where the simulation showed margin to spare. The goal was a design that was both structurally compliant and manufacturable by the team's existing welding capabilities.</p>
-
-          <p><strong style="color: var(--text-primary);">The outcome:</strong> Fabrication drawings were issued for tube cuts and plate features. I worked through the cuts in the SFU machine shop, observed water jet cutting of the gusset plates at BCIT, and coordinated chassis weld-up with the manufacturing team. The inverter mount was installed onto the vehicle — secure, with no play at any attachment point.</p>
+          <ul class="spotlight-list">
+            <li><strong>Why it's complex:</strong> The inverter is the highest-current component on the car — its mounting position simultaneously governs coolant routing, HV cable bend radii, and structural load paths; a wrong decision cascades into rework across multiple sub-systems</li>
+            <li><strong>Interface research first:</strong> Mapped connector locations, coolant inlet/outlet port geometry, service access faces, and accumulator cable routing with the electrical team before opening SolidWorks; FSAE tractive system isolation requirements layered on top</li>
+            <li><strong>Iterative FEA design:</strong> Steel tube-and-gusset structure welded to spaceframe; each configuration validated with static FEA across 4 chassis attachment points; geometry refined to resolve stress concentrations and trim mass where simulation showed margin</li>
+            <li><strong>Fabrication execution:</strong> Issued dimensioned drawings → tube cuts in SFU machine shop → BCIT water jet for gusset plates → coordinated chassis weld-up; installed with zero play at all attachment points</li>
+          </ul>
         </div>
 
         <!-- Right: results card -->
