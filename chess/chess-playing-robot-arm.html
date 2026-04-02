@@ -369,16 +369,16 @@
           <div class="project-category-label">Robotics / Mechatronics</div>
           <h1 class="project-title">Vision Guided 5-DOF<br>Chess Playing Robot Arm</h1>
           <p class="project-summary">
-            Write a concise 2–3 sentence summary of the project here.
-            Explain what you built, what problem it solved, and the key
-            technical achievement that makes this project noteworthy.
+            Engineered a 5-DOF computer-vision-guided robotic arm capable of playing adaptive Over-The-Board chess against a human opponent. A centralized Python Brain integrates an OpenCV board-state detection pipeline with the Stockfish engine — dynamically targeting the 1,650–2,000 ELO range. The core technical achievement is a custom Inverse Kinematics engine built on Homogeneous Transformation Matrices that translates AI move outputs into precise, multi-axis servo and stepper commands.
           </p>
           <div class="project-tech-list">
             <span class="tag">Python</span>
-            <span class="tag">ROS</span>
-            <span class="tag">SolidWorks</span>
             <span class="tag">OpenCV</span>
-            <span class="tag">Arduino</span>
+            <span class="tag">Stockfish</span>
+            <span class="tag">Arduino / C++</span>
+            <span class="tag">Inverse Kinematics</span>
+            <span class="tag">I2C / PWM</span>
+            <span class="tag">SolidWorks</span>
           </div>
         </div>
         <div class="project-meta-card">
@@ -412,29 +412,27 @@
   <div class="project-body">
     <div class="container">
 
-      <div class="project-body-grid">
+      <div class="spec-block">
         <div>
-          <div class="project-section-title">The Problem</div>
-          <p>
-            Describe the problem or engineering challenge this project was
-            designed to solve. Be specific — mention constraints, requirements,
-            or real-world needs that drove the design decisions.
-          </p>
-          <p>
-            Add a second paragraph with more context if needed.
-            What made this problem particularly interesting or difficult?
-          </p>
+          <div class="spec-col-label">System Architecture &amp; Software</div>
+          <ul class="spec-list">
+            <li><strong>Python Brain</strong> — centralized architecture handles OpenCV detection, Stockfish queries, and IK math (NumPy/SciPy) locally, then streams optimized coordinate strings over USB Serial to Arduino; eliminates MATLAB/Python split latency</li>
+            <li><strong>Inverse Kinematics engine</strong> — solved 5-DOF kinematic redundancy by imposing a strict vertical end-effector constraint (gripper always perpendicular to table), reducing the matrix system to a determinate solution and guaranteeing flat piece pick/place without dragging</li>
+            <li><strong>Forward Kinematics skeleton</strong> — Homogeneous Transformation Matrices calibrated to physical axes of rotation; explicitly accounts for 12.85 mm horizontal planar offsets between the bicep and forearm links introduced by the S-curve arm geometry</li>
+            <li><strong>OpenCV vision pipeline</strong> — overhead camera detects board state each turn, maps piece positions to algebraic notation, and passes the result as Stockfish query input</li>
+            <li><strong>Adaptive ELO targeting</strong> — Stockfish engine strength dialed to 1,650–2,000 range; user selects target rating and piece color via onboard joystick UI before each game</li>
+          </ul>
         </div>
         <div>
-          <div class="project-section-title">My Approach</div>
-          <p>
-            Explain the approach you took to solve the problem. What design
-            decisions did you make and why? What alternatives did you consider?
-          </p>
-          <p>
-            Highlight your unique contribution — what was creative, novel, or
-            technically challenging about your solution?
-          </p>
+          <div class="spec-col-label">Hardware &amp; Electromechanics</div>
+          <ul class="spec-list">
+            <li><strong>Base drive</strong> — NEMA 17 stepper + A4988 driver module on custom expansion board; 12:1 3D-printed gear reduction combined with 1/16th microstepping yields 38,400 micro-steps/rev → sub-millimeter panning accuracy under full arm load</li>
+            <li><strong>Upper linkages</strong> — Shoulder, Elbow, Wrist, and Gripper driven by MG996R/SG90 PWM servos via PCA9685 16-channel I2C servo driver on Arduino Mega</li>
+            <li><strong>Servo motion smoothing</strong> — custom C++ pulse-width sweep with injected microsecond delays across interpolated steps; bypasses violent default RC servo dynamics to produce smooth, industrial-grade gliding motion</li>
+            <li><strong>Stepper resonance resolution</strong> — severe inertia-driven resonance and stalling under fully-assembled arm load resolved by enabling 1/16th microstepping (DIP switches) and scaling firmware to 3,200 steps/rev; eliminated vibration entirely</li>
+            <li><strong>Thermal &amp; deadband management</strong> — PWM signal actively detached during idle to prevent thermal buildup; software limits backed off by 5 pulse-widths to prevent deadband fighting against hard 3D-printed end stops</li>
+            <li><strong>Closed-loop UI</strong> — 16×2 LCD, analog joystick (ELO/color selection), and base potentiometer for absolute homing reference feedback</li>
+          </ul>
         </div>
       </div>
 
@@ -475,33 +473,6 @@
       </div>
 
 
-      <div class="project-body-grid">
-        <div>
-          <div class="project-section-title">Technical Details</div>
-          <p>
-            Describe the technical details of your implementation here.
-            What hardware did you use? What software architecture did you design?
-            What algorithms or calculations were central to the system?
-          </p>
-          <p>
-            Engineers and recruiters will read this section closely.
-            Use precise language — component specs, tolerances,
-            communication protocols, control loops, etc.
-          </p>
-        </div>
-        <div>
-          <div class="project-section-title">Challenges &amp; Learnings</div>
-          <p>
-            Describe the most significant technical challenge you encountered
-            and how you resolved it. Be honest — challenges show real
-            engineering experience.
-          </p>
-          <p>
-            What would you do differently if you started over?
-            What skills or knowledge did this project give you?
-          </p>
-        </div>
-      </div>
 
     </div>
   </div>
@@ -535,7 +506,7 @@
       </div>
       <div class="viewer-caption">
         <i class="fas fa-drafting-compass" style="color:var(--accent); margin-right:6px;"></i>
-        SolidWorks Assembly — [describe your model here, e.g. "47 components · 6 DOF · exported as STEP"]
+        SolidWorks Assembly — 5-DOF robotic arm · S-curve linkage geometry · full servo &amp; gripper integration · exported as STEP
       </div>
     </div>
   </div>
@@ -545,16 +516,16 @@
       <div class="project-section-title" style="margin-bottom: 20px;">Outcomes</div>
       <div class="outcomes-grid">
         <div class="outcome-card">
-          <div class="outcome-number">XX%</div>
-          <div class="outcome-label">Metric or Achievement #1</div>
+          <div class="outcome-number">1650–2000</div>
+          <div class="outcome-label">ELO Range Dynamically Simulated Over Physical Board</div>
         </div>
         <div class="outcome-card">
-          <div class="outcome-number">XX</div>
-          <div class="outcome-label">Metric or Achievement #2</div>
+          <div class="outcome-number">38,400</div>
+          <div class="outcome-label">Micro-steps/Rev — 12:1 Gear Reduction + 1/16th Microstepping</div>
         </div>
         <div class="outcome-card">
-          <div class="outcome-number">A+</div>
-          <div class="outcome-label">Grade Received / Recognition</div>
+          <div class="outcome-number">5-DOF</div>
+          <div class="outcome-label">Latency-Free Pipeline: OpenCV → Stockfish → IK Math → PWM Actuation</div>
         </div>
       </div>
     </div>
