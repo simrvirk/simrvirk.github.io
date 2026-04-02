@@ -299,6 +299,49 @@
       #c-caption { font-size: 0.75rem; }
     }
 
+    /* ── Spec block (two-column bullet layout) ────────────────────────── */
+    .spec-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      padding: 48px 0 56px;
+      border-bottom: 1px solid var(--border);
+    }
+    @media (max-width: 768px) { .spec-block { grid-template-columns: 1fr; gap: 32px; } }
+
+    .spec-col-label {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-transform: uppercase;
+      opacity: 0.8;
+      margin-bottom: 18px;
+    }
+
+    .spec-list {
+      list-style: none;
+      padding: 0; margin: 0;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .spec-list li {
+      font-size: 0.91rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      padding-left: 20px;
+      position: relative;
+    }
+    .spec-list li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0.55em;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+    .spec-list li strong { color: var(--text-primary); font-weight: 600; }
+
     /* ── 3D viewer (unchanged) ─────────────────────────────────────────── */
     .viewer-section {
       padding: 64px 0;
