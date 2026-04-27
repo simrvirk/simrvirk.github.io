@@ -350,6 +350,61 @@
       opacity: 0.5;
     }
     .spec-list li strong { color: var(--text-primary); font-weight: 600; }
+
+    /* ── At a Glance sidebar ───────────────────────────────────────────── */
+    .overview-section { padding: 64px 0 0; }
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 56px;
+      align-items: start;
+    }
+    @media (max-width: 768px) { .overview-grid { grid-template-columns: 1fr; gap: 32px; } }
+    .overview-body {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.9;
+    }
+    .overview-body p { margin-bottom: 1.1em; }
+    .overview-body p:last-child { margin-bottom: 0; }
+    .overview-facts-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      position: sticky;
+      top: 88px;
+    }
+    .facts-card-title {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+    .fact-row {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .fact-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .fact-row:first-of-type { padding-top: 0; }
+    .fact-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    .fact-value {
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
   </style>
 </head>
 <body class="project-page">
@@ -366,7 +421,7 @@
           <div class="project-category-label">Mechanical Design / CAD</div>
           <h1 class="project-title">V12 Combustion<br>Engine CAD</h1>
           <p class="project-summary">
-            50+ component fully kinematic V12 combustion engine modeled in SolidWorks — complete with working motion study. Built as a deliberate self-directed exercise that became the foundation of my professional SolidWorks proficiency and contributed directly to earning CSWP certification.
+            50+ component fully kinematic V12 combustion engine modeled in SolidWorks, complete with working motion study. The CAD foundation built here led directly to CSWP certification and was carried forward into fixture design at Motorola Solutions and structural design at SFU Team Phantom.
           </p>
           <div class="project-tech-list">
             <span class="tag">SolidWorks</span>
@@ -446,16 +501,52 @@
       <div class="project-section-title" style="margin-bottom: 20px; margin-top: 64px;">Outcomes</div>
       <div class="outcomes-grid">
         <div class="outcome-card">
-          <div class="outcome-number">50+</div>
-          <div class="outcome-label">Fully Mated Components — Zero Suppressed Conflicts</div>
-        </div>
-        <div class="outcome-card">
-          <div class="outcome-number">100%</div>
-          <div class="outcome-label">Kinematically Accurate — Motion Study Validates Full Engine Cycle</div>
-        </div>
-        <div class="outcome-card">
           <div class="outcome-number">CSWP</div>
-          <div class="outcome-label">Certified SolidWorks Professional — Skills Built on This Project</div>
+          <div class="outcome-label">Foundational Project — SolidWorks Proficiency Built Here Led Directly to Certification</div>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-number">2 Roles</div>
+          <div class="outcome-label">Direct Application — Workflows Transferred to Motorola Solutions and SFU Team Phantom</div>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-number">50+</div>
+          <div class="outcome-label">Fully Constrained Components — Pistons, Crankshaft, Camshafts &amp; Valve Train Across 12 Cylinders</div>
+        </div>
+      </div>
+
+      <div class="overview-section">
+        <div class="overview-grid">
+          <div class="overview-body">
+            <p>A self-directed deep-dive into SolidWorks at the assembly level — 50+ individually modeled components constrained into a fully functional kinematic chain. The goal was never a showpiece; it was to deliberately encounter and resolve the hard problems: mate conflicts at scale, crankshaft throw geometry, design intent that survives a rebuild, and configuration management across cylinder instances.</p>
+            <p>The skills built here transferred directly. The mate-debugging instinct developed across 12 cylinders is the same instinct used in the Team Phantom inverter mount assembly. The fabrication drawing workflow practiced here was the baseline for Motorola Solutions PDM production drawings. The CSWP certification followed because the exam tests exactly what this project forced.</p>
+          </div>
+          <div class="overview-facts-card">
+            <div class="facts-card-title">At a Glance</div>
+            <div class="fact-row">
+              <span class="fact-label">Project Type</span>
+              <span class="fact-value">Personal Project</span>
+            </div>
+            <div class="fact-row">
+              <span class="fact-label">Timeline</span>
+              <span class="fact-value">May – Aug 2024</span>
+            </div>
+            <div class="fact-row">
+              <span class="fact-label">CAD Tool</span>
+              <span class="fact-value">SolidWorks</span>
+            </div>
+            <div class="fact-row">
+              <span class="fact-label">Scope</span>
+              <span class="fact-value">50+ fully constrained components</span>
+            </div>
+            <div class="fact-row">
+              <span class="fact-label">Certification Earned</span>
+              <span class="fact-value">CSWP</span>
+            </div>
+            <div class="fact-row">
+              <span class="fact-label">Applied At</span>
+              <span class="fact-value">Motorola Solutions · SFU Team Phantom</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -482,7 +573,27 @@
         </div>
       </div>
 
-
+      <div class="spec-block" style="border-top: 1px solid var(--border);">
+        <div>
+          <div class="spec-col-label">SolidWorks Techniques Mastered</div>
+          <ul class="spec-list">
+            <li><strong>Lofted cuts</strong> for crankshaft throw geometry; revolved boss/base for journals, pin bores, and piston crowns; swept features along 3D spline paths for manifold geometry</li>
+            <li><strong>Design intent modeling</strong> — features built with explicit sketch intent (relations, reference geometry) rather than hard dimensions; rebuilds survive constraint edits without cascading failures</li>
+            <li><strong>Configuration management</strong> — view configurations used for exploded assembly and sub-assembly isolation; design tables drove parametric control of bore and stroke across cylinder instances</li>
+            <li><strong>Reference geometry</strong> — axes and offset planes used as driving references rather than model edges; geometry changes propagate without breaking downstream mates</li>
+            <li><strong>Mate debugging at scale</strong> — each crankshaft throw simultaneously constrains two connecting rods; resolving cascading overdefined states across 12 cylinders built the diagnostic instinct applied in every subsequent assembly</li>
+          </ul>
+        </div>
+        <div>
+          <div class="spec-col-label">What This Built — Direct Application</div>
+          <ul class="spec-list">
+            <li><strong>CSWP certification</strong> — the exam's assembly segment tests mate-conflict resolution and configuration management at depth; this project was the specific preparation that made those sections straightforward</li>
+            <li><strong>Motorola Solutions</strong> — fixture assembly modeling, fabrication drawings with GD&T-compliant tolerancing, BOM documentation in SolidWorks PDM; all workflows practiced on this project before being applied professionally</li>
+            <li><strong>SFU Team Phantom</strong> — inverter mount FEA in SolidWorks Simulation, sheet metal Unfold/Unbend for firewall flat patterns, multi-body assembly for chassis clearance verification; the V12 established the assembly baseline</li>
+            <li><strong>The gap closed</strong> — university coursework teaches SolidWorks features; this project built the problem-solving instinct for when an assembly resists. That distinction is what separates a proficient CAD user from an engineer who designs in CAD</li>
+          </ul>
+        </div>
+      </div>
 
     </div>
   </div>
@@ -510,7 +621,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© 2025 Simr Virk</span>
+        <span>© 2026 Simr Virk</span>
       </div>
     </div>
   </footer>
