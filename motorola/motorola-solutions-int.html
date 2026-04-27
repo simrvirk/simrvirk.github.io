@@ -536,12 +536,71 @@
     .c-thumb:hover:not(.active) { opacity: 0.8; border-color: rgba(54, 148, 237,.4); }
 
     /* ─────────────────────────────────────────────────────────────────
+       ROLE SECTIONS — MDE / DVE split layout
+    ───────────────────────────────────────────────────────────────── */
+    .role-section { padding: 80px 0; border-bottom: 1px solid var(--border); }
+    .role-section-intro {
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 64px;
+      align-items: start;
+      margin-bottom: 64px;
+      padding-bottom: 48px;
+      border-bottom: 1px solid var(--border);
+    }
+    .role-badge {
+      display: inline-flex;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-transform: uppercase;
+      background: rgba(54,148,237,0.08);
+      border: 1px solid var(--accent-border);
+      padding: 4px 14px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+    .role-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      letter-spacing: 2px;
+      color: var(--text-primary);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .role-dates {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+      margin-bottom: 24px;
+    }
+    .role-body { font-size: 1rem; color: var(--text-secondary); line-height: 1.95; }
+    .role-body p { margin-bottom: 1.2em; }
+    .role-body p:last-child { margin-bottom: 0; }
+    .role-facts-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      position: sticky;
+      top: 88px;
+    }
+    .role-contribs { margin-bottom: 64px; }
+    .role-contribs-label { margin-bottom: 12px; }
+    .role-spotlight { padding-top: 48px; border-top: 1px solid var(--border); }
+
+    /* ─────────────────────────────────────────────────────────────────
        RESPONSIVE
     ───────────────────────────────────────────────────────────────── */
     @media (max-width: 1024px) {
       .overview-grid { grid-template-columns: 1fr; gap: 40px; }
       .overview-facts-card { position: static; }
       .spotlight-cols { grid-template-columns: 1fr; gap: 36px; }
+      .role-section-intro { grid-template-columns: 1fr; gap: 40px; }
+      .role-facts-card { position: static; }
     }
     @media (max-width: 768px) {
       .internship-header-grid { grid-template-columns: 1fr; gap: 24px; }
@@ -580,14 +639,14 @@
 
       <div class="internship-header-grid">
         <div>
-          <h1 class="internship-role">Design Validation<br>Engineering Intern</h1>
+          <h1 class="internship-role">Mechanical Design<br>Engineering Intern</h1>
           <div class="internship-company">Motorola Solutions · Avigilon Division · Vancouver, BC</div>
 
           <div style="margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--border);">
             <div style="margin-bottom: 10px;">
-              <span style="font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 2px; color: var(--text-muted); text-transform: uppercase;">May – Dec 2026</span>
+              <span style="font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 2px; color: var(--text-muted); text-transform: uppercase;">Sep 2025 – Apr 2026</span>
             </div>
-            <div class="internship-role" style="font-size: clamp(1.8rem, 3.5vw, 3rem);">Mechanical Design<br>Engineering Intern</div>
+            <div class="internship-role" style="font-size: clamp(1.8rem, 3.5vw, 3rem);">Design Validation<br>Engineering Intern</div>
             <div class="internship-company">Motorola Solutions · Avigilon Division · Vancouver, BC</div>
           </div>
         </div>
@@ -623,43 +682,143 @@
     </div>
   </header>
 
-  <!-- ══════════════════════════════ OVERVIEW ══════════════════════════════ -->
-  <section class="internship-overview">
+  <!-- ══════════════════════════════ MDE ROLE SECTION ══════════════════════ -->
+  <section class="role-section">
     <div class="container">
-      <div class="overview-grid">
 
-        <!-- Left: narrative -->
+      <!-- Role intro: 2-col grid -->
+      <div class="role-section-intro">
         <div>
-          <div class="section-label overview-label">
-            <span class="label-line"></span>
-            <span class="label-text">Overview</span>
-          </div>
-
-          <!-- Overview narrative -->
-          <div class="overview-body">
-            <p>Embedded within Motorola Solutions Avigilon's Design Validation Team (DVT) in Vancouver for two consecutive co-op terms (Sep 2025 – Apr 2026) — the team that gatekeeps every camera product before mass production.</p>
-
-            <p>Term 1 covered the full DVT loop: environmental and thermal stress testing, optical/image quality evaluation, hardware functionality assessments, and failure investigation with RCA across multiple camera lines. Term 2 was a self-directed flagship project: conceived, designed, and deployed a fully automated FOV Goniometer system, replacing the lab's manual trigonometry-based measurement method. Achieved ±0.5° accuracy versus the $40K+ Trioptics ImageMaster optical bench and 85% reduction in test cycle time — exceeding the 50% target. Now permanent lab infrastructure, operable with zero optical training required.</p>
-
-            <p>Term 3 (May – Dec 2026) transitioned into a Mechanical Design Engineering role within Avigilon — owning end-to-end design and prototyping of 5+ test fixtures for security camera systems; producing production-quality fabrication drawings in SolidWorks PDM; and leading IP/IK optical-mechanical test projects that identified a design improvement increasing passed test units by 30%.</p>
+          <div class="role-badge">Term 3 · May – Dec 2026</div>
+          <div class="role-title">Mechanical Design<br>Engineering Intern</div>
+          <div class="role-dates">Motorola Solutions · Avigilon · Vancouver, BC</div>
+          <div class="role-body">
+            <p>After two terms on the Design Validation Team, Avigilon brought me back for an 8-month extension in a Mechanical Design Engineering role — owning end-to-end design and prototyping of test fixtures for security camera systems, producing production-quality fabrication drawings in SolidWorks PDM, and leading IP/IK optical-mechanical test projects that identified a design improvement increasing passed test units by 30%.</p>
           </div>
         </div>
 
-        <!-- Right: quick-facts card -->
-        <div class="overview-facts-card">
+        <div class="role-facts-card">
           <div class="facts-card-title">At a Glance</div>
-
           <div class="fact-row">
-            <span class="fact-label">Company</span>
-            <span class="fact-value">Motorola Solutions Inc.</span>
-          </div>
-          <div class="fact-row">
-            <span class="fact-label">Division</span>
-            <span class="fact-value">Avigilon — Video Security &amp; Analytics</span>
+            <span class="fact-label">Term</span>
+            <span class="fact-value">Term 3 · May – Dec 2026</span>
           </div>
           <div class="fact-row">
             <span class="fact-label">Duration</span>
-            <span class="fact-value">16 months · Sep 2025 – Dec 2026 (3 terms)</span>
+            <span class="fact-value">8 months</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-label">Scope</span>
+            <span class="fact-value">Fixture design &amp; prototyping · SolidWorks PDM · IP/IK test systems</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-label">Key Result</span>
+            <span class="fact-value">30% increase in passed test units via design improvement</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-label">Fixtures Delivered</span>
+            <span class="fact-value">5+ end-to-end</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contribution cards -->
+      <div class="role-contribs">
+        <div class="section-label role-contribs-label">
+          <span class="label-line"></span>
+          <span class="label-text">What I Built</span>
+        </div>
+        <h2 class="section-title" style="margin-bottom: 48px;">Key Contributions</h2>
+
+        <div class="contrib-grid">
+
+          <div class="contrib-card fade-up">
+            <div class="contrib-icon"><i class="fas fa-drafting-compass"></i></div>
+            <div class="contrib-number">01 — Fixture Engineering</div>
+            <div class="contrib-title">Test Fixture Design &amp; Prototyping — 5+ Systems</div>
+            <div class="contrib-desc">Owned end-to-end development of 5+ test fixtures for security camera validation — concept design, component sourcing, SolidWorks modeling, fabrication, full assembly, and functional verification. Each fixture engineered to production-quality standards and validated through systematic testing before integration into DVT and manufacturing workflows.</div>
+          </div>
+
+          <div class="contrib-card fade-up">
+            <div class="contrib-icon"><i class="fas fa-file-lines"></i></div>
+            <div class="contrib-number">02 — CAD &amp; Documentation</div>
+            <div class="contrib-title">SolidWorks PDM &amp; Production Fabrication Drawings</div>
+            <div class="contrib-desc">Utilized SolidWorks PDM to manage part and assembly models across the full product lifecycle — version control, revision management, and design-intent preservation. Created production-quality fabrication drawings for new and existing components: GD&amp;T-compliant tolerancing, full BOM documentation, and manufacturing notes to Avigilon's internal standards.</div>
+          </div>
+
+          <div class="contrib-card fade-up">
+            <div class="contrib-icon"><i class="fas fa-shield-halved"></i></div>
+            <div class="contrib-number">03 — Optical-Mechanical Testing</div>
+            <div class="contrib-title">IP/IK Test System Design — 30% Pass Rate Improvement</div>
+            <div class="contrib-desc">Spearheaded design, construction, and execution of testing projects for optical-mechanical systems under IP ingress protection and IK impact standards. Identified a design improvement that increased the rate of passed test units by 30%. Led cross-functional meetings to drive alignment between engineering, manufacturing, and test teams.</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- MDE Spotlight -->
+      <div class="role-spotlight">
+        <div class="section-label spotlight-label">
+          <span class="label-line"></span>
+          <span class="label-text">Deep Dive — Term 3</span>
+        </div>
+        <h2 class="spotlight-headline">Mechanical Design<br><span>Engineering Intern</span></h2>
+
+        <div class="spotlight-cols">
+          <div class="spotlight-narrative">
+            <p><strong style="color: var(--text-primary);">Fixture design &amp; prototyping.</strong> Owned the complete development cycle for 5+ test fixtures — from requirements capture and concept design through SolidWorks modeling, component sourcing, fabrication, and assembly. Fixtures were purpose-built for security camera system validation, engineered to production-quality standards, and verified through rigorous functional testing before handoff to DVT and manufacturing teams.</p>
+
+            <p><strong style="color: var(--text-primary);">SolidWorks PDM &amp; fabrication drawings.</strong> Worked within SolidWorks PDM to manage part and assembly models across the product lifecycle — maintaining version control, revision history, and design intent across multiple concurrent fixture projects. Produced production-quality fabrication drawings for both new and existing components: GD&amp;T-compliant tolerancing schemes, complete BOM documentation, and manufacturing notes formatted to Avigilon's internal drawing standards.</p>
+
+            <p><strong style="color: var(--text-primary);">IP/IK optical-mechanical test systems.</strong> Spearheaded design, construction, and execution of test projects targeting IP ingress protection and IK impact resistance on optical-mechanical camera systems. A design improvement identified during this work increased the rate of units passing the test specification by 30% — a direct reduction in costly re-test cycles and field returns. Led regular cross-functional meetings to keep engineering, manufacturing, and test stakeholders aligned on test scope, schedule, and findings.</p>
+          </div>
+
+          <div class="results-card">
+            <div class="results-card-title">Scope &amp; Impact</div>
+            <div class="result-stat">
+              <div class="result-number">5+</div>
+              <div class="result-label">Test fixtures designed and prototyped end-to-end</div>
+            </div>
+            <div class="result-stat">
+              <div class="result-number">30%</div>
+              <div class="result-label">Increase in passed test units — design improvement identified during IP/IK test execution</div>
+            </div>
+            <div class="result-stat">
+              <div class="result-number">8 mo</div>
+              <div class="result-label">May – Dec 2026 · Mechanical Design Engineering Intern</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════ DVE ROLE SECTION ══════════════════════ -->
+  <section class="role-section">
+    <div class="container">
+
+      <!-- Role intro -->
+      <div class="role-section-intro">
+        <div>
+          <div class="role-badge">Terms 1 &amp; 2 · Sep 2025 – Apr 2026</div>
+          <div class="role-title">Design Validation<br>Engineering Intern</div>
+          <div class="role-dates">Motorola Solutions · Avigilon · Vancouver, BC</div>
+          <div class="role-body">
+            <p>Embedded within Motorola Solutions Avigilon's Design Validation Team (DVT) in Vancouver for two consecutive co-op terms — the team that gatekeeps every camera product before mass production.</p>
+            <p>Term 1 covered the full DVT loop: environmental and thermal stress testing, optical/image quality evaluation, hardware functionality assessments, and failure investigation with RCA across multiple camera lines. Term 2 was a self-directed flagship project: conceived, designed, and deployed a fully automated FOV Goniometer system — achieving ±0.5° accuracy versus the $40K+ Trioptics ImageMaster optical bench and 85% reduction in test cycle time. Now permanent lab infrastructure, operable with zero optical training required.</p>
+          </div>
+        </div>
+
+        <div class="role-facts-card">
+          <div class="facts-card-title">At a Glance</div>
+          <div class="fact-row">
+            <span class="fact-label">Terms</span>
+            <span class="fact-value">Terms 1 &amp; 2 · Sep 2025 – Apr 2026</span>
+          </div>
+          <div class="fact-row">
+            <span class="fact-label">Duration</span>
+            <span class="fact-value">8 months (2 × 4-month co-op)</span>
           </div>
           <div class="fact-row">
             <span class="fact-label">Term 1 Scope</span>
@@ -670,253 +829,173 @@
             <span class="fact-value">Automated FOV Goniometer — end-to-end design &amp; deployment</span>
           </div>
           <div class="fact-row">
-            <span class="fact-label">Term 3 Scope</span>
-            <span class="fact-value">Fixture design &amp; prototyping · SolidWorks PDM · IP/IK test systems</span>
+            <span class="fact-label">Key Result</span>
+            <span class="fact-value">±0.5° accuracy · 85% cycle time reduction</span>
           </div>
           <div class="fact-row">
             <span class="fact-label">Core Stack</span>
-            <span class="fact-value">Python · OpenCV · C/C++ · SolidWorks PDM · Zaber API</span>
+            <span class="fact-value">Python · OpenCV · Zaber API · C/C++</span>
           </div>
         </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════ KEY CONTRIBUTIONS ══════════════════════ -->
-  <section class="contributions-section">
-    <div class="container">
-
-      <div class="section-label" style="margin-bottom: 12px;">
-        <span class="label-line"></span>
-        <span class="label-text">What I Built</span>
-      </div>
-      <h2 class="section-title">Key Contributions</h2>
-
-      <div class="contrib-grid">
-
-        <!-- TERM 2 — DETAILED (Report #2, fully public) -->
-
-        <div class="contrib-card fade-up">
-          <div class="contrib-icon"><i class="fas fa-crosshairs"></i></div>
-          <div class="contrib-number">01 — Flagship · Term 2</div>
-          <div class="contrib-title">Automated FOV Goniometer System</div>
-          <div class="contrib-desc">Replaced the DVT's manual flat-wall trigonometry FOV method with a fully automated system. A Zaber motorized rotary stage sweeps a green laser line while a Python/OpenCV pipeline monitors the DUT's live RTSP stream — FOV is measured directly via the motor's rotary encoder, making physical standoff distance irrelevant and eliminating the dominant error source. Achieved ±0.5° accuracy versus the Trioptics ImageMaster ($40K+ instrument) with 85% reduction in test cycle time.</div>
-        </div>
-
-        <div class="contrib-card fade-up">
-          <div class="contrib-icon"><i class="fas fa-eye"></i></div>
-          <div class="contrib-number">02 — Computer Vision · Term 2</div>
-          <div class="contrib-title">RTSP Pipeline &amp; Single-Channel Thresholding</div>
-          <div class="contrib-desc">Built a real-time Python/OpenCV pipeline ingesting live RTSP streams from cameras under test. Initial RGB-channel processing failed at wide-angle edges — chromatic aberration caused color fringing that corrupted laser boundary detection. Resolved by extracting only the raw green grayscale channel with strict binary thresholding, yielding sharper, faster, aberration-immune edge detection.</div>
-        </div>
-
-        <div class="contrib-card fade-up">
-          <div class="contrib-icon"><i class="fas fa-microchip"></i></div>
-          <div class="contrib-number">03 — Architecture · Term 2</div>
-          <div class="contrib-title">Discrete Step Engine (DSE)</div>
-          <div class="contrib-desc">Continuous velocity sweep commands caused asynchronous TCP buffer collisions from Zaber network latency, dropping the motor controller mid-sweep and corrupting angular readings. Replaced with the Discrete Step Engine: motor advances in fixed 0.05° increments, comes to a full stop, flushes the TCP buffer, then evaluates the current frame — guaranteeing every encoder position is synchronized to its corresponding video frame with no interpolation.</div>
-        </div>
-
-        <div class="contrib-card fade-up">
-          <div class="contrib-icon"><i class="fas fa-ruler-combined"></i></div>
-          <div class="contrib-number">04 — Optical Metrology · Term 2</div>
-          <div class="contrib-title">Advanced Error Correction Suite</div>
-          <div class="contrib-desc">Identified and corrected three independent systematic error sources before the ±0.5° target was achievable. <strong style="color:var(--text-primary)">Finite beam width:</strong> inflated raw FOV readings — resolved via automated pre-sweep calibration that dynamically profiles and subtracts beam angular width per session. <strong style="color:var(--text-primary)">Focus breathing:</strong> autofocus hunting in darkness caused frame-to-frame focal length drift — resolved with controlled ambient lighting and high-contrast reference targets. <strong style="color:var(--text-primary)">Entrance pupil parallax:</strong> rotating about the front lens instead of the nodal point introduced up to 2.2° geometric error — root cause identified; macro rail calibration procedure proposed for future elimination.</div>
-        </div>
-
-        <!-- TERM 1 — HIGH LEVEL ONLY (non-confidential, aligned with public job description) -->
-
-        <div class="contrib-card fade-up">
-          <div class="contrib-icon"><i class="fas fa-thermometer-half"></i></div>
-          <div class="contrib-number">05 — Environmental Testing · Term 1</div>
-          <div class="contrib-title">Camera Validation &amp; Environmental Stress Testing</div>
-          <div class="contrib-desc">Performed Hi/Low Temperature, ALT, condensation cycling, and cold-start verification across multiple camera product lines in dedicated climate chambers. Conducted optical and image quality baselining (FOV, occlusion, vignetting) and lens performance assessments. Developed Python and Bash scripted automation to reduce manual burden on high-repetition procedures.</div>
-        </div>
-
-        <div class="contrib-card fade-up">
-          <div class="contrib-icon"><i class="fas fa-search"></i></div>
-          <div class="contrib-number">06 — Cross-Team Collaboration · Term 1</div>
-          <div class="contrib-title">Failure Investigation, Root Cause Analysis &amp; FAI</div>
-          <div class="contrib-desc">Performed failure investigations and RCA on pre-production hardware in collaboration with mechanical, electrical, and firmware teams — from issue reproduction through fix validation. Conducted First Article Inspections (FAI) on new production units and documented findings in structured test reports for escalation through engineering channels.</div>
-        </div>
-
-        <!-- TERM 3 — MECHANICAL DESIGN ENGINEERING -->
-
-        <div class="contrib-card fade-up">
-          <div class="contrib-icon"><i class="fas fa-drafting-compass"></i></div>
-          <div class="contrib-number">07 — Fixture Engineering · Term 3</div>
-          <div class="contrib-title">Test Fixture Design &amp; Prototyping — 5+ Systems</div>
-          <div class="contrib-desc">Owned end-to-end development of 5+ test fixtures for security camera validation — concept design, component sourcing, SolidWorks modeling, fabrication, full assembly, and functional verification. Each fixture engineered to production-quality standards and validated through systematic testing before integration into DVT and manufacturing workflows.</div>
-        </div>
-
-        <div class="contrib-card fade-up">
-          <div class="contrib-icon"><i class="fas fa-file-lines"></i></div>
-          <div class="contrib-number">08 — CAD &amp; Documentation · Term 3</div>
-          <div class="contrib-title">SolidWorks PDM &amp; Production Fabrication Drawings</div>
-          <div class="contrib-desc">Utilized SolidWorks PDM to manage part and assembly models across the full product lifecycle — version control, revision management, and design-intent preservation. Created production-quality fabrication drawings for new and existing components: GD&amp;T-compliant tolerancing, full BOM documentation, and manufacturing notes to Avigilon's internal standards.</div>
-        </div>
-
-        <div class="contrib-card fade-up">
-          <div class="contrib-icon"><i class="fas fa-shield-halved"></i></div>
-          <div class="contrib-number">09 — Optical-Mechanical Testing · Term 3</div>
-          <div class="contrib-title">IP/IK Test System Design — 30% Pass Rate Improvement</div>
-          <div class="contrib-desc">Spearheaded design, construction, and execution of testing projects for optical-mechanical systems under IP ingress protection and IK impact standards. Identified a design improvement that increased the rate of passed test units by 30%. Led cross-functional meetings to drive alignment between engineering, manufacturing, and test teams.</div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ══════════════════════════════ SPOTLIGHT ══════════════════════════════ -->
-  <section class="spotlight-section">
-    <div class="container">
-
-      <div class="section-label spotlight-label">
-        <span class="label-line"></span>
-        <span class="label-text">Deep Dive — Term 2</span>
-      </div>
-      <h2 class="spotlight-headline">FOV Goniometer<br><span>Automation System</span></h2>
-
-      <div class="spotlight-cols">
-
-        <!-- Left: full technical narrative -->
-        <div class="spotlight-narrative">
-          <p><strong style="color: var(--text-primary);">The problem.</strong> The DVT's standard FOV measurement used flat-wall trigonometry: <code style="font-family:var(--font-mono);font-size:0.85em;color:var(--accent)">FOV = 2 × arctan(BC / 2AD)</code>. Three compounding deficiencies: a 1 cm distance error at 50 cm standoff introduced 1.3% FOV error; the method was geometrically invalid for fisheye and wide-angle lenses; and manual edge-identification made repeatability impossible to certify.</p>
-
-          <p><strong style="color: var(--text-primary);">The architecture.</strong> Replaced linear distance measurement with direct angular encoder feedback. A Zaber motorized rotary stage sweeps a green laser line while the DUT observes from a fixed position on the rotation axis. Python software monitors the camera's RTSP stream and records the encoder angle at the moment the laser reaches each frame edge — FOV is the angular difference. Physical standoff distance is mathematically irrelevant, structurally eliminating the old method's dominant error source.</p>
-
-          <p><strong style="color: var(--text-primary);">The Discrete Step Engine.</strong> Continuous velocity sweep commands caused asynchronous TCP buffer collisions from Zaber network latency, dropping motor controller connections mid-sweep. Replaced with DSE: motor advances in fixed 0.05° increments, stops completely, flushes the TCP buffer, then evaluates the current frame. Every encoder angle is guaranteed to match its corresponding video frame — no interpolation, no drift.</p>
-
-          <p><strong style="color: var(--text-primary);">Error correction suite.</strong> Three systematic error sources required targeted solutions to meet ±0.5°. <em>Chromatic aberration</em> at wide-angle edges corrupted RGB-based laser detection — solved by switching to single green-channel binary thresholding. <em>Finite beam width</em> inflated raw FOV readings — solved via automated pre-sweep calibration that measures and subtracts beam angular width per session. <em>Focus breathing</em> in darkened environments caused autofocus hunting between frames — solved with controlled ambient lighting and high-contrast reference targets.</p>
-
-          <p><strong style="color: var(--text-primary);">Remaining work — nodal point parallax.</strong> After all corrections, residual ~0.5° error traced to entrance pupil parallax: the camera's nodal point was not co-located with the rotary stage axis. Proposed a macro rail nodal point calibration procedure — a foreground-background alignment test where the camera translates along the optical axis until neither near-field nor far-field target shows lateral displacement during rotation, centering the nodal point over the stage axis.</p>
-        </div>
-
-        <!-- Right: results card -->
-        <div class="results-card">
-          <div class="results-card-title">Results &amp; Impact</div>
-          <div class="result-stat">
-            <div class="result-number">±0.5°</div>
-            <div class="result-label">Angular accuracy — matches Trioptics ImageMaster ($40K+ instrument)</div>
-          </div>
-          <div class="result-stat">
-            <div class="result-number">85%</div>
-            <div class="result-label">Reduction in test cycle time — exceeded the 50% target by 35 points</div>
-          </div>
-          <div class="result-stat">
-            <div class="result-number">0</div>
-            <div class="result-label">Manual interventions required per test cycle — fully push-button operation</div>
-          </div>
-          <div class="result-stat">
-            <div class="result-number">2.2°→0.5°</div>
-            <div class="result-label">Error reduction from prototype to final system across all correction stages</div>
-          </div>
-        </div>
-
       </div>
 
-      <!-- Pipeline architecture diagram -->
-      <div class="pipeline-section fade-up">
-        <div class="pipeline-label">Discrete Step Engine — System Pipeline</div>
-        <div class="pipeline-steps">
+      <!-- Contribution cards -->
+      <div class="role-contribs">
+        <div class="section-label role-contribs-label">
+          <span class="label-line"></span>
+          <span class="label-text">What I Built</span>
+        </div>
+        <h2 class="section-title" style="margin-bottom: 48px;">Key Contributions</h2>
 
-          <div class="pipeline-step">
-            <div class="pipeline-step-num">01</div>
-            <div class="pipeline-step-name">Pre-Sweep Cal</div>
-            <div class="pipeline-step-detail">Beam width<br>profiled at center<br>for this session</div>
+        <div class="contrib-grid">
+
+          <div class="contrib-card fade-up">
+            <div class="contrib-icon"><i class="fas fa-crosshairs"></i></div>
+            <div class="contrib-number">01 — Flagship · Term 2</div>
+            <div class="contrib-title">Automated FOV Goniometer System</div>
+            <div class="contrib-desc">Replaced the DVT's manual flat-wall trigonometry FOV method with a fully automated system. A Zaber motorized rotary stage sweeps a green laser line while a Python/OpenCV pipeline monitors the DUT's live RTSP stream — FOV is measured directly via the motor's rotary encoder, making physical standoff distance irrelevant and eliminating the dominant error source. Achieved ±0.5° accuracy versus the Trioptics ImageMaster ($40K+ instrument) with 85% reduction in test cycle time.</div>
           </div>
-          <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
 
-          <div class="pipeline-step">
-            <div class="pipeline-step-num">02</div>
-            <div class="pipeline-step-name">Stage Advance</div>
-            <div class="pipeline-step-detail">Zaber moves<br>+0.05° increment<br>→ full stop</div>
+          <div class="contrib-card fade-up">
+            <div class="contrib-icon"><i class="fas fa-eye"></i></div>
+            <div class="contrib-number">02 — Computer Vision · Term 2</div>
+            <div class="contrib-title">RTSP Pipeline &amp; Single-Channel Thresholding</div>
+            <div class="contrib-desc">Built a real-time Python/OpenCV pipeline ingesting live RTSP streams from cameras under test. Initial RGB-channel processing failed at wide-angle edges — chromatic aberration caused color fringing that corrupted laser boundary detection. Resolved by extracting only the raw green grayscale channel with strict binary thresholding, yielding sharper, faster, aberration-immune edge detection.</div>
           </div>
-          <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
 
-          <div class="pipeline-step">
-            <div class="pipeline-step-num">03</div>
-            <div class="pipeline-step-name">Buffer Flush</div>
-            <div class="pipeline-step-detail">TCP buffer<br>cleared to<br>prevent collision</div>
+          <div class="contrib-card fade-up">
+            <div class="contrib-icon"><i class="fas fa-microchip"></i></div>
+            <div class="contrib-number">03 — Architecture · Term 2</div>
+            <div class="contrib-title">Discrete Step Engine (DSE)</div>
+            <div class="contrib-desc">Continuous velocity sweep commands caused asynchronous TCP buffer collisions from Zaber network latency, dropping the motor controller mid-sweep and corrupting angular readings. Replaced with the Discrete Step Engine: motor advances in fixed 0.05° increments, comes to a full stop, flushes the TCP buffer, then evaluates the current frame — guaranteeing every encoder position is synchronized to its corresponding video frame with no interpolation.</div>
           </div>
-          <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
 
-          <div class="pipeline-step">
-            <div class="pipeline-step-num">04</div>
-            <div class="pipeline-step-name">Frame Capture</div>
-            <div class="pipeline-step-detail">RTSP stream<br>frame read<br>(synced to encoder)</div>
+          <div class="contrib-card fade-up">
+            <div class="contrib-icon"><i class="fas fa-ruler-combined"></i></div>
+            <div class="contrib-number">04 — Optical Metrology · Term 2</div>
+            <div class="contrib-title">Advanced Error Correction Suite</div>
+            <div class="contrib-desc">Identified and corrected three independent systematic error sources before the ±0.5° target was achievable. <strong style="color:var(--text-primary)">Finite beam width:</strong> inflated raw FOV readings — resolved via automated pre-sweep calibration that dynamically profiles and subtracts beam angular width per session. <strong style="color:var(--text-primary)">Focus breathing:</strong> autofocus hunting in darkness caused frame-to-frame focal length drift — resolved with controlled ambient lighting and high-contrast reference targets. <strong style="color:var(--text-primary)">Entrance pupil parallax:</strong> rotating about the front lens instead of the nodal point introduced up to 2.2° geometric error — root cause identified; macro rail calibration procedure proposed for future elimination.</div>
           </div>
-          <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
 
-          <div class="pipeline-step">
-            <div class="pipeline-step-num">05</div>
-            <div class="pipeline-step-name">Green-Ch Threshold</div>
-            <div class="pipeline-step-detail">Single-channel<br>binary mask<br>(chromatic aberration immune)</div>
+          <div class="contrib-card fade-up">
+            <div class="contrib-icon"><i class="fas fa-thermometer-half"></i></div>
+            <div class="contrib-number">05 — Environmental Testing · Term 1</div>
+            <div class="contrib-title">Camera Validation &amp; Environmental Stress Testing</div>
+            <div class="contrib-desc">Performed Hi/Low Temperature, ALT, condensation cycling, and cold-start verification across multiple camera product lines in dedicated climate chambers. Conducted optical and image quality baselining (FOV, occlusion, vignetting) and lens performance assessments. Developed Python and Bash scripted automation to reduce manual burden on high-repetition procedures.</div>
           </div>
-          <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
 
-          <div class="pipeline-step">
-            <div class="pipeline-step-num">06</div>
-            <div class="pipeline-step-name">Edge Detection</div>
-            <div class="pipeline-step-detail">Left / right frame<br>boundary → angle<br>recorded</div>
-          </div>
-          <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
-
-          <div class="pipeline-step">
-            <div class="pipeline-step-num">07</div>
-            <div class="pipeline-step-name">Beam Correction</div>
-            <div class="pipeline-step-detail">Subtract pre-cal<br>beam width from<br>raw FOV</div>
-          </div>
-          <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
-
-          <div class="pipeline-step">
-            <div class="pipeline-step-num">08</div>
-            <div class="pipeline-step-name">Report Output</div>
-            <div class="pipeline-step-detail">Angle + corrected<br>FOV logged to<br>validation report</div>
+          <div class="contrib-card fade-up">
+            <div class="contrib-icon"><i class="fas fa-search"></i></div>
+            <div class="contrib-number">06 — Cross-Team Collaboration · Term 1</div>
+            <div class="contrib-title">Failure Investigation, Root Cause Analysis &amp; FAI</div>
+            <div class="contrib-desc">Performed failure investigations and RCA on pre-production hardware in collaboration with mechanical, electrical, and firmware teams — from issue reproduction through fix validation. Conducted First Article Inspections (FAI) on new production units and documented findings in structured test reports for escalation through engineering channels.</div>
           </div>
 
         </div>
       </div>
 
-    </div>
-  </section>
+      <!-- FOV Goniometer Spotlight -->
+      <div class="role-spotlight">
+        <div class="section-label spotlight-label">
+          <span class="label-line"></span>
+          <span class="label-text">Deep Dive — Term 2</span>
+        </div>
+        <h2 class="spotlight-headline">FOV Goniometer<br><span>Automation System</span></h2>
 
-  <!-- ══════════════════════════════ SPOTLIGHT — TERM 3 ══════════════════════ -->
-  <section class="spotlight-section">
-    <div class="container">
+        <div class="spotlight-cols">
+          <div class="spotlight-narrative">
+            <p><strong style="color: var(--text-primary);">The problem.</strong> The DVT's standard FOV measurement used flat-wall trigonometry: <code style="font-family:var(--font-mono);font-size:0.85em;color:var(--accent)">FOV = 2 × arctan(BC / 2AD)</code>. Three compounding deficiencies: a 1 cm distance error at 50 cm standoff introduced 1.3% FOV error; the method was geometrically invalid for fisheye and wide-angle lenses; and manual edge-identification made repeatability impossible to certify.</p>
 
-      <div class="section-label spotlight-label">
-        <span class="label-line"></span>
-        <span class="label-text">Deep Dive — Term 3</span>
-      </div>
-      <h2 class="spotlight-headline">Mechanical Design<br><span>Engineering Intern</span></h2>
+            <p><strong style="color: var(--text-primary);">The architecture.</strong> Replaced linear distance measurement with direct angular encoder feedback. A Zaber motorized rotary stage sweeps a green laser line while the DUT observes from a fixed position on the rotation axis. Python software monitors the camera's RTSP stream and records the encoder angle at the moment the laser reaches each frame edge — FOV is the angular difference. Physical standoff distance is mathematically irrelevant, structurally eliminating the old method's dominant error source.</p>
 
-      <div class="spotlight-cols">
+            <p><strong style="color: var(--text-primary);">The Discrete Step Engine.</strong> Continuous velocity sweep commands caused asynchronous TCP buffer collisions from Zaber network latency, dropping motor controller connections mid-sweep. Replaced with DSE: motor advances in fixed 0.05° increments, stops completely, flushes the TCP buffer, then evaluates the current frame. Every encoder angle is guaranteed to match its corresponding video frame — no interpolation, no drift.</p>
 
-        <!-- Left: narrative -->
-        <div class="spotlight-narrative">
-          <p><strong style="color: var(--text-primary);">Fixture design &amp; prototyping.</strong> Owned the complete development cycle for 5+ test fixtures — from requirements capture and concept design through SolidWorks modeling, component sourcing, fabrication, and assembly. Fixtures were purpose-built for security camera system validation, engineered to production-quality standards, and verified through rigorous functional testing before handoff to DVT and manufacturing teams.</p>
+            <p><strong style="color: var(--text-primary);">Error correction suite.</strong> Three systematic error sources required targeted solutions to meet ±0.5°. <em>Chromatic aberration</em> at wide-angle edges corrupted RGB-based laser detection — solved by switching to single green-channel binary thresholding. <em>Finite beam width</em> inflated raw FOV readings — solved via automated pre-sweep calibration that measures and subtracts beam angular width per session. <em>Focus breathing</em> in darkened environments caused autofocus hunting between frames — solved with controlled ambient lighting and high-contrast reference targets.</p>
 
-          <p><strong style="color: var(--text-primary);">SolidWorks PDM &amp; fabrication drawings.</strong> Worked within SolidWorks PDM to manage part and assembly models across the product lifecycle — maintaining version control, revision history, and design intent across multiple concurrent fixture projects. Produced production-quality fabrication drawings for both new and existing components: GD&amp;T-compliant tolerancing schemes, complete BOM documentation, and manufacturing notes formatted to Avigilon's internal drawing standards.</p>
+            <p><strong style="color: var(--text-primary);">Remaining work — nodal point parallax.</strong> After all corrections, residual ~0.5° error traced to entrance pupil parallax: the camera's nodal point was not co-located with the rotary stage axis. Proposed a macro rail nodal point calibration procedure — a foreground-background alignment test where the camera translates along the optical axis until neither near-field nor far-field target shows lateral displacement during rotation, centering the nodal point over the stage axis.</p>
+          </div>
 
-          <p><strong style="color: var(--text-primary);">IP/IK optical-mechanical test systems.</strong> Spearheaded design, construction, and execution of test projects targeting IP ingress protection and IK impact resistance on optical-mechanical camera systems. A design improvement identified during this work increased the rate of units passing the test specification by 30% — a direct reduction in costly re-test cycles and field returns. Led regular cross-functional meetings to keep engineering, manufacturing, and test stakeholders aligned on test scope, schedule, and findings.</p>
+          <div class="results-card">
+            <div class="results-card-title">Results &amp; Impact</div>
+            <div class="result-stat">
+              <div class="result-number">±0.5°</div>
+              <div class="result-label">Angular accuracy — matches Trioptics ImageMaster ($40K+ instrument)</div>
+            </div>
+            <div class="result-stat">
+              <div class="result-number">85%</div>
+              <div class="result-label">Reduction in test cycle time — exceeded the 50% target by 35 points</div>
+            </div>
+            <div class="result-stat">
+              <div class="result-number">0</div>
+              <div class="result-label">Manual interventions required per test cycle — fully push-button operation</div>
+            </div>
+            <div class="result-stat">
+              <div class="result-number">2.2°→0.5°</div>
+              <div class="result-label">Error reduction from prototype to final system across all correction stages</div>
+            </div>
+          </div>
         </div>
 
-        <!-- Right: results card -->
-        <div class="results-card">
-          <div class="results-card-title">Scope &amp; Impact</div>
-          <div class="result-stat">
-            <div class="result-number">5+</div>
-            <div class="result-label">Test fixtures designed and prototyped end-to-end</div>
-          </div>
-          <div class="result-stat">
-            <div class="result-number">30%</div>
-            <div class="result-label">Increase in passed test units — design improvement identified during IP/IK test execution</div>
-          </div>
-          <div class="result-stat">
-            <div class="result-number">8 mo</div>
-            <div class="result-label">May – Dec 2026 · Mechanical Design Engineering Intern</div>
+        <!-- Pipeline architecture diagram -->
+        <div class="pipeline-section fade-up">
+          <div class="pipeline-label">Discrete Step Engine — System Pipeline</div>
+          <div class="pipeline-steps">
+
+            <div class="pipeline-step">
+              <div class="pipeline-step-num">01</div>
+              <div class="pipeline-step-name">Pre-Sweep Cal</div>
+              <div class="pipeline-step-detail">Beam width<br>profiled at center<br>for this session</div>
+            </div>
+            <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
+
+            <div class="pipeline-step">
+              <div class="pipeline-step-num">02</div>
+              <div class="pipeline-step-name">Stage Advance</div>
+              <div class="pipeline-step-detail">Zaber moves<br>+0.05° increment<br>→ full stop</div>
+            </div>
+            <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
+
+            <div class="pipeline-step">
+              <div class="pipeline-step-num">03</div>
+              <div class="pipeline-step-name">Buffer Flush</div>
+              <div class="pipeline-step-detail">TCP buffer<br>cleared to<br>prevent collision</div>
+            </div>
+            <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
+
+            <div class="pipeline-step">
+              <div class="pipeline-step-num">04</div>
+              <div class="pipeline-step-name">Frame Capture</div>
+              <div class="pipeline-step-detail">RTSP stream<br>frame read<br>(synced to encoder)</div>
+            </div>
+            <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
+
+            <div class="pipeline-step">
+              <div class="pipeline-step-num">05</div>
+              <div class="pipeline-step-name">Green-Ch Threshold</div>
+              <div class="pipeline-step-detail">Single-channel<br>binary mask<br>(chromatic aberration immune)</div>
+            </div>
+            <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
+
+            <div class="pipeline-step">
+              <div class="pipeline-step-num">06</div>
+              <div class="pipeline-step-name">Edge Detection</div>
+              <div class="pipeline-step-detail">Left / right frame<br>boundary → angle<br>recorded</div>
+            </div>
+            <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
+
+            <div class="pipeline-step">
+              <div class="pipeline-step-num">07</div>
+              <div class="pipeline-step-name">Beam Correction</div>
+              <div class="pipeline-step-detail">Subtract pre-cal<br>beam width from<br>raw FOV</div>
+            </div>
+            <div class="pipeline-arrow"><i class="fas fa-chevron-right"></i></div>
+
+            <div class="pipeline-step">
+              <div class="pipeline-step-num">08</div>
+              <div class="pipeline-step-name">Report Output</div>
+              <div class="pipeline-step-detail">Angle + corrected<br>FOV logged to<br>validation report</div>
+            </div>
+
           </div>
         </div>
 
