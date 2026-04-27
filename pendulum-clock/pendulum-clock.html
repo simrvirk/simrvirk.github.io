@@ -349,6 +349,61 @@
       opacity: 0.5;
     }
     .spec-list li strong { color: var(--text-primary); font-weight: 600; }
+
+    /* ── At a Glance sidebar ───────────────────────────────────────────── */
+    .overview-section { padding: 64px 0 0; }
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 56px;
+      align-items: start;
+    }
+    @media (max-width: 768px) { .overview-grid { grid-template-columns: 1fr; gap: 32px; } }
+    .overview-body {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.9;
+    }
+    .overview-body p { margin-bottom: 1.1em; }
+    .overview-body p:last-child { margin-bottom: 0; }
+    .overview-facts-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      position: sticky;
+      top: 88px;
+    }
+    .facts-card-title {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+    .fact-row {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .fact-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .fact-row:first-of-type { padding-top: 0; }
+    .fact-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+    .fact-value {
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
   </style>
 </head>
 <body class="project-page">
@@ -447,16 +502,56 @@
       <div class="project-section-title" style="margin-bottom: 20px; margin-top: 64px;">Outcomes</div>
       <div class="outcomes-grid">
         <div class="outcome-card">
-          <div class="outcome-number">8-day</div>
-          <div class="outcome-label">Runtime Target — Block-and-Tackle Movable Pulley Doubles Cord Run Per Wind</div>
-        </div>
-        <div class="outcome-card">
-          <div class="outcome-number">~86,400</div>
-          <div class="outcome-label">Escapement Impulses/Day — Verified via Independent Gear Ratio Calculation</div>
+          <div class="outcome-number">Multi-Day</div>
+          <div class="outcome-label">Runtime on a Single Wind — Block-and-Tackle Drive Doubles Cord Travel Per Revolution</div>
         </div>
         <div class="outcome-card">
           <div class="outcome-number">2</div>
-          <div class="outcome-label">Distinct Failure Modes Diagnosed and Resolved via Systematic Root-Cause Analysis</div>
+          <div class="outcome-label">Failure Modes Diagnosed &amp; Resolved via Systematic Root-Cause Analysis</div>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-number">100%</div>
+          <div class="outcome-label">Mechanical — Weight-Driven, Zero Electronics or Batteries</div>
+        </div>
+      </div>
+
+      <div class="overview-section">
+        <div class="overview-grid">
+          <div class="overview-body">
+            <p>A fully mechanical wall clock designed and manufactured from scratch — custom SolidWorks frame, proven cycloidal gear train, and Graham deadbeat escapement. Every structural decision was constrained by FDM process limits: minimum wall thickness for tooth geometry, cycloidal center distance tolerance derived from printed parts, arbor deflection at the escapement, and a 255 mm frame split to fit within the Bambu P1S 256 mm bed.</p>
+            <p>Commissioning exposed two distinct failure modes — both diagnosed via root-cause analysis rather than trial-and-error reprint cycles. The clock runs entirely mechanically: no batteries, no electronics, no motor — purely driven by gravity through a block-and-tackle pulley system.</p>
+          </div>
+          <div class="overview-facts-card">
+            <div class="facts-card-title">At a Glance</div>
+            <div class="fact-row">
+              <span class="fact-label">Project Type</span>
+              <span class="fact-value">Personal Project</span>
+            </div>
+            <div class="fact-row">
+              <span class="fact-label">Completed</span>
+              <span class="fact-value">April 2026</span>
+            </div>
+            <div class="fact-row">
+              <span class="fact-label">Printer</span>
+              <span class="fact-value">Bambu P1S — FDM / PLA</span>
+            </div>
+            <div class="fact-row">
+              <span class="fact-label">Escapement</span>
+              <span class="fact-value">Graham Deadbeat</span>
+            </div>
+            <div class="fact-row">
+              <span class="fact-label">Drive</span>
+              <span class="fact-value">Block-and-tackle weight drive</span>
+            </div>
+            <div class="fact-row">
+              <span class="fact-label">Runtime</span>
+              <span class="fact-value">Multi-day on single wind</span>
+            </div>
+            <div class="fact-row">
+              <span class="fact-label">CAD</span>
+              <span class="fact-value">SolidWorks — master layout sketch</span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -535,7 +630,7 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <span>© 2025 Simr Virk</span>
+        <span>© 2026 Simr Virk</span>
       </div>
     </div>
   </footer>
