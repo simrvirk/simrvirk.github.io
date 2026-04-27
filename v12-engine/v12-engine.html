@@ -349,61 +349,6 @@
       opacity: 0.5;
     }
     .spec-list li strong { color: var(--text-primary); font-weight: 600; }
-
-    /* ── 3D viewer (unchanged) ─────────────────────────────────────────── */
-    .viewer-section {
-      padding: 64px 0;
-      background: var(--bg-secondary);
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-    .viewer-header {
-      display: flex; align-items: flex-end;
-      justify-content: space-between; flex-wrap: wrap;
-      gap: 12px; margin-bottom: 24px;
-    }
-    .viewer-hint {
-      font-family: var(--font-mono); font-size: 0.65rem;
-      letter-spacing: 1px; color: var(--text-muted);
-      display: flex; align-items: center; gap: 20px;
-    }
-    .viewer-hint span { display: flex; align-items: center; gap: 6px; }
-    .viewer-frame-wrapper {
-      position: relative; width: 100%; padding-bottom: 52%;
-      border-radius: 10px; overflow: hidden;
-      border: 1px solid var(--accent-border);
-      box-shadow: 0 0 48px rgba(54, 148, 237,.08), 0 8px 40px rgba(0,0,0,.55);
-      background: #05050d;
-    }
-    .viewer-frame-wrapper iframe {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%; border: none;
-    }
-    .viewer-placeholder {
-      position: absolute; inset: 0;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center; gap: 18px;
-      background: radial-gradient(ellipse at 50% 40%, rgba(54, 148, 237,.05) 0%, #05050d 65%);
-      color: var(--text-muted); text-align: center; padding: 32px;
-    }
-    .viewer-placeholder-icon { font-size: 3rem; color: rgba(54, 148, 237,.22); line-height: 1; }
-    .viewer-placeholder h4 {
-      font-family: var(--font-heading); font-size: 1.05rem;
-      font-weight: 700; color: var(--text-secondary); letter-spacing: .5px;
-    }
-    .viewer-placeholder p {
-      font-family: var(--font-mono); font-size: .7rem;
-      letter-spacing: .3px; color: var(--text-muted);
-      max-width: 480px; line-height: 1.75;
-    }
-    .viewer-placeholder code {
-      background: rgba(54, 148, 237,.07); border: 1px solid var(--accent-border);
-      color: var(--accent); padding: 2px 8px; border-radius: 3px; font-size: .72rem;
-    }
-    .viewer-caption {
-      margin-top: 14px; font-family: var(--font-mono); font-size: .68rem;
-      letter-spacing: 1px; color: var(--text-muted); text-align: center;
-    }
   </style>
 </head>
 <body class="project-page">
@@ -522,40 +467,6 @@
 
 
 
-    </div>
-  </div>
-
-  <div class="viewer-section">
-    <div class="container">
-      <div class="viewer-header">
-        <div class="section-label" style="margin-bottom:0;">
-          <span class="label-line"></span>
-          <span class="label-text">Interactive 3D Model</span>
-        </div>
-        <div class="viewer-hint">
-          <span><i class="fas fa-mouse"></i> Drag to rotate</span>
-          <span><i class="fas fa-search-plus"></i> Scroll to zoom</span>
-          <span><i class="fas fa-hand-paper"></i> Right-click to pan</span>
-        </div>
-      </div>
-      <div class="viewer-frame-wrapper"
-           id="cadViewer"
-           data-sketchfab-url="https://sketchfab.com/models/d89cacc210da4aaa8a663475964c7d9d/embed">
-        <div class="viewer-placeholder" id="viewerPlaceholder">
-          <div class="viewer-placeholder-icon"><i class="fas fa-cube"></i></div>
-          <h4>Interactive 3D Model</h4>
-          <p>
-            Upload your SolidWorks / Fusion 360 / STL file to
-            <strong style="color:var(--text-secondary);">sketchfab.com</strong>
-            (free), copy the embed URL, then paste it into<br>
-            <code>data-sketchfab-url="..."</code> in this HTML file.
-          </p>
-        </div>
-      </div>
-      <div class="viewer-caption">
-        <i class="fas fa-drafting-compass" style="color:var(--accent); margin-right:6px;"></i>
-        SolidWorks Assembly — V12 combustion engine · 50+ components · fully kinematic · exported as STEP
-      </div>
     </div>
   </div>
 
@@ -872,34 +783,6 @@
         }
       }, { passive: true });
 
-    })();
-
-    /* ══════════════════════════════════════════════════════════════════════
-       3D VIEWER ACTIVATION (unchanged)
-    ═══════════════════════════════════════════════════════════════════════ */
-    (function () {
-      const wrapper     = document.getElementById('cadViewer');
-      const placeholder = document.getElementById('viewerPlaceholder');
-      if (!wrapper || !placeholder) return;
-
-      const url = wrapper.getAttribute('data-sketchfab-url') || '';
-      if (url && url.startsWith('https://sketchfab.com')) {
-        const embedBase = url.split('?')[0];
-        const params = new URLSearchParams({
-          autostart: 1, autospin: 0, ui_theme: 'dark',
-          ui_infos: 0, ui_watermark: 0, ui_stop: 0,
-          camera: 0, preload: 1, transparent: 0, dnt: 1,
-        });
-        const iframe = document.createElement('iframe');
-        iframe.title           = 'Interactive 3D CAD Model';
-        iframe.src             = embedBase + (embedBase.includes('/embed') ? '' : '/embed') + '?' + params;
-        iframe.allow           = 'autoplay; fullscreen; xr-spatial-tracking';
-        iframe.allowFullscreen = true;
-        iframe.setAttribute('mozallowfullscreen', 'true');
-        iframe.setAttribute('webkitallowfullscreen', 'true');
-        placeholder.style.display = 'none';
-        wrapper.appendChild(iframe);
-      }
     })();
   </script>
 </body>
