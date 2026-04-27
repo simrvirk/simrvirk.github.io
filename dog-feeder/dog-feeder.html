@@ -362,7 +362,7 @@
       <p style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.4px; color: rgba(255,255,255,0.65); line-height: 1.7; margin: 0;">
         <strong style="color: rgba(255, 180, 0, 0.9); letter-spacing: 1px; font-size: 0.7rem;">DESIGN REVIEW NOTE</strong><br>
         This project was completed in early 2023 and is included to demonstrate end-to-end mechatronic system design, not as a polished final product.
-        The v1 failure modes and v2 redesign plan are documented in the <em>Mechanical Design &amp; Retrospective</em> section below.
+        The v1 failure modes and v2 redesign concept (designed but not fabricated) are documented in the <em>Mechanical Design &amp; Retrospective</em> section below.
       </p>
     </div>
   </div>
@@ -459,7 +459,7 @@
       <div class="outcomes-grid">
         <div class="outcome-card">
           <div class="outcome-number">±5g</div>
-          <div class="outcome-label">Dispensing Repeatability Per Meal</div>
+          <div class="outcome-label">Dispensing Repeatability — Measured Across 10 Consecutive Cycles</div>
         </div>
         <div class="outcome-card">
           <div class="outcome-number">3×</div>
@@ -476,7 +476,7 @@
           <div class="spec-col-label">Hardware &amp; Sensing</div>
           <ul class="spec-list">
             <li><strong>DS3231 RTC</strong> (I²C) — ±2 ppm timekeeping accuracy; coin-cell backup retains schedule through power loss</li>
-            <li><strong>Servo-actuated metering arm</strong> — sweeps at scheduled time, holds calibrated dwell period to release a single portion, returns to closed position; ±5g dispensing repeatability</li>
+            <li><strong>Servo-actuated metering arm</strong> — sweeps at scheduled time, holds calibrated dwell period to release a single portion, returns to closed position; ±5g dispensing repeatability measured across 10 consecutive dispense cycles on a kitchen scale</li>
             <li><strong>Ultrasonic sensor</strong> — samples fill level at 1 Hz; maps raw distance to volumetric fill % via pre-characterized hopper geometry curve; dual-LED array switches green→red below 10% capacity</li>
             <li><strong>Debounced push-button interrupt</strong> — 50 ms software debounce; toggles meal-skip flag suppressing the next dispense without modifying the RTC-stored schedule</li>
             <li><strong>Internal wiring routing</strong> — all cables dressed internally for a clean, consumer-grade exterior</li>
@@ -487,8 +487,8 @@
           <ul class="spec-list">
             <li><strong>Gravity-fed hopper</strong> — designed in SolidWorks for passive, jam-free kibble flow; hopper and top cover 3D-printed in PLA on Bambu P1S</li>
             <li><strong>v1 failure mode identified</strong> — kibble load induces torque-driven sag at servo arm tip, creating a gap between arm and hopper wall → intermittent jamming and inconsistent portions</li>
-            <li><strong>v2 redesign</strong> — replace metering arm with DC motor-driven waterwheel disc (radial prongs spaced to single-portion volume, rotating over fixed aperture); eliminates cantilever loading and provides deterministic per-revolution portion control</li>
-            <li><strong>Material oversight</strong> — PLA is not food-contact safe; v2 switches to food-grade PETG or ABS</li>
+            <li><strong>v2 redesign (design concept — not fabricated)</strong> — replace metering arm with DC motor-driven waterwheel disc (radial prongs spaced to single-portion volume, rotating over fixed aperture); eliminates cantilever loading and provides deterministic per-revolution portion control</li>
+            <li><strong>Material oversight</strong> — PLA is not food-contact safe; v2 concept specifies food-grade PETG or ABS</li>
             <li><strong>Key lesson</strong> — early mechanism selection locks in downstream constraints that are expensive to fix retroactively; v1 servo arm choice constrained hopper geometry, bowl placement, and portion consistency simultaneously</li>
           </ul>
         </div>
