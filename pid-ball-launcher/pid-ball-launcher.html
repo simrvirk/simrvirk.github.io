@@ -938,7 +938,10 @@
           vid.muted = true; vid.loop = true; vid.playsInline = true;
           gridItem.appendChild(vid);
           gridVideoObserver.observe(vid); // Trigger play/pause on scroll
-          gridItem.innerHTML += `<div class="video-badge"><i class="fas fa-video"></i> Video</div>`;
+          const badge = document.createElement('div');
+          badge.className = 'video-badge';
+          badge.innerHTML = '<i class="fas fa-video"></i> Video';
+          gridItem.appendChild(badge);
         } else {
           gridItem.innerHTML = `<img src="${slide.src}" alt="${slide.alt}" loading="lazy">`;
         }
