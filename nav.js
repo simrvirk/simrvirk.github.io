@@ -14,7 +14,7 @@
     '  <li><a href="/about/about.html">About</a></li>',
     '  <li><a href="/index.html#contact">Contact</a></li>',
     '</ul>',
-    '<a href="/resume.pdf" target="_blank" class="nav-resume">',
+    '<a href="/Simr_Resume_2026.pdf" target="_blank" class="nav-resume">',
     '  <i class="fas fa-file-alt"></i> Resume',
     '</a>',
     '<button class="nav-toggle" id="navToggle" aria-label="Menu">',
