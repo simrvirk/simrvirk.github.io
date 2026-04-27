@@ -11,7 +11,7 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chess Robot Arm - Simr Virk</title>
+  <title>The Monolith — Mechanical Pendulum Clock - Simr Virk</title>
   <link rel="stylesheet" href="/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -178,7 +178,7 @@
       pointer-events: none;
     }
     .carousel-layer video {
-      pointer-events: auto; /* Required for video controls */
+      pointer-events: auto;
       outline: none;
     }
 
@@ -290,7 +290,6 @@
       opacity: 0.8;
       border-color: rgba(54, 148, 237,.4);
     }
-    /* Smaller video badge for thumbnail strip */
     .c-thumb .video-badge {
       top: 4px; right: 4px;
       font-size: 0.5rem;
@@ -307,189 +306,7 @@
       #c-caption { font-size: 0.75rem; }
     }
 
-    /* ── Technical Report Modal ─────────────────────────────────────────── */
-    .report-modal {
-      position: fixed;
-      inset: 0;
-      z-index: 9998;
-      display: flex;
-      flex-direction: column;
-      background: rgba(3,3,8,0.97);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.28s ease;
-    }
-    .report-modal.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-    .report-modal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 24px;
-      height: 58px;
-      border-bottom: 1px solid rgba(54,148,237,.2);
-      background: rgba(9,9,15,.9);
-      flex-shrink: 0;
-      gap: 16px;
-    }
-    .report-modal-title {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: var(--font-heading, 'Rajdhani', sans-serif);
-      font-size: 0.95rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      color: var(--text-primary, #eaeaf4);
-      min-width: 0;
-    }
-    .report-modal-title i {
-      color: var(--accent, #3694ed);
-      font-size: 1.05rem;
-      flex-shrink: 0;
-    }
-    .report-modal-title span {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-    .report-modal-actions {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-shrink: 0;
-    }
-    .report-header-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      font-family: var(--font-mono, monospace);
-      font-size: 0.68rem;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      color: var(--accent, #3694ed);
-      border: 1px solid rgba(54,148,237,.35);
-      border-radius: 4px;
-      padding: 6px 13px;
-      background: rgba(54,148,237,.07);
-      text-decoration: none;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .report-header-link:hover {
-      background: rgba(54,148,237,.18);
-      border-color: rgba(54,148,237,.75);
-      box-shadow: 0 0 14px rgba(54,148,237,.2);
-    }
-    .report-close-btn {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(9,9,15,.72);
-      border: 1px solid rgba(54, 148, 237,.28);
-      color: #fff;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      flex-shrink: 0;
-    }
-    .report-close-btn:hover {
-      background: rgba(54, 148, 237,.14);
-      border-color: rgba(54, 148, 237,.7);
-      color: var(--accent, #3694ed);
-      transform: scale(1.1);
-    }
-    .report-modal-body {
-      flex: 1;
-      min-height: 0;
-      position: relative;
-    }
-    .report-modal-body iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      display: block;
-    }
-    .report-modal-placeholder {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      color: var(--text-muted, #50506a);
-      text-align: center;
-      padding: 48px;
-    }
-    .report-modal-placeholder i {
-      font-size: 3rem;
-      color: rgba(54,148,237,.22);
-    }
-    .report-modal-placeholder h4 {
-      font-family: var(--font-heading, 'Rajdhani', sans-serif);
-      font-size: 1.1rem;
-      color: var(--text-secondary, #8a8aaa);
-      letter-spacing: .5px;
-    }
-    .report-modal-placeholder p {
-      font-family: var(--font-mono, monospace);
-      font-size: .7rem;
-      letter-spacing: .3px;
-      max-width: 420px;
-      line-height: 1.8;
-    }
-    .report-modal-placeholder code {
-      background: rgba(54,148,237,.07);
-      border: 1px solid rgba(54,148,237,.28);
-      color: var(--accent, #3694ed);
-      padding: 2px 8px;
-      border-radius: 3px;
-    }
-    /* Trigger button inside meta card */
-    .report-trigger-wrap {
-      margin-top: 18px;
-      padding-top: 16px;
-      border-top: 1px solid var(--border, rgba(255,255,255,.07));
-    }
-    .report-trigger-btn {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      font-family: var(--font-mono, monospace);
-      font-size: 0.7rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--accent, #3694ed);
-      border: 1px solid rgba(54,148,237,.4);
-      border-radius: 4px;
-      padding: 10px 16px;
-      background: rgba(54,148,237,.07);
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-    .report-trigger-btn:hover {
-      background: rgba(54,148,237,.16);
-      border-color: rgba(54,148,237,.8);
-      box-shadow: 0 0 20px rgba(54,148,237,.18);
-    }
-    .report-trigger-btn i { font-size: 0.95rem; }
-    @media (max-width: 600px) {
-      .report-modal-title span { display: none; }
-      .report-header-link span { display: none; }
-      .report-header-link { padding: 6px 10px; }
-    }
-
-    /* ── Concise spec bullet lists ──────────────────────────── */
+    /* ── Spec block (two-column bullet layout) ────────────────────────── */
     .spec-block {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -532,7 +349,7 @@
     }
     .spec-list li strong { color: var(--text-primary); font-weight: 600; }
 
-    /* ── 3D viewer (unchanged) ─────────────────────────────────────────── */
+    /* ── 3D viewer ─────────────────────────────────────────── */
     .viewer-section {
       padding: 64px 0;
       background: var(--bg-secondary);
@@ -599,48 +416,43 @@
       </a>
       <div class="project-hero-grid">
         <div>
-          <div class="project-category-label">Mechanical Design / CAD</div>
-          <h1 class="project-title">Weight-Driven<br>Pendulum Clock</h1>
+          <div class="project-category-label">Mechanical Design / Manufacturing</div>
+          <h1 class="project-title">The Monolith —<br>Mechanical Pendulum Clock</h1>
           <p class="project-summary">
-            Designed the gear train, concentric coaxial shaft system, and frame for a fully SolidWorks-modeled weight-driven grandfather clock (MSE 320). 15-gear train producing 2:1, 60:1, and 12:1 ratios — all clockwise — powered by gravitational potential energy, validated via hand calculations, simulation, and SolidWorks Motion Analysis.
+            Designed, manufactured, assembled, and commissioned a fully functional weight-driven mechanical pendulum wall clock from the ground up — 3D-printed on a Bambu P1S in matte black PLA (frame) and matte white PLA (gears). Original architectural design: tall vertical form factor, exposed spoked gear train, Graham deadbeat escapement, floating wall standoffs. Frame and all structural elements designed in SolidWorks with a shared master layout sketch. Runs for multiple days on a single wind; failure modes diagnosed and resolved via systematic root-cause analysis.
           </p>
           <div class="project-tech-list">
             <span class="tag">SolidWorks</span>
-            <span class="tag">Gear Train Design</span>
-            <span class="tag">AISI 303 Steel</span>
-            <span class="tag">PLA (FDM)</span>
-            <span class="tag">FEA / Motion Analysis</span>
-            <span class="tag">CAD Assembly</span>
+            <span class="tag">Bambu P1S / FDM</span>
+            <span class="tag">PLA (Matte Black &amp; White)</span>
+            <span class="tag">623RS Bearings</span>
+            <span class="tag">Graham Escapement</span>
+            <span class="tag">Gear Train Analysis</span>
+            <span class="tag">Tolerance Stack-Up</span>
           </div>
         </div>
         <div class="project-meta-card">
           <div class="project-meta-item">
             <div class="meta-label">Duration</div>
-            <div class="meta-value">Sept 2024 – November 2024</div>
+            <div class="meta-value">Apr 2026</div>
           </div>
           <div class="project-meta-item">
             <div class="meta-label">Team Size</div>
-            <div class="meta-value">5 Members</div>
+            <div class="meta-value">Solo</div>
           </div>
           <div class="project-meta-item">
             <div class="meta-label">My Role</div>
-            <div class="meta-value">Lead Mechanical Designer</div>
+            <div class="meta-value">Design, Manufacturing, Assembly &amp; Commissioning</div>
           </div>
           <div class="project-meta-item">
-            <div class="meta-label">Course / Context</div>
-            <div class="meta-value">MSE320 · Machine Design</div>
+            <div class="meta-label">Context</div>
+            <div class="meta-value">Personal Project</div>
           </div>
           <div class="project-meta-item">
             <div class="meta-label">Status</div>
             <div class="meta-value">
               <span class="card-status status-complete">✓ Completed</span>
             </div>
-          </div>
-          <!-- ── Technical Report trigger ──────────────────── -->
-          <div class="report-trigger-wrap">
-            <button class="report-trigger-btn" id="reportBtn">
-              <i class="fas fa-file-lines"></i> View Technical Report
-            </button>
           </div>
         </div>
       </div>
@@ -652,34 +464,58 @@
 
       <div class="spec-block">
         <div>
-          <div class="spec-col-label">Gear Train Architecture</div>
+          <div class="spec-col-label">Frame Design &amp; Mechanical Architecture</div>
           <ul class="spec-list">
-            <li><strong>15-gear train</strong> — escapement pendulum (T = 2π√(L/g)) runs at 2 RPM; 12→24 tooth stage drives seconds output at 1 RPM; cascaded stages produce 60:1 (minutes) and 12:1 (hours)</li>
-            <li><strong>Clockwise constraint</strong> — direction-correcting 1:1 idler gears inserted at each stage where natural mesh would produce CCW rotation; satisfying both ratio and rotation simultaneously drove gear count to 15</li>
-            <li><strong>Spring-based decoupler</strong> — isolates timekeeping train from hand-setting mechanism so clock face can be manually adjusted without disturbing the escapement</li>
-            <li><strong>Ratchet gear</strong> — enforces unidirectional drive during weight rewind</li>
-            <li><strong>Triple validation</strong> — all ratios derived by hand, verified in geargenerator.com, cross-validated via SolidWorks Motion Analysis (marked tooth confirmed exactly 1 revolution per simulated minute)</li>
+            <li><strong>Two-plate construction</strong> — front and back frame plates connected by pillars; both plates driven by a single master layout sketch in SolidWorks so bearing hole positions propagate simultaneously across the assembly without manual synchronization</li>
+            <li><strong>Cantilever deflection eliminated</strong> — identified tip deflection of cantilevered escapement arbors as a critical failure mode: center-to-center spacing shifts beyond cycloidal gear tolerance under load, causing escapement lockup; resolved via a partial-ring front plate around the escapement that provides front-end arbor support while preserving the skeletal aesthetic</li>
+            <li><strong>Frame split at 255 mm</strong> — frame height exceeded the Bambu P1S 256 mm print bed; split into two interlocking pieces with an angled joint secured by screws; pure press-fit rejected because PLA creeps under sustained gravity-induced shear load</li>
+            <li><strong>623RS bearing bosses</strong> (3 × 10 × 4 mm) designed as interference fits; tightest tolerances applied at the escapement arbor and pendulum pivot — highest-leverage positions for friction reduction</li>
+            <li><strong>Tolerance stack-up</strong> — Z-axis gear train depth calculated from caliper-measured printed gear thicknesses, not nominal values; spacer lengths set to produce &lt;0.5 mm end shake at each arbor</li>
+            <li><strong>Print process control</strong> — 0.15 mm layer height, 4 walls, Classic perimeter generator (Arachne rejected — varied wall count at gear tooth tips weakened tooth geometry), 0.25 mm elephant foot compensation, random seam to prevent repeating seam line coinciding with the same tooth position each revolution</li>
           </ul>
         </div>
         <div>
-          <div class="spec-col-label">Coaxial Drive System &amp; Design Decisions</div>
+          <div class="spec-col-label">Gear Train, Escapement &amp; Drive System</div>
           <ul class="spec-list">
-            <li><strong>Three concentric hollow shafts</strong> — solid inner shaft keyed to seconds gear, first hollow shaft over it keyed to minutes, second hollow for hours; each extends through the front frame bearing and drives its hand independently</li>
-            <li><strong>Slot-and-tooth keying</strong> for shaft-to-gear coupling; pressed bearing seats at frame shaft exits; C-clips for axial retention</li>
-            <li><strong>Materials</strong> — AISI 303 stainless steel for all gears and shafts (corrosion-resistant, excellent machinability); PLA/oak for frame; brass decorative elements — every component sourceable or standard fabrication</li>
-            <li><strong>Exposed mechanism aesthetic</strong> — three timekeeping gears intentionally oversized and proud of the frame face; deliberate design choice to show the gear train rather than conceal it</li>
-            <li><strong>Retrospective</strong> — compound gear pairs (two gears per shaft) could reduce count from 15 to ~6–8; standardized M1/M1.5 module across all gears would enable trivial off-the-shelf sourcing</li>
+            <li><strong>SP5B gear train (Steve Peterson)</strong> adopted as a verified subsystem — module 1.86765 mm (13.6 DP), cycloidal tooth profiles; gear train rotated 90° counter-clockwise from original horizontal layout to achieve the tall vertical "Monolith" form factor</li>
+            <li><strong>Constant tooth sum of 66</strong> across all SP5B runtime configurations → fixed center distance of 61.63 mm regardless of gear count combination; independently verified total reduction ratio confirming ~86,400 escapement impulses/day at seconds-beat</li>
+            <li><strong>Cycloidal geometry constraint</strong> — operating center distance must be verified from printed parts, not derived theoretically; this drove the decision to use Steve's STLs unchanged rather than redesigning gear geometry</li>
+            <li><strong>Graham deadbeat escapement</strong> — escape wheel reprinted at 0.12 mm layer height to improve impulse face surface finish and minimize pallet-face drag; smoother 623RS bearings reserved for this arbor</li>
+            <li><strong>Block-and-tackle drive</strong> — movable pulley in weight shell halves effective drum force (minimum ~3.2 lbs at drum → minimum 6.4 lbs total weight required); doubles runtime and doubles cord paid out per drum revolution; 65 lb braided PowerPro fishing line, figure-8 knot anchored to G8 spoke</li>
+            <li><strong>Friction clutch (hand-setting)</strong> — pen-spring clutch between driven gear (loose on arbor) and pinion (locked via set screw); transmits running torque, slips under hand-applied time-setting force; minute hand hub uses D-profile bore matched to filed flat on 3 mm arbor — no keyway broach required</li>
           </ul>
         </div>
       </div>
 
-      <div class="project-section-title" style="margin-bottom: 18px;">Gallery</div>
-      
+      <div class="spec-block" style="border-top: 1px solid var(--border);">
+        <div>
+          <div class="spec-col-label">Commissioning &amp; Failure Mode Resolution</div>
+          <ul class="spec-list">
+            <li><strong>Failure Mode 1 — Pendulum amplitude dying:</strong> drive cord contacting adjacent frame members introduced cord friction that reduced effective drum torque below the escapement's minimum self-sustaining threshold; fixed by adjusting cord path geometry to eliminate frame interference</li>
+            <li><strong>Failure Mode 2 — Gear train lockup:</strong> repeatable stall (not random) indicated geometric lockup rather than torque deficiency; isolated by removing pallet — gear train moved freely, confirming escapement as root cause; fixed by rotating pallet body to increase arm engagement depth and reprinting escape wheel at 0.12 mm</li>
+            <li><strong>Weight calibration:</strong> operating weight set at 1.5× identified minimum self-sustaining threshold; weight shell sized and filled (BB shot) to achieve target with margin</li>
+            <li><strong>Print failure root cause:</strong> partial nozzle clog compounded into blob-of-death event — traced to symptom chasing (re-printing) rather than eliminating root cause; nozzle replaced, filament dried at 120°F / 5 hours in dehydrator to address moisture-related stringing</li>
+          </ul>
+        </div>
+        <div>
+          <div class="spec-col-label">Manufacturing &amp; Assembly</div>
+          <ul class="spec-list">
+            <li><strong>Shaft preparation</strong> — 3 mm stainless steel arbor rod cut with bi-metal hacksaw (18–24 TPI), ends deburred and sanded to 623RS inner bore; 1.5 mm music wire (hardened spring steel) for pallet arbor, cut with abrasive disc; D-flat filed with needle file set, depth verified by calipers</li>
+            <li><strong>Bearing preparation</strong> — all 623RS bearings flushed of factory grease via overnight IPA soak, dried, and spin-tested; smoothest bearings reserved for escapement arbor and pendulum pivot; lightweight oil applied to pendulum pivot for long-term wear protection</li>
+            <li><strong>Assembly sequence</strong> — bearings pressed in → gears + spacers on arbors → drive cord → pallet + pendulum installed last, after gear train confirmed free under applied load</li>
+            <li><strong>Lubrication</strong> — trace grease on pallet faces and pinion leaves only; no grease on large gear wheel teeth (attracts abrasive dust)</li>
+            <li><strong>SolidWorks Design Tables</strong> — managed multiple gear configurations (varying tooth and spoke counts) within a single part file; feature suppression columns handle spoke geometry that would violate wall thickness minimums at low tooth counts</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="project-section-title" style="margin-bottom: 18px; margin-top: 48px;">Gallery</div>
+
       <div class="photo-grid" id="photoGrid"></div>
 
       <div class="lightbox-overlay" id="lightboxOverlay">
         <button class="c-close" id="c-close" aria-label="Close Gallery"><i class="fas fa-times"></i></button>
-        
+
         <div class="lightbox-content">
           <div class="carousel-section-header">
             <span class="carousel-counter" id="c-counter"></span>
@@ -709,8 +545,6 @@
         </div>
       </div>
 
-
-
     </div>
   </div>
 
@@ -729,12 +563,12 @@
       </div>
       <div class="viewer-frame-wrapper"
            id="cadViewer"
-           data-sketchfab-url="https://sketchfab.com/models/d89cacc210da4aaa8a663475964c7d9d/embed">
+           data-sketchfab-url="">
         <div class="viewer-placeholder" id="viewerPlaceholder">
           <div class="viewer-placeholder-icon"><i class="fas fa-cube"></i></div>
           <h4>Interactive 3D Model</h4>
           <p>
-            Upload your SolidWorks / Fusion 360 / STL file to
+            Upload the SolidWorks assembly to
             <strong style="color:var(--text-secondary);">sketchfab.com</strong>
             (free), copy the embed URL, then paste it into<br>
             <code>data-sketchfab-url="..."</code> in this HTML file.
@@ -743,7 +577,7 @@
       </div>
       <div class="viewer-caption">
         <i class="fas fa-drafting-compass" style="color:var(--accent); margin-right:6px;"></i>
-        SolidWorks Assembly — Full grandfather clock · 15-gear train · concentric coaxial shaft system · exported as STEP
+        SolidWorks Assembly — The Monolith · two-plate frame · Graham deadbeat escapement · SP5B gear train · weight shell &amp; pendulum bob
       </div>
     </div>
   </div>
@@ -753,16 +587,16 @@
       <div class="project-section-title" style="margin-bottom: 20px;">Outcomes</div>
       <div class="outcomes-grid">
         <div class="outcome-card">
-          <div class="outcome-number">15</div>
-          <div class="outcome-label">Gears — 3 Correct Ratios, All Clockwise</div>
+          <div class="outcome-number">8-day</div>
+          <div class="outcome-label">Runtime Target — Block-and-Tackle Movable Pulley Doubles Cord Run Per Wind</div>
         </div>
         <div class="outcome-card">
-          <div class="outcome-number">3×</div>
-          <div class="outcome-label">Concentric Coaxial Shafts Driving Independent Hands</div>
+          <div class="outcome-number">~86,400</div>
+          <div class="outcome-label">Escapement Impulses/Day — Verified via Independent Gear Ratio Calculation</div>
         </div>
         <div class="outcome-card">
-          <div class="outcome-number">3×</div>
-          <div class="outcome-label">Independent Validation Methods (Hand Calc · Sim · Motion Analysis)</div>
+          <div class="outcome-number">2</div>
+          <div class="outcome-label">Distinct Failure Modes Diagnosed and Resolved via Systematic Root-Cause Analysis</div>
         </div>
       </div>
     </div>
@@ -796,57 +630,6 @@
     </div>
   </footer>
 
-  <!-- ══════════════════════════════════════════════════════════════════════
-       TECHNICAL REPORT MODAL
-       Place the PDF at: pendulum-clock/pendulum-clock-report.pdf
-       Then update the href on .report-header-link and data-pdf below.
-  ═══════════════════════════════════════════════════════════════════════ -->
-  <div class="report-modal" id="reportModal" role="dialog" aria-modal="true" aria-label="Technical Report">
-    <div class="report-modal-header">
-      <div class="report-modal-title">
-        <i class="fas fa-file-lines"></i>
-        <span>Technical Report — Weight-Driven Pendulum Clock</span>
-      </div>
-      <div class="report-modal-actions">
-        <a class="report-header-link"
-           href="pendulum-clock-report.pdf"
-           download
-           id="reportDownload">
-          <i class="fas fa-download"></i>
-          <span>Download PDF</span>
-        </a>
-        <a class="report-header-link"
-           href="pendulum-clock-report.pdf"
-           target="_blank"
-           rel="noopener"
-           id="reportNewTab">
-          <i class="fas fa-arrow-up-right-from-square"></i>
-          <span>Open in Tab</span>
-        </a>
-        <button class="report-close-btn" id="reportClose" aria-label="Close report">
-          <i class="fas fa-times"></i>
-        </button>
-      </div>
-    </div>
-    <div class="report-modal-body">
-      <!-- Placeholder shown until PDF is added -->
-      <div class="report-modal-placeholder" id="reportPlaceholder">
-        <i class="fas fa-file-lines"></i>
-        <h4>Technical Report Coming Soon</h4>
-        <p>
-          Drop the PDF at <code>pendulum-clock/pendulum-clock-report.pdf</code><br>
-          and it will render here automatically.
-        </p>
-      </div>
-      <iframe
-        id="reportFrame"
-        title="Technical Report — Weight-Driven Pendulum Clock"
-        data-pdf="pendulum-clock-report.pdf"
-        style="display:none;">
-      </iframe>
-    </div>
-  </div>
-
   <script src="/script.js"></script>
 
   <script>
@@ -855,29 +638,34 @@
     ═══════════════════════════════════════════ */
     const SLIDES = [
       {
+        src:     'pendulum-clock.jpg',
+        alt:     'The Monolith — completed clock',
+        caption: 'The Monolith — fully assembled and running',
+      },
+      {
         src:     'pendulum-clock1.png',
-        alt:     'Pendulum Clock Model',
-        caption: 'Full assembly of the grandfather clock',
+        alt:     'Clock assembly view',
+        caption: 'Full assembly — tall vertical form factor with exposed spoked gear train',
       },
       {
         src:     'pendulum-clock-2.png',
-        alt:     'Pendulum Clock',
-        caption: 'Side view of the full assembly',
-      },
-      {
-        src:     'pendulum-clock-calculations.png',
-        alt:     'Hand Calculations',
-        caption: 'Hand calculations to verify gear ratios',
+        alt:     'Clock side view',
+        caption: 'Side view — two-plate frame construction with pillar spacers',
       },
       {
         src:     'pendulum-clock-gear-train.png',
-        alt:     'Gear Train',
-        caption: 'The gear train',
+        alt:     'Gear train layout',
+        caption: 'SP5B gear train — cycloidal tooth profiles, constant 61.63 mm center distance across all configurations',
+      },
+      {
+        src:     'pendulum-clock-calculations.png',
+        alt:     'Gear ratio calculations',
+        caption: 'Independent gear ratio verification — 86,400 impulses/day confirmed at seconds-beat pendulum period',
       },
       {
         src:     'pendulum-clock-hands.png',
-        alt:     'Clock Hands',
-        caption: 'Clock hands and gears geared into their respective shafts',
+        alt:     'Clock hands and friction clutch',
+        caption: 'Friction clutch hand-setting mechanism — D-profile bore on minute hand hub, pen-spring clutch between driven gear and locked pinion',
       }
     ];
 
@@ -903,10 +691,10 @@
       const btnNext  = document.getElementById('c-next');
       const stage    = document.getElementById('c-stage');
 
-      const DURATION = 320; 
+      const DURATION = 320;
 
       let current     = 0;
-      let active      = 'a'; 
+      let active      = 'a';
       let isAnimating = false;
       let isOpen      = false;
 
@@ -920,14 +708,14 @@
       const gridVideoObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            entry.target.play().catch(() => {}); // catch autoplay blocks
+            entry.target.play().catch(() => {});
           } else {
             entry.target.pause();
           }
         });
       }, { threshold: 0.2 });
 
-      /* Helper: Generate HTML node for Lightbox (with controls/autoplay for video) */
+      /* Helper: Generate HTML node for Lightbox */
       function createMediaNode(slide) {
         if (isVideo(slide.src)) {
           return `<video src="${slide.src}" controls autoplay playsinline></video>`;
@@ -940,13 +728,13 @@
         /* Grid Item */
         const gridItem = document.createElement('div');
         gridItem.className = 'photo-grid-item';
-        
+
         if (isVideo(slide.src)) {
           const vid = document.createElement('video');
           vid.src = slide.src;
           vid.muted = true; vid.loop = true; vid.playsInline = true;
           gridItem.appendChild(vid);
-          gridVideoObserver.observe(vid); // Trigger play/pause on scroll
+          gridVideoObserver.observe(vid);
           gridItem.innerHTML += `<div class="video-badge"><i class="fas fa-video"></i> Video</div>`;
         } else {
           gridItem.innerHTML = `<img src="${slide.src}" alt="${slide.alt}" loading="lazy">`;
@@ -965,7 +753,6 @@
         const thumb = document.createElement('div');
         thumb.className = 'c-thumb';
         if (isVideo(slide.src)) {
-          // Render a frozen frame for the thumbnail strip to save memory
           thumb.innerHTML = `<video src="${slide.src}" muted playsinline preload="metadata"></video><div class="video-badge"><i class="fas fa-play"></i></div>`;
         } else {
           thumb.innerHTML = `<img src="${slide.src}" alt="${slide.alt}" draggable="false">`;
@@ -982,15 +769,13 @@
         isOpen = true;
         document.body.style.overflow = 'hidden';
         overlay.classList.add('active');
-        jumpTo(index); 
+        jumpTo(index);
       }
 
       function closeLightbox() {
         isOpen = false;
         document.body.style.overflow = '';
         overlay.classList.remove('active');
-        
-        // Destroy media instantly when closing to kill video audio immediately
         setTimeout(() => {
           layerA.innerHTML = '';
           layerB.innerHTML = '';
@@ -998,7 +783,7 @@
       }
 
       btnClose.addEventListener('click', closeLightbox);
-      
+
       overlay.addEventListener('click', (e) => {
         if (e.target === overlay || e.target.classList.contains('lightbox-content') || e.target === stage) {
           closeLightbox();
@@ -1009,20 +794,17 @@
         if (isOpen && e.key === 'Escape') closeLightbox();
       });
 
-      /* ── Instant Jump (Used when opening lightbox) ───────────────────── */
+      /* ── Instant Jump ───────────────────────────────────────────────── */
       function jumpTo(index) {
         current = index;
-        
         fg().innerHTML = createMediaNode(SLIDES[current]);
         fg().style.cssText = 'opacity:1; transform:translateX(0); z-index:2; transition:none;';
-        
         bg().innerHTML = '';
         bg().style.cssText = 'opacity:0; transform:translateX(0); z-index:1; transition:none;';
-
         updateUI();
       }
 
-      /* ── Animated Slide (Used when already inside lightbox) ──────────── */
+      /* ── Animated Slide ─────────────────────────────────────────────── */
       function goTo(newIndex) {
         if (isAnimating) return;
         newIndex = ((newIndex % N) + N) % N;
@@ -1035,10 +817,9 @@
         else if (current === 0     && newIndex === N - 1) forward = false;
         else                                              forward = newIndex > current;
 
-        const enterFrom = forward ? '52px' : '-52px';  
-        const exitTo    = forward ? '-52px' : '52px';  
+        const enterFrom = forward ? '52px' : '-52px';
+        const exitTo    = forward ? '-52px' : '52px';
 
-        // Inject new media into the background layer off-screen
         bg().innerHTML = createMediaNode(SLIDES[newIndex]);
         bg().style.cssText = 'opacity:0; transform:translateX(' + enterFrom + '); z-index:3; transition:none;';
 
@@ -1058,13 +839,10 @@
             fg().style.zIndex     = '2';
 
             setTimeout(() => {
-              // Destroy old media from the DOM. This stops the video immediately!
               fg().innerHTML = '';
               fg().style.cssText = 'opacity:0; transform:translateX(0); z-index:1; transition:none;';
-              
               active  = active === 'a' ? 'b' : 'a';
               current = newIndex;
-              
               updateUI();
               isAnimating = false;
             }, DURATION);
@@ -1077,11 +855,9 @@
         captionEl.textContent = SLIDES[current].caption;
         captionEl.classList.remove('fading');
         counter.textContent = (current + 1) + ' / ' + N;
-
         dots.forEach((d, i) => d.classList.toggle('active', i === current));
         thumbs.forEach((t, i) => t.classList.toggle('active', i === current));
-        
-        if(isOpen) {
+        if (isOpen) {
           thumbs[current].scrollIntoView({
             behavior: 'smooth', inline: 'center', block: 'nearest',
           });
@@ -1100,7 +876,7 @@
 
       /* Touch swipe */
       let txStart = null, tyStart = null;
-      const SWIPE = 48; 
+      const SWIPE = 48;
 
       stage.addEventListener('touchstart', e => {
         txStart = e.changedTouches[0].clientX;
@@ -1120,7 +896,7 @@
     })();
 
     /* ══════════════════════════════════════════════════════════════════════
-       3D VIEWER ACTIVATION (unchanged)
+       3D VIEWER ACTIVATION
     ═══════════════════════════════════════════════════════════════════════ */
     (function () {
       const wrapper     = document.getElementById('cadViewer');
@@ -1145,63 +921,6 @@
         placeholder.style.display = 'none';
         wrapper.appendChild(iframe);
       }
-    })();
-
-    /* ══════════════════════════════════════════════════════════════════════
-       TECHNICAL REPORT MODAL
-    ═══════════════════════════════════════════════════════════════════════ */
-    (function () {
-      const btn         = document.getElementById('reportBtn');
-      const modal       = document.getElementById('reportModal');
-      const closeBtn    = document.getElementById('reportClose');
-      const frame       = document.getElementById('reportFrame');
-      const placeholder = document.getElementById('reportPlaceholder');
-      if (!btn || !modal) return;
-
-      const pdfSrc = frame ? frame.getAttribute('data-pdf') : null;
-
-      /* Check if the PDF exists before showing the iframe */
-      function tryLoadPdf() {
-        if (!pdfSrc || !frame) return;
-        fetch(pdfSrc, { method: 'HEAD' })
-          .then(r => {
-            if (r.ok) {
-              frame.src = pdfSrc;
-              frame.style.display = 'block';
-              if (placeholder) placeholder.style.display = 'none';
-            }
-          })
-          .catch(() => {}); /* PDF not uploaded yet — keep placeholder */
-      }
-
-      let loaded = false;
-
-      function openModal() {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        if (!loaded) { tryLoadPdf(); loaded = true; }
-      }
-
-      function closeModal() {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-
-      btn.addEventListener('click', openModal);
-      closeBtn.addEventListener('click', closeModal);
-
-      /* Close on backdrop click */
-      modal.addEventListener('click', e => {
-        if (e.target === modal) closeModal();
-      });
-
-      /* Keyboard: Escape closes report modal (guard against lightbox conflict) */
-      document.addEventListener('keydown', e => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-          e.stopImmediatePropagation();
-          closeModal();
-        }
-      });
     })();
   </script>
 </body>
