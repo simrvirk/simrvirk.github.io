@@ -736,7 +736,7 @@ section { padding: 104px 0; }
 }
 .card-description {
   font-size: 0.875rem;
-  color: var(--text-muted);
+  color: var(--text-secondary);
   line-height: 1.65;
   flex: 1;
   margin-bottom: 16px;
