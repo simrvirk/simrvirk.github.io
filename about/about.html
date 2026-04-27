@@ -548,6 +548,50 @@
       .hobby-slider { aspect-ratio: 4/3; }
       .hobby-slider-btn { opacity: 1; } /* always visible on touch */
     }
+
+    /* ─────────────────────────────────────────────────────────────────
+       OTHER INTERESTS GRID
+    ───────────────────────────────────────────────────────────────── */
+    .interest-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 14px;
+    }
+    .interest-chip {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px 20px 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .interest-chip:hover {
+      border-color: rgba(54, 148, 237, .35);
+      transform: translateY(-2px);
+    }
+    .interest-chip-icon {
+      color: var(--accent);
+      font-size: 1.1rem;
+      opacity: 0.75;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .interest-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.3;
+      margin-bottom: 3px;
+    }
+    .interest-detail {
+      font-family: var(--font-mono);
+      font-size: 0.63rem;
+      letter-spacing: 0.8px;
+      color: var(--accent);
+      opacity: 0.8;
+    }
   </style>
 </head>
 <body>
@@ -984,6 +1028,73 @@
             </div>
             <div class="hobby-slider-progress"><div class="hobby-slider-progress-fill" id="slider-anime-progress"></div></div>
             <div class="hobby-slider-dots" id="slider-anime-dots"></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- 09 · OTHER INTERESTS -->
+    <div class="hobby-block fade-up">
+      <div class="container">
+        <div class="hobby-block-header">
+          <div>
+            <div class="section-label"><span class="label-line"></span><span class="label-text">09 — Other Interests</span></div>
+            <h3 class="hobby-block-title">Everything<br>Else</h3>
+          </div>
+          <div>
+            <p class="hobby-block-desc">A few other things that hold my attention when I'm not building something.</p>
+          </div>
+        </div>
+
+        <div class="interest-grid">
+
+          <div class="interest-chip">
+            <div class="interest-chip-icon"><i class="fas fa-chess"></i></div>
+            <div>
+              <div class="interest-name">Chess</div>
+              <div class="interest-detail">1650 ELO</div>
+            </div>
+          </div>
+
+          <div class="interest-chip">
+            <div class="interest-chip-icon"><i class="fas fa-hockey-puck"></i></div>
+            <div>
+              <div class="interest-name">Hockey</div>
+              <div class="interest-detail">Canucks fan</div>
+            </div>
+          </div>
+
+          <div class="interest-chip">
+            <div class="interest-chip-icon"><i class="fas fa-hand-fist"></i></div>
+            <div>
+              <div class="interest-name">UFC / MMA</div>
+              <div class="interest-detail">Fight fan</div>
+            </div>
+          </div>
+
+          <div class="interest-chip">
+            <div class="interest-chip-icon"><i class="fas fa-rocket"></i></div>
+            <div>
+              <div class="interest-name">Sci-Fi</div>
+              <div class="interest-detail">Books &amp; film</div>
+            </div>
+          </div>
+
+          <div class="interest-chip">
+            <div class="interest-chip-icon"><i class="fas fa-clock"></i></div>
+            <div>
+              <div class="interest-name">Watches</div>
+              <div class="interest-detail">Horology</div>
+            </div>
+          </div>
+
+          <div class="interest-chip">
+            <div class="interest-chip-icon"><i class="fas fa-dumbbell"></i></div>
+            <div>
+              <div class="interest-name">Gym</div>
+              <div class="interest-detail">Daily habit</div>
+            </div>
           </div>
 
         </div>
