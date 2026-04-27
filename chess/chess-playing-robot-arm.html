@@ -463,37 +463,13 @@
   <div class="project-body">
     <div class="container">
 
-      <div class="spec-block">
-        <div>
-          <div class="spec-col-label">System Architecture &amp; Software</div>
-          <ul class="spec-list">
-            <li><strong>Python Brain</strong> — centralized architecture handles OpenCV detection, Stockfish queries, and IK math (NumPy/SciPy) locally, then streams optimized coordinate strings over USB Serial to Arduino; eliminates MATLAB/Python split latency</li>
-            <li><strong>Inverse Kinematics engine</strong> — solved 5-DOF kinematic redundancy by imposing a strict vertical end-effector constraint (gripper always perpendicular to table), reducing the matrix system to a determinate solution and guaranteeing flat piece pick/place without dragging</li>
-            <li><strong>Forward Kinematics skeleton</strong> — Homogeneous Transformation Matrices calibrated to physical axes of rotation; explicitly accounts for 12.85 mm horizontal planar offsets between the bicep and forearm links introduced by the S-curve arm geometry</li>
-            <li><strong>OpenCV vision pipeline</strong> — overhead camera detects board state each turn, maps piece positions to algebraic notation, and passes the result as Stockfish query input</li>
-            <li><strong>Adaptive ELO targeting</strong> — Stockfish engine strength dialed to 1,650–2,000 range; user selects target rating and piece color via onboard joystick UI before each game</li>
-          </ul>
-        </div>
-        <div>
-          <div class="spec-col-label">Hardware &amp; Electromechanics</div>
-          <ul class="spec-list">
-            <li><strong>Base drive</strong> — NEMA 17 stepper + A4988 driver module on custom expansion board; 12:1 3D-printed gear reduction combined with 1/16th microstepping yields 38,400 micro-steps/rev → sub-millimeter panning accuracy under full arm load</li>
-            <li><strong>Upper linkages</strong> — Shoulder, Elbow, Wrist, and Gripper driven by MG996R/SG90 PWM servos via PCA9685 16-channel I2C servo driver on Arduino Mega</li>
-            <li><strong>Servo motion smoothing</strong> — custom C++ pulse-width sweep with injected microsecond delays across interpolated steps; bypasses violent default RC servo dynamics to produce smooth, industrial-grade gliding motion</li>
-            <li><strong>Stepper resonance resolution</strong> — severe inertia-driven resonance and stalling under fully-assembled arm load resolved by enabling 1/16th microstepping (DIP switches) and scaling firmware to 3,200 steps/rev; eliminated vibration entirely</li>
-            <li><strong>Thermal &amp; deadband management</strong> — PWM signal actively detached during idle to prevent thermal buildup; software limits backed off by 5 pulse-widths to prevent deadband fighting against hard 3D-printed end stops</li>
-            <li><strong>Closed-loop UI</strong> — 16×2 LCD, analog joystick (ELO/color selection), and base potentiometer for absolute homing reference feedback</li>
-          </ul>
-        </div>
-      </div>
+      <div class="project-section-title" style="margin-bottom: 18px; margin-top: 48px;">Gallery</div>
 
-      <div class="project-section-title" style="margin-bottom: 18px;">Gallery</div>
-      
       <div class="photo-grid" id="photoGrid"></div>
 
       <div class="lightbox-overlay" id="lightboxOverlay">
         <button class="c-close" id="c-close" aria-label="Close Gallery"><i class="fas fa-times"></i></button>
-        
+
         <div class="lightbox-content">
           <div class="carousel-section-header">
             <span class="carousel-counter" id="c-counter"></span>
@@ -520,6 +496,30 @@
             <div class="c-dots" id="c-dots"></div>
             <div class="c-thumbs" id="c-thumbs"></div>
           </div>
+        </div>
+      </div>
+
+      <div class="spec-block" style="margin-top: 64px;">
+        <div>
+          <div class="spec-col-label">System Architecture &amp; Software</div>
+          <ul class="spec-list">
+            <li><strong>Python Brain</strong> — centralized architecture handles OpenCV detection, Stockfish queries, and IK math (NumPy/SciPy) locally, then streams optimized coordinate strings over USB Serial to Arduino; eliminates MATLAB/Python split latency</li>
+            <li><strong>Inverse Kinematics engine</strong> — solved 5-DOF kinematic redundancy by imposing a strict vertical end-effector constraint (gripper always perpendicular to table), reducing the matrix system to a determinate solution and guaranteeing flat piece pick/place without dragging</li>
+            <li><strong>Forward Kinematics skeleton</strong> — Homogeneous Transformation Matrices calibrated to physical axes of rotation; explicitly accounts for 12.85 mm horizontal planar offsets between the bicep and forearm links introduced by the S-curve arm geometry</li>
+            <li><strong>OpenCV vision pipeline</strong> — overhead camera detects board state each turn, maps piece positions to algebraic notation, and passes the result as Stockfish query input</li>
+            <li><strong>Adaptive ELO targeting</strong> — Stockfish engine strength dialed to 1,650–2,000 range; user selects target rating and piece color via onboard joystick UI before each game</li>
+          </ul>
+        </div>
+        <div>
+          <div class="spec-col-label">Hardware &amp; Electromechanics</div>
+          <ul class="spec-list">
+            <li><strong>Base drive</strong> — NEMA 17 stepper + A4988 driver module on custom expansion board; 12:1 3D-printed gear reduction combined with 1/16th microstepping yields 38,400 micro-steps/rev → sub-millimeter panning accuracy under full arm load</li>
+            <li><strong>Upper linkages</strong> — Shoulder, Elbow, Wrist, and Gripper driven by MG996R/SG90 PWM servos via PCA9685 16-channel I2C servo driver on Arduino Mega</li>
+            <li><strong>Servo motion smoothing</strong> — custom C++ pulse-width sweep with injected microsecond delays across interpolated steps; bypasses violent default RC servo dynamics to produce smooth, industrial-grade gliding motion</li>
+            <li><strong>Stepper resonance resolution</strong> — severe inertia-driven resonance and stalling under fully-assembled arm load resolved by enabling 1/16th microstepping (DIP switches) and scaling firmware to 3,200 steps/rev; eliminated vibration entirely</li>
+            <li><strong>Thermal &amp; deadband management</strong> — PWM signal actively detached during idle to prevent thermal buildup; software limits backed off by 5 pulse-widths to prevent deadband fighting against hard 3D-printed end stops</li>
+            <li><strong>Closed-loop UI</strong> — 16×2 LCD, analog joystick (ELO/color selection), and base potentiometer for absolute homing reference feedback</li>
+          </ul>
         </div>
       </div>
 

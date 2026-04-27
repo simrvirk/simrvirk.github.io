@@ -691,37 +691,13 @@
   <div class="project-body">
     <div class="container">
 
-      <div class="spec-block">
-        <div>
-          <div class="spec-col-label">Mechanical Design</div>
-          <ul class="spec-list">
-            <li><strong>177.35mm truss arm</strong> — 30g; FEA-optimized triangular cutouts positioned to minimize rotational inertia (38,687 g·mm²); 0.63mm simulated deflection under 10N tip load</li>
-            <li><strong>Ball holder</strong> accepts all three projectile diameters up to ø27mm — cedar (ø20mm), glass (ø12mm), fluffy yellow (ø25mm)</li>
-            <li><strong>Bifilar pendulum test</strong> validated inertia estimate; measured oscillation period of 1.25s</li>
-            <li><strong>FEA vs. experiment discrepancy</strong> — 5N load yielded 4.5mm measured deflection vs. 0.63mm simulated; traced to compliance at the 3D-printed square-shaft attachment interface, not the truss structure itself</li>
-            <li><strong>Ball-sorting mechanism</strong> designed from scratch — sensors and actuators selected to autonomously classify all three projectile types prior to the throw sequence; six throws executed in random order with no human intervention</li>
-          </ul>
-        </div>
-        <div>
-          <div class="spec-col-label">Closed-Loop Controls &amp; Competition</div>
-          <ul class="spec-list">
-            <li><strong>PI control in MATLAB/Simulink</strong> — motor encoder feedback; H-bridge driver via Arduino PWM; P = 0.65, I = 0.35, D = 0; settles in 3–4 oscillations with ~30% overshoot</li>
-            <li><strong>D-term excluded</strong> — derivative gain introduced severe motor vibration from high-frequency PWM switching noise; lead compensator also tested and rejected for same reason</li>
-            <li><strong>Modular angle-per-ball architecture</strong> — each ball type controlled by a single angle parameter, seeded from kinematic launch angle calculations; designed specifically so calibration could be done rapidly from a known starting point</li>
-            <li><strong>Circuit fault root cause</strong> — multi-day failure traced to a faulty terminal block causing inconsistent power delivery to the motor driver; fix was to eliminate the terminal block and hard-wire the supply directly</li>
-            <li><strong>Competition morning</strong> — hardware operational for the first time ~90 min before competition; all launch trajectories for both ball types calibrated and locked before we went up</li>
-            <li><strong>Result: 1st / 20 teams</strong> — full score on cedar vessel placement and fluffy yellow distance targeting</li>
-          </ul>
-        </div>
-      </div>
+      <div class="project-section-title" style="margin-bottom: 18px; margin-top: 48px;">Gallery</div>
 
-      <div class="project-section-title" style="margin-bottom: 18px;">Gallery</div>
-      
       <div class="photo-grid" id="photoGrid"></div>
 
       <div class="lightbox-overlay" id="lightboxOverlay">
         <button class="c-close" id="c-close" aria-label="Close Gallery"><i class="fas fa-times"></i></button>
-        
+
         <div class="lightbox-content">
           <div class="carousel-section-header">
             <span class="carousel-counter" id="c-counter"></span>
@@ -748,6 +724,30 @@
             <div class="c-dots" id="c-dots"></div>
             <div class="c-thumbs" id="c-thumbs"></div>
           </div>
+        </div>
+      </div>
+
+      <div class="spec-block" style="margin-top: 64px;">
+        <div>
+          <div class="spec-col-label">Mechanical Design</div>
+          <ul class="spec-list">
+            <li><strong>177.35mm truss arm</strong> — 30g; FEA-optimized triangular cutouts positioned to minimize rotational inertia (38,687 g·mm²); 0.63mm simulated deflection under 10N tip load</li>
+            <li><strong>Ball holder</strong> accepts all three projectile diameters up to ø27mm — cedar (ø20mm), glass (ø12mm), fluffy yellow (ø25mm)</li>
+            <li><strong>Bifilar pendulum test</strong> validated inertia estimate; measured oscillation period of 1.25s</li>
+            <li><strong>FEA vs. experiment discrepancy</strong> — 5N load yielded 4.5mm measured deflection vs. 0.63mm simulated; traced to compliance at the 3D-printed square-shaft attachment interface, not the truss structure itself</li>
+            <li><strong>Ball-sorting mechanism</strong> designed from scratch — sensors and actuators selected to autonomously classify all three projectile types prior to the throw sequence; six throws executed in random order with no human intervention</li>
+          </ul>
+        </div>
+        <div>
+          <div class="spec-col-label">Closed-Loop Controls &amp; Competition</div>
+          <ul class="spec-list">
+            <li><strong>PI control in MATLAB/Simulink</strong> — motor encoder feedback; H-bridge driver via Arduino PWM; P = 0.65, I = 0.35, D = 0; settles in 3–4 oscillations with ~30% overshoot</li>
+            <li><strong>D-term excluded</strong> — derivative gain introduced severe motor vibration from high-frequency PWM switching noise; lead compensator also tested and rejected for same reason</li>
+            <li><strong>Modular angle-per-ball architecture</strong> — each ball type controlled by a single angle parameter, seeded from kinematic launch angle calculations; designed specifically so calibration could be done rapidly from a known starting point</li>
+            <li><strong>Circuit fault root cause</strong> — multi-day failure traced to a faulty terminal block causing inconsistent power delivery to the motor driver; fix was to eliminate the terminal block and hard-wire the supply directly</li>
+            <li><strong>Competition morning</strong> — hardware operational for the first time ~90 min before competition; all launch trajectories for both ball types calibrated and locked before we went up</li>
+            <li><strong>Result: 1st / 20 teams</strong> — full score on cedar vessel placement and fluffy yellow distance targeting</li>
+          </ul>
         </div>
       </div>
 
