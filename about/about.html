@@ -253,18 +253,31 @@
     .gallery-empty-label { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 1.5px; text-transform: uppercase; }
 
     /* ─────────────────────────────────────────────────────────────────
-       PHOTO GRID
+       INFINITE MARQUEE GALLERY
     ───────────────────────────────────────────────────────────────── */
-    .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 14px; }
-    .photo-grid-item {
-      position: relative; cursor: pointer;
-      border-radius: var(--radius-lg); overflow: hidden;
-      aspect-ratio: 4/3; border: 1px solid var(--accent-border); background: var(--bg-card);
-      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    .marquee-container {
+      overflow: hidden; width: 100%; margin-bottom: 0;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
     }
-    .photo-grid-item:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(54, 148, 237,.15); border-color: rgba(54, 148, 237,.6); }
-    .photo-grid-item img, .photo-grid-item video { width:100%;height:100%;object-fit:cover;display:block;transition:opacity .2s ease; }
-    .photo-grid-item:hover img, .photo-grid-item:hover video { opacity: 0.85; }
+    .marquee-track {
+      display: flex; gap: 16px; width: max-content;
+      animation: marquee-scroll 50s linear infinite;
+    }
+    .marquee-container:hover .marquee-track { animation-play-state: paused; }
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .marquee-item {
+      flex-shrink: 0; width: 280px; height: 210px;
+      border-radius: var(--radius-lg); overflow: hidden;
+      border: 1px solid var(--accent-border); background: var(--bg-card);
+      cursor: pointer; position: relative;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .marquee-item:hover { border-color: rgba(54,148,237,.6); box-shadow: 0 6px 20px rgba(54,148,237,.15); }
+    .marquee-item img, .marquee-item video { width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; }
     .video-badge {
       position: absolute; top: 8px; right: 8px;
       background: rgba(0,0,0,.72); color: #fff; font-size: .63rem;
@@ -701,7 +714,7 @@
           </div>
         </div>
         <!-- ↓↓ ADD BOOK COVERS TO: about/books/ ↓↓ -->
-        <div class="photo-grid" id="photoGrid-books"></div>
+        <div class="marquee-container"><div class="marquee-track" id="marqueeTrack-books"></div></div>
       </div>
     </div>
 
@@ -722,7 +735,7 @@
           </div>
         </div>
         <!-- ↓↓ ADD GOLF PHOTOS TO: about/golf/ ↓↓ -->
-        <div class="photo-grid" id="photoGrid-golf"></div>
+        <div class="marquee-container"><div class="marquee-track" id="marqueeTrack-golf"></div></div>
       </div>
     </div>
 
@@ -744,7 +757,7 @@
           </div>
         </div>
         <!-- ↓↓ ADD CREATIVE SCREENSHOTS TO: about/creative/ ↓↓ -->
-        <div class="photo-grid" id="photoGrid-creative"></div>
+        <div class="marquee-container"><div class="marquee-track" id="marqueeTrack-creative"></div></div>
       </div>
     </div>
 
@@ -764,7 +777,7 @@
           </div>
         </div>
         <!-- ↓↓ ADD TRAVEL PHOTOS TO: about/travel/ ↓↓ -->
-        <div class="photo-grid" id="photoGrid-travel"></div>
+        <div class="marquee-container"><div class="marquee-track" id="marqueeTrack-travel"></div></div>
       </div>
     </div>
 
@@ -786,7 +799,7 @@
           </div>
         </div>
         <!-- ↓↓ ADD MSESS PHOTOS TO: about/society/ ↓↓ -->
-        <div class="photo-grid" id="photoGrid-society"></div>
+        <div class="marquee-container"><div class="marquee-track" id="marqueeTrack-society"></div></div>
       </div>
     </div>
 
@@ -806,7 +819,7 @@
           </div>
         </div>
         <!-- ↓↓ ADD OUTDOOR PHOTOS TO: about/outdoor/ ↓↓ -->
-        <div class="photo-grid" id="photoGrid-outdoor"></div>
+        <div class="marquee-container"><div class="marquee-track" id="marqueeTrack-outdoor"></div></div>
       </div>
     </div>
 
@@ -1411,24 +1424,27 @@
       document.addEventListener('keydown',e=>{if(!open_)return;if(e.key==='Escape')closeLb();if(e.key==='ArrowRight'){e.preventDefault();goTo(cur+1);}if(e.key==='ArrowLeft'){e.preventDefault();goTo(cur-1);}});
       let tx=null,ty=null;stage.addEventListener('touchstart',e=>{tx=e.changedTouches[0].clientX;ty=e.changedTouches[0].clientY;},{passive:true});stage.addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;tx=ty=null;if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>48)goTo(dx<0?cur+1:cur-1);},{passive:true});
       const vo=new IntersectionObserver(es=>{es.forEach(en=>en.isIntersecting?en.target.play().catch(()=>{}):en.target.pause());},{threshold:.2});
-      window.initGallery=function(slides,gridId){
-        const grid=document.getElementById(gridId);if(!grid)return;
-        if(!slides||!slides.length){grid.innerHTML='<div class="gallery-empty" style="grid-column:1/-1;"><i class="fas fa-images"></i><span class="gallery-empty-label">Photos coming soon</span></div>';return;}
-        slides.forEach((slide,i)=>{
-          const item=document.createElement('div');item.className='photo-grid-item';
-          if(isVid(slide.src)){const v=document.createElement('video');v.src=slide.src;v.muted=true;v.loop=true;v.playsInline=true;item.appendChild(v);vo.observe(v);const b=document.createElement('div');b.className='video-badge';b.innerHTML='<i class="fas fa-video"></i> Video';item.appendChild(b);}
-          else{const img=document.createElement('img');img.src=slide.src;img.alt=slide.alt;img.loading='lazy';item.appendChild(img);}
-          item.addEventListener('click',()=>openLb(slides,i));grid.appendChild(item);
-        });
+      window.initGallery=function(slides,trackId){
+        const track=document.getElementById(trackId);if(!track)return;
+        if(!slides||!slides.length)return;
+        function buildSet(){
+          slides.forEach((slide,i)=>{
+            const item=document.createElement('div');item.className='marquee-item';
+            if(isVid(slide.src)){const v=document.createElement('video');v.src=slide.src;v.muted=true;v.loop=true;v.playsInline=true;item.appendChild(v);vo.observe(v);const b=document.createElement('div');b.className='video-badge';b.innerHTML='<i class="fas fa-video"></i> Video';item.appendChild(b);}
+            else{const img=document.createElement('img');img.src=slide.src;img.alt=slide.alt;img.loading='lazy';item.appendChild(img);}
+            item.addEventListener('click',()=>openLb(slides,i));track.appendChild(item);
+          });
+        }
+        buildSet();buildSet();
       };
     })();
 
-    initGallery(SLIDES_BOOKS,    'photoGrid-books');
-    initGallery(SLIDES_GOLF,     'photoGrid-golf');
-    initGallery(SLIDES_TRAVEL,   'photoGrid-travel');
-    initGallery(SLIDES_OUTDOOR,  'photoGrid-outdoor');
-    initGallery(SLIDES_SOCIETY,  'photoGrid-society');
-    initGallery(SLIDES_CREATIVE, 'photoGrid-creative');
+    initGallery(SLIDES_BOOKS,    'marqueeTrack-books');
+    initGallery(SLIDES_GOLF,     'marqueeTrack-golf');
+    initGallery(SLIDES_TRAVEL,   'marqueeTrack-travel');
+    initGallery(SLIDES_OUTDOOR,  'marqueeTrack-outdoor');
+    initGallery(SLIDES_SOCIETY,  'marqueeTrack-society');
+    initGallery(SLIDES_CREATIVE, 'marqueeTrack-creative');
 
     /* ── Initialize the hobby sliders ──────────────────────────────── */
     initHobbySlider(SLIDES_GAMING, 'slider-gaming', { interval: 3500 });
