@@ -462,53 +462,6 @@
   <div class="project-body">
     <div class="container">
 
-      <div class="spec-block">
-        <div>
-          <div class="spec-col-label">Frame Design &amp; Mechanical Architecture</div>
-          <ul class="spec-list">
-            <li><strong>Two-plate construction</strong> — front and back frame plates connected by pillars; both plates driven by a single master layout sketch in SolidWorks so bearing hole positions propagate simultaneously across the assembly without manual synchronization</li>
-            <li><strong>Cantilever deflection eliminated</strong> — identified tip deflection of cantilevered escapement arbors as a critical failure mode: center-to-center spacing shifts beyond cycloidal gear tolerance under load, causing escapement lockup; resolved via a partial-ring front plate around the escapement that provides front-end arbor support while preserving the skeletal aesthetic</li>
-            <li><strong>Frame split at 255 mm</strong> — frame height exceeded the Bambu P1S 256 mm print bed; split into two interlocking pieces with an angled joint secured by screws; pure press-fit rejected because PLA creeps under sustained gravity-induced shear load</li>
-            <li><strong>623RS bearing bosses</strong> (3 × 10 × 4 mm) designed as interference fits; tightest tolerances applied at the escapement arbor and pendulum pivot — highest-leverage positions for friction reduction</li>
-            <li><strong>Tolerance stack-up</strong> — Z-axis gear train depth calculated from caliper-measured printed gear thicknesses, not nominal values; spacer lengths set to produce &lt;0.5 mm end shake at each arbor</li>
-            <li><strong>Print process control</strong> — 0.15 mm layer height, 4 walls, Classic perimeter generator (Arachne rejected — varied wall count at gear tooth tips weakened tooth geometry), 0.25 mm elephant foot compensation, random seam to prevent repeating seam line coinciding with the same tooth position each revolution</li>
-          </ul>
-        </div>
-        <div>
-          <div class="spec-col-label">Gear Train, Escapement &amp; Drive System</div>
-          <ul class="spec-list">
-            <li><strong>SP5B gear train (Steve Peterson)</strong> adopted as a verified subsystem — module 1.86765 mm (13.6 DP), cycloidal tooth profiles; gear train rotated 90° counter-clockwise from original horizontal layout to achieve the tall vertical "Monolith" form factor</li>
-            <li><strong>Constant tooth sum of 66</strong> across all SP5B runtime configurations → fixed center distance of 61.63 mm regardless of gear count combination; independently verified total reduction ratio confirming ~86,400 escapement impulses/day at seconds-beat</li>
-            <li><strong>Cycloidal geometry constraint</strong> — operating center distance must be verified from printed parts, not derived theoretically; this drove the decision to use Steve's STLs unchanged rather than redesigning gear geometry</li>
-            <li><strong>Graham deadbeat escapement</strong> — escape wheel reprinted at 0.12 mm layer height to improve impulse face surface finish and minimize pallet-face drag; smoother 623RS bearings reserved for this arbor</li>
-            <li><strong>Block-and-tackle drive</strong> — movable pulley in weight shell halves effective drum force (minimum ~3.2 lbs at drum → minimum 6.4 lbs total weight required); doubles runtime and doubles cord paid out per drum revolution; 65 lb braided PowerPro fishing line, figure-8 knot anchored to G8 spoke</li>
-            <li><strong>Friction clutch (hand-setting)</strong> — pen-spring clutch between driven gear (loose on arbor) and pinion (locked via set screw); transmits running torque, slips under hand-applied time-setting force; minute hand hub uses D-profile bore matched to filed flat on 3 mm arbor — no keyway broach required</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="spec-block" style="border-top: 1px solid var(--border);">
-        <div>
-          <div class="spec-col-label">Commissioning &amp; Failure Mode Resolution</div>
-          <ul class="spec-list">
-            <li><strong>Failure Mode 1 — Pendulum amplitude dying:</strong> drive cord contacting adjacent frame members introduced cord friction that reduced effective drum torque below the escapement's minimum self-sustaining threshold; fixed by adjusting cord path geometry to eliminate frame interference</li>
-            <li><strong>Failure Mode 2 — Gear train lockup:</strong> repeatable stall (not random) indicated geometric lockup rather than torque deficiency; isolated by removing pallet — gear train moved freely, confirming escapement as root cause; fixed by rotating pallet body to increase arm engagement depth and reprinting escape wheel at 0.12 mm</li>
-            <li><strong>Weight calibration:</strong> operating weight set at 1.5× identified minimum self-sustaining threshold; weight shell sized and filled (BB shot) to achieve target with margin</li>
-            <li><strong>Print failure root cause:</strong> partial nozzle clog compounded into blob-of-death event — traced to symptom chasing (re-printing) rather than eliminating root cause; nozzle replaced, filament dried at 120°F / 5 hours in dehydrator to address moisture-related stringing</li>
-          </ul>
-        </div>
-        <div>
-          <div class="spec-col-label">Manufacturing &amp; Assembly</div>
-          <ul class="spec-list">
-            <li><strong>Shaft preparation</strong> — 3 mm stainless steel arbor rod cut with bi-metal hacksaw (18–24 TPI), ends deburred and sanded to 623RS inner bore; 1.5 mm music wire (hardened spring steel) for pallet arbor, cut with abrasive disc; D-flat filed with needle file set, depth verified by calipers</li>
-            <li><strong>Bearing preparation</strong> — all 623RS bearings flushed of factory grease via overnight IPA soak, dried, and spin-tested; smoothest bearings reserved for escapement arbor and pendulum pivot; lightweight oil applied to pendulum pivot for long-term wear protection</li>
-            <li><strong>Assembly sequence</strong> — bearings pressed in → gears + spacers on arbors → drive cord → pallet + pendulum installed last, after gear train confirmed free under applied load</li>
-            <li><strong>Lubrication</strong> — trace grease on pallet faces and pinion leaves only; no grease on large gear wheel teeth (attracts abrasive dust)</li>
-            <li><strong>SolidWorks Design Tables</strong> — managed multiple gear configurations (varying tooth and spoke counts) within a single part file; feature suppression columns handle spoke geometry that would violate wall thickness minimums at low tooth counts</li>
-          </ul>
-        </div>
-      </div>
-
       <div class="project-section-title" style="margin-bottom: 18px; margin-top: 48px;">Gallery</div>
 
       <div class="photo-grid" id="photoGrid"></div>
@@ -542,6 +495,54 @@
             <div class="c-dots" id="c-dots"></div>
             <div class="c-thumbs" id="c-thumbs"></div>
           </div>
+        </div>
+      </div>
+
+      <div class="spec-block" style="margin-top: 64px;">
+        <div>
+          <div class="spec-col-label">Frame Design &amp; Mechanical Architecture</div>
+          <ul class="spec-list">
+            <li><strong>Two-plate construction</strong> — front and back frame plates connected by pillars; both plates driven by a single master layout sketch in SolidWorks so bearing hole positions propagate simultaneously across the assembly without manual synchronization</li>
+            <li><strong>Cantilever deflection eliminated</strong> — identified tip deflection of cantilevered escapement arbors as a critical failure mode: center-to-center spacing shifts beyond cycloidal gear tolerance under load, causing escapement lockup; resolved via a partial-ring front plate around the escapement that provides front-end arbor support while preserving the skeletal aesthetic</li>
+            <li><strong>Frame split at 255 mm</strong> — frame height exceeded the Bambu P1S 256 mm print bed; split into two interlocking pieces with an angled joint secured by screws; pure press-fit rejected because PLA creeps under sustained gravity-induced shear load</li>
+            <li><strong>623RS bearing bosses</strong> (3 × 10 × 4 mm) designed as interference fits; tightest tolerances applied at the escapement arbor and pendulum pivot — highest-leverage positions for friction reduction</li>
+            <li><strong>Tolerance stack-up</strong> — Z-axis gear train depth calculated from caliper-measured printed gear thicknesses, not nominal values; spacer lengths set to produce &lt;0.5 mm end shake at each arbor</li>
+            <li><strong>Print process control</strong> — 0.15 mm layer height, 4 walls, Classic perimeter generator (Arachne rejected — varied wall count at gear tooth tips weakened tooth geometry), 0.25 mm elephant foot compensation, random seam to prevent repeating seam line coinciding with the same tooth position each revolution</li>
+          </ul>
+        </div>
+        <div>
+          <div class="spec-col-label">Gear Train, Escapement &amp; Drive System</div>
+          <ul class="spec-list">
+            <li><strong>SP5B gear train (Steve Peterson)</strong> adopted as a verified subsystem — module 1.86765 mm (13.6 DP), cycloidal tooth profiles; gear train rotated 90° counter-clockwise from original horizontal layout to achieve the tall vertical "Monolith" form factor</li>
+            <li><strong>Constant tooth sum of 66</strong> across all SP5B runtime configurations → fixed center distance of 61.63 mm regardless of gear count combination; independently verified total reduction ratio confirming ~86,400 escapement impulses/day at seconds-beat</li>
+            <li><strong>Cycloidal geometry constraint</strong> — operating center distance must be verified from printed parts, not derived theoretically; this drove the decision to use Steve's STLs unchanged rather than redesigning gear geometry</li>
+            <li><strong>Graham deadbeat escapement</strong> — escape wheel reprinted at 0.12 mm layer height to improve impulse face surface finish and minimize pallet-face drag; smoother 623RS bearings reserved for this arbor</li>
+            <li><strong>Block-and-tackle drive</strong> — movable pulley in weight shell halves effective drum force (minimum ~3.2 lbs at drum → minimum 6.4 lbs total weight required); doubles runtime and doubles cord paid out per drum revolution; 65 lb braided PowerPro fishing line, figure-8 knot anchored to G8 spoke</li>
+            <li><strong>Friction clutch (hand-setting)</strong> — pen-spring clutch between driven gear (loose on arbor) and pinion (locked via set screw); transmits running torque, slips under hand-applied time-setting force; minute hand hub uses D-profile bore matched to filed flat on 3 mm arbor — no keyway broach required</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="spec-block" style="border-top: 1px solid var(--border);">
+        <div>
+          <div class="spec-col-label">Commissioning &amp; Failure Mode Resolution</div>
+          <ul class="spec-list">
+            <li><strong>Failure Mode 1 — Pendulum amplitude dying:</strong> drive cord contacting adjacent frame members introduced cord friction that reduced effective drum torque below the escapement's minimum self-sustaining threshold; fixed by adjusting cord path geometry to eliminate frame interference</li>
+            <li><strong>Failure Mode 2 — Gear train lockup:</strong> repeatable stall (not random) indicated geometric lockup rather than torque deficiency; isolated by removing pallet — gear train moved freely, confirming escapement as root cause; fixed by rotating pallet body to increase arm engagement depth and reprinting escape wheel at 0.12 mm</li>
+            <li><strong>Weight calibration:</strong> operating weight set at 1.5× identified minimum self-sustaining threshold; weight shell sized and filled (BB shot) to achieve target with margin</li>
+            <li><strong>Dropped weight incident:</strong> 10 lb filled shell fell from ~6 ft during cord routing — a practical reminder that a drive weight at full drop height stores ~81 ft·lbs of potential energy and is a genuine impact hazard; foot confirmed not load-bearing during clock assembly going forward</li>
+            <li><strong>Print failure root cause:</strong> partial nozzle clog compounded into blob-of-death event — traced to symptom chasing (re-printing) rather than eliminating root cause; nozzle replaced, filament dried at 120°F / 5 hours in dehydrator to address moisture-related stringing</li>
+          </ul>
+        </div>
+        <div>
+          <div class="spec-col-label">Manufacturing &amp; Assembly</div>
+          <ul class="spec-list">
+            <li><strong>Shaft preparation</strong> — 3 mm stainless steel arbor rod cut with bi-metal hacksaw (18–24 TPI), ends deburred and sanded to 623RS inner bore; 1.5 mm music wire (hardened spring steel) for pallet arbor, cut with abrasive disc; D-flat filed with needle file set, depth verified by calipers</li>
+            <li><strong>Bearing preparation</strong> — all 623RS bearings flushed of factory grease via overnight IPA soak, dried, and spin-tested; smoothest bearings reserved for escapement arbor and pendulum pivot; lightweight oil applied to pendulum pivot for long-term wear protection</li>
+            <li><strong>Assembly sequence</strong> — bearings pressed in → gears + spacers on arbors → drive cord → pallet + pendulum installed last, after gear train confirmed free under applied load</li>
+            <li><strong>Lubrication</strong> — trace grease on pallet faces and pinion leaves only; no grease on large gear wheel teeth (attracts abrasive dust)</li>
+            <li><strong>SolidWorks Design Tables</strong> — managed multiple gear configurations (varying tooth and spoke counts) within a single part file; feature suppression columns handle spoke geometry that would violate wall thickness minimums at low tooth counts</li>
+          </ul>
         </div>
       </div>
 
