@@ -52,6 +52,60 @@
       display: none;          /* 80px tall decorative line — hidden */
     }
 
+    /* ── Card colour revert — neutral grey ─────────────────────────────── */
+    :root {
+      --bg-card:       #131313;
+      --bg-card-hover: #1c1c1c;
+    }
+
+    /* ── Skills strip ────────────────────────────────────────────────────── */
+    .skills-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      margin-bottom: 40px;
+      padding: 28px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .skills-strip-group { padding: 0 28px; }
+    .skills-strip-group:first-child { padding-left: 0; }
+    .skills-strip-group:last-child  { padding-right: 0; }
+    .skills-strip-group:not(:last-child) { border-right: 1px solid var(--border); }
+    .skills-strip-label {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      opacity: 0.75;
+      margin-bottom: 14px;
+    }
+    .skills-strip-tags { display: flex; flex-direction: column; gap: 7px; }
+    .s-tag {
+      font-family: var(--font-heading);
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      letter-spacing: 0.2px;
+    }
+    @media (max-width: 900px) {
+      .skills-strip { grid-template-columns: 1fr 1fr; }
+      .skills-strip-group { padding: 20px 24px; }
+      .skills-strip-group:first-child { padding-left: 0; }
+      .skills-strip-group:nth-child(2) { border-right: none; padding-right: 0; }
+      .skills-strip-group:nth-child(3) { border-top: 1px solid var(--border); border-right: 1px solid var(--border); padding-left: 0; }
+      .skills-strip-group:nth-child(4) { border-top: 1px solid var(--border); border-right: none; padding-right: 0; }
+    }
+    @media (max-width: 576px) {
+      .skills-strip { grid-template-columns: 1fr; }
+      .skills-strip-group,
+      .skills-strip-group:first-child,
+      .skills-strip-group:nth-child(2),
+      .skills-strip-group:nth-child(3),
+      .skills-strip-group:nth-child(4) { padding: 16px 0; border-right: none; }
+      .skills-strip-group:not(:first-child) { border-top: 1px solid var(--border); }
+    }
+
     /* ── NAV CENTERING ─────────────────────────────────────────────────── */
     @media (min-width: 769px) {
       .nav-links {
@@ -107,6 +161,49 @@
         <span class="label-text">Selected Work</span>
       </div>
       <h2 class="section-title fade-up">Projects and Work Experience</h2>
+
+      <div class="skills-strip fade-up">
+        <div class="skills-strip-group">
+          <div class="skills-strip-label">CAD &amp; Simulation</div>
+          <div class="skills-strip-tags">
+            <span class="s-tag">SolidWorks (CSWP)</span>
+            <span class="s-tag">FEA / Static Analysis</span>
+            <span class="s-tag">GD&amp;T</span>
+            <span class="s-tag">Sheet Metal / Unbend</span>
+            <span class="s-tag">Tolerance Stack-Up</span>
+          </div>
+        </div>
+        <div class="skills-strip-group">
+          <div class="skills-strip-label">Software</div>
+          <div class="skills-strip-tags">
+            <span class="s-tag">Python</span>
+            <span class="s-tag">C / C++</span>
+            <span class="s-tag">MATLAB / Simulink</span>
+            <span class="s-tag">OpenCV</span>
+            <span class="s-tag">Git</span>
+          </div>
+        </div>
+        <div class="skills-strip-group">
+          <div class="skills-strip-label">Embedded &amp; Hardware</div>
+          <div class="skills-strip-tags">
+            <span class="s-tag">Arduino</span>
+            <span class="s-tag">I²C / PWM / UART</span>
+            <span class="s-tag">Stepper &amp; Servo Control</span>
+            <span class="s-tag">Sensor Integration</span>
+            <span class="s-tag">Motion Control</span>
+          </div>
+        </div>
+        <div class="skills-strip-group">
+          <div class="skills-strip-label">Manufacturing</div>
+          <div class="skills-strip-tags">
+            <span class="s-tag">Bambu P1S / FDM</span>
+            <span class="s-tag">Water Jet Cutting</span>
+            <span class="s-tag">Machine Shop</span>
+            <span class="s-tag">Fabrication Drawings</span>
+            <span class="s-tag">TPU / PLA / PETG</span>
+          </div>
+        </div>
+      </div>
 
       <div class="project-filters fade-up">
         <button class="filter-btn active" data-filter="all">All</button>

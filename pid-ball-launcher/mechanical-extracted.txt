@@ -1,0 +1,123 @@
+Mechanical Technical Report
+MSE 312 June 20, 2025
+Group 14 Manpreet Dhami | 301472700 Hemant Dhokia | 301444938 Ranidu Rajeskara | 301402487
+Ermin Simon | 301479446 Simr Virk | 301548737
+ SCHOOL OF MECHATRONIC SYSTEMS ENGINEERING
+SIMON FRASER UNIVERSITY
+1
+
+Abstract
+
+
+
+This project focuses on the design, analysis, and testing of a mechanical arm developed to
+
+accurately launch a lightweight ball, as part of the MSE 312 design challenge. The objective was
+
+to create a reliable and structurally efficient mechanism that meets specific material and
+
+dimensional constraints. The design process involved iterative development, including concept
+
+generation, prototyping, and refinement based on simulation and experimental feedback. Both
+
+analytical and numerical methods were used to estimate key performance characteristics such as
+
+deflection and rotational behavior. Physical testing was then conducted to validate the accuracy
+
+of these models. The project highlights the importance of integrating simulation,
+
+experimentation, and engineering judgment to produce a balanced and high-performing
+
+mechanical system.
+
+2
+
+1.Introduction
+For the mechanical section of this project, the objective was to design and construct the arm structure for our ball launching device. The requirements of the design consisted of a truss structure, ball support, and a shaft attachment, all within strict size and material constraints. Throughout the process of the initial design concepts, our team adopted four main guiding design principles: reduced complexity, structural efficiency, efficient use of materials, and minimized rotational inertia. These principles served as the backbone for our goal of producing a structurally strong, easy to construct design capable of accurate arm control and ball responsiveness. Within this report are the details of our final design and the evaluation of the vertical load and rotational inertia testing results. In addition, we reflect on how our design decisions measured up to the expectations of the project requirements and the overall performance of our arm design.
+2.Final Design
+Through many iterations, the arm was developed. The design is shown below:
+Figure 1: Final Design The total arm length measures 177.35 mm. The overall structure's width is 7.5mm. The ball holder holds balls up to 27mm in diameter to account for different size balls to be thrown.
+3
+
+The other end is a flat surface which allows the installation of the square shaft, and the brass plate. This ensures a secure fit. The dimensions of this plate are 40mm wide by 30mm tall.
+Triangular cutouts were incorporated into the central body of the arm to reduce overall weight without compromising structural integrity. Utilizing Solidworks Optimization, the dimensions of the truss and the members required were calculated, to ensure a strong arm while minimizing total weight. The total weight of the arm is 30 grams.
+
+Figure 2: Weight of physical model
+3.Rotational Inertia
+a. Hand Calculations
+The hand calculations for rotational inertia were done by calculating the rotational inertia of different parts of the arm and summing them together. To do this, the beam was divided into different triangular sections. For the ball holder, it was assumed to be half of a thin, spherical shell. The moment was calculated for each section of the arm. Based on the weight of the physical model, the beams and ball holder were estimated to be 2.5g each. This assumption was made to simplify the calculation process. Also, utilizing the Solidworks file, the length of each beam was noted, and the rotational inertia was calculated to be 140,200.98
+4
+
+g*mm2. Refer to the Hand Calculation (Rotational Inertia) in the Appendix for the complete calculation steps and breakdown.
+b. Solidworks Calculations and Experimental Results
+Figure 3: Solidworks Rotational Inertia Calculations The SolidWorks simulations above were conducted to evaluate the rotational inertia of the final mechanical arm design. The simulation used ABS as the material, which closely matches the mechanical properties of PLA used in the 3D-printed prototype. As seen from Figure 3, the rotational inertia is 38,686.61 g*mm2. Another test was done to calculate the rotational inertia of the bifilar pendulum test. This test was conducted by mounting the arm by two pieces of string, ensuring the arm was level across the x-axis. Then the arm was set into motion, rotating about the y-axis. The period of oscillation was calculated to see how long it would take for the arm to complete a cycle of oscillation. The arm design had a period of 1.25s.
+5
+
+c. Results Analysis
+The hand calculated value for our rotational inertia was off from the SolidWorks value. This can be attributed to a few assumptions made during the hand calculation. One assumption made in the calculation process had to do with the mass. The beams were assumed to each have a mass of 2.5g and the ball holder was also assumed to have a mass of 2.5g as well. This was done to simplify the calculation process. However, this simplification is probably the biggest reason for our calculated value to be far off from our SolidWorks value. In addition, many of the components had various infills and different lengths, but during the hand calculation process, the beams were assumed to be simple rectangles, further making the mass estimate off. Furthermore, fillets were included in the design and were not factored into the hand calculation. With additional time and research, more work will be done on each of the components of the beam. The masses would be calculated much more accurately by using 3D printing software to see the amount of filament being used to print each section of the arm. Furthermore, the calculation will include adjustments for the additional mass which comes from the filament, which will influence the final result of the mass and rotational moment of inertia.
+4.Load and Deflection
+a. Hand Calculations
+The hand calculations for deflection were performed using beam bending theory, with the cross-section approximated as an I-beam to match our design's geometry. The calculation used a modulus of elasticity E=4200MPa, representative of the 3D printed material used, and a second moment of area I=270mm^4, based on the estimated geometry of the arm's cross-section. A point load of 10 N was applied at the tip of the beam to simulate the worst-case loading scenario. The official deflection value calculated for our arm length of 161.25 mm was approximately 12.73 mm. Additional calculations were conducted for shorter (140 mm) and longer (200 mm) arm lengths to understand how deflection scales with beam length. These assumptions are reasonable as the I-beam approximation
+6
+
+captures the general stiffness profile of our arm design, and the linear elastic model is valid given the small expected deformations. Refer to Hand Calculation (Deformation) in the Appendix for the work behind this calculation.
+b. Solidworks Calculations & Experimental Results
+Figure 4: Vertical Load Simulation
+\
+Figure 5: Horizontal Load Simulation 7
+
+The SolidWorks simulations above were conducted to evaluate the structural deflection of the final mechanical arm design under a vertical and horizontal load of 10 N. The vertical force was applied at the tip of the ball support, as shown by the pink directional arrows, to replicate the loading condition. The horizontal force was applied to the side of the truss structure. The green arrows represent the fixed geometry constraint at the attachment slot, simulating how the arm interfaces with the square drive shaft in the physical setup. The simulation used ABS as the material, which closely matches the mechanical properties of PLA used in the 3D-printed prototype. The vertical analysis shows a maximum deflection of approximately 0.6289 mm, concentrated at the outer edge of the ball support where the load was applied. The horizontal analysis shows a maximum deflection of approximately 3.704 mm. These low values demonstrate that the main structure of the arm is very rigid and responds well under applied forces. The deformation gradient in the color plot further confirms that most of the displacement occurs at the tip, with minimal stress and strain seen near the support region. These results validate that our truss and cutout design successfully distribute the load while minimizing deflection, making the design both lightweight and structurally efficient.
+c. Results Analysis
+The deflection values obtained through hand calculations, SolidWorks simulations, and experimental testing show noticeable differences, each influenced by the assumptions, constraints, and limitations of the respective methods.
+From the hand calculations, the predicted vertical deflection for a 10 N load applied at the tip of the 161.25 mm long beam was approximately 12.73 mm. This relatively high value is expected due to the simplifications made during modeling, where the arm was treated as a uniform I-beam. This approach does not fully capture the geometric optimizations, material distribution, or localized stiffness present in our actual design.
+In contrast, the SolidWorks simulation produced a significantly lower vertical deflection of approximately 0.6289 mm. This result is based on a much more accurate 3D
+8
+
+geometry, accounting for the precise material distribution and structural reinforcements present in the design. Similarly, the horizontal loading case in SolidWorks resulted in a maximum deflection of 3.704 mm, indicating more compliance along that direction due to less structural bracing in-plane.
+The experimental test conducted under a vertical 5 N load resulted in a measured deflection of 4.5 mm. This value lies between the hand-calculated and simulated results, which is expected. While the hand calculation overestimates due to simplified geometry, the simulation underestimates deflection because it assumes a perfectly rigid attachment and idealized constraints. In reality, the deflection observed during testing was not solely due to beam bending but was largely influenced by the flexibility and slight play in the 3D-printed attachment interface with the shaft, as previously discussed. This connection introduced unintended movement, contributing significantly to the measured displacement.
+Overall, the differences across all three methods highlight the importance of evaluating mechanical performance through multiple approaches. The experiment captured real-world imperfections and connection compliance, while SolidWorks provided a detailed structural response under ideal constraints. The hand calculation served as a useful upper-bound estimate based on simplified beam theory. The combination of these methods offers a comprehensive understanding of our design's mechanical behavior.
+d. Weak Link
+Upon analyzing the deflection results of our design, we identified the primary weak point to be the shaft attachment interface, shown in the image above. This 3D-printed slot is responsible for securing the arm to the square metal drive shaft. Our measured total vertical deflection under a 5 N load was approximately 4.5 mm; however, this deflection did not originate from bending or deformation of our design itself. Instead, it was primarily caused by slight movement and flexing at the attachment point to the metal arm. The tolerances and material compliance at this interface allowed for play
+9
+
+between the arm and the shaft, which is what mainly contributed to the observed deflection. By tightening the tolerance values at the attachment point and improving the fit, we expect that the overall deflection could be further reduced in future iterations.
+
+Figure 6: Weak link
+
+5.Conclusion
+
+
+
+The arm overall satisfies the requirements for the project. Through Solidworks analysis,
+
+and hand calculations, it was determined that this arm design was the best. After completion of
+
+the analysis, it was determined that calculations in theory are not exactly the same as reality. It
+
+was determined that the weakest point was the joint between the square, and the brass plate. Due
+
+to this, additional deflection was seen in reality. In theory, the arm would deflect less. A similar
+
+result was true for the moment of inertia calculations where the calculations also did not reflect
+
+reality. Unfortunately, the moment of inertia calculation was very off due to estimation errors of
+
+the masses of each beam in the arm. However, despite the differences between the calculated and
+
+experimental values, the arm is well suited for the purpose it will serve, and the calculations
+
+demonstrate that the design is very capable as well.
+
+10
+
+6.Appendix
+Hand Calculation (Deflection)
+11
+
+Hand Calculation (Rotational Inertia):
+12
+
+Photographs of our design:
+13
+
+

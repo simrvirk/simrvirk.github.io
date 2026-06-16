@@ -475,6 +475,24 @@
         </div>
       </div>
 
+      <div style="margin-top: 56px; padding: 28px 32px; background: rgba(54,148,237,0.04); border: 1px solid rgba(54,148,237,0.18); border-radius: 10px;">
+        <div style="font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--accent); opacity: 0.8; margin-bottom: 16px;">Current Status — Apr 2026</div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;">
+          <div>
+            <div style="font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; letter-spacing: 0.3px;">✓ Complete</div>
+            <div style="font-size: 0.83rem; color: var(--text-secondary); line-height: 1.6;">Full mechanical assembly built and functional. FK/IK solver validated. Servo motion smoothing and stepper resonance resolved. PCA9685 multi-servo control confirmed.</div>
+          </div>
+          <div>
+            <div style="font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700; color: var(--accent-warm); margin-bottom: 6px; letter-spacing: 0.3px;">◉ In Progress</div>
+            <div style="font-size: 0.83rem; color: var(--text-secondary); line-height: 1.6;">Python–Arduino serial bridge: streaming optimized coordinate strings from the Python IK engine to the Arduino firmware over USB. OpenCV board-state detection pipeline being trained.</div>
+          </div>
+          <div>
+            <div style="font-family: var(--font-heading); font-size: 0.78rem; font-weight: 700; color: var(--text-muted); margin-bottom: 6px; letter-spacing: 0.3px;">Next Milestone</div>
+            <div style="font-size: 0.83rem; color: var(--text-secondary); line-height: 1.6;">End-to-end game loop: OpenCV detects a move, Stockfish returns the response, IK solver outputs joint angles, arm executes the move on the physical board.</div>
+          </div>
+        </div>
+      </div>
+
       <div class="spec-block" style="margin-top: 64px;">
         <div>
           <div class="spec-col-label">System Architecture &amp; Software</div>
