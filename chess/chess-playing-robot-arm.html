@@ -35,12 +35,18 @@
     /* ════════════════════════════════════════════════════════════════════
        INFINITE MARQUEE GALLERY
        ───────────────────────────────────────────────────────────────── */
-    .marquee-container {
+    /* Outer clip: handles horizontal overflow and edge fade */
+    .marquee-clip {
       overflow: hidden;
       width: 100%;
       margin-bottom: 64px;
       -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
       mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+    }
+    /* Inner container: overflow visible so scaled cards can grow upward */
+    .marquee-container {
+      overflow: visible;
+      padding-top: 80px; /* headroom for cards to grow into */
     }
     .marquee-track {
       display: flex;
@@ -48,7 +54,7 @@
       width: max-content;
       animation: marquee-scroll 50s linear infinite;
     }
-    .marquee-container:hover .marquee-track {
+    .marquee-clip:hover .marquee-track {
       animation-play-state: paused;
     }
     @keyframes marquee-scroll {
@@ -65,11 +71,17 @@
       background: #05050d;
       cursor: pointer;
       position: relative;
-      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      transform-origin: bottom center;
+      transition: border-color 0.3s cubic-bezier(.4,0,.2,1),
+                  box-shadow 0.3s cubic-bezier(.4,0,.2,1),
+                  transform 0.3s cubic-bezier(.4,0,.2,1);
+      z-index: 0;
     }
-    .marquee-item:hover {
-      border-color: rgba(54, 148, 237, .6);
-      box-shadow: 0 6px 20px rgba(54, 148, 237, .15);
+    .marquee-item.nf-blown {
+      transform: scale(1.28);
+      z-index: 10;
+      border-color: rgba(54, 148, 237, .65);
+      box-shadow: 0 20px 56px rgba(0,0,0,.7), 0 0 0 1px rgba(54,148,237,.35);
     }
     .marquee-item img, .marquee-item video {
       width: 100%; height: 100%;
@@ -268,15 +280,15 @@
     .c-thumbs {
       display: flex;
       justify-content: center;
+      align-items: flex-end;
       gap: 10px;
       overflow-x: auto;
-      padding-bottom: 8px;
+      padding: 20px 8px 8px; /* top padding gives blown card room to grow upward */
       scroll-behavior: smooth;
       scrollbar-width: none;
       -ms-overflow-style: none;
     }
     .c-thumbs::-webkit-scrollbar { display: none; }
-
     .c-thumb {
       position: relative;
       flex-shrink: 0;
@@ -286,7 +298,11 @@
       border: 2px solid transparent;
       cursor: pointer;
       opacity: 0.4;
-      transition: all .22s ease;
+      transition: width .3s cubic-bezier(.4,0,.2,1),
+                  height .3s cubic-bezier(.4,0,.2,1),
+                  opacity .3s ease,
+                  border-color .3s ease,
+                  box-shadow .3s ease;
     }
     .c-thumb img, .c-thumb video {
       width: 100%; height: 100%;
@@ -294,14 +310,24 @@
       display: block;
       pointer-events: none;
     }
+    /* Active thumb — persistent accent border */
     .c-thumb.active {
       border-color: var(--accent, #3694ed);
       opacity: 1;
-      transform: scale(1.05);
     }
-    .c-thumb:hover:not(.active) {
-      opacity: 0.8;
-      border-color: rgba(54, 148, 237,.4);
+    /* Dim all thumbs when any is being hovered */
+    .c-thumbs:hover .c-thumb        { opacity: 0.25; }
+    .c-thumbs:hover .c-thumb.active { opacity: 0.5;  }
+    /* ── Netflix single-card blowup ── */
+    .c-thumb.nf-blown {
+      width: 150px; height: 105px;
+      opacity: 1 !important;
+      border-color: rgba(54,148,237,.6);
+      box-shadow: 0 12px 36px rgba(0,0,0,.65), 0 0 0 1px rgba(54,148,237,.35);
+    }
+    .c-thumb.active.nf-blown {
+      border-color: var(--accent, #3694ed);
+      box-shadow: 0 12px 36px rgba(0,0,0,.65), 0 0 0 2px var(--accent, #3694ed);
     }
     /* Smaller video badge for thumbnail strip */
     .c-thumb .video-badge {
@@ -423,8 +449,10 @@
 
       <div class="project-section-title" style="margin-bottom: 18px; margin-top: 48px;">Gallery</div>
 
-      <div class="marquee-container">
-        <div class="marquee-track" id="marqueeTrack"></div>
+      <div class="marquee-clip">
+        <div class="marquee-container">
+          <div class="marquee-track" id="marqueeTrack"></div>
+        </div>
       </div>
 
       <div class="lightbox-overlay" id="lightboxOverlay">
@@ -684,6 +712,23 @@
       buildMarqueeSet();
       buildMarqueeSet(); // duplicate for seamless infinite loop
 
+      /* ── Marquee Netflix Blowup ──────────────────────────────────────── */
+      let marqueeNfTimer = null;
+
+      trackEl.querySelectorAll('.marquee-item').forEach(item => {
+        item.addEventListener('mouseenter', () => {
+          clearTimeout(marqueeNfTimer);
+          marqueeNfTimer = setTimeout(() => {
+            trackEl.querySelectorAll('.marquee-item.nf-blown').forEach(el => el.classList.remove('nf-blown'));
+            item.classList.add('nf-blown');
+          }, 80);
+        });
+        item.addEventListener('mouseleave', () => {
+          clearTimeout(marqueeNfTimer);
+          item.classList.remove('nf-blown');
+        });
+      });
+
       /* ── Build Dots and Thumbs ─────────────── */
       SLIDES.forEach((slide, i) => {
 
@@ -709,6 +754,32 @@
 
       const dots   = Array.from(dotsEl.querySelectorAll('.c-dot'));
       const thumbs = Array.from(thumbsEl.querySelectorAll('.c-thumb'));
+
+      /* ── Netflix Single-Card Blowup ─────────────────────────────────── */
+      let nfTimer = null;
+
+      function blowUp(thumb) {
+        thumbs.forEach(t => t.classList.remove('nf-blown'));
+        thumb.classList.add('nf-blown');
+      }
+
+      function collapse() {
+        clearTimeout(nfTimer);
+        thumbs.forEach(t => t.classList.remove('nf-blown'));
+      }
+
+      thumbs.forEach((thumb) => {
+        thumb.addEventListener('mouseenter', () => {
+          clearTimeout(nfTimer);
+          nfTimer = setTimeout(() => blowUp(thumb), 280);
+        });
+        thumb.addEventListener('mouseleave', () => {
+          clearTimeout(nfTimer);
+          thumb.classList.remove('nf-blown');
+        });
+      });
+
+      thumbsEl.addEventListener('mouseleave', collapse);
 
       /* ── Open / Close Lightbox ───────────────────────────────────────── */
       function openLightbox(index) {
